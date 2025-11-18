@@ -35,7 +35,7 @@ export function Hero({ title, subtitle, ctas }: HeroProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6 }}
         >
-          Portfolio Modular
+          Desarrollador y Analista
         </motion.div>
         <motion.h1
           className="max-w-4xl text-4xl font-semibold leading-tight tracking-wide sm:text-5xl lg:text-6xl"
@@ -79,8 +79,8 @@ export function Hero({ title, subtitle, ctas }: HeroProps) {
         >
           <div className="relative overflow-hidden rounded-[24px] border-soft bg-gradient-to-b from-slate-900 to-slate-950">
             <Image
-              src="/images/profile-placeholder.svg"
-              alt="Retrato placeholder"
+              src="/images/profile.png"
+              alt="Alonso Viñé - Desarrollador y Analista"
               width={1200}
               height={1200}
               className="h-full w-full object-cover"

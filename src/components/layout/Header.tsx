@@ -46,13 +46,13 @@ export function Header({ links }: HeaderProps) {
       >
         <Link href="#hero" className="flex items-center gap-2">
           <Image
-            src="/images/logomark.svg"
+            src="/images/logo.png"
             alt="Logotipo personal"
             width={32}
             height={32}
             className="transition-transform duration-300 hover:scale-[1.02]"
           />
-          <span className="text-base font-semibold tracking-wide">Portfolio</span>
+          <span className="text-base font-semibold tracking-wide">Alonso Viñé</span>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">

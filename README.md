@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PortfolioR
 
-## Getting Started
+Portfolio profesional construido con Next.js 16 (App Router) y React 19 para presentar experiencia, proyectos y certificaciones de Alonso Vine Barrancos.
 
-First, run the development server:
+## Descripcion general
+- Landing page multiseccion con navegacion anclada y diseno responsivo.
+- Contenido dinamico gestionado desde `src/data/portfolio.ts`, lo que permite ajustar textos, skills, experiencias y proyectos sin tocar componentes.
+- Animaciones con `framer-motion`, iconografia `lucide-react` y estilos gestionados por Tailwind CSS 4 junto con variables en `src/app/globals.css`.
+- Activos graficos organizados en `src/assets/` (certificados, imagenes de experiencia y proyectos) para soporte visual inmediato.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Caracteristicas principales
+- **Hero**: CTA doble y mensaje principal para reclutadores.
+- **Sobre mi y Skills**: Bloques resumidos de historia profesional y cuadricula categorizada de habilidades.
+- **Timeline de experiencia y educacion**: datos cronologicos con bullets accionables.
+- **Proyectos destacados**: tarjetas con stack, demo y codigo.
+- **Contacto**: enlaces directos a redes y correo.
+
+## Stack y dependencias
+- Framework: Next.js 16, React 19.
+- Estilos: Tailwind CSS 4, CSS variables.
+- Animaciones/UX: framer-motion, lucide-react, clsx.
+- Tipado y linting: TypeScript 5, ESLint 9 con configuracion Next.
+
+## Scripts
+- `npm run dev`: servidor de desarrollo en `http://localhost:3000`.
+- `npm run build`: build de produccion.
+- `npm run start`: servidor en modo produccion.
+- `npm run lint`: analisis estatico.
+
+## Estructura relevante
+```
+src/
+  app/            # layout, globals y page.tsx
+  components/     # layout y secciones reutilizables
+  data/           # portfolio.ts con contenido editable
+  lib/            # utilidades compartidas
+  assets/         # imagenes y certificados
+docs/ai/          # lineamientos y bitacoras para la IA
+public/           # recursos estaticos adicionales
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Flujo de trabajo recomendado
+1. Ajustar el contenido en `src/data/portfolio.ts`.
+2. Validar recursos en `src/assets/`.
+3. Ejecutar `npm run dev`, reiniciando servidores previos como indica `docs/ai/PROMPT_ComportamientoAI.md`.
+4. Anadir notas en `docs/ai/context.md` y registrar cambios funcionales en `docs/ai/changelog.md`.
+5. Desplegar (Vercel u opcion propia) tras pasar build y lint.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Proximos pasos sugeridos
+- Personalizar SEO desde `src/app/layout.tsx`.
+- Anadir metricas o tracking opcional antes de produccion.
+- Mantener certificados e imagenes sincronizados con logros mas recientes.

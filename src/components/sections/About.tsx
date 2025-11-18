@@ -14,9 +14,9 @@ export function About({ paragraphs }: AboutProps) {
   return (
     <SectionShell id="about">
       <SectionHeading
-        eyebrow="Contexto"
-        title="Sobre mí (texto pendiente)"
-        description="La narrativa detallada se integrará más adelante; aquí se define la interacción entre imagen, copy y detalles visuales."
+        eyebrow="Sobre mí"
+        title="Conóceme mejor"
+        description="Apasionado por la tecnología y siempre en busca de nuevas oportunidades para crecer profesionalmente."
       />
       <div className="mt-12 grid gap-10 md:grid-cols-2 md:items-center">
         <motion.div
@@ -25,8 +25,8 @@ export function About({ paragraphs }: AboutProps) {
         >
           <div className="overflow-hidden rounded-[28px]">
             <Image
-              src="/images/profile-placeholder.svg"
-              alt="Retrato placeholder"
+              src="/images/profile.png"
+              alt="Alonso Viñé - Desarrollador y Analista"
               width={640}
               height={640}
               className="h-full w-full object-cover"
