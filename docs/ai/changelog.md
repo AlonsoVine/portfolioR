@@ -8,3 +8,10 @@
 - CTA descarga fondo: Ajustado el relleno del boton para que use #050b21, igualando el tono del fondo y evitando contrastes no deseados.
 - Avatar 3D: El hero ahora usa un stack circular con flip 3D entre `mi-foto.png` y el logo redondo, eliminando el marco previo y aplicando `perspective`/`backface-visibility` segun la especificacion del usuario.
 - Avatar tamaño: Incrementado ligeramente el diametro del stack para resaltarlo sin romper el layout.
+- CTA descarga tema: El relleno del boton Descargar CV usa nuevas variables con colores especificos para modo oscuro y modo claro para integrarse mejor en ambos contextos.
+- Fondo Hero: Sustituida la banda cortada por dos gradientes radiales superpuestos que se extienden a todo el ancho para eliminar la línea y suavizar el difuminado.
+- Fondo Hero (ajuste): Reintroducido el haz dorado con tres capas radiales (base oscura, glow superior e inferior) para que el gradiente se perciba de nuevo sin cortes.
+- Fondo Hero (reversión): Vuelto al gradiente radial original hasta que se defina un nuevo estilo según las indicaciones del usuario.
+- Fondo Hero (extensión): Añadido un contenedor con overlays adicionales (radial extendido + degradado vertical) para que el haz no se corte en la parte superior.
+- Fondo Hero (top glow): Se recupera el color original extendiendo un único radial dorado desde la parte superior del hero con blur suave para mantenerlo visible sin cortes.
+- Fondo Hero (base): Restituido nuevamente el gradiente original simple al no conseguir el efecto deseado con los overlays extendidos.

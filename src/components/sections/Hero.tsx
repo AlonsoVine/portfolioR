@@ -99,7 +99,7 @@ export function Hero({ eyebrow, title, role, subtitle, image, ctas }: HeroProps)
 							rel="noreferrer"
 							download={ctas.secondary.download || undefined}
 						>
-							<span className="inline-flex items-center gap-2 rounded-full bg-[#050b21] px-8 py-3 text-[var(--foreground)] transition-colors duration-300 group-hover:bg-[#050b21]">
+							<span className="inline-flex items-center gap-2 rounded-full bg-[var(--hero-cta-surface)] px-8 py-3 text-[var(--foreground)] transition-colors duration-300 group-hover:bg-[var(--hero-cta-surface-hover)]">
 								<Download className="h-4 w-4" aria-hidden="true" />
 								{ctas.secondary.label}
 							</span>
