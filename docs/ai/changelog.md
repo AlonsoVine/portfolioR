@@ -16,3 +16,4 @@
 - Fondo Hero (top glow): Se recupera el color original extendiendo un único radial dorado desde la parte superior del hero con blur suave para mantenerlo visible sin cortes.
 - Fondo Hero (base): Restituido nuevamente el gradiente original simple al no conseguir el efecto deseado con los overlays extendidos.
 - UX: Se añadió un botón fijo "Volver al inicio" que aparece al salir del header y permite volver suavemente al hero respetando temas claro/oscuro.
+- Meta: El título del sitio pasa a "Alonso Viñe" y se establece el icono del navegador con `public/logo-negro-redondo-conFondo.png`.

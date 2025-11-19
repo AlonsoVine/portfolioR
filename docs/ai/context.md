@@ -111,3 +111,11 @@
 - Proximos pasos: Ajustar estilos/responsive si se solicita y evaluar ocultarlo cuando existan modales.
 - Archivos tocados: src/components/ui/ScrollToTopButton.tsx:1, src/app/page.tsx:1, docs/ai/context.md:1.
 - Notas o riesgos: Ninguno, el listener se limpia correctamente.
+
+## 2025-11-18T23:45:00Z
+
+- Acciones: Copie `src/assets/img/logo/logo-negro-redondo-conFondo.png` a `public/` para usarlo como favicon y actualice `src/app/layout.tsx` con metadata de título "Alonso Viñe", descripción ajustada y `icons` apuntando al nuevo recurso; ejecute `npm run lint`.
+- Decisiones y pendientes: Mantener estos metadatos hasta nuevo aviso; pendiente confirmar si se requieren variantes `apple-touch-icon` u otros tamaños.
+- Proximos pasos: Añadir metadatos adicionales (Open Graph, Twitter) en futuras iteraciones si el usuario lo solicita.
+- Archivos tocados: public/logo-negro-redondo-conFondo.png, src/app/layout.tsx:1, docs/ai/context.md:1.
+- Notas o riesgos: El archivo PNG debe permanecer en `public/` para que Next.js pueda servirlo como icono.

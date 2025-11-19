@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio modular",
+  title: "Alonso Viñe",
   description:
-    "Arquitectura de portfolio profesional componentizado con énfasis en animaciones y escalabilidad.",
+    "Portfolio profesional componentizado con énfasis en animaciones y escalabilidad.",
 };
 
 const themeScript = `
