@@ -65,12 +65,28 @@ export const navLinks: NavLink[] = [
 ];
 
 export const heroContent = {
-  title: "Alonso Viñé",
-  subtitle: "Soy Alonso, un desarrollador y analista, apasionado por la tecnología. Me especializo en crear aplicaciones personalizadas que combinan funcionalidad y diseño. Mi objetivo es construir soluciones que impulsen la eficiencia y el rendimiento.",
-  ctas: {
-    primary: { label: "Ver Proyectos", href: "#projects" },
-    secondary: { label: "Contactar", href: "#contact" },
-  },
+	eyebrow: "Bienvenido a mi portfolio",
+	title: "Alonso Vi\u00F1\u00E9",
+	role: "Desarrollador y Analista",
+	subtitle: "Apasionado por la tecnolog\u00EDa. Me especializo en crear aplicaciones personalizadas que combinan funcionalidad y dise\u00F1o. Mi objetivo es construir soluciones que impulsen la eficiencia y el rendimiento.",
+	image: {
+		front: {
+			src: "/images/mi-foto.png",
+			alt: "Retrato de Alonso Vi\u00F1\u00E9",
+		},
+		back: {
+			src: "/images/logo/logo-negro-redondo-conFondo.png",
+			alt: "Monograma de Alonso Vi\u00F1\u00E9",
+		},
+	},
+	ctas: {
+		primary: { label: "Ver Proyectos", href: "#projects" },
+		secondary: {
+			label: "Descargar CV",
+			href: "/assets/cv/20250612%20-%20Alonso%20Vi%C3%B1%C3%A9%20CV_Espa%C3%B1ol.pdf",
+			download: true,
+		},
+	},
 };
 
 export const aboutContent = {

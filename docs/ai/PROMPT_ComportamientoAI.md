@@ -28,7 +28,7 @@ Este documento define las reglas y expectativas para la IA asistente integrada e
 - No realices acciones destructivas sin confirmacion explicita del usuario.
 - Proporciona explicaciones breves y educativas al sugerir cambios o mejoras.
 
-## Registro y trazabilidad (obligatorio)
+## 6. Registro y trazabilidad (obligatorio)
 - Manten un registro vivo en `docs/ai/context.md`. En cada respuesta que implique decisiones, cambios o proximos pasos, anade una entrada con:
   - Fecha (ISO) y hora
   - Acciones realizadas
@@ -39,6 +39,9 @@ Este documento define las reglas y expectativas para la IA asistente integrada e
 - Si el entorno no permite escribir archivos, incluye el bloque de actualizacion de `docs/ai/context.md` en la respuesta y solicita permiso para persistirlo.
 - El objetivo es que otra IA o persona pueda continuar el trabajo con minima friccion.
 
-## Actualizar CHANGELOG
+## 7. Actualizar CHANGELOG
 - Tras cada iteracion que cambia el comportamiento de la aplicacion deja constancia actualizando `docs/ai/changelog.md`.
 - Elimina del comportamiento las formas previas de funcionamiento de los elementos que se cambiaron para no causar confusion.
+
+## 8. rESPETAR COHERENCIA DE TEMA E IDIOMAS
+- En cada cambio que te solicite quiero que lo hagas teniendo en cuenta el modo blanco y negro para que tenga coherencia visual con el restop de componentes y de igualmodo si existen varios idiomans soportados por la aplicacion deberás hacerlo. 

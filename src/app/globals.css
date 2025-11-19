@@ -81,6 +81,44 @@ body {
   background-image: var(--accent);
 }
 
+.avatar-stack {
+  perspective: 1200px;
+}
+
+.avatar-stack .avatar-flip {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.85s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.avatar-stack:hover .avatar-flip {
+  transform: rotateY(180deg);
+}
+
+.avatar-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  backface-visibility: hidden;
+}
+
+.avatar-face.front {
+  transform: translateZ(1px);
+}
+
+.avatar-face.back {
+  transform: rotateY(180deg) translateZ(1px);
+}
+
+.avatar-face img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 ::selection {
   background-color: rgba(251, 191, 36, 0.35);
   color: #0f172a;
