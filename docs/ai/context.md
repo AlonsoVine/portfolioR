@@ -103,3 +103,11 @@
 - Proximos pasos: Aplicar el rediseño cuando el usuario lo describa.
 - Archivos tocados: src/components/sections/Hero.tsx:1, docs/ai/context.md:1.
 - Notas o riesgos: Ninguno; regresamos al estado comprobado.
+
+## 2025-11-18T23:35:00Z
+
+- Acciones: Cree `src/components/ui/ScrollToTopButton.tsx` con un listener de scroll para mostrarse al salir del header y desplazamiento suave hacia arriba; lo importe en `src/app/page.tsx` y ejecute `npm run lint`.
+- Decisiones y pendientes: El umbral actual es 160px; pendiente validar si el usuario desea otro comportamiento o posicion.
+- Proximos pasos: Ajustar estilos/responsive si se solicita y evaluar ocultarlo cuando existan modales.
+- Archivos tocados: src/components/ui/ScrollToTopButton.tsx:1, src/app/page.tsx:1, docs/ai/context.md:1.
+- Notas o riesgos: Ninguno, el listener se limpia correctamente.

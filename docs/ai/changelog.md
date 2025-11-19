@@ -15,3 +15,4 @@
 - Fondo Hero (extensión): Añadido un contenedor con overlays adicionales (radial extendido + degradado vertical) para que el haz no se corte en la parte superior.
 - Fondo Hero (top glow): Se recupera el color original extendiendo un único radial dorado desde la parte superior del hero con blur suave para mantenerlo visible sin cortes.
 - Fondo Hero (base): Restituido nuevamente el gradiente original simple al no conseguir el efecto deseado con los overlays extendidos.
+- UX: Se añadió un botón fijo "Volver al inicio" que aparece al salir del header y permite volver suavemente al hero respetando temas claro/oscuro.

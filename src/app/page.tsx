@@ -7,6 +7,7 @@ import { ExperienceTimeline } from "@/components/sections/ExperienceTimeline";
 import { ProjectsGrid } from "@/components/sections/ProjectsGrid";
 import { Education } from "@/components/sections/Education";
 import { Contact } from "@/components/sections/Contact";
+import { ScrollToTopButton } from "@/components/ui/ScrollToTopButton";
 import {
   aboutContent,
   education,
@@ -31,6 +32,7 @@ export default function Home() {
         <Education items={education} />
         <Contact />
       </main>
+      <ScrollToTopButton />
       <Footer />
     </div>
   );
