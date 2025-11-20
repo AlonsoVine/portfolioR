@@ -191,3 +191,27 @@
 - Proximos pasos: Ninguno inmediato.
 - Archivos tocados: src/components/sections/About.tsx:1, docs/ai/context.md:1.
 - Notas o riesgos: Ninguno.
+
+## 2025-11-19T01:50:00Z
+
+- Acciones: Reemplacé el antiguo listado plano de skills por `skillCards` agrupados (datos en `src/data/portfolio.ts`), reescribí `SkillsGrid` para renderizar tarjetas con iconos y etiquetas estilo la referencia y actualicé `src/app/page.tsx` para usar la nueva estructura; corrí `npm run lint`.
+- Decisiones y pendientes: Los grupos usan colores fijos; pendiente validar si se requiere modo claro específico.
+- Proximos pasos: Ninguno inmediato.
+- Archivos tocados: src/data/portfolio.ts:1, src/components/sections/SkillsGrid.tsx:1, src/app/page.tsx:1, docs/ai/context.md:1.
+- Notas o riesgos: Los textos permanecen en ASCII para evitar corrupción; considerar migración completa a UTF-8 a futuro.
+
+## 2025-11-19T02:05:00Z
+
+- Acciones: Actualicé `skillCards` en `src/data/portfolio.ts` añadiendo JavaScript a Lenguajes, Tailwind a Frameworks, MongoDB a Bases de Datos y Postman a Herramientas; corrí `npm run lint`.
+- Decisiones y pendientes: Mantener esta agrupación hasta nuevo feedback; pendiente si se agregan más certificaciones.
+- Proximos pasos: Ninguno.
+- Archivos tocados: src/data/portfolio.ts:1, docs/ai/context.md:1.
+- Notas o riesgos: Ninguno.
+
+## 2025-11-19T02:20:00Z
+
+- Acciones: Rediseñé la sección de proyectos para soportar tarjetas con badge de destacado, pills de tecnología más legibles, demo opcional y datos actualizados en `src/data/portfolio.ts` (Jardin Digital destacado, otros sin demo); reescribí `ProjectsGrid` y ajusté `Project` para demo opcional/featured; ejecuté `npm run lint`.
+- Decisiones y pendientes: Las descripciones están en ASCII; pendiente validar si se requieren más proyectos o nuevos badges.
+- Proximos pasos: Ninguno inmediato.
+- Archivos tocados: src/data/portfolio.ts:1, src/components/sections/ProjectsGrid.tsx:1, docs/ai/context.md:1.
+- Notas o riesgos: Al usar demo opcional, asegúrate de definirla cuando haya despliegue real.

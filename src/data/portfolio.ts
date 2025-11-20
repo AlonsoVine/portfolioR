@@ -4,15 +4,13 @@ export type NavLink = {
 };
 
 export type SocialIconId = "linkedin" | "github" | "twitter";
-export type SkillIconId =
-  | "mouse-pointer"
-  | "braces"
-  | "server"
-  | "terminal"
-  | "sparkles"
-  | "figma"
-  | "cpu"
-  | "message-circle";
+export type SkillCardIconId =
+  | "code"
+  | "layers"
+  | "cloud"
+  | "database"
+  | "wrench"
+  | "badge";
 
 export type SocialLink = {
   label: string;
@@ -20,11 +18,11 @@ export type SocialLink = {
   icon: SocialIconId;
 };
 
-export type Skill = {
-  label: string;
-  category: "frontend" | "backend" | "tools" | "other";
-  icon: SkillIconId;
-  variant?: "primary" | "secondary";
+export type SkillCard = {
+  title: string;
+  icon: SkillCardIconId;
+  tone: "blue" | "green" | "teal" | "purple" | "amber";
+  items: string[];
 };
 
 export type Experience = {
@@ -43,8 +41,9 @@ export type Project = {
   description: string;
   image: string;
   tech: string[];
+  featured?: boolean;
   links: {
-    demo: string;
+    demo?: string;
     code: string;
   };
 };
@@ -95,24 +94,27 @@ export const heroContent = {
 
 export const aboutContent = {
   textBlocks: [
-    "¡Encantado de conocerte!",
-    "Soy un entusiasta de las tecnologías emergentes siempre motivado.",
+    "Encantado de conocerte!",
+    "Soy un entusiasta de las tecnologias emergentes siempre motivado.",
     "Emocionado por lo que el mundo del desarrollo de software me tiene preparado.",
   ],
   highlights: [
     {
       title: "Desarrollo Frontend",
-      description: "Especializado en Angular y TypeScript con enfoque en interfaces modernas y limpias.",
+      description:
+        "Especializado en Angular y TypeScript con enfoque en interfaces modernas y limpias.",
       icon: "code",
     },
     {
       title: "Buenas Practicas",
-      description: "Codigo limpio, mantenible y siguiendo los estandares de la industria.",
+      description:
+        "Codigo limpio, mantenible y siguiendo los estandares de la industria.",
       icon: "target",
     },
     {
       title: "Aprendizaje Continuo",
-      description: "Siempre explorando nuevas tecnologias y mejorando mis habilidades.",
+      description:
+        "Siempre explorando nuevas tecnologias y mejorando mis habilidades.",
       icon: "zap",
     },
   ],
@@ -127,20 +129,89 @@ export const socialLinks: SocialLink[] = [
   { label: "GitHub", href: "https://github.com/AlonsoVine", icon: "github" },
 ];
 
-export const skills: Skill[] = [
-  { label: "Angular", category: "frontend", icon: "mouse-pointer" },
+export const skillCards: SkillCard[] = [
   {
-    label: "TypeScript",
-    category: "frontend",
-    icon: "braces",
-    variant: "primary",
+    title: "Lenguajes y Programacion",
+    icon: "code",
+    tone: "blue",
+    items: [
+      "Java",
+      "TypeScript",
+      "JavaScript",
+      "Node",
+      "Python",
+      "SQL",
+      "HTML5",
+      "CSS3",
+    ],
   },
-  { label: "Java / Spring Boot", category: "backend", icon: "server" },
-  { label: "Python", category: "backend", icon: "terminal" },
-  { label: "AWS / Azure", category: "other", icon: "sparkles" },
-  { label: "Power Platform", category: "tools", icon: "figma" },
-  { label: "CI/CD & DevOps", category: "tools", icon: "cpu" },
-  { label: "Scrum Master", category: "other", icon: "message-circle" },
+  {
+    title: "Frameworks y Librerias",
+    icon: "layers",
+    tone: "green",
+    items: [
+      "Angular",
+      "React",
+      "Spring Boot",
+      "PrimeNG",
+      "Bootstrap",
+      "Tailwind",
+      "RxJS",
+      "Android SDK",
+    ],
+  },
+  {
+    title: "Cloud y DevOps",
+    icon: "cloud",
+    tone: "teal",
+    items: [
+      "AWS",
+      "Azure",
+      "Docker",
+      "CI/CD",
+      "Jenkins",
+      "GitHub Actions",
+      "Docker",
+    ],
+  },
+  {
+    title: "Bases de Datos",
+    icon: "database",
+    tone: "purple",
+    items: [
+      "Oracle SQL Developer",
+      "Analisis de Datos (R)",
+      "MongoDB",
+      "Firebase",
+    ],
+  },
+  {
+    title: "Herramientas y Plataformas",
+    icon: "wrench",
+    tone: "purple",
+    items: [
+      "Git/GitHub",
+      "Selenium",
+      "Power Platform",
+      "PowerApps",
+      "Power Automate",
+      "Power BI",
+      "Figma",
+      "Postman",
+      "Bash/Shell",
+    ],
+  },
+  {
+    title: "Certificaciones",
+    icon: "badge",
+    tone: "amber",
+    items: [
+      "EF SET (C2 Proficient)",
+      "AWS Cloud Practitioner",
+      "GitHub Foundations",
+      "LPI Linux Essentials",
+    ],
+  },
 ];
 
 export const experiences: Experience[] = [
@@ -247,11 +318,12 @@ export const experiences: Experience[] = [
 ];
 export const projects: Project[] = [
   {
-    title: "Jardín Digital",
+    title: "Jardin Digital",
+    featured: true,
     description:
-      "Jardín Digital es una web artesanal para registrar y acompañar la vida de nuestras plantas. Incluye panel con KPIs, búsqueda y filtros dinámicos, exportación de fichas (JSON/TXT/CSV), tema claro/oscuro, sonido ambiente y hojas flotantes. Un proyecto personal que une botánica, diseño y emoción.",
+      "Web artesana para registrar y acompañar la vida de las plantas. Incluye panel con KPIs, filtros dinamicos, exportacion de fichas (JSON/TXT/CSV), tema claro/oscuro, sonido ambiente y hojas flotantes.",
     image: "/images/proyectos/jardinDigital/jardinDigitalFoto3.png",
-    tech: ["HTML5", "CSS3", "JavaScript"],
+    tech: ["Angular", "TypeScript", "Tailwind CSS", "LocalStorage", "JSON"],
     links: {
       demo: "https://alonsovine.github.io/jardin-digital/",
       code: "https://github.com/AlonsoVine/jardin-digital",
@@ -260,46 +332,41 @@ export const projects: Project[] = [
   {
     title: "ForYouToBe",
     description:
-      "ForYouToBe es una herramienta en Python que permite descargar automáticamente el audio de videos de YouTube y guardarlos en diferentes formatos como MP3, WAV o FLAC. También puedes ingresar una lista de URLs, seleccionar el formato deseado y elegir la carpeta de destino, lo que facilita la gestión y conversión de contenido multimedia.",
+      "Herramienta en Python para descargar audio de YouTube en varios formatos (MP3, WAV, FLAC) a partir de URLs individuales o listas, con seleccion de formato y carpeta destino.",
     image:
       "/images/proyectos/forYouTobe/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_3.jpg",
     tech: ["Python", "yt-dlp"],
     links: {
-      demo: "#",
       code: "https://github.com/AlonsoVine/forYouToBe",
     },
   },
   {
     title: "PhotoDateRenamer",
     description:
-      "PhotoDateRenamer es una aplicación elaborada en Python que renombra automáticamente tus fotos utilizando los metadatos EXIF, concretamente la fecha en que fueron tomadas. El nuevo nombre de la foto seguirá el formato YYYY_MM_DD_nombreOriginal.tipoArchivo, facilitando la organización cronológica de tus imágenes.",
-    image:
-      "/images/proyectos/photoDateRenamer/fotografia-movil-versus-camara2.jpg",
+      "Aplicacion Python que renombra fotos usando metadatos EXIF (fecha tomada) siguiendo el formato YYYY_MM_DD_nombreOriginal.ext, facilitando el orden cronologico.",
+    image: "/images/proyectos/photoDateRenamer/fotografia-movil-versus-camara2.jpg",
     tech: ["Python", "EXIF"],
     links: {
-      demo: "#",
       code: "https://github.com/AlonsoVine/PhotoDateRenamer",
     },
   },
   {
     title: "Jarvis Asistente de Voz",
     description:
-      "Este es un proyecto de asistente virtual desarrollado en Python, que permite realizar varias tareas mediante comandos de voz. El asistente puede realizar acciones como abrir aplicaciones, buscar en internet, consultar el clima, crear recordatorios, y enviar correos electrónicos, entre otros.",
+      "Asistente virtual en Python capaz de ejecutar comandos de voz: abrir apps, buscar en internet, consultar clima, crear recordatorios y enviar correos, entre otros.",
     image: "/images/proyectos/jarvisVozAssistant/speech-recognition.jpg",
     tech: ["Python", "Speech Recognition"],
     links: {
-      demo: "#",
       code: "https://github.com/AlonsoVine/jarvisVozAssistant",
     },
   },
   {
     title: "Space Invaders",
     description:
-      "Este proyecto es una implementación del clásico juego Space Invaders desarrollado en Python. En este juego, el jugador controla una nave espacial que debe disparar para eliminar las naves enemigas que se acercan. El objetivo es destruir a todas las naves enemigas antes de que alcancen la parte inferior de la pantalla.",
+      "Implementacion del clasico Space Invaders en Python: control de nave, disparo a enemigos y gestion de oleadas antes de que alcancen la base.",
     image: "/images/proyectos/spaceInvaders/space_invaders.png",
     tech: ["Python", "Pygame"],
     links: {
-      demo: "#",
       code: "https://github.com/AlonsoVine/spaceInvaders",
     },
   },

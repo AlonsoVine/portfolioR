@@ -23,3 +23,6 @@
 - Contacto: La sección replica la referencia con formulario renovado, tarjetas “Conecta conmigo” y “Disponible para colaborar”, email real `alonvineba@gmail.com`, efectos hover en los enlaces y card final con el gradiente del botón principal.
 - Hero CTA: El botón “Descargar CV” replica el efecto hover de los botones sociales del footer (fondo degradado con highlight e icono acorde).
 - Sobre mi: Se añadieron cards discretas bajo el texto principal (Desarrollo Frontend, Buenas Prácticas, Aprendizaje Continuo) leyendo datos desde `aboutContent`, ahora sin borde y con iconos en amarillo para alinear con los enlaces de sección.
+- Skills: El grid ahora muestra tarjetas agrupadas (Lenguajes, Frameworks, Cloud, Bases de Datos, Herramientas, Certificaciones) con iconos y etiquetas coloreadas según la referencia.
+- Skills data: Se sumaron JavaScript, Tailwind, MongoDB y Postman a sus grupos respectivos dentro de `skillCards`.
+- Proyectos: Se actualizaron los datos (Jardin Digital destacado, resto sin botón demo) y el grid para mostrar badge, pills de tecnología y manejo opcional de demo.
