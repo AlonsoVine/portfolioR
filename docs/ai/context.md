@@ -119,3 +119,59 @@
 - Proximos pasos: Añadir metadatos adicionales (Open Graph, Twitter) en futuras iteraciones si el usuario lo solicita.
 - Archivos tocados: public/logo-negro-redondo-conFondo.png, src/app/layout.tsx:1, docs/ai/context.md:1.
 - Notas o riesgos: El archivo PNG debe permanecer en `public/` para que Next.js pueda servirlo como icono.
+
+## 2025-11-18T23:52:00Z
+
+- Acciones: Mejore `src/components/ui/ScrollToTopButton.tsx` con efectos hover/focus (escala, traslación, cambio de borde/fondo) y cursor pointer para reforzar que es clicable en ambos temas; corrí `npm run lint`.
+- Decisiones y pendientes: Mantener el umbral y estilos actuales salvo feedback; pendiente probar en dispositivos táctiles que el estado no estorbe.
+- Proximos pasos: Evaluar si conviene añadir tooltip o label visible en mobile si hay confusión.
+- Archivos tocados: src/components/ui/ScrollToTopButton.tsx:1, docs/ai/context.md:1.
+- Notas o riesgos: El focus ring usa `outline-amber-300`; revisar contraste en modo claro.
+
+## 2025-11-19T00:10:00Z
+
+- Acciones: Reemplacé por completo la estructura de `experiences` en `src/data/portfolio.ts` (nuevos campos company/project/location/tech, textos en ASCII y chips de tecnologías) y rediseñé `src/components/sections/ExperienceTimeline.tsx` para añadir iconos (Building, Briefcase, MapPin, Calendar), separar empresa/proyecto, reducir la fecha y mostrar las tecnologías en chips; ejecuté `npm run lint`.
+- Decisiones y pendientes: Los textos se mantienen sin acentos para evitar problemas de codificación; pendiente validar con el usuario si necesita localización o más campos (ej. estado del proyecto).
+- Proximos pasos: Ajustar estilos de la timeline si se requiere más contraste o si se añaden nuevos elementos.
+- Archivos tocados: src/data/portfolio.ts:116, src/components/sections/ExperienceTimeline.tsx:1, docs/ai/context.md:1.
+- Notas o riesgos: La sustitución completa del bloque de experiencias elimina caracteres corruptos previos; revisar que futuros cambios mantengan ASCII o migren el archivo entero a UTF-8.
+
+## 2025-11-19T00:25:00Z
+
+- Acciones: Reescribí `src/components/layout/Footer.tsx` para añadir branding con tagline “Full Stack / Analista”, botones de LinkedIn y GitHub con estética del hero y los textos “Hecho con ♥ …” y “Desarrollado con React…”; corrí `npm run lint`.
+- Decisiones y pendientes: Mantener la importación de `socialLinks` para heredar URLs; pendiente validar si debemos añadir más redes o traducir textos al inglés.
+- Proximos pasos: Ajustar responsividad si los botones ocupan demasiado espacio en móviles.
+- Archivos tocados: src/components/layout/Footer.tsx:1, docs/ai/context.md:1.
+- Notas o riesgos: El nombre usa caracteres `\u00F1\u00E9`; verificar que no se vuelva a corromper.
+
+## 2025-11-19T00:45:00Z
+
+- Acciones: Rediseñé `src/components/sections/Contact.tsx` replicando la estructura de la referencia: formulario renovado, cards “Conecta conmigo” y “Disponible para colaborar”, plus descripción actualizada; mantuve estilos y coherencia con el hero; ejecuté `npm run lint`.
+- Decisiones y pendientes: Emails/URLs de ejemplo se mantienen hasta integrar servicios reales; pendiente decidir si se añade validación o backend.
+- Proximos pasos: Integrar servicio de correo y convertir los datos de plataformas en configurables.
+- Archivos tocados: src/components/sections/Contact.tsx:1, docs/ai/context.md:1.
+- Notas o riesgos: Texto del email es estático; conviene moverlo a configuración cuando se disponga de dirección definitiva.
+
+## 2025-11-19T00:55:00Z
+
+- Acciones: Ajusté la sección de contacto para reflejar el email real `alonvineba@gmail.com`, añadí el texto “Disponible para colaborar” tal como en la referencia, y apliqué un hover sutil a los enlaces de “Conecta conmigo”; lidé con los acentos manteniendo ASCII donde fue necesario; corrí `npm run lint`.
+- Decisiones y pendientes: Mantener el mail hardcodeado hasta que exista configuración global; pendiente validar si los hover deben cambiarse en móviles.
+- Proximos pasos: Centralizar los datos de contacto en `src/data/portfolio.ts` o en un archivo de config.
+- Archivos tocados: src/components/sections/Contact.tsx:1, docs/ai/context.md:1.
+- Notas o riesgos: Revisar que las traducciones sin acento sean aceptables; caso contrario, migrar archivo completo a UTF-8.
+
+## 2025-11-19T01:05:00Z
+
+- Acciones: Ajusté la card “Disponible para colaborar” para que use el gradiente del CTA del formulario y devolví los iconos de “Conecta conmigo” a un color más sutil (usa `var(--foreground)/70`); verifiqué con `npm run lint`.
+- Decisiones y pendientes: Mantener el gradiente mientras guste al usuario; pendiente revisar si se necesita una versión clara.
+- Proximos pasos: Evaluar si queremos animaciones adicionales en la card o si basta con el mensaje.
+- Archivos tocados: src/components/sections/Contact.tsx:1, docs/ai/context.md:1.
+- Notas o riesgos: Ninguno.
+
+## 2025-11-19T01:12:00Z
+
+- Acciones: Ajusté el botón “Descargar CV” del hero para replicar el hover del CTA de LinkedIn en el footer (fondo degradado, highlight interior y color de icono coherente); corrí `npm run lint`.
+- Decisiones y pendientes: Mantener este comportamiento salvo nuevo feedback; pendiente verificar en móvil si el highlight se percibe bien.
+- Proximos pasos: Ninguno inmediato.
+- Archivos tocados: src/components/sections/Hero.tsx:1, docs/ai/context.md:1.
+- Notas o riesgos: Ninguno.

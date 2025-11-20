@@ -25,8 +25,8 @@ export default function Home() {
       <Header links={navLinks} />
       <main className="flex flex-col gap-6">
         <Hero {...heroContent} />
-        <About paragraphs={aboutContent.textBlocks} />
         <SkillsGrid skills={skills} />
+        <About paragraphs={aboutContent.textBlocks} />
         <ExperienceTimeline experiences={experiences} />
         <ProjectsGrid projects={projects} />
         <Education items={education} />

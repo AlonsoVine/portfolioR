@@ -5,6 +5,7 @@ import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
 import { Experience } from "@/data/portfolio";
 import { scrollRevealConfig } from "@/lib/utils";
+import { Building2, BriefcaseBusiness, MapPin, CalendarDays } from "lucide-react";
 
 type ExperienceTimelineProps = {
   experiences: Experience[];
@@ -34,17 +35,54 @@ export function ExperienceTimeline({ experiences }: ExperienceTimelineProps) {
                 }`}
               >
                 <div className="rounded-3xl surface-card p-6 text-muted shadow-[0_30px_80px_rgba(15,23,42,0.35)] backdrop-blur-xl">
-                  <div className="flex flex-col gap-2">
-                    <p className="text-sm uppercase tracking-[0.4em] text-amber-200/80">{experience.period}</p>
-                    <h3 className="text-2xl font-semibold text-[var(--foreground)]">{experience.title}</h3>
-                    <p className="text-muted">{experience.company}</p>
-                    <ul className="mt-4 space-y-2 text-muted">
+                  <div className="flex flex-col gap-4">
+                    <div className="flex flex-wrap items-start justify-between gap-4">
+                      <h3 className="text-2xl font-semibold text-[var(--foreground)]">{experience.title}</h3>
+                      <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-amber-100/80">
+                        <CalendarDays className="h-4 w-4 text-amber-300" aria-hidden="true" />
+                        <span>{experience.period}</span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-1 text-sm text-muted">
+                      <div className="flex items-center gap-2 text-[var(--foreground)]">
+                        <Building2 className="h-4 w-4 text-emerald-300/80" aria-hidden="true" />
+                        <span className="font-medium">{experience.company}</span>
+                      </div>
+                      {experience.project && (
+                        <div className="flex items-center gap-2">
+                          <BriefcaseBusiness className="h-4 w-4 text-emerald-300/60" aria-hidden="true" />
+                          <span>{experience.project}</span>
+                        </div>
+                      )}
+                      {experience.location && (
+                        <div className="flex items-center gap-2">
+                          <MapPin className="h-4 w-4 text-emerald-300/60" aria-hidden="true" />
+                          <span>{experience.location}</span>
+                        </div>
+                      )}
+                    </div>
+                    <ul className="mt-1 space-y-2 text-muted">
                       {experience.bullets.map((bullet) => (
                         <li key={bullet} className="leading-relaxed">
                           {bullet}
                         </li>
                       ))}
                     </ul>
+                    {experience.tech?.length ? (
+                      <div className="mt-4 border-t border-soft/40 pt-4">
+                        <p className="text-xs uppercase tracking-[0.35em] text-muted">Tecnologias utilizadas</p>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          {experience.tech.map((item) => (
+                            <span
+                              key={item}
+                              className="rounded-full border border-soft/80 bg-white/5 px-3 py-1 text-xs font-medium text-[var(--foreground)]/80"
+                            >
+                              {item}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               </div>

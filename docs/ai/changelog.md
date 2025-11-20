@@ -17,3 +17,8 @@
 - Fondo Hero (base): Restituido nuevamente el gradiente original simple al no conseguir el efecto deseado con los overlays extendidos.
 - UX: Se añadió un botón fijo "Volver al inicio" que aparece al salir del header y permite volver suavemente al hero respetando temas claro/oscuro.
 - Meta: El título del sitio pasa a "Alonso Viñe" y se establece el icono del navegador con `public/logo-negro-redondo-conFondo.png`.
+- UX hover: El botón "Volver al inicio" ahora muestra efectos hover/focus (escala, desplazamiento y borde) para enfatizar que es clicable.
+- Experiencia: Las tarjetas del timeline muestran iconos (empresa, proyecto, ubicación, fechas), separan empresa/proyecto, reducen la tipografía de fechas y añaden chips de tecnologías alimentadas desde `src/data/portfolio.ts`.
+- Footer: El pie de página incluye tagline “Full Stack / Analista”, botones tipo hero para LinkedIn/GitHub y los mensajes “Hecho con ♥” y “Desarrollado con React, Tailwind CSS y mucho café”.
+- Contacto: La sección replica la referencia con formulario renovado, tarjetas “Conecta conmigo” y “Disponible para colaborar”, email real `alonvineba@gmail.com`, efectos hover en los enlaces y card final con el gradiente del botón principal.
+- Hero CTA: El botón “Descargar CV” replica el efecto hover de los botones sociales del footer (fondo degradado con highlight e icono acorde).
