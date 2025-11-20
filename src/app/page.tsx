@@ -23,7 +23,7 @@ export default function Home() {
     <div className="relative min-h-screen bg-[var(--background)] text-[var(--foreground)] transition-colors">
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(251,191,36,0.25),_transparent_55%)]" />
       <Header links={navLinks} />
-      <main className="flex flex-col gap-6 pt-24">
+      <main className="flex flex-col gap-6">
         <Hero {...heroContent} />
         <About paragraphs={aboutContent.textBlocks} />
         <SkillsGrid skills={skills} />
