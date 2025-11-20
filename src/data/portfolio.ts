@@ -99,6 +99,23 @@ export const aboutContent = {
     "Soy un entusiasta de las tecnologías emergentes siempre motivado.",
     "Emocionado por lo que el mundo del desarrollo de software me tiene preparado.",
   ],
+  highlights: [
+    {
+      title: "Desarrollo Frontend",
+      description: "Especializado en Angular y TypeScript con enfoque en interfaces modernas y limpias.",
+      icon: "code",
+    },
+    {
+      title: "Buenas Practicas",
+      description: "Codigo limpio, mantenible y siguiendo los estandares de la industria.",
+      icon: "target",
+    },
+    {
+      title: "Aprendizaje Continuo",
+      description: "Siempre explorando nuevas tecnologias y mejorando mis habilidades.",
+      icon: "zap",
+    },
+  ],
 };
 
 export const socialLinks: SocialLink[] = [

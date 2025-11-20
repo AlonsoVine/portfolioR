@@ -22,3 +22,4 @@
 - Footer: El pie de página incluye tagline “Full Stack / Analista”, botones tipo hero para LinkedIn/GitHub y los mensajes “Hecho con ♥” y “Desarrollado con React, Tailwind CSS y mucho café”.
 - Contacto: La sección replica la referencia con formulario renovado, tarjetas “Conecta conmigo” y “Disponible para colaborar”, email real `alonvineba@gmail.com`, efectos hover en los enlaces y card final con el gradiente del botón principal.
 - Hero CTA: El botón “Descargar CV” replica el efecto hover de los botones sociales del footer (fondo degradado con highlight e icono acorde).
+- Sobre mi: Se añadieron cards discretas bajo el texto principal (Desarrollo Frontend, Buenas Prácticas, Aprendizaje Continuo) leyendo datos desde `aboutContent`, ahora sin borde y con iconos en amarillo para alinear con los enlaces de sección.

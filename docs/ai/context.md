@@ -175,3 +175,19 @@
 - Proximos pasos: Ninguno inmediato.
 - Archivos tocados: src/components/sections/Hero.tsx:1, docs/ai/context.md:1.
 - Notas o riesgos: Ninguno.
+
+## 2025-11-19T01:25:00Z
+
+- Acciones: Añadí highlights configurables en `aboutContent` (titulo, descripcion, icono) y rediseñé `src/components/sections/About.tsx` para renderizarlos bajo el texto, manteniendo la estética general; corrí `npm run lint`.
+- Decisiones y pendientes: Los textos siguen en ASCII; pendiente confirmar si se requieren iconos adicionales o datos externos.
+- Proximos pasos: Valorar si estos highlights deben hacerse editables desde CMS.
+- Archivos tocados: src/data/portfolio.ts:97, src/components/sections/About.tsx:1, docs/ai/context.md:1.
+- Notas o riesgos: Asegurar que futuros cambios en `aboutContent` preserven la nueva estructura.
+
+## 2025-11-19T01:32:00Z
+
+- Acciones: Hice las cards de About más discretas eliminando el borde y usando fondo `bg-black/20` con sombra suave; cambié el color de los iconos a un amarillo (`text-amber-200`) para que coincida con los enlaces de secciones; corrí `npm run lint`.
+- Decisiones y pendientes: Mantener este color mientras encaje con la paleta; pendiente revisar si se necesita un modo claro distinto.
+- Proximos pasos: Ninguno inmediato.
+- Archivos tocados: src/components/sections/About.tsx:1, docs/ai/context.md:1.
+- Notas o riesgos: Ninguno.
