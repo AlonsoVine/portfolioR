@@ -17,7 +17,7 @@ export function ExperienceTimeline({ experiences }: ExperienceTimelineProps) {
       <SectionHeading
         eyebrow="Experiencia"
         title="Timeline profesional"
-        description="Nodos sincronizados con animaciones y contenido en tarjetas con blur. Los bullets están preparados para copy definitivo."
+        description="Resumen de mi experiencia laboral en orden cronológico."
       />
       <div className="relative mt-16">
         <div className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-gradient-to-b from-amber-200 via-white/60 to-rose-300 md:block" />

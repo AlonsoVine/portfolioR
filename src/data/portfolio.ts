@@ -180,6 +180,7 @@ export const skillCards: SkillCard[] = [
     tone: "purple",
     items: [
       "Oracle SQL Developer",
+      "MySQL",
       "Analisis de Datos (R)",
       "MongoDB",
       "Firebase",
@@ -344,7 +345,8 @@ export const projects: Project[] = [
     title: "PhotoDateRenamer",
     description:
       "Aplicacion Python que renombra fotos usando metadatos EXIF (fecha tomada) siguiendo el formato YYYY_MM_DD_nombreOriginal.ext, facilitando el orden cronologico.",
-    image: "/images/proyectos/photoDateRenamer/fotografia-movil-versus-camara2.jpg",
+    image:
+      "/images/proyectos/photoDateRenamer/fotografia-movil-versus-camara2.jpg",
     tech: ["Python", "EXIF"],
     links: {
       code: "https://github.com/AlonsoVine/PhotoDateRenamer",

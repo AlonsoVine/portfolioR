@@ -20,7 +20,7 @@ export function Footer() {
 						<Image src="/images/logo.png" alt="Logotipo" width={36} height={36} />
 						<div>
 							<p className="font-semibold text-[var(--foreground)]">{"Alonso Vi\u00F1\u00E9"}</p>
-							<p className="text-xs uppercase tracking-[0.35em] text-muted">Full Stack / Analista</p>
+							<p className="text-xs uppercase tracking-[0.35em] text-muted">Desarrollador y Analista</p>
 						</div>
 					</div>
 					<div className="flex flex-wrap justify-center gap-3">

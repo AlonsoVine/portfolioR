@@ -29,3 +29,4 @@
 - Proyectos UX: Ocultado el botón de demo cuando un proyecto no tiene demo definida, manteniendo solo el CTA de código.
 - Certificaciones: Cards en 3 columnas con imagen superior, badge “Certificación” en amarillo y fecha, destacando institución y descripción.
 - Certificaciones UX: Simplificado el encabezado mostrando el icono amarillo junto a la institución y la fecha a la derecha, con título y detalle debajo.
+- Certificaciones hover: Las cards heredan el glow/hover del stack tecnológico con overlay degradado sutil.

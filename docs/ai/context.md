@@ -247,3 +247,11 @@
 - Proximos pasos: Ninguno inmediato.
 - Archivos tocados: src/components/sections/Education.tsx:1, docs/ai/context.md:1.
 - Notas o riesgos: Ninguno.
+
+## 2025-11-19T03:08:00Z
+
+- Acciones: Aplique el efecto hover/glow de las cards de stack a las certificaciones añadiendo overlay degradado activado al hover; corrí `npm run lint`.
+- Decisiones y pendientes: Mantener el brillo sutil; pendiente revisar contraste en modo claro si se habilita.
+- Proximos pasos: Ninguno.
+- Archivos tocados: src/components/sections/Education.tsx:1, docs/ai/context.md:1.
+- Notas o riesgos: Ninguno.
