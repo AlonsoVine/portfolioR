@@ -38,3 +38,6 @@
 - Acentos cálidos: SectionHeading, Skills, Projects, About, Education y timeline adoptan el tono naranja #d97706 para modo claro mediante `--accent-warm`.
 - Chips proyectos: Etiquetas de tecnologías vuelven a un estilo neutro (borde-soft, fondo blanco/5) para mantener contraste en ambos modos.
 - Chips proyectos (color): Se restaura la paleta multicolor en proyectos usando `--accent-warm` para el tono amber y colores diferenciados para el resto.
+- Paleta chips: Variables `--pill-*` definen tonos por tema (oscuro/claro) para chips en Skills y Proyectos, reforzando visibilidad en modo claro.
+- Paleta chips fix: Corregida la sintaxis de variables `var(--pill-*)` en Skills y Proyectos para recuperar los colores previstos en ambos temas.
+- Paleta chips inline: Se añadieron tonos rose/teal en `globals.css`, se dieron colores únicos a cada card de Skills (Herramientas pasa a rose) y los chips de Skills/Proyectos usan estilos inline basados en variables para asegurar contraste en light/dark.

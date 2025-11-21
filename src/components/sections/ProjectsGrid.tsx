@@ -8,12 +8,7 @@ import { Project } from "@/data/portfolio";
 import { scrollRevealConfig } from "@/lib/utils";
 import { GithubIcon, Sparkles } from "lucide-react";
 
-const techPillPalette = [
-	"border-emerald-300/40 bg-emerald-300/15 text-emerald-100",
-	"border-sky-300/40 bg-sky-300/15 text-sky-100",
-	"border-[var(--accent-warm)] bg-[var(--accent-warm-soft)] text-[var(--accent-warm)]",
-	"border-violet-300/40 bg-violet-300/15 text-violet-100",
-];
+const techPillPalette = ["--pill-emerald", "--pill-sky", "--pill-amber", "--pill-violet", "--pill-rose", "--pill-teal"];
 
 type ProjectsGridProps = {
 	projects: Project[];
@@ -64,7 +59,15 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
 								{project.tech.map((tech, i) => {
 									const tone = techPillPalette[i % techPillPalette.length];
 									return (
-										<span key={tech} className={`rounded-full border px-3 py-1 text-xs font-semibold ${tone}`}>
+										<span
+											key={tech}
+											className="rounded-full border px-3 py-1 text-xs font-semibold"
+											style={{
+												borderColor: `var(${tone}-border)`,
+												backgroundColor: `var(${tone}-bg)`,
+												color: `var(${tone}-text)`,
+											}}
+										>
 											{tech}
 										</span>
 									);

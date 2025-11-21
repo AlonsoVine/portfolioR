@@ -13,6 +13,24 @@
   --accent: linear-gradient(135deg, #fbbf24, #fb7185, #a855f7);
   --accent-warm: #fbbf24;
   --accent-warm-soft: rgba(251, 191, 36, 0.15);
+  --pill-emerald-border: rgba(52, 211, 153, 0.4);
+  --pill-emerald-bg: rgba(52, 211, 153, 0.15);
+  --pill-emerald-text: #d1fae5;
+  --pill-teal-border: rgba(45, 212, 191, 0.45);
+  --pill-teal-bg: rgba(45, 212, 191, 0.18);
+  --pill-teal-text: #ccfbf1;
+  --pill-sky-border: rgba(125, 211, 252, 0.4);
+  --pill-sky-bg: rgba(125, 211, 252, 0.15);
+  --pill-sky-text: #e0f2fe;
+  --pill-amber-border: var(--accent-warm);
+  --pill-amber-bg: var(--accent-warm-soft);
+  --pill-amber-text: #fef3c7;
+  --pill-rose-border: rgba(244, 114, 182, 0.45);
+  --pill-rose-bg: rgba(244, 114, 182, 0.16);
+  --pill-rose-text: #ffe4e6;
+  --pill-violet-border: rgba(196, 181, 253, 0.4);
+  --pill-violet-bg: rgba(196, 181, 253, 0.15);
+  --pill-violet-text: #ede9fe;
   --hero-cta-surface: #050b21;
   --hero-cta-surface-hover: #080f26;
   color-scheme: dark;
@@ -31,6 +49,24 @@
   --accent: linear-gradient(135deg, #f97316, #fb7185, #6366f1);
   --accent-warm: #e36927;
   --accent-warm-soft: rgba(227, 105, 39, 0.15);
+  --pill-emerald-border: rgba(5, 150, 105, 0.35);
+  --pill-emerald-bg: rgba(5, 150, 105, 0.14);
+  --pill-emerald-text: #065f46;
+  --pill-teal-border: rgba(13, 148, 136, 0.34);
+  --pill-teal-bg: rgba(13, 148, 136, 0.14);
+  --pill-teal-text: #115e59;
+  --pill-sky-border: rgba(30, 64, 175, 0.3);
+  --pill-sky-bg: rgba(30, 64, 175, 0.12);
+  --pill-sky-text: #1d4ed8;
+  --pill-amber-border: var(--accent-warm);
+  --pill-amber-bg: var(--accent-warm-soft);
+  --pill-amber-text: #9a3412;
+  --pill-rose-border: rgba(190, 24, 93, 0.32);
+  --pill-rose-bg: rgba(190, 24, 93, 0.12);
+  --pill-rose-text: #9d174d;
+  --pill-violet-border: rgba(109, 40, 217, 0.3);
+  --pill-violet-bg: rgba(109, 40, 217, 0.12);
+  --pill-violet-text: #d96928;
   --hero-cta-surface: #fff3e0;
   --hero-cta-surface-hover: #ffe9c7;
   color-scheme: light;
@@ -41,7 +77,8 @@
 }
 
 body {
-  font-family: var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-geist-sans), system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
   background-color: var(--background);
   color: var(--foreground);
   min-height: 100vh;
@@ -131,4 +168,3 @@ body {
   background-color: rgba(251, 191, 36, 0.35);
   color: #0f172a;
 }
-

@@ -1,4 +1,4 @@
-export type NavLink = {
+﻿export type NavLink = {
   label: string;
   href: string;
 };
@@ -21,7 +21,7 @@ export type SocialLink = {
 export type SkillCard = {
   title: string;
   icon: SkillCardIconId;
-  tone: "blue" | "green" | "teal" | "purple" | "amber";
+  tone: "blue" | "green" | "teal" | "purple" | "amber" | "rose";
   items: string[];
 };
 
@@ -123,7 +123,7 @@ export const aboutContent = {
 export const socialLinks: SocialLink[] = [
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/alonso-viñé-barrancos/",
+    href: "https://www.linkedin.com/in/alonso-viÃ±Ã©-barrancos/",
     icon: "linkedin",
   },
   { label: "GitHub", href: "https://github.com/AlonsoVine", icon: "github" },
@@ -189,7 +189,7 @@ export const skillCards: SkillCard[] = [
   {
     title: "Herramientas y Plataformas",
     icon: "wrench",
-    tone: "purple",
+    tone: "rose",
     items: [
       "Git/GitHub",
       "Selenium",
@@ -322,7 +322,7 @@ export const projects: Project[] = [
     title: "Jardin Digital",
     featured: true,
     description:
-      "Web artesana para registrar y acompañar la vida de las plantas. Incluye panel con KPIs, filtros dinamicos, exportacion de fichas (JSON/TXT/CSV), tema claro/oscuro, sonido ambiente y hojas flotantes.",
+      "Web artesana para registrar y acompanÌƒar la vida de las plantas. Incluye panel con KPIs, filtros dinamicos, exportacion de fichas (JSON/TXT/CSV), tema claro/oscuro, sonido ambiente y hojas flotantes.",
     image: "/images/proyectos/jardinDigital/jardinDigitalFoto3.png",
     tech: ["Angular", "TypeScript", "Tailwind CSS", "LocalStorage", "JSON"],
     links: {
@@ -373,7 +373,6 @@ export const projects: Project[] = [
     },
   },
 ];
-
 export const education: Education[] = [
   {
     institution: "AWS",
@@ -404,7 +403,7 @@ export const education: Education[] = [
     title: "LPI Linux Essentials",
     dates: "2024",
     details:
-      "Acredita habilidades para manejar conceptos básicos de Linux, incluyendo su funcionamiento, línea de comandos, y gestión de archivos, fomentando una base sólida en software de código abierto.",
+      "Acredita habilidades para manejar conceptos básicos de Linux, incluyendo su funcionamiento, línea de comandos y gestión de archivos, fomentando una base sólida en software de código abierto.",
     image: "/images/certificados/Udemy_certificate_Linux_essentials.jpg",
   },
   {

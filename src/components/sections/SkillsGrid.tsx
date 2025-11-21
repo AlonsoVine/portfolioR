@@ -16,12 +16,13 @@ const skillIconMap = {
 	badge: BadgeCheck,
 } as const;
 
-const pillToneMap: Record<SkillCard["tone"], string> = {
-	blue: "border-sky-300/40 bg-sky-300/15 text-sky-100",
-	green: "border-emerald-300/40 bg-emerald-300/15 text-emerald-100",
-	teal: "border-teal-300/40 bg-teal-300/15 text-teal-100",
-	purple: "border-violet-300/40 bg-violet-300/15 text-violet-50",
-	amber: "border-[var(--accent-warm)] bg-[var(--accent-warm-soft)] text-[var(--accent-warm)]",
+const pillToneVar: Record<SkillCard["tone"], string> = {
+	blue: "--pill-sky",
+	green: "--pill-emerald",
+	teal: "--pill-teal",
+	purple: "--pill-violet",
+	amber: "--pill-amber",
+	rose: "--pill-rose",
 };
 
 type SkillsGridProps = {
@@ -39,6 +40,7 @@ export function SkillsGrid({ groups }: SkillsGridProps) {
 			<div className="relative mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
 				{groups.map((group, index) => {
 					const Icon = skillIconMap[group.icon];
+					const toneKey = pillToneVar[group.tone] ?? "--pill-sky";
 					return (
 						<motion.div
 							key={group.title}
@@ -57,7 +59,12 @@ export function SkillsGrid({ groups }: SkillsGridProps) {
 								{group.items.map((item) => (
 									<span
 										key={item}
-										className={`rounded-full border px-3 py-1 text-xs font-semibold ${pillToneMap[group.tone]}`}
+										className="rounded-full border px-3 py-1 text-xs font-semibold"
+										style={{
+											borderColor: `var(${toneKey}-border)`,
+											backgroundColor: `var(${toneKey}-bg)`,
+											color: `var(${toneKey}-text)`,
+										}}
 									>
 										{item}
 									</span>
@@ -70,4 +77,3 @@ export function SkillsGrid({ groups }: SkillsGridProps) {
 		</SectionShell>
 	);
 }
-

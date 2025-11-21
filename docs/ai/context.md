@@ -335,3 +335,35 @@
 - Proximos pasos: Ninguno inmediato.
 - Archivos tocados: src/components/sections/ProjectsGrid.tsx, docs/ai/context.md.
 - Notas o riesgos: Ninguno.
+
+## 2025-11-19T05:20:00Z
+
+- Acciones: Reforcé los tonos de chips en Skills y Proyectos creando variables de paleta (`--pill-*`) separadas por tema; en light se usan versiones más oscuras pero coherentes con los tonos de dark; ajusté viewers a las nuevas variables y mantuve el resto de chips como estaban; ejecuté `npm run lint`.
+- Decisiones y pendientes: El acento cálido en amber usa #e36927 en light y #fbbf24 en dark; pendiente revisar si otros amarillos del header deben adaptarse.
+- Proximos pasos: Verificar en light que los chips sean legibles; si hay elementos residuales, aplicar la paleta.
+- Archivos tocados: src/app/globals.css, src/components/sections/SkillsGrid.tsx, src/components/sections/ProjectsGrid.tsx, docs/ai/context.md.
+- Notas o riesgos: Ninguno.
+
+## 2025-11-19T05:30:00Z
+
+- Acciones: Corrigí el uso de las variables de color en chips para Skills y Proyectos (sintaxis `var(--pill-*)` en border/bg/text) y mantuve los tonos originales en dark con versiones más oscuras en light; corrí `npm run lint`.
+- Decisiones y pendientes: Header y otros amarillos siguen pendientes de revisión si se desea unificar.
+- Proximos pasos: Validar visualmente en modo claro que los chips recuperaron contraste.
+- Archivos tocados: src/app/globals.css, src/components/sections/SkillsGrid.tsx, src/components/sections/ProjectsGrid.tsx, docs/ai/context.md.
+- Notas o riesgos: Ninguno.
+
+## 2025-11-19T05:40:00Z
+
+- Acciones: Arreglé la sintaxis de las clases de chips para usar `var(--pill-*)` en Skills y Proyectos; corrí `npm run lint`.
+- Decisiones y pendientes: Confirmar visualmente en modo claro que los colores se aplican.
+- Proximos pasos: Revisar otros componentes con acentos cálidos si es necesario.
+- Archivos tocados: src/components/sections/SkillsGrid.tsx, src/components/sections/ProjectsGrid.tsx, docs/ai/context.md.
+- Notas o riesgos: Ninguno.
+
+## 2025-11-19T06:05:00Z
+
+- Acciones: Añadí paletas rose y teal en `globals.css`, remapeé los chips de Skills a variables con estilos inline (evitando que queden blancos en modo claro), di un color propio a Herramientas (`tone: rose`) y extendí los chips de Proyectos a la misma paleta con estilos inline para asegurar contraste en ambos temas.
+- Decisiones y pendientes: Mantener los tonos actuales salvo nuevo feedback visual; pendiente validar en UI que cada card de Stack conserva un color distinto y que las pills se ven en light/dark.
+- Proximos pasos: Ajustar si algún color resulta demasiado suave o si se piden nuevos matices.
+- Archivos tocados: src/app/globals.css, src/components/sections/SkillsGrid.tsx, src/components/sections/ProjectsGrid.tsx, src/data/portfolio.ts.
+- Notas o riesgos: Las variables nuevas deben mantenerse sincronizadas con futuros usos de chips para evitar disparidad de colores.
