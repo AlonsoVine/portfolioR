@@ -21,13 +21,13 @@ export function ExperienceTimeline({ experiences }: ExperienceTimelineProps) {
       />
       <div className="relative mt-16">
         <div className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-gradient-to-b from-amber-200 via-white/60 to-rose-300 md:block" />
-        <div className="flex flex-col gap-12">
+        <div className="flex flex-col gap-16">
           {experiences.map((experience, index) => (
             <motion.div
               key={`${experience.company}-${experience.period}`}
               {...scrollRevealConfig}
               transition={{ delay: index * 0.08 }}
-              className="relative flex flex-col md:flex-row md:items-center"
+              className="relative flex flex-col md:flex-row md:items-start"
             >
               <div
                 className={`flex-1 ${
@@ -86,10 +86,10 @@ export function ExperienceTimeline({ experiences }: ExperienceTimelineProps) {
                   </div>
                 </div>
               </div>
-              <div className="my-8 flex items-center justify-center md:my-0">
-                <span className="relative flex h-5 w-5 items-center justify-center">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-300/40" />
-                  <span className="relative inline-flex h-3 w-3 rounded-full bg-amber-300" />
+              <div className="pointer-events-none relative hidden h-full w-10 md:flex">
+                <span className="absolute left-1/2 top-[52px] z-20 flex -translate-x-1/2 items-center justify-center">
+                  <span className="absolute inline-flex h-5 w-5 animate-ping rounded-full bg-amber-300/35" />
+                  <span className="relative inline-flex h-3 w-3 rounded-full bg-amber-300 ring-2 ring-[var(--background)]" />
                 </span>
               </div>
               <div className={`hidden flex-1 md:block ${experience.position === "left" ? "order-2" : ""}`} />
@@ -100,4 +100,3 @@ export function ExperienceTimeline({ experiences }: ExperienceTimelineProps) {
     </SectionShell>
   );
 }
-

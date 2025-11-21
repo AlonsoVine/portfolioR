@@ -271,3 +271,43 @@
 - Proximos pasos: Ninguno inmediato.
 - Archivos tocados: src/components/sections/ProjectsGrid.tsx:1, docs/ai/context.md:1.
 - Notas o riesgos: Ninguno.
+
+## 2025-11-19T03:36:00Z
+
+- Acciones: Reposicioné los puntos de la timeline para alinearlos con el título de cada card sobre la línea central y ajusté el spacing vertical; corrí `npm run lint`.
+- Decisiones y pendientes: Mantener este alineado salvo nuevo feedback.
+- Proximos pasos: Ninguno inmediato.
+- Archivos tocados: src/components/sections/ExperienceTimeline.tsx:1, docs/ai/context.md:1.
+- Notas o riesgos: Ninguno.
+
+## 2025-11-19T03:45:00Z
+
+- Acciones: Ajusté de nuevo la posición del nodo amarillo de la timeline (top-6 centrado en la línea) para que quede junto al título y evitar desplazamientos; corrí `npm run lint`.
+- Decisiones y pendientes: Verificar visualmente si el offset top-6 es suficiente; pendiente feedback.
+- Proximos pasos: Ninguno.
+- Archivos tocados: src/components/sections/ExperienceTimeline.tsx:1, docs/ai/context.md:1.
+- Notas o riesgos: Ninguno.
+
+## 2025-11-19T03:55:00Z
+
+- Acciones: Alineé el nodo amarillo sobre la línea del timeline con una pequeña anilla (`ring-[var(--background)]`) para que “corte” la línea manteniendo el estilo actual; ejecuté `npm run lint`.
+- Decisiones y pendientes: Validar visualmente que el ring y el ping se perciben como parte de la línea, con intensidad suave.
+- Proximos pasos: Ajustar offset si aún queda desalineado.
+- Archivos tocados: src/components/sections/ExperienceTimeline.tsx:1, docs/ai/context.md:1.
+- Notas o riesgos: Ninguno.
+
+## 2025-11-19T04:05:00Z
+
+- Acciones: Mejore el contenedor del nodo en la timeline (ancho y offset) para que el punto amarillo realmente corte la línea central y sea visible; corrí `npm run lint`.
+- Decisiones y pendientes: Revisar visualmente si el nuevo `top-10` cumple la alineación buscada; pendiente feedback.
+- Proximos pasos: Ajustar nuevamente si es necesario.
+- Archivos tocados: src/components/sections/ExperienceTimeline.tsx:1, docs/ai/context.md:1.
+- Notas o riesgos: Ninguno.
+
+## 2025-11-19T04:15:00Z
+
+- Acciones: Ajusté nuevamente el offset del nodo del timeline (`top-[52px]`) para intentar alinearlo con el título cortando la línea; corrí `npm run lint`.
+- Decisiones y pendientes: A la espera de feedback visual final; pendiente quizá usar cálculo dinámico.
+- Proximos pasos: Evaluar si se requiere otra iteración con medidas dinámicas.
+- Archivos tocados: src/components/sections/ExperienceTimeline.tsx:1, docs/ai/context.md:1.
+- Notas o riesgos: Ninguno.

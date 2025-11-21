@@ -32,3 +32,5 @@
 - Certificaciones hover: Las cards heredan el glow/hover del stack tecnológico con overlay degradado sutil.
 - Certificaciones modal: Ahora al hacer click se abre la imagen del certificado en un modal con cierre por overlay y tecla ESC.
 - Proyectos hover: Las cards de proyectos adoptan el overlay de certificaciones con gradiente amarillo más sutil.
+- Timeline: Los nodos amarillos se alinean ahora con el título de cada card sobre la línea central.
+- Timeline ring: El nodo amarillo ahora “corta” la línea central con un ring que usa el color de fondo para integrarlo.
