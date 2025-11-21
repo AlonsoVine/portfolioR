@@ -215,3 +215,35 @@
 - Proximos pasos: Ninguno inmediato.
 - Archivos tocados: src/data/portfolio.ts:1, src/components/sections/ProjectsGrid.tsx:1, docs/ai/context.md:1.
 - Notas o riesgos: Al usar demo opcional, asegúrate de definirla cuando haya despliegue real.
+
+## 2025-11-19T02:30:00Z
+
+- Acciones: Oculté por completo el botón de demo en proyectos sin demo, ajustando el layout para que solo se muestre el CTA de código cuando aplica; corrí `npm run lint`.
+- Decisiones y pendientes: Mantener este comportamiento mientras no haya demos para esos proyectos.
+- Proximos pasos: Añadir demos reales cuando estén disponibles.
+- Archivos tocados: src/components/sections/ProjectsGrid.tsx:1, docs/ai/context.md:1.
+- Notas o riesgos: Ninguno.
+
+## 2025-11-19T02:45:00Z
+
+- Acciones: Restilicé las tarjetas de certificaciones (`src/components/sections/Education.tsx`): layout de 3 columnas, borde sutil, badge con icono y acento amarillo, header con fecha y textos actualizados; ejecuté `npm run lint`.
+- Decisiones y pendientes: Mantener el badge “Certificacion” y el acento amarillo; pendiente validar en modo claro si el contraste es suficiente.
+- Proximos pasos: Ninguno inmediato.
+- Archivos tocados: src/components/sections/Education.tsx:1, docs/ai/context.md:1.
+- Notas o riesgos: Ninguno.
+
+## 2025-11-19T02:53:00Z
+
+- Acciones: Ajusté las cards de certificaciones para mostrar solo el icono junto al título (sin texto “Certificacion”) manteniendo el acento amarillo y la fecha al lado; corrí `npm run lint`.
+- Decisiones y pendientes: Mantener esta versión minimalista; pendiente feedback visual.
+- Proximos pasos: Ninguno inmediato.
+- Archivos tocados: src/components/sections/Education.tsx:1, docs/ai/context.md:1.
+- Notas o riesgos: Ninguno.
+
+## 2025-11-19T03:00:00Z
+
+- Acciones: Reubicado el icono de certificacion junto a la institucion en las cards de Education y colocado la fecha arriba a la derecha, con el titulo y detalle debajo; ejecute `npm run lint`.
+- Decisiones y pendientes: Mantener este layout salvo nuevo feedback.
+- Proximos pasos: Ninguno inmediato.
+- Archivos tocados: src/components/sections/Education.tsx:1, docs/ai/context.md:1.
+- Notas o riesgos: Ninguno.

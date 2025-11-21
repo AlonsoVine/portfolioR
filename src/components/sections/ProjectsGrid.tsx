@@ -20,8 +20,7 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
 			<SectionHeading
 				eyebrow="Casos"
 				title="Proyectos destacados"
-				description="Tarjetas con efecto hover, badge de destacado y etiquetas de tecnologias más legibles."
-			/>
+				description="Una muestra de lo que construyo."/>
 			<div className="mt-12 grid gap-8 md:grid-cols-2">
 				{projects.map((project, index) => (
 					<motion.article
@@ -63,7 +62,7 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
 									);
 								})}
 							</div>
-							<div className="mt-auto grid grid-cols-1 gap-3 sm:grid-cols-2">
+							<div className={`mt-auto grid grid-cols-1 gap-3 ${project.links.demo ? "sm:grid-cols-2" : ""}`}>
 								<a
 									href={project.links.code}
 									target="_blank"
@@ -82,11 +81,7 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
 									>
 										Ver Demo
 									</a>
-								) : (
-									<div className="inline-flex items-center justify-center rounded-xl border border-soft/40 bg-white/5 px-5 py-3 text-sm font-semibold text-muted">
-										Demo no disponible
-									</div>
-								)}
+								) : null}
 							</div>
 						</div>
 					</motion.article>

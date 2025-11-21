@@ -26,3 +26,6 @@
 - Skills: El grid ahora muestra tarjetas agrupadas (Lenguajes, Frameworks, Cloud, Bases de Datos, Herramientas, Certificaciones) con iconos y etiquetas coloreadas según la referencia.
 - Skills data: Se sumaron JavaScript, Tailwind, MongoDB y Postman a sus grupos respectivos dentro de `skillCards`.
 - Proyectos: Se actualizaron los datos (Jardin Digital destacado, resto sin botón demo) y el grid para mostrar badge, pills de tecnología y manejo opcional de demo.
+- Proyectos UX: Ocultado el botón de demo cuando un proyecto no tiene demo definida, manteniendo solo el CTA de código.
+- Certificaciones: Cards en 3 columnas con imagen superior, badge “Certificación” en amarillo y fecha, destacando institución y descripción.
+- Certificaciones UX: Simplificado el encabezado mostrando el icono amarillo junto a la institución y la fecha a la derecha, con título y detalle debajo.

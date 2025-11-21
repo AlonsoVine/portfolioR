@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { Award } from "lucide-react";
 import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
 import { Education as EducationType } from "@/data/portfolio";
@@ -15,21 +16,18 @@ export function Education({ items }: EducationProps) {
   return (
     <SectionShell id="education">
       <SectionHeading
-        eyebrow="Formación"
-        title="Educación & especializaciones"
-        description="Cards con borde degradado y línea luminosa al hover. El copy final se reemplazará fácilmente."
+        eyebrow="Formacion"
+        title="Educacion & especializaciones"
+        description="Tarjetas con imagen superior y acentos amarillos para destacar certificaciones y cursos."
       />
-      <div className="mt-12 grid gap-6 lg:grid-cols-2">
+      <div className="mt-12 grid gap-6 lg:grid-cols-3">
         {items.map((item, index) => (
           <motion.div
             key={`${item.institution}-${item.dates}`}
             {...scrollRevealConfig}
             transition={{ delay: index * 0.05 }}
-            className="group relative overflow-hidden rounded-3xl surface-card shadow-[0_20px_60px_rgba(15,23,42,0.35)] transition-transform duration-300 hover:-translate-y-1"
+            className="group relative overflow-hidden rounded-3xl border border-soft/60 surface-card shadow-[0_20px_60px_rgba(15,23,42,0.35)] transition-transform duration-300 hover:-translate-y-1 hover:border-amber-200/60"
           >
-            <div className="absolute inset-0 opacity-0 transition-opacity duration-500 hover:opacity-100">
-              <div className="absolute inset-0 bg-gradient-to-r from-amber-200/10 via-transparent to-rose-300/20" />
-            </div>
             {item.image && (
               <div className="relative h-48 w-full overflow-hidden rounded-t-3xl">
                 <Image
@@ -43,10 +41,17 @@ export function Education({ items }: EducationProps) {
               </div>
             )}
             <div className="p-8">
-              <p className="text-sm uppercase tracking-[0.4em] text-subtle">{item.dates}</p>
-              <h3 className="mt-3 text-2xl font-semibold text-[var(--foreground)]">{item.title}</h3>
-              <p className="text-muted">{item.institution}</p>
-              <p className="mt-4 text-muted">{item.details}</p>
+              <div className="mb-3 flex items-center justify-between">
+                <div className="inline-flex items-center gap-3">
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-amber-300/15">
+                    <Award className="h-5 w-5 text-amber-200" aria-hidden="true" />
+                  </span>
+                  <p className="text-sm font-semibold text-amber-200/90">{item.institution}</p>
+                </div>
+                <span className="text-xs uppercase tracking-[0.35em] text-subtle">{item.dates}</span>
+              </div>
+              <h3 className="text-xl font-semibold text-[var(--foreground)]">{item.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted">{item.details}</p>
             </div>
           </motion.div>
         ))}
