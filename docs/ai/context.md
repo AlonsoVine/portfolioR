@@ -263,3 +263,11 @@
 - Proximos pasos: Opcionalmente agregar navegación entre certificados dentro del modal.
 - Archivos tocados: src/components/sections/Education.tsx:1, docs/ai/context.md:1.
 - Notas o riesgos: Ninguno identificado.
+
+## 2025-11-19T03:28:00Z
+
+- Acciones: Aplique el overlay hover de certificaciones a las cards de proyectos y reduje la intensidad del gradiente amarillo en el hover; corrí `npm run lint`.
+- Decisiones y pendientes: Mantener el glow más sutil salvo feedback.
+- Proximos pasos: Ninguno inmediato.
+- Archivos tocados: src/components/sections/ProjectsGrid.tsx:1, docs/ai/context.md:1.
+- Notas o riesgos: Ninguno.

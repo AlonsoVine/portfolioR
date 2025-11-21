@@ -31,3 +31,4 @@
 - Certificaciones UX: Simplificado el encabezado mostrando el icono amarillo junto a la institución y la fecha a la derecha, con título y detalle debajo.
 - Certificaciones hover: Las cards heredan el glow/hover del stack tecnológico con overlay degradado sutil.
 - Certificaciones modal: Ahora al hacer click se abre la imagen del certificado en un modal con cierre por overlay y tecla ESC.
+- Proyectos hover: Las cards de proyectos adoptan el overlay de certificaciones con gradiente amarillo más sutil.

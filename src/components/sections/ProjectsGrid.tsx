@@ -23,12 +23,15 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
 				description="Una muestra de lo que construyo."/>
 			<div className="mt-12 grid gap-8 md:grid-cols-2">
 				{projects.map((project, index) => (
-					<motion.article
+						<motion.article
 						key={project.title}
 						{...scrollRevealConfig}
 						transition={{ delay: index * 0.08 }}
-						className="group relative flex h-full flex-col overflow-hidden rounded-3xl surface-card shadow-[0_30px_80px_rgba(15,23,42,0.45)] backdrop-blur-xl transition-transform duration-500 hover:-translate-y-2 hover:shadow-[0_30px_120px_rgba(251,191,36,0.25)]"
+						className="group relative flex h-full flex-col overflow-hidden rounded-3xl surface-card shadow-[0_30px_80px_rgba(15,23,42,0.45)] backdrop-blur-xl transition-transform duration-500 hover:-translate-y-2 hover:shadow-[0_30px_100px_rgba(251,191,36,0.18)]"
 					>
+						<div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+							<div className="absolute inset-0 bg-gradient-to-br from-amber-200/8 via-transparent to-rose-300/8" />
+						</div>
 						<div className="relative overflow-hidden">
 							<Image
 								src={project.image}
