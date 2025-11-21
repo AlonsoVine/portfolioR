@@ -11,7 +11,10 @@ export function SectionHeading({ eyebrow, title, description, actions }: Section
   return (
     <div className="flex flex-col gap-3 text-center text-[var(--foreground)] md:text-left">
       {eyebrow && (
-        <span className="inline-flex items-center justify-center text-xs font-semibold uppercase tracking-[0.35em] text-amber-200/80">
+        <span
+          className="inline-flex items-center justify-center text-xs font-semibold uppercase tracking-[0.35em] opacity-80"
+          style={{ color: "var(--accent-warm)" }}
+        >
           {eyebrow}
         </span>
       )}

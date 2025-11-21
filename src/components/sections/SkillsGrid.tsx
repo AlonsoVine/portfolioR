@@ -21,7 +21,7 @@ const pillToneMap: Record<SkillCard["tone"], string> = {
 	green: "border-emerald-300/40 bg-emerald-300/15 text-emerald-100",
 	teal: "border-teal-300/40 bg-teal-300/15 text-teal-100",
 	purple: "border-violet-300/40 bg-violet-300/15 text-violet-50",
-	amber: "border-amber-300/40 bg-amber-300/15 text-amber-100",
+	amber: "border-[var(--accent-warm)] bg-[var(--accent-warm-soft)] text-[var(--accent-warm)]",
 };
 
 type SkillsGridProps = {
@@ -49,7 +49,7 @@ export function SkillsGrid({ groups }: SkillsGridProps) {
 							<div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-amber-200/5 via-transparent to-rose-300/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 							<div className="relative z-10 flex items-center gap-3">
 								<span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/5">
-									<Icon className="h-5 w-5 text-amber-200" aria-hidden="true" />
+									<Icon className="h-5 w-5 text-[var(--accent-warm)]" aria-hidden="true" />
 								</span>
 								<p className="text-lg font-semibold text-[var(--foreground)]">{group.title}</p>
 							</div>
@@ -70,3 +70,4 @@ export function SkillsGrid({ groups }: SkillsGridProps) {
 		</SectionShell>
 	);
 }
+

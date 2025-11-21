@@ -8,7 +8,12 @@ import { Project } from "@/data/portfolio";
 import { scrollRevealConfig } from "@/lib/utils";
 import { GithubIcon, Sparkles } from "lucide-react";
 
-const techPillPalette = ["border-emerald-300/40 bg-emerald-300/15 text-emerald-100", "border-sky-300/40 bg-sky-300/15 text-sky-100", "border-amber-300/40 bg-amber-300/15 text-amber-100", "border-violet-300/40 bg-violet-300/15 text-violet-100"];
+const techPillPalette = [
+	"border-emerald-300/40 bg-emerald-300/15 text-emerald-100",
+	"border-sky-300/40 bg-sky-300/15 text-sky-100",
+	"border-[var(--accent-warm)] bg-[var(--accent-warm-soft)] text-[var(--accent-warm)]",
+	"border-violet-300/40 bg-violet-300/15 text-violet-100",
+];
 
 type ProjectsGridProps = {
 	projects: Project[];
@@ -47,7 +52,7 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
 								<div className="flex items-center gap-3">
 									<h3 className="text-2xl font-semibold text-[var(--foreground)]">{project.title}</h3>
 									{project.featured ? (
-										<span className="inline-flex items-center gap-2 rounded-full bg-amber-300/15 px-3 py-1 text-xs font-semibold text-amber-200">
+										<span className="inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-warm-soft)] px-3 py-1 text-xs font-semibold text-[var(--accent-warm)]">
 											<Sparkles className="h-4 w-4" aria-hidden="true" />
 											Destacado
 										</span>

@@ -38,10 +38,10 @@ export function Education({ items }: EducationProps) {
             {...scrollRevealConfig}
             transition={{ delay: index * 0.05 }}
             onClick={() => setSelected(item)}
-            className="group relative h-full cursor-pointer overflow-hidden rounded-3xl border border-soft/60 surface-card shadow-[0_20px_60px_rgba(15,23,42,0.35)] transition-transform duration-300 hover:-translate-y-1 hover:border-amber-200/60"
+            className="group relative h-full cursor-pointer overflow-hidden rounded-3xl border border-soft/60 surface-card shadow-[0_20px_60px_rgba(15,23,42,0.35)] transition-transform duration-300 hover:-translate-y-1 hover:border-[color:var(--accent-warm)]/60"
           >
             <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-              <div className="absolute inset-0 bg-gradient-to-br from-amber-200/10 via-transparent to-rose-300/10" />
+              <div className="absolute inset-0 bg-gradient-to-br from-[color:var(--accent-warm-soft)] via-transparent to-rose-300/10" />
             </div>
             {item.image ? (
               <div className="relative h-48 w-full overflow-hidden rounded-t-3xl">
@@ -58,10 +58,10 @@ export function Education({ items }: EducationProps) {
             <div className="p-8">
               <div className="mb-3 flex items-center justify-between">
                 <div className="inline-flex items-center gap-3">
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-amber-300/15">
-                    <Award className="h-5 w-5 text-amber-200" aria-hidden="true" />
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[color:var(--accent-warm-soft)]">
+                    <Award className="h-5 w-5 text-[var(--accent-warm)]" aria-hidden="true" />
                   </span>
-                  <p className="text-sm font-semibold text-amber-200/90">{item.institution}</p>
+                  <p className="text-sm font-semibold text-[var(--accent-warm)]">{item.institution}</p>
                 </div>
                 <span className="text-xs uppercase tracking-[0.35em] text-subtle">{item.dates}</span>
               </div>

@@ -20,7 +20,7 @@ export function ExperienceTimeline({ experiences }: ExperienceTimelineProps) {
         description="Resumen de mi experiencia laboral en orden cronológico."
       />
       <div className="relative mt-16">
-        <div className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-gradient-to-b from-amber-200 via-white/60 to-rose-300 md:block" />
+        <div className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-gradient-to-b from-[color:var(--accent-warm-soft)] via-white/60 to-rose-300 md:block" />
         <div className="flex flex-col gap-16">
           {experiences.map((experience, index) => (
             <motion.div
@@ -38,8 +38,11 @@ export function ExperienceTimeline({ experiences }: ExperienceTimelineProps) {
                   <div className="flex flex-col gap-4">
                     <div className="flex flex-wrap items-start justify-between gap-4">
                       <h3 className="text-2xl font-semibold text-[var(--foreground)]">{experience.title}</h3>
-                      <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-amber-100/80">
-                        <CalendarDays className="h-4 w-4 text-amber-300" aria-hidden="true" />
+                      <div
+                        className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.35em] opacity-80"
+                        style={{ color: "var(--accent-warm)" }}
+                      >
+                        <CalendarDays className="h-4 w-4" aria-hidden="true" />
                         <span>{experience.period}</span>
                       </div>
                     </div>
@@ -88,8 +91,8 @@ export function ExperienceTimeline({ experiences }: ExperienceTimelineProps) {
               </div>
               <div className="pointer-events-none relative hidden h-full w-10 md:flex">
                 <span className="absolute left-1/2 top-[52px] z-20 flex -translate-x-1/2 items-center justify-center">
-                  <span className="absolute inline-flex h-5 w-5 animate-ping rounded-full bg-amber-300/35" />
-                  <span className="relative inline-flex h-3 w-3 rounded-full bg-amber-300 ring-2 ring-[var(--background)]" />
+                  <span className="absolute inline-flex h-5 w-5 animate-ping rounded-full bg-[color:var(--accent-warm-soft)]" />
+                  <span className="relative inline-flex h-3 w-3 rounded-full bg-[color:var(--accent-warm)] ring-2 ring-[var(--background)]" />
                 </span>
               </div>
               <div className={`hidden flex-1 md:block ${experience.position === "left" ? "order-2" : ""}`} />

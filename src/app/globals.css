@@ -11,6 +11,8 @@
   --border-soft: rgba(255, 255, 255, 0.12);
   --border-strong: rgba(255, 255, 255, 0.2);
   --accent: linear-gradient(135deg, #fbbf24, #fb7185, #a855f7);
+  --accent-warm: #fbbf24;
+  --accent-warm-soft: rgba(251, 191, 36, 0.15);
   --hero-cta-surface: #050b21;
   --hero-cta-surface-hover: #080f26;
   color-scheme: dark;
@@ -27,6 +29,8 @@
   --border-soft: rgba(15, 23, 42, 0.08);
   --border-strong: rgba(15, 23, 42, 0.12);
   --accent: linear-gradient(135deg, #f97316, #fb7185, #6366f1);
+  --accent-warm: #e36927;
+  --accent-warm-soft: rgba(227, 105, 39, 0.15);
   --hero-cta-surface: #fff3e0;
   --hero-cta-surface-hover: #ffe9c7;
   color-scheme: light;
@@ -127,3 +131,4 @@ body {
   background-color: rgba(251, 191, 36, 0.35);
   color: #0f172a;
 }
+

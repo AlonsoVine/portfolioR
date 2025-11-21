@@ -65,7 +65,7 @@ export function About({ paragraphs, highlights = aboutContent.highlights }: Abou
 											className="rounded-2xl bg-black/20 p-4 text-left text-[var(--foreground)] shadow-[0_15px_35px_rgba(15,23,42,0.25)]"
 										>
 											<div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/5">
-												<Icon className="h-5 w-5 text-amber-200" aria-hidden="true" />
+												<Icon className="h-5 w-5 text-[var(--accent-warm)]" aria-hidden="true" />
 											</div>
 											<h4 className="text-sm font-semibold">{item.title}</h4>
 											<p className="mt-1 text-xs text-muted">{item.description}</p>

@@ -311,3 +311,27 @@
 - Proximos pasos: Evaluar si se requiere otra iteración con medidas dinámicas.
 - Archivos tocados: src/components/sections/ExperienceTimeline.tsx:1, docs/ai/context.md:1.
 - Notas o riesgos: Ninguno.
+
+## 2025-11-19T04:25:00Z
+
+- Acciones: Apliqué el tono naranja oscuro (#d97706) para modo claro mediante variables `--accent-warm`/`--accent-warm-soft` y lo usé en SectionHeading, Skills (pills/iconos), Projects (badge/pills), About, Education e indicadores de la timeline; corrí `npm run lint`.
+- Decisiones y pendientes: El header mantiene el hover amber original; pendiente decidir si también se actualiza.
+- Proximos pasos: Revisar en light si queda algún amarillo residual y ajustarlo.
+- Archivos tocados: src/app/globals.css, src/components/shared/SectionHeading.tsx, src/components/sections/SkillsGrid.tsx, src/components/sections/ProjectsGrid.tsx, src/components/sections/About.tsx, src/components/sections/Education.tsx, src/components/sections/ExperienceTimeline.tsx, docs/ai/context.md.
+- Notas o riesgos: Ninguno.
+
+## 2025-11-19T04:50:00Z
+
+- Acciones: Definí variables `--accent-warm`/`--accent-warm-soft` (dark: #fbbf24, light: #e36927) y las apliqué a iconos/badges en Skills, About, Education y timeline. Restauré los chips de tecnologías de proyectos a estilo neutro (borde-soft, fondo blanco/5). Ejecuté `npm run lint`.
+- Decisiones y pendientes: Pendiente evaluar si se aplica el acento cálido al hover del header.
+- Proximos pasos: Revisar el resto de acentos en modo claro y ajustar si es necesario.
+- Archivos tocados: src/app/globals.css, src/components/sections/SkillsGrid.tsx, src/components/sections/ProjectsGrid.tsx, src/components/sections/About.tsx, src/components/sections/Education.tsx, docs/ai/context.md.
+- Notas o riesgos: Chips de tecnologías vuelven a un estado similar al original para evitar problemas de contraste.
+
+## 2025-11-19T05:05:00Z
+
+- Acciones: Volví a aplicar la paleta de chips multicolor en proyectos con soporte para los nuevos tonos cálidos (sin tocar chips de cert/otros) y dejé consistencia light/dark mediante `--accent-warm`; corrí `npm run lint`.
+- Decisiones y pendientes: Mantener los chips de proyectos con colores diferenciados; pendiente revisar si alguna otra sección requiere revertir estilos similares.
+- Proximos pasos: Ninguno inmediato.
+- Archivos tocados: src/components/sections/ProjectsGrid.tsx, docs/ai/context.md.
+- Notas o riesgos: Ninguno.

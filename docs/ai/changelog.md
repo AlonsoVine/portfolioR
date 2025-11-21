@@ -34,3 +34,7 @@
 - Proyectos hover: Las cards de proyectos adoptan el overlay de certificaciones con gradiente amarillo más sutil.
 - Timeline: Los nodos amarillos se alinean ahora con el título de cada card sobre la línea central.
 - Timeline ring: El nodo amarillo ahora “corta” la línea central con un ring que usa el color de fondo para integrarlo.
+- Skills (light mode): Acentos amarillos sustituidos por un naranja cálido configurable para mejorar la legibilidad en modo claro.
+- Acentos cálidos: SectionHeading, Skills, Projects, About, Education y timeline adoptan el tono naranja #d97706 para modo claro mediante `--accent-warm`.
+- Chips proyectos: Etiquetas de tecnologías vuelven a un estilo neutro (borde-soft, fondo blanco/5) para mantener contraste en ambos modos.
+- Chips proyectos (color): Se restaura la paleta multicolor en proyectos usando `--accent-warm` para el tono amber y colores diferenciados para el resto.
