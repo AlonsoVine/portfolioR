@@ -255,3 +255,11 @@
 - Proximos pasos: Ninguno.
 - Archivos tocados: src/components/sections/Education.tsx:1, docs/ai/context.md:1.
 - Notas o riesgos: Ninguno.
+
+## 2025-11-19T03:20:00Z
+
+- Acciones: Añadí modal en certificaciones para abrir la imagen al hacer click (soporte ESC y cierre por overlay), moviendo estado/control a `src/components/sections/Education.tsx`; corrí `npm run lint`.
+- Decisiones y pendientes: Uso la imagen PNG/JPG para una vista rápida sin PDF; pendiente decidir si mostrar PDFs en el futuro.
+- Proximos pasos: Opcionalmente agregar navegación entre certificados dentro del modal.
+- Archivos tocados: src/components/sections/Education.tsx:1, docs/ai/context.md:1.
+- Notas o riesgos: Ninguno identificado.
