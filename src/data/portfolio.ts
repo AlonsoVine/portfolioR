@@ -208,9 +208,12 @@ export const skillCards: SkillCard[] = [
     tone: "amber",
     items: [
       "EF SET (C2 Proficient)",
+      "LPI Linux",
       "AWS Cloud Practitioner",
+      "Prompt Engineering",
       "GitHub Foundations",
-      "LPI Linux Essentials",
+      "Introducing AI",
+      "AI for Developers",
     ],
   },
 ];
