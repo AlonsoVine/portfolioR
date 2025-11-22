@@ -27,9 +27,9 @@ export function Education({ items }: EducationProps) {
   return (
     <SectionShell id="education">
       <SectionHeading
-        eyebrow="Formacion"
+        eyebrow="Formación"
         title="Educacion & especializaciones"
-        description="Mi formacion y certificaciones mas relevantes."
+        description="Mi formacion, titulaciones y certificados mas relevantes."
       />
       <div className="mt-12 grid gap-6 lg:grid-cols-3">
         {items.map((item, index) => (

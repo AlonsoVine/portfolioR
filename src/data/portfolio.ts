@@ -375,6 +375,33 @@ export const projects: Project[] = [
 ];
 export const education: Education[] = [
   {
+    institution: "Universidad Nebrija",
+    title: "Prompt Engineering",
+    dates: "2025",
+    details:
+      "Curso universitario en Prompt Engineering orientado al diseño, optimización e integración de prompts avanzados para sistemas de IA generativa. Incluye fundamentos de IA, creación de chatbots, mejora de interacción, aplicación ética y despliegue de soluciones basadas en ChatGPT en entornos web y aplicaciones.",
+    image:
+      "/images/certificados/Certificado-UniversidadNebrija-PromptEngineering.jpg",
+  },
+  {
+    institution: " Universitat Oberta de Catalunya",
+    title: "Iniciación a la Inteligencia Artificial",
+    dates: "2025",
+    details:
+      "Certificado universitario de formación continua en fundamentos de Inteligencia Artificial, con 24 créditos ECTS y una dedicación de 600 horas. Proporciona conocimientos esenciales sobre los principios de la IA, su contexto académico y su aplicación en entornos reales.",
+    image:
+      "/images/certificados/Certificado-UOC-Iniciacion-IA_page-0001.jpg",
+  },
+  {
+    institution: "UTAMED",
+    title: "Inteligencia Artificial para Programadores",
+    dates: "2025",
+    details:
+      "Curso universitario especializado de 200 horas enfocado en el uso práctico de la IA en desarrollo de software. Incluye aprendizaje automático, redes neuronales, NLP, visión artificial, big data, optimización de modelos y despliegue en producción, proporcionando una base sólida y aplicada en IA moderna.",
+    image:
+      "/images/certificados/Certificado-Utamed-InteligenciaArtificialParaProgramadores_page-0001.jpg",
+  },
+  {
     institution: "AWS",
     title: "AWS Certified Cloud Practitioner",
     dates: "2024",
@@ -432,3 +459,4 @@ export const education: Education[] = [
     image: "/images/certificados/Udemy_certificate_Selenium.jpg",
   },
 ];
+

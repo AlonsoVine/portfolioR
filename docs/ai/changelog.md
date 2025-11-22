@@ -45,3 +45,7 @@
 
 - About hover: Se agregó animación sutil al hover de la imagen (elevación, glow y escala suave) manteniendo el fallback comentado.
 
+- Certificados: Corregidas rutas de los primeros títulos (UOC) y copiados los assets Nebrija/UOC/UTAMED a public/images/certificados para que carguen en Education.
+
+- Encoding: Reescrito src/data/portfolio.ts en UTF-8 para eliminar bytes inválidos que rompían el parseo; rutas de certificados (incluida UOC) apuntan a los assets en public/images/certificados.
+

@@ -388,3 +388,15 @@
 - Archivos tocados: src/components/sections/About.tsx.
 - Notas o riesgos: Ninguno.
 
+- Acciones: Corregí la ruta del certificado UOC a /images/certificados/Certificado-UOC-Iniciacion-IA_page-0001.jpg y copié los certificados (Nebrija, UOC, UTAMED) a public/images/certificados para que carguen en Education.
+- Decisiones y pendientes: Mantener nombres ASCII en public para evitar problemas de encoding; pendiente migrar el resto si aparecen nuevos certificados con tildes.
+- Proximos pasos: Validar en la UI que los tres primeros certificados se muestran y se abren en el modal.
+- Archivos tocados: src/data/portfolio.ts; public/images/certificados/Certificado-UniversidadNebrija-PromptEngineering.jpg; public/images/certificados/Certificado-UOC-Iniciacion-IA_page-0001.jpg; public/images/certificados/Certificado-Utamed-InteligenciaArtificialParaProgramadores_page-0001.jpg.
+- Notas o riesgos: Evitar rutas con caracteres especiales en futuros assets.
+
+- Acciones: Reescribí src/data/portfolio.ts en UTF-8 (estaba con bytes inválidos) para que Next/Turbopack pueda parsear; confirmada la ruta del certificado UOC en /images/certificados/Certificado-UOC-Iniciacion-IA_page-0001.jpg.
+- Decisiones y pendientes: Mantener todo el archivo en UTF-8; pendiente migrar otros archivos si presentan encoding cp1252.
+- Proximos pasos: Correr build/refresh para verificar que el error de invalid utf-8 desaparece y que los primeros certificados cargan.
+- Archivos tocados: src/data/portfolio.ts, docs/ai/context.md.
+- Notas o riesgos: Evitar pegar texto con acentos desde fuentes con encoding distinto sin guardar en UTF-8.
+
