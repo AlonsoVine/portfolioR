@@ -376,3 +376,15 @@
 - Archivos tocados: src/components/sections/About.tsx; public/assets/img/about-img.png.
 - Notas o riesgos: Ninguno.
 
+- Acciones: Añadí una animación hover al contenedor de la imagen en 'Conóceme mejor' (lift, glow y scale suave) sin alterar la imagen base; se mantiene el respaldo comentado.
+- Decisiones y pendientes: Mantener este hover mientras guste; pendiente ajustar intensidad si resulta excesivo.
+- Proximos pasos: Validar visualmente en ambos temas.
+- Archivos tocados: src/components/sections/About.tsx.
+- Notas o riesgos: El blur y glow pueden impactar levemente en dispositivos modestos.
+
+- Acciones: Añadí overlay de texto 'Alonso Viñé' en la imagen de About, apareciendo con transición suave al hover y desapareciendo al salir; mantiene el glow y escala previos.
+- Decisiones y pendientes: Mantener esta animación mientras guste; pendiente ajustar tamaño/opacidad si se requiere mayor sutileza.
+- Proximos pasos: Validar visualmente en ambos temas.
+- Archivos tocados: src/components/sections/About.tsx.
+- Notas o riesgos: Ninguno.
+

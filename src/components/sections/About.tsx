@@ -30,16 +30,22 @@ export function About({ paragraphs, highlights = aboutContent.highlights }: Abou
 			<div className="mt-12 grid gap-10 md:grid-cols-2 md:items-center">
 				<motion.div
 					{...scrollRevealConfig}
-					className="relative rounded-[32px] border-soft bg-gradient-to-b from-white/20 to-transparent p-2 shadow-[0_30px_80px_rgba(15,23,42,0.45)] backdrop-blur-xl"
+					className="group relative rounded-[32px] border-soft bg-gradient-to-b from-white/20 to-transparent p-2 shadow-[0_30px_80px_rgba(15,23,42,0.45)] backdrop-blur-xl transition-transform duration-500 ease-out hover:-translate-y-1"
 				>
-					<div className="overflow-hidden rounded-[28px]">
+					<div className="relative overflow-hidden rounded-[28px]">
+						<div className="pointer-events-none absolute inset-0 rounded-[28px] bg-gradient-to-br from-white/10 via-transparent to-amber-200/10 opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100" />
 						<Image
 							src="/assets/img/about-img.png"
 							alt="Alonso Vine - Desarrollador y Analista"
 							width={640}
 							height={640}
-							className="h-full w-full object-cover"
+							className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
 						/>
+						<div className="pointer-events-none absolute inset-0 flex items-end justify-start p-4">
+							<span className="translate-y-2 opacity-0 text-lg font-semibold text-white drop-shadow-[0_6px_18px_rgba(0,0,0,0.45)] transition-all duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100">
+								Alonso Viñé
+							</span>
+						</div>
 						{/* Imagen anterior conservada por si se desea volver
 						<Image
 							src="/images/profile.png"

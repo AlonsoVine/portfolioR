@@ -43,3 +43,5 @@
 - Paleta chips inline: Se aÃ±adieron tonos rose/teal en `globals.css`, se dieron colores Ãºnicos a cada card de Skills (Herramientas pasa a rose) y los chips de Skills/Proyectos usan estilos inline basados en variables para asegurar contraste en light/dark.
 - About: Actualizada la imagen principal de 'Conóceme mejor' a /assets/img/about-img.png y se dejó la anterior comentada como respaldo.
 
+- About hover: Se agregó animación sutil al hover de la imagen (elevación, glow y escala suave) manteniendo el fallback comentado.
+
