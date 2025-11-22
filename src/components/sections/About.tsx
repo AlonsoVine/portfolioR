@@ -34,12 +34,21 @@ export function About({ paragraphs, highlights = aboutContent.highlights }: Abou
 				>
 					<div className="overflow-hidden rounded-[28px]">
 						<Image
+							src="/assets/img/about-img.png"
+							alt="Alonso Vine - Desarrollador y Analista"
+							width={640}
+							height={640}
+							className="h-full w-full object-cover"
+						/>
+						{/* Imagen anterior conservada por si se desea volver
+						<Image
 							src="/images/profile.png"
 							alt="Alonso Vine - Desarrollador y Analista"
 							width={640}
 							height={640}
 							className="h-full w-full object-cover"
 						/>
+						*/}
 					</div>
 					<div className="absolute -inset-1 rounded-[34px] border-soft opacity-70 blur-xl" />
 				</motion.div>

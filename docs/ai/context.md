@@ -367,3 +367,12 @@
 - Proximos pasos: Ajustar si algÃºn color resulta demasiado suave o si se piden nuevos matices.
 - Archivos tocados: src/app/globals.css, src/components/sections/SkillsGrid.tsx, src/components/sections/ProjectsGrid.tsx, src/data/portfolio.ts.
 - Notas o riesgos: Las variables nuevas deben mantenerse sincronizadas con futuros usos de chips para evitar disparidad de colores.
+
+## 2025-11-19T06:50:00Z
+
+- Acciones: Corregí la ruta de la imagen de 'Conóceme mejor' a /assets/img/about-img.png y copié el recurso a public/assets/img; la imagen previa queda comentada como respaldo en About.tsx.
+- Decisiones y pendientes: Mantener esta foto hasta nuevo aviso; pendiente decidir si volver al video o ajustar el recorte.
+- Proximos pasos: Validar visualmente que la imagen ahora se muestre en ambos temas y dispositivos.
+- Archivos tocados: src/components/sections/About.tsx; public/assets/img/about-img.png.
+- Notas o riesgos: Ninguno.
+

@@ -41,3 +41,5 @@
 - Paleta chips: Variables `--pill-*` definen tonos por tema (oscuro/claro) para chips en Skills y Proyectos, reforzando visibilidad en modo claro.
 - Paleta chips fix: Corregida la sintaxis de variables `var(--pill-*)` en Skills y Proyectos para recuperar los colores previstos en ambos temas.
 - Paleta chips inline: Se aÃ±adieron tonos rose/teal en `globals.css`, se dieron colores Ãºnicos a cada card de Skills (Herramientas pasa a rose) y los chips de Skills/Proyectos usan estilos inline basados en variables para asegurar contraste en light/dark.
+- About: Actualizada la imagen principal de 'Conóceme mejor' a /assets/img/about-img.png y se dejó la anterior comentada como respaldo.
+
