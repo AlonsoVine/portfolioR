@@ -375,7 +375,7 @@ export const projects: Project[] = [
 ];
 export const education: Education[] = [
   {
-    institution: "UTAMED",
+    institution: "Universidad Tecnológica",
     title: "Inteligencia Artificial para Programadores",
     dates: "2025",
     details:
