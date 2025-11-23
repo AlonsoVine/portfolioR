@@ -60,3 +60,4 @@
 - Educación: Las descripciones en EN de las primeras certificaciones se traducen en render y resaltan en negrita las palabras técnicas (AI, ML, NLP, ECTS, horas, etc.), manteniendo títulos e instituciones originales.
 - Educación: Todas las descripciones en EN provienen del diccionario traducido y los términos técnicos se resaltan en negrita solo al mostrar en inglés.
 - Timeline: Cards ahora tienen el hover/glow de Education (elevación, gradiente sutil y sombra reforzada).
+- Fixes: Keys únicas en SkillsGrid y data-theme=dark en html para minimizar errores de hidratación.

@@ -56,9 +56,9 @@ export function SkillsGrid() {
 								<p className="text-lg font-semibold text-[var(--foreground)]">{group.title}</p>
 							</div>
 							<div className="relative z-10 flex flex-wrap gap-2">
-								{group.items.map((item) => (
+								{group.items.map((item, idx) => (
 									<span
-										key={item}
+										key={`${item}-${idx}`}
 										className="rounded-full border px-3 py-1 text-xs font-semibold"
 										style={{
 											borderColor: `var(${toneKey}-border)`,
