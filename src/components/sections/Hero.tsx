@@ -27,6 +27,7 @@ export function Hero() {
 	const { hero, socialLinks } = dict;
 	const { eyebrow, title, role, subtitle, image, ctas } = hero;
 	const cvHref = `${process.env.NEXT_PUBLIC_BASE_PATH || ""}${ctas.secondary.href}`;
+	const prefix: string = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 	const { scrollY } = useScroll();
 	const translate = useTransform(scrollY, [0, 400], [0, -40]);
 	const rotate = useTransform(scrollY, [0, 400], [0, -3]);
