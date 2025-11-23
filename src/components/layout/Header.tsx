@@ -5,14 +5,13 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { ThemeToggle } from "../ui/ThemeToggle";
-import { NavLink } from "@/data/portfolio";
+import { LanguageToggle } from "../ui/LanguageToggle";
+import { useLanguage } from "@/i18n";
 import { cn } from "@/lib/utils";
 
-type HeaderProps = {
-  links: NavLink[];
-};
-
-export function Header({ links }: HeaderProps) {
+export function Header() {
+  const { dict } = useLanguage();
+  const links = dict.nav.links;
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -24,11 +23,7 @@ export function Header({ links }: HeaderProps) {
   }, []);
 
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = open ? "hidden" : "";
   }, [open]);
 
   return (
@@ -69,6 +64,7 @@ export function Header({ links }: HeaderProps) {
         </nav>
 
         <div className="flex items-center gap-3">
+          <LanguageToggle />
           <ThemeToggle />
           <button
             className="inline-flex h-10 w-10 items-center justify-center rounded-full border-soft text-[var(--foreground)] transition-all duration-300 hover:scale-105 md:hidden"
@@ -102,4 +98,3 @@ export function Header({ links }: HeaderProps) {
     </header>
   );
 }
-

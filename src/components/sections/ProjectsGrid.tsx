@@ -4,25 +4,39 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
-import { Project } from "@/data/portfolio";
 import { scrollRevealConfig } from "@/lib/utils";
 import { GithubIcon, Sparkles } from "lucide-react";
+import { useLanguage } from "@/i18n";
 
 const techPillPalette = ["--pill-emerald", "--pill-sky", "--pill-amber", "--pill-violet", "--pill-rose", "--pill-teal"];
+const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
-type ProjectsGridProps = {
-	projects: Project[];
+const highlightTech = (text: string, techs?: string[]) => {
+	if (!techs?.length) return text;
+	const pattern = techs.map(escapeRegExp).join("|");
+	if (!pattern) return text;
+	const regex = new RegExp(`(${pattern})`, "gi");
+	const parts = text.split(regex);
+	return parts.map((part, idx) =>
+		regex.test(part) ? (
+			<em key={`${part}-${idx}`} className="italic not-italic font-semibold text-[var(--foreground)]">
+				{part}
+			</em>
+		) : (
+			<span key={`${part}-${idx}`}>{part}</span>
+		),
+	);
 };
 
-export function ProjectsGrid({ projects }: ProjectsGridProps) {
+export function ProjectsGrid() {
+	const { dict } = useLanguage();
+	const { projects } = dict;
+
 	return (
 		<SectionShell id="projects">
-			<SectionHeading
-				eyebrow="Casos"
-				title="Proyectos destacados"
-				description="Una muestra de lo que construyo."/>
+			<SectionHeading eyebrow={projects.eyebrow} title={projects.title} description={projects.description} />
 			<div className="mt-12 grid gap-8 md:grid-cols-2">
-				{projects.map((project, index) => (
+				{projects.items.map((project, index) => (
 						<motion.article
 						key={project.title}
 						{...scrollRevealConfig}
@@ -49,11 +63,11 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
 									{project.featured ? (
 										<span className="inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-warm-soft)] px-3 py-1 text-xs font-semibold text-[var(--accent-warm)]">
 											<Sparkles className="h-4 w-4" aria-hidden="true" />
-											Destacado
+											{projects.featuredLabel}
 										</span>
 									) : null}
 								</div>
-								<p className="text-base text-muted">{project.description}</p>
+								<p className="text-base text-muted">{highlightTech(project.description, project.tech)}</p>
 							</div>
 							<div className="flex flex-wrap gap-2">
 								{project.tech.map((tech, i) => {
@@ -81,7 +95,7 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
 									className="inline-flex items-center justify-center gap-2 rounded-xl border border-soft bg-black/20 px-5 py-3 text-sm font-semibold text-[var(--foreground)] transition-all duration-300 hover:-translate-y-0.5 hover:border-amber-300"
 								>
 									<GithubIcon className="h-4 w-4" aria-hidden="true" />
-									Codigo
+									{projects.codeLabel}
 								</a>
 								{project.links.demo ? (
 									<a
@@ -90,7 +104,7 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
 										rel="noreferrer"
 										className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 px-5 py-3 text-sm font-semibold text-slate-900 shadow-[0_20px_50px_rgba(52,211,153,0.35)] transition-all duration-300 hover:-translate-y-0.5"
 									>
-										Ver Demo
+										{projects.demoLabel}
 									</a>
 								) : null}
 							</div>

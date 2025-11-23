@@ -3,28 +3,50 @@
 import { motion } from "framer-motion";
 import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
-import { Experience } from "@/data/portfolio";
 import { scrollRevealConfig } from "@/lib/utils";
 import { Building2, BriefcaseBusiness, MapPin, CalendarDays } from "lucide-react";
+import { useLanguage } from "@/i18n";
 
-type ExperienceTimelineProps = {
-  experiences: Experience[];
+const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+const highlightTech = (text: string, techs?: string[]) => {
+  if (!techs?.length) return text;
+  const pattern = techs.map(escapeRegExp).join("|");
+  if (!pattern) return text;
+  const regex = new RegExp(`(${pattern})`, "gi");
+  const parts = text.split(regex);
+  return parts.map((part, idx) =>
+    regex.test(part) ? (
+      <em key={`${part}-${idx}`} className="italic not-italic font-semibold text-[var(--foreground)]">
+        {part}
+      </em>
+    ) : (
+      <span key={`${part}-${idx}`}>{part}</span>
+    )
+  );
 };
 
-export function ExperienceTimeline({ experiences }: ExperienceTimelineProps) {
+export function ExperienceTimeline() {
+  const { dict } = useLanguage();
+  const experiences = dict.experiences;
+  const heading = dict.experienceHeading;
+  const techLabel =
+    (heading as any)?.techLabel ??
+    (dict.lang === "en" ? "Technologies used" : "Tecnologias utilizadas");
+
   return (
     <SectionShell id="experience">
       <SectionHeading
-        eyebrow="Experiencia"
-        title="Timeline profesional"
-        description="Resumen de mi experiencia laboral en orden cronológico."
+        eyebrow={heading.eyebrow}
+        title={heading.title}
+        description={heading.description}
       />
       <div className="relative mt-16">
         <div className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-gradient-to-b from-[color:var(--accent-warm-soft)] via-white/60 to-rose-300 md:block" />
         <div className="flex flex-col gap-16">
           {experiences.map((experience, index) => (
             <motion.div
-              key={`${experience.company}-${experience.period}`}
+              key={`${experience.company}-${experience.period}-${experience.title}`}
               {...scrollRevealConfig}
               transition={{ delay: index * 0.08 }}
               className="relative flex flex-col md:flex-row md:items-start"
@@ -65,15 +87,15 @@ export function ExperienceTimeline({ experiences }: ExperienceTimelineProps) {
                       )}
                     </div>
                     <ul className="mt-1 space-y-2 text-muted">
-                      {experience.bullets.map((bullet) => (
-                        <li key={bullet} className="leading-relaxed">
-                          {bullet}
+                      {experience.bullets.map((bullet, idx) => (
+                        <li key={`${experience.company}-${idx}`} className="leading-relaxed">
+                          {highlightTech(bullet, experience.tech)}
                         </li>
                       ))}
                     </ul>
                     {experience.tech?.length ? (
                       <div className="mt-4 border-t border-soft/40 pt-4">
-                        <p className="text-xs uppercase tracking-[0.35em] text-muted">Tecnologias utilizadas</p>
+                        <p className="text-xs uppercase tracking-[0.35em] text-muted">{techLabel}</p>
                         <div className="mt-3 flex flex-wrap gap-2">
                           {experience.tech.map((item) => (
                             <span

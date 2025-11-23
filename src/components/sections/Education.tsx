@@ -6,15 +6,30 @@ import { useEffect, useState } from "react";
 import { Award, X } from "lucide-react";
 import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
-import { Education as EducationType } from "@/data/portfolio";
 import { scrollRevealConfig } from "@/lib/utils";
+import { useLanguage } from "@/i18n";
 
-type EducationProps = {
-  items: EducationType[];
+type EducationItem = ReturnType<typeof useLanguage>["dict"]["education"]["items"][number];
+
+const highlightKeywords = (text: string) => {
+  const regex =
+    /\b(AI|Artificial Intelligence|machine learning|neural networks?|NLP|computer vision|big data|model optimization|production deployment|ChatGPT|AWS|Cloud|GitHub|Linux|Power Apps|Power Automate|Power BI|Selenium|Scrum|Python|ECTS|24 ECTS|200 hours|600 hours)\b/gi;
+  const parts = text.split(regex);
+  return parts.map((part, idx) =>
+    regex.test(part) ? (
+      <strong key={`${part}-${idx}`} className="font-semibold">
+        {part}
+      </strong>
+    ) : (
+      <span key={`${part}-${idx}`}>{part}</span>
+    ),
+  );
 };
 
-export function Education({ items }: EducationProps) {
-  const [selected, setSelected] = useState<EducationType | null>(null);
+export function Education() {
+  const { dict, lang } = useLanguage() as { dict: any; lang: "es" | "en" };
+  const heading = dict.education;
+  const [selected, setSelected] = useState<EducationItem | null>(null);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -26,15 +41,11 @@ export function Education({ items }: EducationProps) {
 
   return (
     <SectionShell id="education">
-      <SectionHeading
-        eyebrow="Formación"
-        title="Educacion & especializaciones"
-        description="Mi formacion, titulaciones y certificados mas relevantes."
-      />
+      <SectionHeading eyebrow={heading.eyebrow} title={heading.title} description={heading.description} />
       <div className="mt-12 grid gap-6 lg:grid-cols-3">
-        {items.map((item, index) => (
+        {heading.items.map((item, index) => (
           <motion.div
-            key={`${item.institution}-${item.dates}`}
+            key={`${item.institution}-${item.dates}-${item.title}`}
             {...scrollRevealConfig}
             transition={{ delay: index * 0.05 }}
             onClick={() => setSelected(item)}
@@ -61,12 +72,14 @@ export function Education({ items }: EducationProps) {
                   <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[color:var(--accent-warm-soft)]">
                     <Award className="h-5 w-5 text-[var(--accent-warm)]" aria-hidden="true" />
                   </span>
-                  <p className="text-sm font-semibold text-[var(--accent-warm)]">{item.institution}</p>
+                  <p className="text-sm font-semibold text-[color:var(--accent-warm)]">{item.institution}</p>
                 </div>
                 <span className="text-xs uppercase tracking-[0.35em] text-subtle">{item.dates}</span>
               </div>
               <h3 className="text-xl font-semibold text-[var(--foreground)]">{item.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{item.details}</p>
+              <p className="mt-3 text-sm leading-relaxed text-muted">
+                {lang === "en" ? highlightKeywords(item.details) : item.details}
+              </p>
             </div>
           </motion.div>
         ))}
@@ -106,3 +119,4 @@ export function Education({ items }: EducationProps) {
     </SectionShell>
   );
 }
+

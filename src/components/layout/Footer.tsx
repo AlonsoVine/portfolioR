@@ -1,16 +1,19 @@
+"use client";
+
 import Image from "next/image";
 import { GithubIcon, Linkedin } from "lucide-react";
-import { socialLinks } from "@/data/portfolio";
+import { useLanguage } from "@/i18n";
 
 const socialIconMap = {
 	linkedin: Linkedin,
 	github: GithubIcon,
 } as const;
 
-const footerSocials = socialLinks.filter((link) => link.icon === "linkedin" || link.icon === "github");
-
 export function Footer() {
+	const { dict } = useLanguage();
 	const year = new Date().getFullYear();
+	const footerSocials = dict.socialLinks.filter((link) => link.icon === "linkedin" || link.icon === "github");
+	const footer = dict.footer;
 
 	return (
 		<footer className="mt-24 border-t border-soft/60 py-10 text-sm text-subtle">
@@ -20,7 +23,7 @@ export function Footer() {
 						<Image src="/images/logo.png" alt="Logotipo" width={36} height={36} />
 						<div>
 							<p className="font-semibold text-[var(--foreground)]">{"Alonso Vi\u00F1\u00E9"}</p>
-							<p className="text-xs uppercase tracking-[0.35em] text-muted">Desarrollador y Analista</p>
+							<p className="text-xs uppercase tracking-[0.35em] text-muted">{footer.tagline}</p>
 						</div>
 					</div>
 					<div className="flex flex-wrap justify-center gap-3">
@@ -45,12 +48,10 @@ export function Footer() {
 				</div>
 				<div className="flex flex-col gap-2 text-center text-xs text-subtle sm:flex-row sm:items-center sm:justify-between">
 					<div className="flex flex-col gap-1">
-						<p>
-							Hecho con <span className="text-rose-300">♥</span> por {"Alonso Vi\u00F1\u00E9"}
-						</p>
-						<p>© {year} Todos los derechos reservados.</p>
+						<p>{footer.madeWith}</p>
+						<p>{footer.rights(year)}</p>
 					</div>
-					<p className="text-subtle">Desarrollado con React, Tailwind CSS y mucho cafe ☕</p>
+					<p className="text-subtle">{footer.builtWith}</p>
 				</div>
 			</div>
 		</footer>

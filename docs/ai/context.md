@@ -400,3 +400,61 @@
 - Archivos tocados: src/data/portfolio.ts, docs/ai/context.md.
 - Notas o riesgos: Evitar pegar texto con acentos desde fuentes con encoding distinto sin guardar en UTF-8.
 
+- Acciones: Añadí sistema i18n ligero (locales ES/EN, provider con persistencia) y un LanguageToggle en el header junto al switch de tema; preparado para integrar textos traducidos sin alterar nombres propios.
+- Decisiones y pendientes: Falta propagar el uso del diccionario a las secciones; mantener ES como base actual y traducir a EN solo los textos genéricos.
+- Proximos pasos: Inyectar diccionarios en Hero, About, Skills, Experience, Projects, Education, Contact, Footer/Nav.
+- Archivos tocados: src/i18n/index.tsx; src/i18n/locales/es.ts; src/i18n/locales/en.ts; src/app/layout.tsx; src/components/ui/LanguageToggle.tsx; src/components/layout/Header.tsx.
+- Notas o riesgos: Los datos aún no leen del diccionario; el toggle cambiará el estado pero hay que conectar las vistas.
+
+- Acciones: Intenté conectar Header al provider de idioma (LanguageToggle + diccionarios), pero todavía no pasé las secciones a usar dict; también quedó el toggle duplicado por un mal apply, por eso rehice Header para limpiarlo.
+- Decisiones y pendientes: Falta conectar todas las secciones (Hero, About, Skills, Experience, Projects, Education, Contact, Footer/Nav) a useLanguage/dict para que el toggle ES/EN tenga efecto real.
+- Proximos pasos: Inyectar dict en page.tsx y refactorizar cada sección para usar textos localizados.
+- Archivos tocados: src/components/layout/Header.tsx; src/i18n/locales/es.ts; src/i18n/locales/en.ts; src/i18n/index.tsx.
+- Notas o riesgos: Revisar codificación (UTF-8) al tocar textos para evitar errores como el del build previo.
+
+- Acciones: Reescribí Header para usar LanguageToggle con dict, normalicé encoding y corregí la marca; integré i18n en Hero, About, Skills, Experience, Projects, Education, Contact y Footer (usan useLanguage y diccionarios ES/EN); ajusté page.tsx para no pasar datos fijos. No pude ejecutar lint (pnpm no disponible).
+- Decisiones y pendientes: El toggle cambia textos en ES/EN; nombres propios se mantienen. Pendiente revisar acentos corruptos históricos en data si reaparecen. Si se requiere lint/build, hay que correr con pnpm instalado.
+- Proximos pasos: Validar UI en ambos idiomas y temas; si hay textos residuales sin traducir, añadirlos al diccionario.
+- Archivos tocados: src/app/page.tsx; src/app/layout.tsx; src/components/layout/Header.tsx; src/components/layout/Footer.tsx; src/components/sections/Hero.tsx; About.tsx; SkillsGrid.tsx; ExperienceTimeline.tsx; ProjectsGrid.tsx; Education.tsx; Contact.tsx; src/i18n/index.tsx; src/i18n/locales/es.ts; src/i18n/locales/en.ts.
+- Notas o riesgos: Hay textos con caracteres especiales previos; mantener UTF-8 al editarlos. Sin lint por falta de pnpm.
+
+- Acciones: Marqué i18n/index.tsx y Footer como componentes cliente ('use client') para evitar el error de hooks en Turbopack.
+- Decisiones y pendientes: Revisar si queda algún otro uso de useLanguage en componentes server; si aparece, moverlo a client.
+- Archivos tocados: src/i18n/index.tsx; src/components/layout/Footer.tsx.
+
+- Acciones: Corregí las directivas 'use client' en i18n/index.tsx y Footer.tsx (estaban con backticks), para que los hooks no fallen en Turbopack.
+- Decisiones y pendientes: Verificar que ya no aparezca el error de useState/useEffect al compilar; si surge otro componente server usando useLanguage, moverlo a client.
+- Archivos tocados: src/i18n/index.tsx; src/components/layout/Footer.tsx.
+
+- Acciones: Traducí los highlights de About en el diccionario EN (Frontend Development, Best Practices, Continuous Learning) manteniendo los datos base de ES intactos.
+- Decisiones y pendientes: Revisar si quedan otros literales sin traducir en EN; el resto de nombres propios se mantienen en español donde aplique.
+- Proximos pasos: Validar vista About en EN para confirmar que las cards pequeñas ya muestran textos en inglés.
+- Archivos tocados: src/i18n/locales/en.ts.
+
+- Acciones: Traducí bullets del timeline en el diccionario EN (manteniendo nombres propios/empresas), mapeando frases comunes a inglés; chips y periodos se conservan igual.
+- Acciones: Añadí resaltado en cursiva para tecnologías mencionadas en los bullets del timeline (ExperienceTimeline) usando regex sobre el listado de tech de cada experiencia.
+- Decisiones y pendientes: Mantener nombres propios intactos; revisar visualmente que la cursiva no rompa el layout. Si hay palabras coincidentes no deseadas, ajustar la lista de tech.
+- Proximos pasos: Validar en EN/ES los bullets con tech en cursiva.
+- Archivos tocados: src/components/sections/ExperienceTimeline.tsx.
+
+- Acciones: Añadí cursiva a las tecnologías mencionadas en las descripciones de los proyectos y traduje las descripciones en EN (sin tocar nombres propios); usa regex sobre la lista tech de cada proyecto.
+- Decisiones y pendientes: Revisar visualmente que la cursiva no afecte el layout; si hay coincidencias no deseadas, ajustar la lista de tech por proyecto.
+- Archivos tocados: src/components/sections/ProjectsGrid.tsx; src/i18n/locales/en.ts.
+
+- Acciones: Traducí al inglés los detalles de las certificaciones manteniendo nombres propios (institución/título) y añadí resaltado en cursiva para palabras clave de tecnologías en las cards de Education mediante regex sobre keywords (AWS, Cloud, GitHub, Linux, Power Apps, Selenium, Scrum, Python, etc.).
+- Decisiones y pendientes: Revisar visualmente que las cursivas no se apliquen a palabras no deseadas; si aparecen nuevas tecnologías, ampliar la lista de keywords.
+- Archivos tocados: src/i18n/locales/en.ts; src/components/sections/Education.tsx.
+
+- Acciones: Traducí los dos primeros certificados (UTAMED y UOC) en el diccionario EN y amplié la lista de palabras clave en Education para cursiva (AI/IA, ECTS, 200/600 horas).
+- Decisiones y pendientes: Revisar que las nuevas keywords se destaquen correctamente sin falsos positivos.
+- Archivos tocados: src/i18n/locales/en.ts; src/components/sections/Education.tsx.
+
+- Acciones: Traducí los títulos de los dos primeros certificados en EN (Artificial Intelligence for Developers, Introduction to Artificial Intelligence) y ajusté el resaltado de keywords en Education para usar regex con límites de palabra (evita resaltar 'ia' dentro de otras palabras); keywords incluyen AI/Artificial Intelligence, ECTS, 200/600 hours/horas.
+- Acciones: Ajusté las descripciones EN de las dos primeras certificaciones (UTAMED y UOC) para que estén completas y en inglés natural, manteniendo títulos e instituciones.
+- Archivos tocados: src/i18n/locales/en.ts.
+
+- Acciones: Traduje on-the-fly las descripciones de las dos primeras certificaciones en EN mediante mapa en Education, y destaqué en negrita palabras técnicas (AI, machine learning, neural networks, NLP, ECTS, horas, etc.) solo al renderizar en inglés.
+- Decisiones y pendientes: Mantengo títulos e instituciones originales; revisar visualmente que los textos en ES sigan intactos y que el formato en EN sea correcto.
+- Archivos tocados: src/components/sections/Education.tsx.
+
+- Acciones: Reescribí Education.jsx para resaltar en negrita términos técnicos solo en EN usando los detalles traducidos del diccionario; títulos e instituciones se mantienen. Las descripciones en EN ya vienen de locales/en.ts (todas traducidas).

@@ -49,3 +49,13 @@
 
 - Encoding: Reescrito src/data/portfolio.ts en UTF-8 para eliminar bytes inválidos que rompían el parseo; rutas de certificados (incluida UOC) apuntan a los assets en public/images/certificados.
 
+- i18n: Añadido LanguageProvider, diccionarios ES/EN, selector en el header y refactor de Hero, About, Skills, Experience, Projects, Education, Contact y Footer para consumir textos localizados; page.tsx ya no pasa datos fijos.
+
+- i18n About: Cards de highlights traducidas al inglés (Frontend Development, Best Practices, Continuous Learning) en el diccionario EN.
+- Timeline: Tecnologías mencionadas en los bullets ahora se muestran en cursiva (según la lista de tech de cada experiencia) para destacarlas en ambos idiomas.
+- Proyectos: Descripciones en EN traducidas y tecnologías dentro del texto ahora se muestran en cursiva usando la lista tech de cada proyecto.
+- Educación: Detalles en EN traducidos respetando instituciones/títulos; palabras clave tecnológicas en los detalles se muestran en cursiva (AWS, GitHub, Linux, Power Apps, Selenium, Scrum, Python, etc.).
+- Educación EN: Traduje detalles de UTAMED y UOC; palabras clave ampliadas (AI/IA, ECTS, 200/600 horas) para cursiva en las descripciones.
+- Educación EN: Descripciones de UTAMED y UOC afinadas en inglés manteniendo nombres propios.
+- Educación: Las descripciones en EN de las primeras certificaciones se traducen en render y resaltan en negrita las palabras técnicas (AI, ML, NLP, ECTS, horas, etc.), manteniendo títulos e instituciones originales.
+- Educación: Todas las descripciones en EN provienen del diccionario traducido y los términos técnicos se resaltan en negrita solo al mostrar en inglés.

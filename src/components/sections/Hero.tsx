@@ -3,7 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { Download, GithubIcon, Linkedin, Twitter } from "lucide-react";
-import { socialLinks } from "@/data/portfolio";
+import { useLanguage } from "@/i18n";
 
 const socialIconMap = {
 	linkedin: Linkedin,
@@ -22,22 +22,10 @@ type HeroImageFace = {
 	alt: string;
 };
 
-type HeroProps = {
-	eyebrow: string;
-	title: string;
-	role: string;
-	subtitle: string;
-	image: {
-		front: HeroImageFace;
-		back: HeroImageFace;
-	};
-	ctas: {
-		primary: CTA;
-		secondary: CTA;
-	};
-};
-
-export function Hero({ eyebrow, title, role, subtitle, image, ctas }: HeroProps) {
+export function Hero() {
+	const { dict } = useLanguage();
+	const { hero, socialLinks } = dict;
+	const { eyebrow, title, role, subtitle, image, ctas } = hero;
 	const { scrollY } = useScroll();
 	const translate = useTransform(scrollY, [0, 400], [0, -40]);
 	const rotate = useTransform(scrollY, [0, 400], [0, -3]);

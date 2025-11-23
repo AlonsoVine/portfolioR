@@ -6,6 +6,7 @@ import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
 import { SkillCard } from "@/data/portfolio";
 import { scrollRevealConfig } from "@/lib/utils";
+import { useLanguage } from "@/i18n";
 
 const skillIconMap = {
 	code: Code2,
@@ -25,17 +26,16 @@ const pillToneVar: Record<SkillCard["tone"], string> = {
 	rose: "--pill-rose",
 };
 
-type SkillsGridProps = {
-	groups: SkillCard[];
-};
+export function SkillsGrid() {
+	const { dict } = useLanguage();
+	const groups: SkillCard[] = dict.skills.cards;
 
-export function SkillsGrid({ groups }: SkillsGridProps) {
 	return (
 		<SectionShell id="skills" className="relative">
 			<SectionHeading
-				eyebrow="Stack"
-				title="Stack Tecnológico"
-				description="Agrupación de mis habilidades clave y las herramientas esenciales que utilizo diariamente"
+				eyebrow={dict.skills.eyebrow}
+				title={dict.skills.title}
+				description={dict.skills.description}
 			/>
 			<div className="relative mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
 				{groups.map((group, index) => {
