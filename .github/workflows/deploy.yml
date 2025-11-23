@@ -27,14 +27,13 @@ jobs:
           NEXT_PUBLIC_ENV: ${{ secrets.NEXT_PUBLIC_ENV }}
         run: npm run build
 
-      # Uncomment if you use next export for static Pages
-      # - name: Export static site
-      #   run: npm run export
+      - name: Export static site
+        run: npm run export
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .next # or 'out' if you export
+          path: out
 
   deploy:
     if: github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, 'deploy:')

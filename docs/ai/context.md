@@ -473,3 +473,4 @@
 - Acciones: Apliqué casts 'as any' a los spreads de scrollRevealConfig en ambos motion.div de About para evitar el error de transición/ease en TypeScript durante el build.
 - Acciones: En Contact ajusté el motion.form para castear scrollRevealConfig y definir transition con ease 'easeOut', evitando el error de tipos en build.
 - Acciones: Tipé heading en Education para incluir items: EducationItem[] y anoté item/index en el map, corrigiendo el 'any' implícito que rompía el build.
+- Acciones: Preparé el proyecto para GitHub Pages: next.config.ts con output export, basePath/assetPrefix '/portfolioR', imágenes sin optimizar y trailingSlash; workflow ahora ejecuta next export y sube 'out'.

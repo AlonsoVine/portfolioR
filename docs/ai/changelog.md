@@ -68,3 +68,4 @@
 - DevOps: El workflow de deploy ahora se puede lanzar manualmente (workflow_dispatch) además del prefijo 'deploy:' en push.
 - Fix build: Casts 'as any' en spreads de scrollRevealConfig en About para suprimir el error de transición/ease en framer-motion.
 - Fix build: motion.form en Contact castea scrollRevealConfig y usa transition con easeOut para evitar error de tipos en framer-motion.
+- Deploy: Ajustado a GitHub Pages (output export, basePath/assetPrefix '/portfolioR', imágenes unoptimized, trailingSlash) y workflow usa next export subiendo carpeta 'out'.
