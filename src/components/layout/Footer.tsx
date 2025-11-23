@@ -1,12 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { GithubIcon, Linkedin } from "lucide-react";
+import { GithubIcon, Linkedin, Twitter } from "lucide-react";
 import { useLanguage } from "@/i18n";
 
 const socialIconMap = {
 	linkedin: Linkedin,
 	github: GithubIcon,
+	twitter: Twitter,
 } as const;
 
 export function Footer() {
