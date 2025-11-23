@@ -460,3 +460,9 @@
 - Acciones: Reescribí Education.jsx para resaltar en negrita términos técnicos solo en EN usando los detalles traducidos del diccionario; títulos e instituciones se mantienen. Las descripciones en EN ya vienen de locales/en.ts (todas traducidas).
 - Acciones: Añadí a las cards del timeline el mismo hover de Education (elevación, glow radial y sombra) para que se comporten igual visualmente.
 - Acciones: Solucioné keys duplicadas en SkillsGrid usando key item+index; fijé data-theme=dark en <html> para reducir desajustes de hidratación con el script de tema.
+- Acciones: Añadí logos de empresas (Inetum, FCC, Atos) en public/images/company y los renderizo junto al nombre de la empresa en las cards del timeline; importé Image en ExperienceTimeline.
+- Decisiones y pendientes: Si faltan logos de otras empresas, añadir sus SVG en la misma carpeta y mapearlas en companyLogos.
+- Archivos tocados: public/images/company/*.svg; src/components/sections/ExperienceTimeline.tsx.
+
+- Acciones: Reemplacé los logos del timeline para usar las imágenes cuadradas de src/assets/experiencia (copiadas a public/images/company) con tamaño 6x6 y fondo sutil; se muestran junto al nombre de la empresa en ExperienceTimeline.
+- Acciones: Mostré el logo de empresa en un contenedor cuadrado 10x10 junto al bloque de iconos (empresa/proyecto/ubicación), manteniendo los iconos originales; logos provienen de public/images/company.

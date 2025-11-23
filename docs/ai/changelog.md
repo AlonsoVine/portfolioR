@@ -61,3 +61,5 @@
 - Educación: Todas las descripciones en EN provienen del diccionario traducido y los términos técnicos se resaltan en negrita solo al mostrar en inglés.
 - Timeline: Cards ahora tienen el hover/glow de Education (elevación, gradiente sutil y sombra reforzada).
 - Fixes: Keys únicas en SkillsGrid y data-theme=dark en html para minimizar errores de hidratación.
+- Timeline: Se muestran logos de empresa (Inetum, FCC, Atos) junto al nombre en cada card; assets SVG añadidos en public/images/company.
+- Timeline: Logos de empresa ahora usan los assets cuadrados de src/assets/experiencia (en public/images/company) y se muestran junto al nombre en las cards.

@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
 import { scrollRevealConfig } from "@/lib/utils";
@@ -33,6 +34,12 @@ export function ExperienceTimeline() {
   const techLabel =
     (heading as any)?.techLabel ??
     (dict.lang === "en" ? "Technologies used" : "Tecnologias utilizadas");
+  const companyLogos: Record<string, string> = {
+    Inetum: "/images/company/inetum_logo.jpg",
+    "Fervimax Group (FCC)": "/images/company/fervimax_logo.jpg",
+    "Atos (Cestic)": "/images/company/atos_logo.jpg",
+    Atos: "/images/company/atos_logo.jpg",
+  };
 
   return (
     <SectionShell id="experience">
@@ -71,23 +78,36 @@ export function ExperienceTimeline() {
                         <span>{experience.period}</span>
                       </div>
                     </div>
-                    <div className="flex flex-col gap-1 text-sm text-muted">
-                      <div className="flex items-center gap-2 text-[var(--foreground)]">
-                        <Building2 className="h-4 w-4 text-emerald-300/80" aria-hidden="true" />
-                        <span className="font-medium">{experience.company}</span>
+                    <div className="flex items-start gap-3 text-sm text-muted">
+                      {companyLogos[experience.company] ? (
+                        <div className="mt-0.5 flex h-18 w-18 items-center justify-center overflow-hidden rounded-md bg-white/5 p-[6px]">
+                          <Image
+                            src={companyLogos[experience.company]}
+                            alt={`Logo ${experience.company}`}
+                            width={42}
+                            height={42}
+                            className="h-14 w-14 object-contain"
+                          />
+                        </div>
+                      ) : null}
+                      <div className="flex flex-col gap-1">
+                        <div className="flex items-center gap-2 text-[var(--foreground)]">
+                          <Building2 className="h-4 w-4 text-emerald-300/80" aria-hidden="true" />
+                          <span className="font-medium">{experience.company}</span>
+                        </div>
+                        {experience.project && (
+                          <div className="flex items-center gap-2">
+                            <BriefcaseBusiness className="h-4 w-4 text-emerald-300/60" aria-hidden="true" />
+                            <span>{experience.project}</span>
+                          </div>
+                        )}
+                        {experience.location && (
+                          <div className="flex items-center gap-2">
+                            <MapPin className="h-4 w-4 text-emerald-300/60" aria-hidden="true" />
+                            <span>{experience.location}</span>
+                          </div>
+                        )}
                       </div>
-                      {experience.project && (
-                        <div className="flex items-center gap-2">
-                          <BriefcaseBusiness className="h-4 w-4 text-emerald-300/60" aria-hidden="true" />
-                          <span>{experience.project}</span>
-                        </div>
-                      )}
-                      {experience.location && (
-                        <div className="flex items-center gap-2">
-                          <MapPin className="h-4 w-4 text-emerald-300/60" aria-hidden="true" />
-                          <span>{experience.location}</span>
-                        </div>
-                      )}
                     </div>
                     <ul className="mt-1 space-y-2 text-muted">
                       {experience.bullets.map((bullet, idx) => (

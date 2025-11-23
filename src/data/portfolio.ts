@@ -223,7 +223,7 @@ export const experiences: Experience[] = [
     position: "left",
     title: "Ingeniero Informatico (Frontend)",
     company: "Inetum",
-    project: "Ministerio de Defensa (Ejercito del Aire y del Espacio)",
+    project: "Minisdef (Ejercito del Aire y del Espacio)",
     location: "Madrid, Espana",
     period: "Dic 2024 - Jul 2025",
     tech: [
