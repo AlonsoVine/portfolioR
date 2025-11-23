@@ -466,3 +466,4 @@
 
 - Acciones: Reemplacé los logos del timeline para usar las imágenes cuadradas de src/assets/experiencia (copiadas a public/images/company) con tamaño 6x6 y fondo sutil; se muestran junto al nombre de la empresa en ExperienceTimeline.
 - Acciones: Mostré el logo de empresa en un contenedor cuadrado 10x10 junto al bloque de iconos (empresa/proyecto/ubicación), manteniendo los iconos originales; logos provienen de public/images/company.
+- Acciones: Creé workflow de deploy (.github/workflows/deploy.yml) que se ejecuta sólo si el commit empieza por 'deploy:'; build con npm ci + npm run build y despliegue a GitHub Pages via upload-pages-artifact/deploy-pages.
