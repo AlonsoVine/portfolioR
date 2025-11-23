@@ -60,8 +60,11 @@ export function About() {
 				<motion.div
 					{...scrollRevealConfig}
 					transition={{ ...scrollRevealConfig.transition, delay: 0.15 }}
-					className="relative rounded-3xl surface-card p-8 text-muted shadow-[0_30px_80px_rgba(15,23,42,0.35)]"
+					className="relative overflow-hidden rounded-3xl surface-card p-8 text-muted shadow-[0_30px_80px_rgba(15,23,42,0.35)] transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-[0_30px_90px_rgba(251,191,36,0.15)]"
 				>
+					<div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 hover:opacity-100">
+						<div className="absolute inset-0 bg-gradient-to-br from-[color:var(--accent-warm-soft)] via-transparent to-rose-300/10" />
+					</div>
 					<div className="absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
 					<div className="flex flex-col gap-6">
 						{paragraphs.map((text) => (
