@@ -58,9 +58,10 @@ export function Contact() {
 
 			<div className="mt-12 grid gap-8 lg:grid-cols-2">
 				<motion.form
-					{...scrollRevealConfig}
+					{...(scrollRevealConfig as any)}
 					onSubmit={handleSubmit}
 					className="rounded-3xl surface-card p-8 shadow-[0_30px_80px_rgba(15,23,42,0.35)]"
+					transition={{ duration: 0.6, ease: "easeOut" }}
 				>
 						<h3 className="text-2xl font-semibold text-[var(--foreground)]">{contact.form.title}</h3>
 					<p className="mt-1 text-sm text-muted">{contact.form.helper}</p>
@@ -144,4 +145,3 @@ export function Contact() {
 		</SectionShell>
 	);
 }
-
