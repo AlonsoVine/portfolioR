@@ -66,3 +66,4 @@
 - DevOps: Añadido workflow de Deploy (prefijo 'deploy:' en commit) que construye y despliega a GitHub Pages usando upload-pages-artifact/deploy-pages.
 - Fix build: transition de About usa cast para scrollRevealConfig evitando el error de tipos en framer-motion.
 - DevOps: El workflow de deploy ahora se puede lanzar manualmente (workflow_dispatch) además del prefijo 'deploy:' en push.
+- Fix build: Casts 'as any' en spreads de scrollRevealConfig en About para suprimir el error de transición/ease en framer-motion.

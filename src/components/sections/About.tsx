@@ -28,7 +28,7 @@ export function About() {
 			/>
 			<div className="mt-12 grid gap-10 md:grid-cols-2 md:items-center">
 				<motion.div
-					{...scrollRevealConfig}
+					{...(scrollRevealConfig as any)}
 					className="group relative rounded-[32px] border-soft bg-gradient-to-b from-white/20 to-transparent p-2 shadow-[0_30px_80px_rgba(15,23,42,0.45)] backdrop-blur-xl transition-transform duration-500 ease-out hover:-translate-y-1"
 				>
 					<div className="relative overflow-hidden rounded-[28px]">
@@ -58,7 +58,7 @@ export function About() {
 					<div className="absolute -inset-1 rounded-[34px] border-soft opacity-70 blur-xl" />
 				</motion.div>
 				<motion.div
-					{...scrollRevealConfig}
+					{...(scrollRevealConfig as any)}
 					transition={{ ...(scrollRevealConfig as any).transition, delay: 0.15 }}
 					className="relative overflow-hidden rounded-3xl surface-card p-8 text-muted shadow-[0_30px_80px_rgba(15,23,42,0.35)] transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-[0_30px_90px_rgba(251,191,36,0.15)]"
 				>

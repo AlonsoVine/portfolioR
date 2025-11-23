@@ -470,3 +470,4 @@
 - Acciones: Añadí soporte para icono twitter en Footer para satisfacer el tipo SocialIconId y evitar el error de build por índice no válido, manteniendo el filtro a linkedin/github.
 - Acciones: Apliqué cast rápido en About.tsx para la transición de scrollRevealConfig (transition={{ ...(scrollRevealConfig as any).transition, delay: 0.15 }}) evitando el error de tipos en build.
 - Acciones: Permití que el workflow de deploy se ejecute también manualmente (workflow_dispatch) sin necesidad de prefijo en el commit; la condición if ahora acepta push con 'deploy:' o ejecución manual.
+- Acciones: Apliqué casts 'as any' a los spreads de scrollRevealConfig en ambos motion.div de About para evitar el error de transición/ease en TypeScript durante el build.
