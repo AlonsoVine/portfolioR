@@ -468,3 +468,5 @@
 - Acciones: Mostré el logo de empresa en un contenedor cuadrado 10x10 junto al bloque de iconos (empresa/proyecto/ubicación), manteniendo los iconos originales; logos provienen de public/images/company.
 - Acciones: Creé workflow de deploy (.github/workflows/deploy.yml) que se ejecuta sólo si el commit empieza por 'deploy:'; build con npm ci + npm run build y despliegue a GitHub Pages via upload-pages-artifact/deploy-pages.
 - Acciones: Añadí soporte para icono twitter en Footer para satisfacer el tipo SocialIconId y evitar el error de build por índice no válido, manteniendo el filtro a linkedin/github.
+- Acciones: Apliqué cast rápido en About.tsx para la transición de scrollRevealConfig (transition={{ ...(scrollRevealConfig as any).transition, delay: 0.15 }}) evitando el error de tipos en build.
+- Acciones: Permití que el workflow de deploy se ejecute también manualmente (workflow_dispatch) sin necesidad de prefijo en el commit; la condición if ahora acepta push con 'deploy:' o ejecución manual.

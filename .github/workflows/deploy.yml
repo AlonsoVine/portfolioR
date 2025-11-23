@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    if: startsWith(github.event.head_commit.message, 'deploy:')
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, 'deploy:')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -37,7 +37,7 @@ jobs:
           path: .next # or 'out' if you export
 
   deploy:
-    if: startsWith(github.event.head_commit.message, 'deploy:')
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, 'deploy:')
     needs: build
     runs-on: ubuntu-latest
     permissions:

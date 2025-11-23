@@ -64,3 +64,5 @@
 - Timeline: Se muestran logos de empresa (Inetum, FCC, Atos) junto al nombre en cada card; assets SVG añadidos en public/images/company.
 - Timeline: Logos de empresa ahora usan los assets cuadrados de src/assets/experiencia (en public/images/company) y se muestran junto al nombre en las cards.
 - DevOps: Añadido workflow de Deploy (prefijo 'deploy:' en commit) que construye y despliega a GitHub Pages usando upload-pages-artifact/deploy-pages.
+- Fix build: transition de About usa cast para scrollRevealConfig evitando el error de tipos en framer-motion.
+- DevOps: El workflow de deploy ahora se puede lanzar manualmente (workflow_dispatch) además del prefijo 'deploy:' en push.
