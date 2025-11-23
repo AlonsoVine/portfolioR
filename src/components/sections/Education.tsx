@@ -28,7 +28,12 @@ const highlightKeywords = (text: string) => {
 
 export function Education() {
   const { dict, lang } = useLanguage() as { dict: any; lang: "es" | "en" };
-  const heading = dict.education;
+  const heading = dict.education as {
+    eyebrow: string;
+    title: string;
+    description: string;
+    items: EducationItem[];
+  };
   const [selected, setSelected] = useState<EducationItem | null>(null);
 
   useEffect(() => {
@@ -43,7 +48,7 @@ export function Education() {
     <SectionShell id="education">
       <SectionHeading eyebrow={heading.eyebrow} title={heading.title} description={heading.description} />
       <div className="mt-12 grid gap-6 lg:grid-cols-3">
-        {heading.items.map((item, index) => (
+        {heading.items.map((item: EducationItem, index: number) => (
           <motion.div
             key={`${item.institution}-${item.dates}-${item.title}`}
             {...scrollRevealConfig}
@@ -119,4 +124,3 @@ export function Education() {
     </SectionShell>
   );
 }
-

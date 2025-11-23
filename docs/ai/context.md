@@ -472,3 +472,4 @@
 - Acciones: Permití que el workflow de deploy se ejecute también manualmente (workflow_dispatch) sin necesidad de prefijo en el commit; la condición if ahora acepta push con 'deploy:' o ejecución manual.
 - Acciones: Apliqué casts 'as any' a los spreads de scrollRevealConfig en ambos motion.div de About para evitar el error de transición/ease en TypeScript durante el build.
 - Acciones: En Contact ajusté el motion.form para castear scrollRevealConfig y definir transition con ease 'easeOut', evitando el error de tipos en build.
+- Acciones: Tipé heading en Education para incluir items: EducationItem[] y anoté item/index en el map, corrigiendo el 'any' implícito que rompía el build.
