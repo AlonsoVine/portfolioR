@@ -56,7 +56,10 @@ export function ExperienceTimeline() {
                   experience.position === "left" ? "md:pr-16 md:text-right" : "md:order-2 md:pl-16"
                 }`}
               >
-                <div className="rounded-3xl surface-card p-6 text-muted shadow-[0_30px_80px_rgba(15,23,42,0.35)] backdrop-blur-xl">
+                <div className="group rounded-3xl surface-card p-6 text-muted shadow-[0_30px_80px_rgba(15,23,42,0.35)] backdrop-blur-xl transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-[0_30px_90px_rgba(251,191,36,0.15)]">
+                  <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[color:var(--accent-warm-soft)] via-transparent to-rose-300/10" />
+                  </div>
                   <div className="flex flex-col gap-4">
                     <div className="flex flex-wrap items-start justify-between gap-4">
                       <h3 className="text-2xl font-semibold text-[var(--foreground)]">{experience.title}</h3>

@@ -458,3 +458,4 @@
 - Archivos tocados: src/components/sections/Education.tsx.
 
 - Acciones: Reescribí Education.jsx para resaltar en negrita términos técnicos solo en EN usando los detalles traducidos del diccionario; títulos e instituciones se mantienen. Las descripciones en EN ya vienen de locales/en.ts (todas traducidas).
+- Acciones: Añadí a las cards del timeline el mismo hover de Education (elevación, glow radial y sombra) para que se comporten igual visualmente.
