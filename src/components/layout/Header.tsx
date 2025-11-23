@@ -9,6 +9,8 @@ import { LanguageToggle } from "../ui/LanguageToggle";
 import { useLanguage } from "@/i18n";
 import { cn } from "@/lib/utils";
 
+const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export function Header() {
   const { dict } = useLanguage();
   const links = dict.nav.links;
@@ -41,7 +43,7 @@ export function Header() {
       >
         <Link href="#hero" className="flex items-center gap-2">
           <Image
-            src="/images/logo.png"
+            src={`${prefix}/images/logo.png`}
             alt="Logotipo personal"
             width={32}
             height={32}

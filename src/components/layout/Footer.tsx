@@ -10,6 +10,8 @@ const socialIconMap = {
 	twitter: Twitter,
 } as const;
 
+const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export function Footer() {
 	const { dict } = useLanguage();
 	const year = new Date().getFullYear();
@@ -21,7 +23,7 @@ export function Footer() {
 			<div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4">
 				<div className="flex flex-col gap-6 border-b border-soft/40 pb-6 sm:flex-row sm:items-center sm:justify-between">
 					<div className="flex items-center gap-3 text-[var(--foreground)]">
-						<Image src="/images/logo.png" alt="Logotipo" width={36} height={36} />
+						<Image src={`${prefix}/images/logo.png`} alt="Logotipo" width={36} height={36} />
 						<div>
 							<p className="font-semibold text-[var(--foreground)]">{"Alonso Vi\u00F1\u00E9"}</p>
 							<p className="text-xs uppercase tracking-[0.35em] text-muted">{footer.tagline}</p>

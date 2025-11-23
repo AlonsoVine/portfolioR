@@ -26,6 +26,7 @@ export function Hero() {
 	const { dict } = useLanguage();
 	const { hero, socialLinks } = dict;
 	const { eyebrow, title, role, subtitle, image, ctas } = hero;
+	const cvHref = `${process.env.NEXT_PUBLIC_BASE_PATH || ""}${ctas.secondary.href}`;
 	const { scrollY } = useScroll();
 	const translate = useTransform(scrollY, [0, 400], [0, -40]);
 	const rotate = useTransform(scrollY, [0, 400], [0, -3]);
@@ -81,7 +82,7 @@ export function Hero() {
 							<span className="absolute inset-0 rounded-full bg-white/25 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 						</a>
 						<a
-							href={ctas.secondary.href}
+							href={cvHref}
 							className="group relative inline-flex rounded-full bg-gradient-to-r from-amber-400 to-rose-400 p-[1px] text-base font-semibold transition-transform duration-300 hover:-translate-y-0.5"
 							target="_blank"
 							rel="noreferrer"
@@ -123,7 +124,7 @@ export function Hero() {
 							<div className="avatar-flip">
 								<div className="avatar-face front">
 									<Image
-										src={image.front.src}
+										src={`${prefix}${image.front.src}`}
 										alt={image.front.alt}
 										fill
 										sizes="(max-width: 768px) 16rem, 18rem"
@@ -133,7 +134,7 @@ export function Hero() {
 								</div>
 								<div className="avatar-face back">
 									<Image
-										src={image.back.src}
+										src={`${prefix}${image.back.src}`}
 										alt={image.back.alt}
 										fill
 										sizes="(max-width: 768px) 16rem, 18rem"

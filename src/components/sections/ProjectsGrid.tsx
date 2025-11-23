@@ -9,6 +9,7 @@ import { GithubIcon, Sparkles } from "lucide-react";
 import { useLanguage } from "@/i18n";
 
 const techPillPalette = ["--pill-emerald", "--pill-sky", "--pill-amber", "--pill-violet", "--pill-rose", "--pill-teal"];
+const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 const highlightTech = (text: string, techs?: string[]) => {
@@ -48,7 +49,7 @@ export function ProjectsGrid() {
 						</div>
 						<div className="relative overflow-hidden">
 							<Image
-								src={project.image}
+								src={`${prefix}${project.image}`}
 								alt={project.title}
 								width={1200}
 								height={800}

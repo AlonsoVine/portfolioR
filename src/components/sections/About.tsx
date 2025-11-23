@@ -9,6 +9,8 @@ import { aboutContent } from "@/data/portfolio";
 import { useLanguage } from "@/i18n";
 import { Code2, Target, Zap } from "lucide-react";
 
+const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 const highlightIconMap = {
 	code: Code2,
 	target: Target,
@@ -34,7 +36,7 @@ export function About() {
 					<div className="relative overflow-hidden rounded-[28px]">
 						<div className="pointer-events-none absolute inset-0 rounded-[28px] bg-gradient-to-br from-white/10 via-transparent to-amber-200/10 opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100" />
 						<Image
-							src="/assets/img/about-img.png"
+							src={`${prefix}/assets/img/about-img.png`}
 							alt="Alonso Vine - Desarrollador y Analista"
 							width={640}
 							height={640}

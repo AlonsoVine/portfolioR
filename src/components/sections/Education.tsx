@@ -59,10 +59,10 @@ export function Education() {
             <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
               <div className="absolute inset-0 bg-gradient-to-br from-[color:var(--accent-warm-soft)] via-transparent to-rose-300/10" />
             </div>
-            {item.image ? (
-              <div className="relative h-48 w-full overflow-hidden rounded-t-3xl">
-                <Image
-                  src={item.image}
+                {item.image ? (
+                  <div className="relative h-48 w-full overflow-hidden rounded-t-3xl">
+                    <Image
+                  src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}${item.image}`}
                   alt={item.title}
                   width={800}
                   height={400}

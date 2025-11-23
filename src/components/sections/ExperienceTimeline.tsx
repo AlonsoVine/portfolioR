@@ -9,6 +9,7 @@ import { Building2, BriefcaseBusiness, MapPin, CalendarDays } from "lucide-react
 import { useLanguage } from "@/i18n";
 
 const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 const highlightTech = (text: string, techs?: string[]) => {
   if (!techs?.length) return text;
@@ -35,10 +36,10 @@ export function ExperienceTimeline() {
     (heading as any)?.techLabel ??
     (dict.lang === "en" ? "Technologies used" : "Tecnologias utilizadas");
   const companyLogos: Record<string, string> = {
-    Inetum: "/images/company/inetum_logo.jpg",
-    "Fervimax Group (FCC)": "/images/company/fervimax_logo.jpg",
-    "Atos (Cestic)": "/images/company/atos_logo.jpg",
-    Atos: "/images/company/atos_logo.jpg",
+    Inetum: `${prefix}/images/company/inetum_logo.jpg`,
+    "Fervimax Group (FCC)": `${prefix}/images/company/fervimax_logo.jpg`,
+    "Atos (Cestic)": `${prefix}/images/company/atos_logo.jpg`,
+    Atos: `${prefix}/images/company/atos_logo.jpg`,
   };
 
   return (

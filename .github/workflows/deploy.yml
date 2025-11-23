@@ -25,6 +25,8 @@ jobs:
       - name: Build
         env:
           NEXT_PUBLIC_ENV: ${{ secrets.NEXT_PUBLIC_ENV }}
+          NEXT_PUBLIC_BASE_PATH: "/portfolioR"
+          BASE_PATH: "/portfolioR"
         run: npm run build
 
       - name: Add .nojekyll
