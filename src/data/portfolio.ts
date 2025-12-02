@@ -86,7 +86,7 @@ export const heroContent = {
     primary: { label: "Ver Proyectos", href: "#projects" },
     secondary: {
       label: "Descargar CV",
-      href: "/assets/cv/20250612%20-%20Alonso%20Vi%C3%B1%C3%A9%20CV_Espa%C3%B1ol.pdf",
+      href: "/assets/cv/Alonso Viñé CV_English.pdf",
       download: true,
     },
   },

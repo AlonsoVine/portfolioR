@@ -10,6 +10,7 @@ import { scrollRevealConfig } from "@/lib/utils";
 import { useLanguage } from "@/i18n";
 
 type EducationItem = ReturnType<typeof useLanguage>["dict"]["education"]["items"][number];
+const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 const highlightKeywords = (text: string) => {
   const regex =
@@ -62,7 +63,7 @@ export function Education() {
                 {item.image ? (
                   <div className="relative h-48 w-full overflow-hidden rounded-t-3xl">
                     <Image
-                  src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}${item.image}`}
+                  src={`${prefix}${item.image}`}
                   alt={item.title}
                   width={800}
                   height={400}
@@ -111,7 +112,7 @@ export function Education() {
             </button>
             {selected.image ? (
               <Image
-                src={selected.image}
+                src={`${prefix}${selected.image}`}
                 alt={selected.title}
                 width={1600}
                 height={900}
