@@ -2,7 +2,7 @@
   "name": "portfolioc",
   "version": "0.1.0",
   "private": true,
-  "author": {"name": "alonso"},
+  "author": {"name": "Alonso Viñé"},
   "scripts": {
     "dev": "next dev",
     "build": "next build",

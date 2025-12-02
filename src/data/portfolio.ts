@@ -123,7 +123,7 @@ export const aboutContent = {
 export const socialLinks: SocialLink[] = [
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/alonso-viÃ±Ã©-barrancos/",
+    href: "https://www.linkedin.com/in/alonso-viñé-barrancos/",
     icon: "linkedin",
   },
   { label: "GitHub", href: "https://github.com/AlonsoVine", icon: "github" },
