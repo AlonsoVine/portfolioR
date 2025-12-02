@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import emailjs from "@emailjs/browser";
 import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
 import { scrollRevealConfig } from "@/lib/utils";
@@ -14,6 +15,8 @@ type FormState = {
 	message: string;
 };
 
+type FormStatus = "idle" | "sending" | "success" | "error";
+
 const platformIconMap = {
 	LinkedIn: Linkedin,
 	GitHub: GithubIcon,
@@ -24,14 +27,45 @@ export function Contact() {
 	const { dict } = useLanguage();
 	const { contact, socialLinks } = dict;
 	const [form, setForm] = useState<FormState>({ name: "", email: "", message: "" });
+	const [status, setStatus] = useState<FormStatus>("idle");
+	const [feedback, setFeedback] = useState<string | null>(null);
+
+	const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+	const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+	const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
 	const handleChange =
 		(field: keyof FormState) => (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
 			setForm((prev) => ({ ...prev, [field]: event.target.value }));
 
-	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		setForm({ name: "", email: "", message: "" });
+		if (!serviceId || !templateId || !publicKey) {
+			setStatus("error");
+			setFeedback(dict.lang === "en" ? "Missing EmailJS keys" : "Faltan las claves de EmailJS");
+			return;
+		}
+		setStatus("sending");
+		setFeedback(null);
+		try {
+			await emailjs.send(
+				serviceId,
+				templateId,
+				{
+					from_name: form.name,
+					from_email: form.email,
+					message: form.message,
+				},
+				{ publicKey },
+			);
+			setStatus("success");
+			setFeedback(dict.lang === "en" ? "Message sent successfully!" : "Mensaje enviado correctamente");
+			setForm({ name: "", email: "", message: "" });
+		} catch (error) {
+			console.error("EmailJS error:", error);
+			setStatus("error");
+			setFeedback(dict.lang === "en" ? "Something went wrong. Please try later." : "Algo falló. Inténtalo más tarde.");
+		}
 	};
 
 	const platforms = [
@@ -73,6 +107,7 @@ export function Contact() {
 								onChange={handleChange("name")}
 								className="mt-2 w-full rounded-2xl border border-soft bg-white/5 px-5 py-4 text-[var(--foreground)] outline-none transition-all focus:border-amber-300 focus:bg-white/10"
 								placeholder={contact.form.name.placeholder}
+								required
 							/>
 						</div>
 						<div>
@@ -83,6 +118,7 @@ export function Contact() {
 								type="email"
 								className="mt-2 w-full rounded-2xl border border-soft bg-white/5 px-5 py-4 text-[var(--foreground)] outline-none transition-all focus:border-amber-300 focus:bg-white/10"
 								placeholder={contact.form.email.placeholder}
+								required
 							/>
 						</div>
 						<div>
@@ -92,17 +128,29 @@ export function Contact() {
 								onChange={handleChange("message")}
 								className="mt-2 min-h-[140px] w-full rounded-3xl border border-soft bg-white/5 px-5 py-4 text-[var(--foreground)] outline-none transition-all focus:border-amber-300 focus:bg-white/10"
 								placeholder={contact.form.message.placeholder}
+								required
 							/>
 						</div>
 					</div>
 					<motion.button
 						type="submit"
+						disabled={status === "sending"}
 						whileTap={{ scale: 0.98 }}
-						className="group relative mt-8 inline-flex w-full items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-amber-400 via-rose-400 to-violet-500 px-10 py-4 text-base font-semibold text-slate-900 shadow-[0_30px_60px_rgba(251,191,36,0.45)]"
+						className="group relative mt-8 inline-flex w-full items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-amber-400 via-rose-400 to-violet-500 px-10 py-4 text-base font-semibold text-slate-900 shadow-[0_30px_60px_rgba(251,191,36,0.45)] disabled:cursor-not-allowed disabled:opacity-70"
 					>
-						{contact.form.submit}
+						{status === "sending" ? (dict.lang === "en" ? "Sending..." : "Enviando...") : contact.form.submit}
 						<span className="absolute inset-0 bg-white/25 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 					</motion.button>
+					{feedback ? (
+						<p
+							className={`mt-4 text-sm ${
+								status === "success" ? "text-emerald-300" : "text-rose-300"
+							}`}
+							role="status"
+						>
+							{feedback}
+						</p>
+					) : null}
 				</motion.form>
 
 				<motion.div
