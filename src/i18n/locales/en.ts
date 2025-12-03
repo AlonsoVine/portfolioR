@@ -107,14 +107,14 @@ export const en = {
   experiences: experiences.map((exp) => ({
     ...exp,
     title:
-      exp.title === "Ingeniero Informatico (Frontend)"
-        ? "Software Engineer (Frontend)"
-        : exp.title === "Especialista en Testing Automatico y Power Platform"
-        ? "Automation & Power Platform Specialist"
+      exp.title === "Ingeniero Informatico"
+        ? "Software Engineer"
+        : exp.title === "Analista de Testing Automatizado y Soluciones Power Platform"
+        ? "Automated Testing Analyst & Power Platform Solutions Developer"
         : exp.title === "Desarrollador Full Stack"
         ? "Full Stack Developer"
-        : exp.title === "Analista Funcional y Scrum Master"
-        ? "Functional Analyst & Scrum Master"
+        : exp.title === "Analista Funcional y de Datos & Scrum Master Assistant"
+        ? "Functional and Data Analyst & Scrum Master Assistant"
         : exp.title,
     period: exp.period,
     location: exp.location,
@@ -127,34 +127,42 @@ export const en = {
           "Participated in the SL2000E program to manage the fleet systems of the Air Force.",
         "Desarrolle interfaces dinamicas con Angular, TypeScript, Bootstrap y RxJS conectadas a APIs REST.":
           "Developed dynamic interfaces with Angular, TypeScript, Bootstrap and RxJS connected to REST APIs.",
+        "Colabore con equipos backend para recuperar, filtrar y validar datos operativos expuestos mediante servicios Java/Spring Boot.":
+          "Collaborated with backend teams to retrieve, filter, and validate operational data exposed through Java/Spring Boot services.",
         "Coordine con equipos backend y funcionales dentro de un marco Scrum usando Jira y GitHub.":
           "Coordinated with backend and functional teams within a Scrum framework using Jira and GitHub.",
         "Impulse mejoras de rendimiento y mantenibilidad durante la modernizacion del sistema.":
           "Drove performance and maintainability improvements during system modernization.",
         "Integre suites de pruebas automaticas con Selenium dentro del pipeline CI/CD del area DevOps.":
           "Integrated automated test suites with Selenium inside the CI/CD pipeline of the DevOps area.",
-        "Cree aplicaciones y flujos en Power Apps y Power Automate para digitalizar procesos internos.":
-          "Built apps and flows in Power Apps and Power Automate to digitize internal processes.",
-        "Modele tableros analiticos en Power BI y valide requisitos junto a las areas funcionales.":
-          "Modeled analytical dashboards in Power BI and validated requirements with functional teams.",
+        "Responsable de la automatizacion de pruebas dentro del pipeline CI/CD usando Selenium, asegurando la calidad y estabilidad del software.":
+          "Responsible for test automation within the CI/CD pipeline using Selenium, ensuring software quality and stability.",
+        "Apoye la preparacion y validacion de datos para pruebas automatizadas.":
+          "Supported data preparation and validation for automated testing.",
+        "Desarrolle soluciones con Power Apps, Power Automate y Power BI para optimizar procesos y potenciar la toma de decisiones basada en datos.":
+          "Developed solutions with Power Apps, Power Automate, and Power BI to streamline processes and enhance data-driven decision-making.",
         "Apoye al equipo de diseno con prototipos en Figma para asegurar experiencias consistentes.":
           "Supported the design team with Figma prototypes to ensure consistent experiences.",
         "Lidere el desarrollo frontend de portales corporativos usando Angular, PrimeNG y Bootstrap.":
-          "Led frontend development of corporate portals using Angular, PrimeNG and Bootstrap.",
+          "Built interfaces with Angular, Bootstrap and PrimeNG to create intuitive and visually appealing user experiences.",
         "Implemente microservicios en Java y Spring Boot respaldados por Oracle SQL.":
-          "Implemented microservices in Java and Spring Boot backed by Oracle SQL.",
-        "Gestione versionado y code reviews con Git y GitHub dentro de equipos multidisciplinares.":
-          "Managed versioning and code reviews with Git and GitHub within multidisciplinary teams.",
-        "Mantenga aplicaciones criticas alineadas con los entregables del Ministerio de Defensa.":
-          "Kept critical applications aligned with the deliverables of the Ministry of Defense.",
+          "Developed backend functionalities with Java and Spring Boot, implementing REST APIs to manage and validate operational data for the Armed Forces.",
+        "Use Oracle SQL para extraer, filtrar y validar informacion, soportando flujos de datos en la gestion de PCR.":
+          "Used Oracle SQL to extract, filter and validate information, supporting data-driven flows in PCR management.",
+        "Transmision periodica de datos al Ministerio de Sanidad para su validacion y consolidacion centralizada.":
+          "Periodic data transmission to the Ministry of Health for centralized validation and consolidation.",
         "Coordine discovery y analisis funcional para iniciativas corporativas de SEMADE.":
-          "Coordinated discovery and functional analysis for corporate initiatives at SEMADE.",
-        "Implemente ceremonias Scrum guiando planificacion, estimaciones y seguimiento del backlog.":
-          "Implemented Scrum ceremonies guiding planning, estimations and backlog tracking.",
-        "Promovi la mejora continua apoyandome en Git/GitLab, Jenkins y Trello.":
-          "Promoted continuous improvement using Git/GitLab, Jenkins and Trello.",
-        "Valide integraciones API con Postman garantizando entregas alineadas a los SLA.":
-          "Validated API integrations with Postman ensuring deliveries aligned to SLA.",
+          "Project for the Ministry of Defence (MINISDEF) managing PCR tests performed by the Armed Forces.",
+        "Experiencia con SQL para automatizacion de procesos y flujos ETL sobre Oracle.":
+          "Experience with SQL for process automation and ETL workflows on Oracle.",
+        "Implementacion de pipelines en entornos Oracle, integrando validaciones SQL y transformaciones de datos automatizadas.":
+          "Implemented pipelines in Oracle environments, integrating SQL validations and automated data transformations.",
+        "Integracion continua con Jenkins y GitHub.":
+          "Continuous integration with Jenkins and GitHub.",
+        "SCRUM: planificacion, estimacion, seguimiento y mejora continua.":
+          "SCRUM: planning, estimation, tracking and continuous improvement.",
+        "Proyecto para el Ministerio de Defensa (MINISDEF) gestionando las PCR realizadas por las Fuerzas Armadas.":
+          "Project for the Ministry of Defence (MINISDEF) managing the PCR tests performed by the Armed Forces.",
         "Cree interfaces web responsivas con Angular para monitorear dispositivos IoT.":
           "Built responsive web interfaces with Angular to monitor IoT devices.",
         "Desarrolle servicios REST con Spring Boot para orquestar la capa de negocio.":
