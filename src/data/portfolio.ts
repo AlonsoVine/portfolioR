@@ -1,4 +1,4 @@
-﻿export type NavLink = {
+export type NavLink = {
   label: string;
   href: string;
 };
@@ -59,10 +59,10 @@ export type Education = {
 export const navLinks: NavLink[] = [
   { label: "Inicio", href: "#hero" },
   { label: "Skills", href: "#skills" },
-  { label: "Sobre mí", href: "#about" },
+  { label: "Sobre m\u00ed", href: "#about" },
   { label: "Experiencia", href: "#experience" },
   { label: "Proyectos", href: "#projects" },
-  { label: "Educación", href: "#education" },
+  { label: "Educaci\u00f3n", href: "#education" },
   { label: "Contacto", href: "#contact" },
 ];
 
@@ -86,7 +86,7 @@ export const heroContent = {
     primary: { label: "Ver Proyectos", href: "#projects" },
     secondary: {
       label: "Descargar CV",
-      href: "/assets/cv/Alonso Viñé CV_English.pdf",
+      href: "/assets/cv/Alonso Vi\u00f1\u00e9 CV_English.pdf",
       download: true,
     },
   },
@@ -95,7 +95,7 @@ export const heroContent = {
 export const aboutContent = {
   textBlocks: [
     "Encantado de conocerte!",
-    "Soy un entusiasta de las tecnologias emergentes siempre motivado.",
+    "Soy un entusiasta de las tecnolog\u00edas emergentes siempre motivado.",
     "Emocionado por lo que el mundo del desarrollo de software me tiene preparado.",
   ],
   highlights: [
@@ -114,7 +114,7 @@ export const aboutContent = {
     {
       title: "Aprendizaje Continuo",
       description:
-        "Siempre explorando nuevas tecnologias y mejorando mis habilidades.",
+        "Siempre explorando nuevas tecnolog\u00edas y mejorando mis habilidades.",
       icon: "zap",
     },
   ],
@@ -123,7 +123,7 @@ export const aboutContent = {
 export const socialLinks: SocialLink[] = [
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/alonso-viñé-barrancos/",
+    href: "https://www.linkedin.com/in/alonso-vi\u00f1\u00e9-barrancos/",
     icon: "linkedin",
   },
   { label: "GitHub", href: "https://github.com/AlonsoVine", icon: "github" },
@@ -218,10 +218,10 @@ export const skillCards: SkillCard[] = [
 export const experiences: Experience[] = [
   {
     position: "left",
-    title: "Ingeniero Informatico",
+    title: "Ingeniero Inform\u00e1tico",
     company: "Inetum",
-    project: "Minisdef (Ejercito del Aire y del Espacio)",
-    location: "Madrid, Espana",
+    project: "Minisdef (Ej\u00e9rcito del Aire y del Espacio)",
+    location: "Madrid, Espa\u00f1a",
     period: "Dic 2024 - Jul 2025",
     tech: [
       "Angular",
@@ -236,11 +236,11 @@ export const experiences: Experience[] = [
       "GitHub",
     ],
     bullets: [
-      "Participé en el programa SL2000E para la gestión de la flota de sistemas del Ejercito del Aire.",
-      "Desarrollé interfaces dinamicas con Angular, TypeScript, Bootstrap y RxJS conectadas a APIs REST.",
-      "Colaboré con equipos backend para recuperar, filtrar y validar datos operativos expuestos mediante servicios Java/Spring Boot.",
-      "Coordiné con equipos backend y funcionales dentro de un marco Scrum usando Jira y GitHub.",
-      "Impulsé mejoras de rendimiento y mantenibilidad durante la modernización del sistema.",
+      "Particip\u00e9 en el programa SL2000E para la gesti\u00f3n de la flota de sistemas del Ej\u00e9rcito del Aire.",
+      "Desarroll\u00e9 interfaces din\u00e1micas con Angular, TypeScript, Bootstrap y RxJS conectadas a APIs REST.",
+      "Colabor\u00e9 con equipos backend para recuperar, filtrar y validar datos operativos expuestos mediante servicios Java/Spring Boot.",
+      "Coordin\u00e9 con equipos backend y funcionales dentro de un marco Scrum usando Jira y GitHub.",
+      "Impuls\u00e9 mejoras de rendimiento y mantenibilidad durante la modernizaci\u00f3n del sistema.",
     ],
   },
   {
@@ -248,7 +248,7 @@ export const experiences: Experience[] = [
     title: "Analista de Testing Automatizado y Soluciones Power Platform",
     company: "Fervimax Group (FCC)",
     project: "Digital Services / DevOps",
-    location: "Madrid, Espana",
+    location: "Madrid, Espa\u00f1a",
     period: "May 2024 - Nov 2024",
     tech: [
       "Selenium",
@@ -259,10 +259,10 @@ export const experiences: Experience[] = [
       "Figma",
     ],
     bullets: [
-      "Responsable de la automatización de pruebas dentro del pipeline CI/CD usando Selenium, asegurando la calidad y estabilidad del software.",
-      "Apoyé la preparación y validación de datos para pruebas automatizadas.",
-      "Desarrollé soluciones con Power Apps, Power Automate y Power BI para optimizar procesos y potenciar la toma de decisiones basada en datos.",
-      "Apoyé al equipo de diseno con prototipos en Figma para asegurar experiencias consistentes.",
+      "Responsable de la automatizaci\u00f3n de pruebas dentro del pipeline CI/CD usando Selenium, asegurando la calidad y estabilidad del software.",
+      "Apoy\u00e9 la preparaci\u00f3n y validaci\u00f3n de datos para pruebas automatizadas.",
+      "Desarroll\u00e9 soluciones con Power Apps, Power Automate y Power BI para optimizar procesos y potenciar la toma de decisiones basada en datos.",
+      "Apoy\u00e9 al equipo de dise\u00f1o con prototipos en Figma para asegurar experiencias consistentes.",
     ],
   },
   {
@@ -270,7 +270,7 @@ export const experiences: Experience[] = [
     title: "Desarrollador Full Stack",
     company: "Atos (Cestic)",
     project: "SEMADE - Ministerio de Defensa",
-    location: "Madrid, Espana",
+    location: "Madrid, Espa\u00f1a",
     period: "Sep 2022 - Ago 2024",
     tech: [
       "Angular",
@@ -283,10 +283,10 @@ export const experiences: Experience[] = [
       "GitHub",
     ],
     bullets: [
-      "Desarrollé funcionalidades backend con Java y Spring Boot, implementando APIs REST para gestionar y validar datos operativos de las Fuerzas Armadas.",
-      "Usé Oracle SQL para extraer, filtrar y validar informacion, soportando flujos de datos en la gestion de PCR.",
-      "Transmisión periodica de datos al Ministerio de Sanidad para su validacion y consolidacion centralizada.",
-      "Cree interfaces con Angular, Bootstrap y PrimeNG para experiencias de usuario intuitivas y atractivas.",
+      "Desarroll\u00e9 funcionalidades backend con Java y Spring Boot, implementando APIs REST para gestionar y validar datos operativos de las Fuerzas Armadas.",
+      "Us\u00e9 Oracle SQL para extraer, filtrar y validar informaci\u00f3n, soportando flujos de datos en la gesti\u00f3n de PCR.",
+      "Transmisi\u00f3n peri\u00f3dica de datos al Ministerio de Sanidad para su validaci\u00f3n y consolidaci\u00f3n centralizada.",
+      "Cre\u00e9 interfaces con Angular, Bootstrap y PrimeNG para experiencias de usuario intuitivas y atractivas.",
     ],
   },
   {
@@ -294,15 +294,24 @@ export const experiences: Experience[] = [
     title: "Analista Funcional y de Datos & Scrum Master Assistant",
     company: "Atos (Cestic)",
     project: "SEMADE - Ministerio de Defensa",
-    location: "Madrid, Espana",
+    location: "Madrid, Espa\u00f1a",
     period: "Jul 2021 - Ago 2022",
-    tech: ["Scrum", "Jira", "Git", "GitHub", "Jenkins", "Trello", "Postman"],
+    tech: [
+      "SQL",
+      "GitHub",
+      "Git",
+      "Jenkins",
+      "Trello",
+      "Postman",
+      "Scrum",
+      "Jira",
+    ],
     bullets: [
       "Proyecto para el Ministerio de Defensa (MINISDEF) gestionando las PCR realizadas por las Fuerzas Armadas.",
-      "Experiencia con SQL para automatizacion de procesos y flujos ETL sobre Oracle.",
-      "Implementacion de pipelines en entornos Oracle, integrando validaciones SQL y transformaciones de datos automatizadas.",
-      "Integracion continua con Jenkins y GitHub.",
-      "SCRUM: planificacion, estimacion, seguimiento y mejora continua.",
+      "Experiencia con SQL para automatizaci\u00f3n de procesos y flujos ETL sobre Oracle.",
+      "Implementaci\u00f3n de pipelines en entornos Oracle, integrando validaciones SQL y transformaciones de datos automatizadas.",
+      "Integraci\u00f3n continua con Jenkins y GitHub.",
+      "SCRUM: planificaci\u00f3n, estimaci\u00f3n, seguimiento y mejora continua.",
     ],
   },
   {
@@ -310,14 +319,14 @@ export const experiences: Experience[] = [
     title: "Desarrollador Full Stack",
     company: "Atos",
     project: "Soluciones IoT internas",
-    location: "Madrid, Espana",
+    location: "Madrid, Espa\u00f1a",
     period: "Mar 2021 - Jun 2021",
     tech: ["Angular", "Spring Boot", "Azure IoT", "Android", "Java"],
     bullets: [
-      "Cree interfaces web responsivas con Angular para monitorear dispositivos IoT.",
-      "Desarrolle servicios REST con Spring Boot para orquestar la capa de negocio.",
-      "Conecte dispositivos mediante Azure IoT aportando telemetria en tiempo real.",
-      "Implemente una app Android en Java para interactuar con la plataforma desde campo.",
+      "Cre\u00e9 interfaces web responsivas con Angular para monitorear dispositivos IoT.",
+      "Desarroll\u00e9 servicios REST con Spring Boot para orquestar la capa de negocio.",
+      "Conect\u00e9 dispositivos mediante Azure IoT aportando telemetr\u00eda en tiempo real.",
+      "Implement\u00e9 una app Android en Java para interactuar con la plataforma desde campo.",
     ],
   },
 ];
@@ -326,7 +335,7 @@ export const projects: Project[] = [
     title: "Jardin Digital",
     featured: true,
     description:
-      "Web artesana para registrar y acompanÌƒar la vida de las plantas. Incluye panel con KPIs, filtros dinamicos, exportacion de fichas (JSON/TXT/CSV), tema claro/oscuro, sonido ambiente y hojas flotantes.",
+      "Web artesana para registrar y acompa\u00f1ar la vida de las plantas. Incluye panel con KPIs, filtros din\u00e1micos, exportaci\u00f3n de fichas (JSON/TXT/CSV), tema claro/oscuro, sonido ambiente y hojas flotantes.",
     image: "/images/proyectos/jardinDigital/jardinDigitalFoto3.png",
     tech: ["Angular", "TypeScript", "Tailwind CSS", "LocalStorage", "JSON"],
     links: {
@@ -337,7 +346,7 @@ export const projects: Project[] = [
   {
     title: "ForYouToBe",
     description:
-      "Herramienta en Python para descargar audio de YouTube en varios formatos (MP3, WAV, FLAC) a partir de URLs individuales o listas, con seleccion de formato y carpeta destino.",
+      "Herramienta en Python para descargar audio de YouTube en varios formatos (MP3, WAV, FLAC) a partir de URLs individuales o listas, con selecci\u00f3n de formato y carpeta destino.",
     image:
       "/images/proyectos/forYouTobe/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_3.jpg",
     tech: ["Python", "yt-dlp"],
@@ -369,7 +378,7 @@ export const projects: Project[] = [
   {
     title: "Space Invaders",
     description:
-      "Implementacion del clasico Space Invaders en Python: control de nave, disparo a enemigos y gestion de oleadas antes de que alcancen la base.",
+      "Implementaci\u00f3n del clasico Space Invaders en Python: control de nave, disparo a enemigos y gesti\u00f3n de oleadas antes de que alcancen la base.",
     image: "/images/proyectos/spaceInvaders/space_invaders.png",
     tech: ["Python", "Pygame"],
     links: {
@@ -379,20 +388,20 @@ export const projects: Project[] = [
 ];
 export const education: Education[] = [
   {
-    institution: "Universidad Tecnológica",
+    institution: "Universidad Tecnol\u00f3gica",
     title: "Inteligencia Artificial para Programadores",
     dates: "2025",
     details:
-      "Curso universitario especializado de 200 horas enfocado en el uso práctico de la IA en desarrollo de software. Incluye aprendizaje automático, redes neuronales, NLP, visión artificial, big data, optimización de modelos y despliegue en producción, proporcionando una base sólida y aplicada en IA moderna.",
+      "Curso universitario especializado de 200 horas enfocado en el uso pr\u00e1ctico de la IA en desarrollo de software. Incluye aprendizaje autom\u00e1tico, redes neuronales, NLP, visi\u00f3n artificial, big data, optimizaci\u00f3n de modelos y despliegue en producci\u00f3n, proporcionando una base s\u00f3lida y aplicada en IA moderna.",
     image:
       "/images/certificados/Certificado-Utamed-InteligenciaArtificialParaProgramadores_page-0001.jpg",
   },
   {
     institution: " Universitat Oberta de Catalunya",
-    title: "Iniciación a la Inteligencia Artificial",
+    title: "Iniciaci\u00f3n a la Inteligencia Artificial",
     dates: "2025",
     details:
-      "Certificado universitario de formación continua en fundamentos de Inteligencia Artificial, con 24 créditos ECTS y una dedicación de 600 horas. Proporciona conocimientos esenciales sobre los principios de la IA, su contexto académico y su aplicación en entornos reales.",
+      "Certificado universitario de formaci\u00f3n continua en fundamentos de Inteligencia Artificial, con 24 cr\u00e9ditos ECTS y una dedicaci\u00f3n de 600 horas. Proporciona conocimientos esenciales sobre los principios de la IA, su contexto acad\u00e9mico y su aplicaci\u00f3n en entornos reales.",
     image: "/images/certificados/Certificado-UOC-Iniciacion-IA_page-0001.jpg",
   },
   {
@@ -400,7 +409,7 @@ export const education: Education[] = [
     title: "Prompt Engineering",
     dates: "2025",
     details:
-      "Curso universitario en Prompt Engineering orientado al diseño, optimización e integración de prompts avanzados para sistemas de IA generativa. Incluye fundamentos de IA, creación de chatbots, mejora de interacción, aplicación ética y despliegue de soluciones basadas en ChatGPT en entornos web y aplicaciones.",
+      "Curso universitario en Prompt Engineering orientado al dise\u00f1o, optimizaci\u00f3n e integraci\u00f3n de prompts avanzados para sistemas de IA generativa. Incluye fundamentos de IA, creaci\u00f3n de chatbots, mejora de interacci\u00f3n, aplicaci\u00f3n \u00e9tica y despliegue de soluciones basadas en ChatGPT en entornos web y aplicaciones.",
     image:
       "/images/certificados/Certificado-UniversidadNebrija-PromptEngineering.jpg",
   },
@@ -409,7 +418,7 @@ export const education: Education[] = [
     title: "AWS Certified Cloud Practitioner",
     dates: "2024",
     details:
-      "El certificado AWS Cloud Practitioner acredita conocimientos fundamentales sobre la nube, incluyendo los servicios principales de AWS, seguridad, modelos de precios y conceptos clave de facturación.",
+      "El certificado AWS Cloud Practitioner acredita conocimientos fundamentales sobre la nube, incluyendo los servicios principales de AWS, seguridad, modelos de precios y conceptos clave de facturaci\u00f3n.",
     image: "/images/certificados/Certificado AWS.png",
   },
   {
@@ -417,15 +426,15 @@ export const education: Education[] = [
     title: "EF SET English Certificate (C2 Proficient)",
     dates: "2024",
     details:
-      "Certifica el nivel de inglés según el Marco Común Europeo, evaluando habilidades de lectura y comprensión auditiva.",
-    image: "/images/certificados/EF SET Certificate inglés_recortada.jpg",
+      "Certifica el nivel de ingl\u00e9s seg\u00fan el Marco Com\u00fan Europeo, evaluando habilidades de lectura y comprensi\u00f3n auditiva.",
+    image: "/images/certificados/EF SET Certificate ingl\u00e9s_recortada.jpg",
   },
   {
     institution: "GitHub",
     title: "GitHub Foundations",
     dates: "2024",
     details:
-      "Valida conocimientos de Git y GitHub para gestión de proyectos y colaboración en repositorios.",
+      "Valida conocimientos de Git y GitHub para gesti\u00f3n de proyectos y colaboraci\u00f3n en repositorios.",
     image: "/images/certificados/GitHubFoundations_Badge20241008_page-0001.jpg",
   },
   {
@@ -433,7 +442,7 @@ export const education: Education[] = [
     title: "LPI Linux Essentials",
     dates: "2024",
     details:
-      "Acredita habilidades para manejar conceptos básicos de Linux, incluyendo su funcionamiento, línea de comandos y gestión de archivos, fomentando una base sólida en software de código abierto.",
+      "Acredita habilidades para manejar conceptos b\u00e1sicos de Linux, incluyendo su funcionamiento, l\u00ednea de comandos y gesti\u00f3n de archivos, fomentando una base s\u00f3lida en software de c\u00f3digo abierto.",
     image: "/images/certificados/Udemy_certificate_Linux_essentials.jpg",
   },
   {
@@ -441,7 +450,7 @@ export const education: Education[] = [
     title: "Crear y administrar aplicaciones de lienzo con Power Apps",
     dates: "2024",
     details:
-      "Reconoce habilidades para diseñar, construir y gestionar aplicaciones en Power Apps, integrando datos y creando soluciones personalizadas sin programación avanzada.",
+      "Reconoce habilidades para dise\u00f1ar, construir y gesti\u00f3nar aplicaciones en Power Apps, integrando datos y creando soluciones personalizadas sin programaci\u00f3n avanzada.",
     image:
       "/images/certificados/Credencial - vinebarrancoalonso _ Microsoft Learn_Crea y administra aplicaciones de lienzo con Power Apps_page-0001.jpg",
   },
@@ -450,7 +459,7 @@ export const education: Education[] = [
     title: "Scrum Master",
     dates: "2024",
     details:
-      "Certifica habilidades para liderar equipos ágiles, aplicando principios y prácticas de Scrum, facilitando reuniones clave, eliminando impedimentos y promoviendo la mejora continua en proyectos de desarrollo ágil.",
+      "Certifica habilidades para liderar equipos \u00e1giles, aplicando principios y pr\u00e1cticas de Scrum, facilitando reuniones clave, eliminando impedimentos y promoviendo la mejora continua en proyectos de desarrollo \u00e1gil.",
     image: "/images/certificados/Udemy_certificate_Scrum_master.jpg",
   },
   {
@@ -458,7 +467,7 @@ export const education: Education[] = [
     title: "Selenium 4",
     dates: "2024",
     details:
-      "Habilidades para automatizar pruebas de software utilizando Selenium 4 con Java, cubriendo desde la instalación y configuración hasta la creación de scripts de prueba avanzados, garantizando un desarrollo de software más eficiente y confiable.",
+      "Habilidades para automatizar pruebas de software utilizando Selenium 4 con Java, cubriendo desde la instalaci\u00f3n y configuraci\u00f3n hasta la creaci\u00f3n de scripts de prueba avanzados, garantizando un desarrollo de software m\u00e1s eficiente y confiable.",
     image: "/images/certificados/Udemy_certificate_Selenium.jpg",
   },
 ];
