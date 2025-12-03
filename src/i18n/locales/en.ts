@@ -58,11 +58,12 @@ export const en = {
             "Specialized in Angular and TypeScript with a focus on modern, clean interfaces.",
         };
       }
-      if (item.title === "Buenas Practicas") {
+      if (item.title === "Desarrollo Backend") {
         return {
           ...item,
-          title: "Best Practices",
-          description: "Clean, maintainable code following industry standards.",
+          title: "Backend Development",
+          description:
+            "Focused on Java/Spring Boot and NestJS, building robust APIs. Experienced in SQL and ETL tasks.",
         };
       }
       if (item.title === "Aprendizaje Continuo") {

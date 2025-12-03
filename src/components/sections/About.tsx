@@ -7,13 +7,14 @@ import { SectionShell } from "../shared/SectionShell";
 import { scrollRevealConfig } from "@/lib/utils";
 import { aboutContent } from "@/data/portfolio";
 import { useLanguage } from "@/i18n";
-import { Code2, Target, Zap } from "lucide-react";
+import { Code2, Target, Zap, Cog } from "lucide-react";
 
 const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 const highlightIconMap = {
 	code: Code2,
 	target: Target,
+	gear: Cog,
 	zap: Zap,
 } as const;
 

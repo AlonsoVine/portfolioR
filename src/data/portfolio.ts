@@ -106,10 +106,10 @@ export const aboutContent = {
       icon: "code",
     },
     {
-      title: "Buenas Practicas",
+      title: "Desarrollo Backend",
       description:
-        "Codigo limpio, mantenible y siguiendo los estandares de la industria.",
-      icon: "target",
+        "Enfocado en Java/Spring Boot y NestJS, creando APIs robustas. Experiencia en SQL y en tareas ETL.",
+      icon: "gear",
     },
     {
       title: "Aprendizaje Continuo",
