@@ -14,9 +14,37 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Alonso Viñe",
+  metadataBase: new URL("https://alonsovine.github.io"),
+  title: "Alonso Viñé | Software Developer Portfolio",
   description:
-    "Portfolio profesional componentizado con énfasis en animaciones y escalabilidad.",
+    "Mi portfolio profesional.",
+  alternates: {
+    canonical: "/portfolioR/",
+  },
+  openGraph: {
+    title: "Alonso Viñé | Software Developer Portfolio",
+    description:
+      "Mi portfolio profesional.",
+    url: "/portfolioR/",
+    siteName: "Alonso Viñé",
+    type: "website",
+    locale: "es_ES",
+    images: [
+      {
+        url: "/portfolioR/assets/og-portfolio.png",
+        width: 1200,
+        height: 630,
+        alt: "Alonso Viñé | Software Developer Portfolio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Alonso Viñé | Software Developer Portfolio",
+    description:
+      "Mi portfolio profesional.",
+    images: ["/portfolioR/assets/og-portfolio.png"],
+  },
 };
 
 const themeScript = `
