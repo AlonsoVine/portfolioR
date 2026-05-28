@@ -40,6 +40,7 @@ export type Project = {
   title: string;
   description: string;
   image: string;
+  gallery?: string[];
   tech: string[];
   featured?: boolean;
   links: {

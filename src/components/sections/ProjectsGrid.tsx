@@ -7,6 +7,7 @@ import { SectionShell } from "../shared/SectionShell";
 import { scrollRevealConfig } from "@/lib/utils";
 import { GithubIcon, Sparkles } from "lucide-react";
 import { useLanguage } from "@/i18n";
+import { ProjectCarousel } from "../ui/ProjectCarousel";
 
 const techPillPalette = ["--pill-emerald", "--pill-sky", "--pill-amber", "--pill-violet", "--pill-rose", "--pill-teal"];
 const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
@@ -48,14 +49,20 @@ export function ProjectsGrid() {
 							<div className="absolute inset-0 bg-gradient-to-br from-amber-200/8 via-transparent to-rose-300/8" />
 						</div>
 						<div className="relative overflow-hidden">
-							<Image
-								src={`${prefix}${project.image}`}
-								alt={project.title}
-								width={1200}
-								height={800}
-								className="h-60 w-full object-cover transition-transform duration-500 group-hover:scale-105"
-							/>
-							<div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent opacity-80" />
+							{project.gallery && project.gallery.length > 1 ? (
+								<ProjectCarousel images={project.gallery} alt={project.title} />
+							) : (
+								<>
+									<Image
+										src={`${prefix}${project.image}`}
+										alt={project.title}
+										width={1200}
+										height={800}
+										className="h-60 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+									/>
+									<div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent opacity-80" />
+								</>
+							)}
 						</div>
 						<div className="flex flex-1 flex-col gap-6 p-8">
 							<div className="flex flex-col gap-3">
