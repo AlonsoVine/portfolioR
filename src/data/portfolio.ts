@@ -153,6 +153,7 @@ export const skillCards: SkillCard[] = [
     items: [
       "Angular",
       "React",
+      "Next.js",
       "Spring Boot",
       "Express",
       "Django",
@@ -163,13 +164,24 @@ export const skillCards: SkillCard[] = [
       "Tailwind",
       "RxJS",
       "Android SDK",
+      "Vitest",
     ],
   },
   {
     title: "Cloud y DevOps",
     icon: "cloud",
     tone: "teal",
-    items: ["AWS", "Azure", "Docker", "Jenkins", "GitHub Actions", "CI/CD"],
+    items: [
+      "AWS",
+      "Azure",
+      "Docker",
+      "Jenkins",
+      "GitHub Actions",
+      "GitLab CI/CD",
+      "Maven",
+      "Nexus",
+      "SonarQube",
+    ],
   },
   {
     title: "Bases de Datos",
@@ -189,6 +201,7 @@ export const skillCards: SkillCard[] = [
     tone: "rose",
     items: [
       "Git/GitHub/GitLab",
+      "Linux",
       "Selenium",
       "Figma",
       "Postman",
@@ -198,6 +211,7 @@ export const skillCards: SkillCard[] = [
       "Power BI",
       "PowerApps",
       "Jira",
+      "Scrum",
     ],
   },
   {
