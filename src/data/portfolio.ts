@@ -338,6 +338,19 @@ export const projects: Project[] = [
     description:
       "Web artesana para registrar y acompa\u00f1ar la vida de las plantas. Incluye panel con KPIs, filtros din\u00e1micos, exportaci\u00f3n de fichas (JSON/TXT/CSV), tema claro/oscuro, sonido ambiente y hojas flotantes.",
     image: "/images/proyectos/jardinDigital/jardinDigitalFoto3.png",
+    gallery: [
+      "/images/proyectos/jardinDigital/jardinDigitalFoto3.png",
+      "/images/proyectos/jardinDigital/jardinDigitalFoto0.png",
+      "/images/proyectos/jardinDigital/jardinDigitalFoto1.png",
+      "/images/proyectos/jardinDigital/jardinDigitalFoto2.png",
+      "/images/proyectos/jardinDigital/jardinDigitalFoto4.png",
+      "/images/proyectos/jardinDigital/jardinDigitalFoto5.png",
+      "/images/proyectos/jardinDigital/jardinDigitalFoto6.png",
+      "/images/proyectos/jardinDigital/jardinDigitalFoto7.png",
+      "/images/proyectos/jardinDigital/jardinDigitalFoto8.png",
+      "/images/proyectos/jardinDigital/jardinDigitalFoto9.png",
+      "/images/proyectos/jardinDigital/jardindigitalFoto01.png",
+    ],
     tech: ["Angular", "TypeScript", "Tailwind CSS", "LocalStorage", "JSON"],
     links: {
       demo: "https://alonsovine.github.io/jardin-digital/",
@@ -372,6 +385,13 @@ export const projects: Project[] = [
       "Herramienta en Python para descargar audio de YouTube en varios formatos (MP3, WAV, FLAC) a partir de URLs individuales o listas, con selecci\u00f3n de formato y carpeta destino.",
     image:
       "/images/proyectos/forYouTobe/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_3.jpg",
+    gallery: [
+      "/images/proyectos/forYouTobe/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_3.jpg",
+      "/images/proyectos/forYouTobe/captura-codigo.png",
+      "/images/proyectos/forYouTobe/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_0.jpg",
+      "/images/proyectos/forYouTobe/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_20.jpg",
+      "/images/proyectos/forYouTobe/Leonardo_Anime_XL_An_electrifyingly_vibrant_speech_recognition_1.jpg",
+    ],
     tech: ["Python", "yt-dlp"],
     links: {
       code: "https://github.com/AlonsoVine/forYouToBe",
@@ -383,6 +403,15 @@ export const projects: Project[] = [
       "Aplicacion Python que renombra fotos usando metadatos EXIF (fecha tomada) siguiendo el formato YYYY_MM_DD_nombreOriginal.ext, facilitando el orden cronologico.",
     image:
       "/images/proyectos/photoDateRenamer/fotografia-movil-versus-camara2.jpg",
+    gallery: [
+      "/images/proyectos/photoDateRenamer/fotografia-movil-versus-camara2.jpg",
+      "/images/proyectos/photoDateRenamer/img_codigo_photoDateRenamer.png",
+      "/images/proyectos/photoDateRenamer/img_codigo_photoDateRenamer2.png",
+      "/images/proyectos/photoDateRenamer/captura-pantalla.png",
+      "/images/proyectos/photoDateRenamer/fotografo.jpg",
+      "/images/proyectos/photoDateRenamer/fotografa.png",
+      "/images/proyectos/photoDateRenamer/photos2.jpg",
+    ],
     tech: ["Python", "EXIF"],
     links: {
       code: "https://github.com/AlonsoVine/PhotoDateRenamer",
@@ -393,6 +422,18 @@ export const projects: Project[] = [
     description:
       "Asistente virtual en Python capaz de ejecutar comandos de voz: abrir apps, buscar en internet, consultar clima, crear recordatorios y enviar correos, entre otros.",
     image: "/images/proyectos/jarvisVozAssistant/speech-recognition.jpg",
+    gallery: [
+      "/images/proyectos/jarvisVozAssistant/speech-recognition.jpg",
+      "/images/proyectos/jarvisVozAssistant/javis-captura-codigo.png",
+      "/images/proyectos/jarvisVozAssistant/speech-recognition-img2.png",
+      "/images/proyectos/jarvisVozAssistant/Leonardo_Phoenix_An_electrifyingly_vibrant_speech_recognitiont_0.jpg",
+      "/images/proyectos/jarvisVozAssistant/Leonardo_Phoenix_An_electrifyingly_vibrant_speech_recognitiont_1.jpg",
+      "/images/proyectos/jarvisVozAssistant/Leonardo_Phoenix_An_electrifyingly_vibrant_speech_recognitiont_3.jpg",
+      "/images/proyectos/jarvisVozAssistant/Leonardo_Anime_XL_An_electrifyingly_vibrant_speech_recognition_0.jpg",
+      "/images/proyectos/jarvisVozAssistant/Leonardo_Anime_XL_An_electrifyingly_vibrant_speech_recognition_2.jpg",
+      "/images/proyectos/jarvisVozAssistant/Leonardo_Anime_XL_An_electrifyingly_vibrant_speech_recognition_3.jpg",
+      "/images/proyectos/jarvisVozAssistant/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_22.jpg",
+    ],
     tech: ["Python", "Speech Recognition"],
     links: {
       code: "https://github.com/AlonsoVine/jarvisVozAssistant",

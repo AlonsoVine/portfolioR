@@ -23,6 +23,7 @@ export function ProjectCarousel({ images, alt, intervalMs = 3200 }: Props) {
 	const goTo = useCallback((i: number) => setIndex(((i % total) + total) % total), [total]);
 	const next = useCallback(() => goTo(index + 1), [goTo, index]);
 	const prev = useCallback(() => goTo(index - 1), [goTo, index]);
+	const close = useCallback(() => setZoomed(false), []);
 
 	useEffect(() => {
 		if (reduceMotion || paused || zoomed || total <= 1) return;
@@ -33,17 +34,23 @@ export function ProjectCarousel({ images, alt, intervalMs = 3200 }: Props) {
 	useEffect(() => {
 		if (!zoomed) return;
 		const onKey = (e: KeyboardEvent) => {
-			if (e.key === "Escape") setZoomed(false);
-			if (e.key === "ArrowRight") next();
-			if (e.key === "ArrowLeft") prev();
+			if (e.key === "Escape") close();
+			else if (e.key === "ArrowRight") next();
+			else if (e.key === "ArrowLeft") prev();
 		};
+		const onWheel = () => close();
+		const onTouchMove = () => close();
 		document.body.style.overflow = "hidden";
 		window.addEventListener("keydown", onKey);
+		window.addEventListener("wheel", onWheel, { passive: true });
+		window.addEventListener("touchmove", onTouchMove, { passive: true });
 		return () => {
 			document.body.style.overflow = "";
 			window.removeEventListener("keydown", onKey);
+			window.removeEventListener("wheel", onWheel);
+			window.removeEventListener("touchmove", onTouchMove);
 		};
-	}, [zoomed, next, prev]);
+	}, [zoomed, next, prev, close]);
 
 	const current = images[index];
 
@@ -126,60 +133,65 @@ export function ProjectCarousel({ images, alt, intervalMs = 3200 }: Props) {
 
 			{zoomed ? (
 				<div
-					className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+					className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
 					role="dialog"
 					aria-modal="true"
 					aria-label={`${alt} — vista ampliada`}
-					onClick={() => setZoomed(false)}
+					onClick={close}
 				>
-					<div
-						className="relative max-h-[90vh] w-full max-w-6xl"
-						onClick={(e) => e.stopPropagation()}
+					<button
+						type="button"
+						onClick={(e) => { e.stopPropagation(); close(); }}
+						aria-label="Cerrar vista ampliada"
+						className="absolute right-4 top-4 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full bg-black/60 text-white shadow-lg backdrop-blur transition hover:bg-black/80 focus:outline-none focus:ring-2 focus:ring-white/60"
 					>
-						<button
-							type="button"
-							onClick={() => setZoomed(false)}
-							aria-label="Cerrar vista ampliada"
-							className="absolute right-3 top-3 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition hover:bg-white/20"
+						<X className="h-5 w-5" aria-hidden="true" />
+					</button>
+
+					{total > 1 ? (
+						<span
+							className="absolute left-1/2 top-4 z-20 -translate-x-1/2 rounded-full bg-black/60 px-3 py-1 text-xs font-medium text-white/90 backdrop-blur"
+							aria-live="polite"
 						>
-							<X className="h-5 w-5" aria-hidden="true" />
-						</button>
+							{index + 1} / {total}
+						</span>
+					) : null}
 
-						<div className="relative h-[80vh] w-full">
-							<Image
-								src={`${prefix}${current}`}
-								alt={alt}
-								fill
-								sizes="100vw"
-								className="object-contain"
-							/>
-						</div>
-
-						{total > 1 ? (
-							<>
-								<button
-									type="button"
-									onClick={prev}
-									aria-label="Imagen anterior"
-									className="absolute left-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition hover:bg-white/20"
-								>
-									<ChevronLeft className="h-6 w-6" aria-hidden="true" />
-								</button>
-								<button
-									type="button"
-									onClick={next}
-									aria-label="Imagen siguiente"
-									className="absolute right-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition hover:bg-white/20"
-								>
-									<ChevronRight className="h-6 w-6" aria-hidden="true" />
-								</button>
-
-								<div className="mt-4 flex items-center justify-center gap-2 text-sm text-white/70">
-									<span>{index + 1} / {total}</span>
-								</div>
-							</>
-						) : null}
+					<div
+						className="relative h-full w-full p-6 sm:p-12"
+						onClick={(e) => {
+							if (e.target === e.currentTarget) close();
+						}}
+					>
+						<Image
+							src={`${prefix}${current}`}
+							alt={alt}
+							fill
+							sizes="100vw"
+							className="object-contain"
+						/>
 					</div>
+
+					{total > 1 ? (
+						<>
+							<button
+								type="button"
+								onClick={(e) => { e.stopPropagation(); prev(); }}
+								aria-label="Imagen anterior"
+								className="absolute left-4 top-1/2 z-20 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white shadow-lg backdrop-blur transition hover:bg-black/80 focus:outline-none focus:ring-2 focus:ring-white/60"
+							>
+								<ChevronLeft className="h-6 w-6" aria-hidden="true" />
+							</button>
+							<button
+								type="button"
+								onClick={(e) => { e.stopPropagation(); next(); }}
+								aria-label="Imagen siguiente"
+								className="absolute right-4 top-1/2 z-20 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white shadow-lg backdrop-blur transition hover:bg-black/80 focus:outline-none focus:ring-2 focus:ring-white/60"
+							>
+								<ChevronRight className="h-6 w-6" aria-hidden="true" />
+							</button>
+						</>
+					) : null}
 				</div>
 			) : null}
 		</>
