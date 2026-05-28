@@ -13,38 +13,103 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const SITE_URL = "https://alonsovine.github.io";
+const SITE_PATH = "/portfolioR/";
+const SITE_FULL_URL = `${SITE_URL}${SITE_PATH}`;
+const DEFAULT_TITLE =
+  "Alonso Viñé | Full Stack Developer (Angular · Java · React · DevOps)";
+const DESCRIPTION =
+  "Alonso Viñé Barrancos · Full Stack Developer en Madrid. 5+ años construyendo software para Defensa, FCC, Inetum y Seres. Especialización en IA y agentes.";
+const OG_IMAGE = "/portfolioR/assets/og-portfolio.png";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://alonsovine.github.io"),
-  title: "Alonso Viñé | Software Developer Portfolio",
-  description:
-    "Mi portfolio profesional.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: DEFAULT_TITLE,
+    template: "%s | Alonso Viñé",
+  },
+  description: DESCRIPTION,
+  keywords: [
+    "Alonso Viñé",
+    "Alonso Viñé Barrancos",
+    "Full Stack Developer Madrid",
+    "Angular Developer",
+    "Java Developer",
+    "Spring Boot",
+    "DevOps Engineer",
+    "GitLab CI/CD",
+    "React Developer",
+    "Portfolio",
+  ],
+  authors: [
+    {
+      name: "Alonso Viñé Barrancos",
+      url: "https://www.linkedin.com/in/alonso-viñé-barrancos/",
+    },
+  ],
+  creator: "Alonso Viñé Barrancos",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
+  },
   alternates: {
-    canonical: "/portfolioR/",
+    canonical: SITE_PATH,
   },
   openGraph: {
-    title: "Alonso Viñé | Software Developer Portfolio",
-    description:
-      "Mi portfolio profesional.",
-    url: "/portfolioR/",
+    title: DEFAULT_TITLE,
+    description: DESCRIPTION,
+    url: SITE_PATH,
     siteName: "Alonso Viñé",
     type: "website",
     locale: "es_ES",
     images: [
       {
-        url: "/portfolioR/assets/og-portfolio.png",
+        url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "Alonso Viñé | Software Developer Portfolio",
+        alt: "Alonso Viñé | Full Stack Developer Portfolio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Alonso Viñé | Software Developer Portfolio",
-    description:
-      "Mi portfolio profesional.",
-    images: ["/portfolioR/assets/og-portfolio.png"],
+    title: DEFAULT_TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
   },
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Alonso Viñé Barrancos",
+  alternateName: "Alonso Viñé",
+  url: SITE_FULL_URL,
+  image: `${SITE_URL}/portfolioR/images/mi-foto.png`,
+  jobTitle: "Full Stack Developer",
+  worksFor: { "@type": "Organization", name: "Seres" },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Madrid",
+    addressCountry: "ES",
+  },
+  sameAs: [
+    "https://github.com/AlonsoVine",
+    "https://www.linkedin.com/in/alonso-viñé-barrancos/",
+  ],
+  knowsAbout: [
+    "Angular",
+    "Java",
+    "Spring Boot",
+    "React",
+    "TypeScript",
+    "Node.js",
+    "DevOps",
+    "GitLab CI/CD",
+    "AI Agents",
+    "Prompt Engineering",
+  ],
 };
 
 const themeScript = `
@@ -71,6 +136,10 @@ export default function RootLayout({
     <html lang="es" data-theme="dark">
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-950 text-white`}
