@@ -42,12 +42,19 @@ export function Hero() {
 				<div className="flex-1 text-left">
 					<h1>
 						<motion.span
-							className="block text-6xl font-semibold leading-tight tracking-wide sm:text-7xl lg:text-8xl"
+							className="block text-5xl font-semibold leading-[1.05] tracking-wide sm:text-6xl md:text-7xl lg:text-8xl"
+							style={{ fontFamily: "var(--font-cinzel)" }}
 							initial={{ opacity: 0, y: 24 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ delay: 0.2, duration: 0.8 }}
 						>
-							{title}
+							{title.split(/\s+/).map((word, i, arr) => (
+								<span key={i}>
+									<span className="text-[var(--foreground)]">{word[0]}</span>
+									<span className="text-[var(--foreground)]/20">{word.slice(1).toUpperCase()}</span>
+									{i < arr.length - 1 ? " " : null}
+								</span>
+							))}
 						</motion.span>
 						<motion.span
 							className="mt-3 block text-2xl font-medium text-muted sm:text-3xl"
