@@ -68,28 +68,30 @@ export const navLinks: NavLink[] = [
 ];
 
 export const heroContent = {
-  eyebrow: "Bienvenido a mi portfolio",
-  title: "Alonso Vi\u00F1\u00E9",
-  role: "Desarrollador y Analista",
+  title: "Alonso Vi\u00f1\u00e9",
+  role: "Full Stack Developer \u00B7 DevOps & IA",
+  location: "Madrid, Espa\u00f1a",
+  availability: "Disponible para colaborar",
   subtitle:
-    "Apasionado por la tecnolog\u00EDa. Me especializo en crear aplicaciones personalizadas que combinan funcionalidad y dise\u00F1o. Mi objetivo es construir soluciones que impulsen la eficiencia y el rendimiento.",
+    "{years}+ a\u00f1os construyendo software para Defensa, FCC e Inetum. Ahora en Seres modernizando pipelines de despliegue y explorando el desarrollo asistido por agentes de IA.",
   image: {
     front: {
       src: "/images/mi-foto.png",
-      alt: "Retrato de Alonso Vi\u00F1\u00E9",
+      alt: "Retrato de Alonso Vi\u00f1\u00e9",
     },
     back: {
       src: "/images/logo/logo-negro-redondo-conFondo.png",
-      alt: "Monograma de Alonso Vi\u00F1\u00E9",
+      alt: "Monograma de Alonso Vi\u00f1\u00e9",
     },
   },
   ctas: {
     primary: { label: "Ver Proyectos", href: "#projects" },
     secondary: {
       label: "Descargar CV",
-      href: "/assets/cv/Alonso Vi\u00f1\u00e9 CV_English.pdf",
+      href: "/assets/cv/Alonso Vi\u00f1\u00e9 CV_Espa\u00f1ol.pdf",
       download: true,
     },
+    tertiary: { label: "Cont\u00E1ctame", href: "#contact" },
   },
 };
 

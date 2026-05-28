@@ -2,8 +2,9 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import { Download, GithubIcon, Linkedin, Twitter } from "lucide-react";
+import { ArrowRight, Download, GithubIcon, Linkedin, MapPin, Twitter } from "lucide-react";
 import { useLanguage } from "@/i18n";
+import { calcYearsExperience } from "@/lib/years";
 
 const socialIconMap = {
 	linkedin: Linkedin,
@@ -24,8 +25,10 @@ type HeroImageFace = {
 
 export function Hero() {
 	const { dict } = useLanguage();
-	const { hero, socialLinks } = dict;
-	const { eyebrow, title, role, subtitle, image, ctas } = hero;
+	const { hero, socialLinks, experiences } = dict;
+	const { title, role, subtitle, image, ctas, location, availability } = hero;
+	const yearsExp = calcYearsExperience(experiences.map((e) => e.period));
+	const subtitleWithYears = subtitle.replace("{years}", String(yearsExp));
 	const cvHref = `${process.env.NEXT_PUBLIC_BASE_PATH || ""}${ctas.secondary.href}`;
 	const prefix: string = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 	const { scrollY } = useScroll();
@@ -37,37 +40,40 @@ export function Hero() {
 			<div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(251,191,36,0.25),_transparent_55%)]" />
 			<div className="relative mx-auto flex max-w-6xl flex-col gap-12 px-4 pb-24 pt-32 text-[var(--foreground)] sm:px-6 lg:flex-row lg:items-center lg:gap-20">
 				<div className="flex-1 text-left">
-					<motion.span
-						className="inline-flex items-center gap-2 rounded-full border-soft bg-white/10 px-6 py-2 text-xs uppercase tracking-[0.45em]"
+					<h1>
+						<motion.span
+							className="block text-6xl font-semibold leading-tight tracking-wide sm:text-7xl lg:text-8xl"
+							initial={{ opacity: 0, y: 24 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ delay: 0.2, duration: 0.8 }}
+						>
+							{title}
+						</motion.span>
+						<motion.span
+							className="mt-3 block text-2xl font-medium text-muted sm:text-3xl"
+							initial={{ opacity: 0, y: 24 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ delay: 0.25, duration: 0.85 }}
+						>
+							{role}
+						</motion.span>
+					</h1>
+					<motion.p
+						className="mt-3 inline-flex items-center gap-1.5 text-sm text-muted"
 						initial={{ opacity: 0, y: 16 }}
 						animate={{ opacity: 1, y: 0 }}
-						transition={{ delay: 0.1, duration: 0.6 }}
+						transition={{ delay: 0.3, duration: 0.7 }}
 					>
-						{eyebrow}
-					</motion.span>
-					<motion.h1
-						className="mt-6 text-4xl font-semibold leading-tight tracking-wide sm:text-5xl lg:text-6xl"
-						initial={{ opacity: 0, y: 24 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ delay: 0.2, duration: 0.8 }}
-					>
-						{title}
-					</motion.h1>
-					<motion.h2
-						className="mt-3 text-2xl font-medium text-muted sm:text-3xl"
-						initial={{ opacity: 0, y: 24 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ delay: 0.25, duration: 0.85 }}
-					>
-						{role}
-					</motion.h2>
+						<MapPin className="h-4 w-4 text-[var(--accent-warm)]" aria-hidden="true" />
+						{location}
+					</motion.p>
 					<motion.p
 						className="mt-4 max-w-2xl text-lg text-muted"
 						initial={{ opacity: 0, y: 24 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ delay: 0.35, duration: 0.85 }}
 					>
-						{subtitle}
+						{subtitleWithYears}
 					</motion.p>
 					<motion.div
 						initial={{ opacity: 0, y: 24 }}
@@ -94,6 +100,13 @@ export function Hero() {
 								{ctas.secondary.label}
 							</span>
 							<span className="pointer-events-none absolute inset-0 rounded-full bg-white/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+						</a>
+						<a
+							href={ctas.tertiary.href}
+							className="group inline-flex items-center gap-1.5 px-2 py-3 text-base font-semibold text-[var(--foreground)] transition-colors duration-300 hover:text-[var(--accent-warm)]"
+						>
+							{ctas.tertiary.label}
+							<ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
 						</a>
 					</motion.div>
 					<motion.div
@@ -145,6 +158,22 @@ export function Hero() {
 								</div>
 							</div>
 						</div>
+						{availability ? (
+							<motion.div
+								initial={{ opacity: 0, y: -8, scale: 0.96 }}
+								animate={{ opacity: 1, y: 0, scale: 1 }}
+								transition={{ delay: 0.75, duration: 0.5, ease: "easeOut" }}
+								className="pointer-events-none absolute -bottom-3 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap"
+							>
+								<span className="inline-flex items-center gap-2 rounded-full bg-[var(--surface-panel)] px-4 py-2 text-xs font-medium text-[var(--foreground)] shadow-[0_15px_40px_rgba(15,23,42,0.45)] ring-1 ring-emerald-400/30 backdrop-blur-xl">
+									<span className="relative flex h-2 w-2">
+										<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/60" />
+										<span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+									</span>
+									{availability}
+								</span>
+							</motion.div>
+						) : null}
 					</div>
 				</motion.div>
 			</div>

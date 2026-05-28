@@ -27,15 +27,21 @@ export const en = {
   },
   hero: {
     ...heroContent,
-    eyebrow: "Welcome to my portfolio",
     title: heroContent.title,
-    role: "Developer and Analyst",
+    role: "Full Stack Developer · DevOps & AI",
+    location: "Madrid, Spain",
+    availability: "Available for new opportunities",
     subtitle:
-      "Passionate about technology. I specialize in crafting tailored applications that combine functionality and design to boost efficiency and performance.",
+      "{years}+ years building software for Defense, FCC and Inetum. Currently at Seres modernizing deployment pipelines and exploring AI-agent-assisted development.",
     ctas: {
       ...heroContent.ctas,
       primary: { ...heroContent.ctas.primary, label: "View Projects" },
-      secondary: { ...heroContent.ctas.secondary, label: "Download CV" },
+      secondary: {
+        ...heroContent.ctas.secondary,
+        label: "Download CV",
+        href: "/assets/cv/Alonso Viñé CV_English.pdf",
+      },
+      tertiary: { ...heroContent.ctas.tertiary, label: "Contact me" },
     },
   },
   about: {
