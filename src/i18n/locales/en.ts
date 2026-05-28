@@ -116,13 +116,29 @@ export const en = {
         : exp.title === "Analista Funcional y de Datos & Scrum Master Assistant"
         ? "Functional and Data Analyst & Scrum Master Assistant"
         : exp.title,
-    period: exp.period,
+    period:
+      exp.period === "Feb 2026 - Actual"
+        ? "Feb 2026 - Present"
+        : exp.period,
     location: exp.location,
     company: exp.company,
-    project: exp.project,
+    project:
+      exp.project === "Aplicación central de Seres"
+        ? "Seres core application"
+        : exp.project,
     bullets: exp.bullets.map((bullet) => {
       // Preserve proper nouns by only translating common phrases
       const map: Record<string, string> = {
+        "Lidero la modernización del ciclo de despliegue de proyectos Java distribuidos por cliente, sustituyendo el flujo manual actual por pipelines reproducibles en GitLab CI/CD.":
+          "Leading the modernization of the deployment cycle for per-client Java projects, replacing the current manual flow with reproducible pipelines in GitLab CI/CD.",
+        "Diseño e implemento pipelines de build, test y release con GitLab CI integrados con Nexus como repositorio de artefactos Maven.":
+          "Designing and implementing build, test and release pipelines with GitLab CI, integrated with Nexus as the Maven artifact repository.",
+        "Estandarizo el versionado y la publicación de artefactos para una cartera amplia de proyectos cliente, reduciendo errores y tiempos de release.":
+          "Standardizing versioning and artifact publishing across a wide portfolio of client projects, reducing release errors and lead time.",
+        "Establezco prácticas de release seguras (semver, rollback, trazabilidad) y documento los pipelines para que el resto del equipo pueda mantenerlos.":
+          "Establishing safe release practices (semver, rollback, traceability) and documenting pipelines so the team can maintain them.",
+        "Colaboro con los equipos de desarrollo Java para integrar gates de calidad (linting, tests, cobertura con SonarQube) en el pipeline.":
+          "Collaborating with Java development teams to integrate quality gates (linting, tests, SonarQube coverage) into the pipeline.",
         "Participe en el programa SL2000E para la gestion de la flota de sistemas del Ejercito del Aire.":
           "Participated in the SL2000E program to manage the fleet systems of the Air Force.",
         "Desarrolle interfaces dinamicas con Angular, TypeScript, Bootstrap y RxJS conectadas a APIs REST.":

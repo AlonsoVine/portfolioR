@@ -218,6 +218,35 @@ export const skillCards: SkillCard[] = [
 
 export const experiences: Experience[] = [
   {
+    position: "right",
+    title: "DevOps Engineer \u00b7 CI/CD & Release Automation",
+    company: "Seres",
+    project: "Aplicaci\u00f3n central de Seres",
+    location: "Madrid, Espa\u00f1a",
+    period: "Feb 2026 - Actual",
+    tech: [
+      "GitLab",
+      "GitLab CI/CD",
+      "Nexus",
+      "Java",
+      "Maven",
+      "Docker",
+      "Jenkins",
+      "SonarQube",
+      "Bash/Shell",
+      "Linux",
+      "Scrum",
+      "Jira",
+    ],
+    bullets: [
+      "Lidero la modernizaci\u00f3n del ciclo de despliegue de proyectos Java distribuidos por cliente, sustituyendo el flujo manual actual por pipelines reproducibles en GitLab CI/CD.",
+      "Dise\u00f1o e implemento pipelines de build, test y release con GitLab CI integrados con Nexus como repositorio de artefactos Maven.",
+      "Estandarizo el versionado y la publicaci\u00f3n de artefactos para una cartera amplia de proyectos cliente, reduciendo errores y tiempos de release.",
+      "Establezco pr\u00e1cticas de release seguras (semver, rollback, trazabilidad) y documento los pipelines para que el resto del equipo pueda mantenerlos.",
+      "Colaboro con los equipos de desarrollo Java para integrar gates de calidad (linting, tests, cobertura con SonarQube) en el pipeline.",
+    ],
+  },
+  {
     position: "left",
     title: "Ingeniero Inform\u00e1tico",
     company: "Inetum",
