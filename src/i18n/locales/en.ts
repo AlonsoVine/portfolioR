@@ -195,7 +195,7 @@ export const en = {
           : p.title === "Jarvis Asistente de Voz"
           ? "Python voice assistant capable of executing voice commands: open apps, web search, weather, reminders, and email, among others."
           : p.title === "Space Invaders"
-          ? "Python implementation of the classic Space Invaders: ship control, shooting enemies, and managing waves before they reach the base."
+          ? "A reimagining of the arcade classic in JavaScript + HTML5 Canvas, playable online. Six game modes (classic, waves, survival, time-attack, plus 2-player co-op and versus), an achievement and reward system, ship customization, and a bestiary of defeated enemies. Backed by tests (Vitest), linting and pre-commit hooks."
           : p.description,
     })),
   },

@@ -345,6 +345,28 @@ export const projects: Project[] = [
     },
   },
   {
+    title: "Space Invaders",
+    featured: true,
+    description:
+      "Reimaginaci\u00f3n del cl\u00e1sico arcade en JavaScript + HTML5 Canvas, jugable online. Incluye 6 modos (cl\u00e1sico, oleadas, supervivencia, contrarreloj y 2 jugadores cooperativo y competitivo), sistema de logros y recompensas, personalizaci\u00f3n de nave y bestiario de enemigos derrotados. Con tests (Vitest), linting y hooks de pre-commit.",
+    image: "/images/proyectos/spaceInvaders/menu-seleccion-partida.png",
+    gallery: [
+      "/images/proyectos/spaceInvaders/menu-seleccion-partida.png",
+      "/images/proyectos/spaceInvaders/gameplay-clasico.png",
+      "/images/proyectos/spaceInvaders/menu-edicion-nave.png",
+      "/images/proyectos/spaceInvaders/gameplay-oleadas.png",
+      "/images/proyectos/spaceInvaders/menu-bestiario.png",
+      "/images/proyectos/spaceInvaders/gameplay-2p-coop.png",
+      "/images/proyectos/spaceInvaders/menu-resumen-partidas.png",
+      "/images/proyectos/spaceInvaders/gameplay-contrareloj.png",
+    ],
+    tech: ["JavaScript", "HTML5 Canvas", "Vitest"],
+    links: {
+      demo: "https://alonsovine.github.io/spaceInvaders/",
+      code: "https://github.com/AlonsoVine/spaceInvaders",
+    },
+  },
+  {
     title: "ForYouToBe",
     description:
       "Herramienta en Python para descargar audio de YouTube en varios formatos (MP3, WAV, FLAC) a partir de URLs individuales o listas, con selecci\u00f3n de formato y carpeta destino.",
@@ -374,16 +396,6 @@ export const projects: Project[] = [
     tech: ["Python", "Speech Recognition"],
     links: {
       code: "https://github.com/AlonsoVine/jarvisVozAssistant",
-    },
-  },
-  {
-    title: "Space Invaders",
-    description:
-      "Implementaci\u00f3n del clasico Space Invaders en Python: control de nave, disparo a enemigos y gesti\u00f3n de oleadas antes de que alcancen la base.",
-    image: "/images/proyectos/spaceInvaders/space_invaders.png",
-    tech: ["Python", "Pygame"],
-    links: {
-      code: "https://github.com/AlonsoVine/spaceInvaders",
     },
   },
 ];
