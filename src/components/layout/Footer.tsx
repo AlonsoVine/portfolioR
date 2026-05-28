@@ -1,60 +1,84 @@
 "use client";
 
-import Image from "next/image";
-import { GithubIcon, Linkedin, Twitter } from "lucide-react";
+import { GithubIcon, Linkedin, Mail } from "lucide-react";
 import { useLanguage } from "@/i18n";
 
 const socialIconMap = {
 	linkedin: Linkedin,
 	github: GithubIcon,
-	twitter: Twitter,
 } as const;
-
-const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 export function Footer() {
 	const { dict } = useLanguage();
 	const year = new Date().getFullYear();
-	const footerSocials = dict.socialLinks.filter((link) => link.icon === "linkedin" || link.icon === "github");
-	const footer = dict.footer;
+	const footerSocials = dict.socialLinks.filter(
+		(link) => link.icon === "linkedin" || link.icon === "github",
+	);
+	const navLinks = dict.nav.links;
+	const role = dict.hero.role;
+	const location = dict.hero.location;
 
 	return (
-		<footer className="mt-24 border-t border-soft/60 py-10 text-sm text-subtle">
-			<div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4">
-				<div className="flex flex-col gap-6 border-b border-soft/40 pb-6 sm:flex-row sm:items-center sm:justify-between">
-					<div className="flex items-center gap-3 text-[var(--foreground)]">
-						<Image src={`${prefix}/images/logo.png`} alt="Logotipo" width={36} height={36} />
-						<div>
-							<p className="font-semibold text-[var(--foreground)]">{"Alonso Vi\u00F1\u00E9"}</p>
-							<p className="text-xs uppercase tracking-[0.35em] text-muted">{footer.tagline}</p>
-						</div>
+		<footer className="mt-24 border-t border-soft/60 pt-14 pb-10 text-sm text-subtle">
+			<div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-4">
+				<div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
+					<div className="flex flex-col gap-3">
+						<p
+							className="text-3xl tracking-[0.32em] sm:text-4xl"
+							style={{ fontFamily: "var(--font-cinzel)" }}
+						>
+							<span className="text-[var(--foreground)]">A</span>
+							<span className="text-[var(--foreground)]/30">LONSO</span>
+							<span className="text-[var(--foreground)]/30">&nbsp;</span>
+							<span className="text-[var(--foreground)]">V</span>
+							<span className="text-[var(--foreground)]/30">IÑÉ</span>
+						</p>
+						<p className="text-sm text-muted">{role}</p>
+						<p className="text-xs text-subtle">{location}</p>
 					</div>
-					<div className="flex flex-wrap justify-center gap-3">
+
+					<nav
+						aria-label="Footer navigation"
+						className="grid grid-cols-2 gap-x-10 gap-y-2 text-sm text-muted sm:grid-cols-3 md:auto-cols-max md:grid-flow-col md:gap-x-8"
+					>
+						{navLinks.map((link) => (
+							<a
+								key={link.href}
+								href={link.href}
+								className="transition-colors duration-300 hover:text-[var(--foreground)]"
+							>
+								{link.label}
+							</a>
+						))}
+					</nav>
+				</div>
+
+				<div className="flex flex-col gap-6 border-t border-soft/30 pt-6 sm:flex-row sm:items-center sm:justify-between">
+					<p className="text-xs text-subtle">© {year} Alonso Viñé Barrancos</p>
+					<div className="flex items-center gap-3">
 						{footerSocials.map((social) => {
-							const Icon = socialIconMap[social.icon];
+							const Icon = socialIconMap[social.icon as keyof typeof socialIconMap];
 							return (
 								<a
 									key={social.label}
 									href={social.href}
 									target="_blank"
 									rel="noreferrer"
-									className="group relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-400 to-rose-400 p-[1px] text-sm font-semibold text-slate-900 shadow-[0_15px_50px_rgba(248,212,128,0.25)] transition-transform duration-300 hover:-translate-y-0.5"
+									aria-label={social.label}
+									className="inline-flex h-10 w-10 items-center justify-center rounded-full border-soft text-[var(--foreground)] transition-all duration-300 hover:-translate-y-0.5 hover:border-strong"
 								>
-									<span className="inline-flex items-center gap-2 rounded-full bg-[var(--background)] px-5 py-2 text-[var(--foreground)] transition-colors duration-300 group-hover:bg-white/10">
-										<Icon className="h-4 w-4" aria-hidden="true" />
-										{social.label}
-									</span>
+									<Icon className="h-4 w-4" aria-hidden="true" />
 								</a>
 							);
 						})}
+						<a
+							href="mailto:alonvineba@gmail.com"
+							aria-label="Email"
+							className="inline-flex h-10 w-10 items-center justify-center rounded-full border-soft text-[var(--foreground)] transition-all duration-300 hover:-translate-y-0.5 hover:border-strong"
+						>
+							<Mail className="h-4 w-4" aria-hidden="true" />
+						</a>
 					</div>
-				</div>
-				<div className="flex flex-col gap-2 text-center text-xs text-subtle sm:flex-row sm:items-center sm:justify-between">
-					<div className="flex flex-col gap-1">
-						<p>{footer.madeWith}</p>
-						<p>{footer.rights(year)}</p>
-					</div>
-					<p className="text-subtle">{footer.builtWith}</p>
 				</div>
 			</div>
 		</footer>
