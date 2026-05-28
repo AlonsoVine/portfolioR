@@ -235,24 +235,28 @@ export const en = {
         details =
           "University course in Prompt Engineering focused on designing, optimizing and integrating advanced prompts for generative AI systems. Covers AI fundamentals, chatbot creation, interaction improvements, ethical application and deployment of ChatGPT-based solutions in web and app environments.";
       } else if (index === 3) {
+        title = "Full Stack Web Bootcamp · Specialization in AI-Agent Development";
         details =
-          "AWS Cloud Practitioner certificate validating fundamental cloud knowledge, including core AWS services, security, pricing models and key billing concepts.";
+          "360-hour intensive bootcamp in full stack web development (HTML5, CSS3, JavaScript, TypeScript, React, Node.js) with a specialization in building applications powered by AI agents and prompt engineering.";
       } else if (index === 4) {
         details =
-          "Certifies English level according to the CEFR framework, assessing reading and listening comprehension.";
+          "AWS Cloud Practitioner certificate validating fundamental cloud knowledge, including core AWS services, security, pricing models and key billing concepts.";
       } else if (index === 5) {
         details =
-          "Validates knowledge of Git and GitHub for project management and repository collaboration.";
+          "Certifies English level according to the CEFR framework, assessing reading and listening comprehension.";
       } else if (index === 6) {
         details =
-          "Certifies skills to manage basic Linux concepts: system operation, command line, file management, providing a solid base in open-source software.";
+          "Validates knowledge of Git and GitHub for project management and repository collaboration.";
       } else if (index === 7) {
         details =
-          "Recognizes skills to design, build and manage apps in Power Apps, integrating data and creating personalized solutions without advanced programming.";
+          "Certifies skills to manage basic Linux concepts: system operation, command line, file management, providing a solid base in open-source software.";
       } else if (index === 8) {
         details =
-          "Certifies skills to lead agile teams applying Scrum principles and practices, facilitating key meetings, removing impediments and promoting continuous improvement.";
+          "Recognizes skills to design, build and manage apps in Power Apps, integrating data and creating personalized solutions without advanced programming.";
       } else if (index === 9) {
+        details =
+          "Certifies skills to lead agile teams applying Scrum principles and practices, facilitating key meetings, removing impediments and promoting continuous improvement.";
+      } else if (index === 10) {
         details =
           "Skills to automate software testing with Selenium 4 and Java, from setup to advanced test scripts, ensuring efficient and reliable development.";
       }

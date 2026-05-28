@@ -495,6 +495,14 @@ export const education: Education[] = [
       "/images/certificados/Certificado-UniversidadNebrija-PromptEngineering.jpg",
   },
   {
+    institution: "Neoland",
+    title: "Bootcamp Full Stack Web \u00b7 Especializaci\u00f3n en Desarrollo con Agentes IA",
+    dates: "2025",
+    details:
+      "Bootcamp intensivo de 360 horas en desarrollo web full stack (HTML5, CSS3, JavaScript, TypeScript, React y Node.js) con especializaci\u00f3n en construcci\u00f3n de aplicaciones potenciadas por agentes de IA y prompt engineering.",
+    image: "/images/certificados/certificado_bootcamp_neoland_desarrolloWeb.jpg",
+  },
+  {
     institution: "AWS",
     title: "AWS Certified Cloud Practitioner",
     dates: "2024",
