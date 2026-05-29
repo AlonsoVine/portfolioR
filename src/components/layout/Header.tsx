@@ -49,7 +49,12 @@ export function Header() {
             height={32}
             className="transition-transform duration-300 hover:scale-[1.02]"
           />
-          <span className="text-base font-semibold tracking-wide">Alonso Viñé</span>
+          <span
+            className="text-base font-semibold tracking-[0.18em] text-[var(--foreground)]"
+            style={{ fontFamily: "var(--font-cinzel)" }}
+          >
+            ALONSO&nbsp;VIÑÉ
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">

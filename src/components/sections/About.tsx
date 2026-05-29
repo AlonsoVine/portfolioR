@@ -44,8 +44,11 @@ export function About() {
 							className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
 						/>
 						<div className="pointer-events-none absolute inset-0 flex items-end justify-start p-4">
-							<span className="translate-y-2 opacity-0 text-lg font-semibold text-white drop-shadow-[0_6px_18px_rgba(0,0,0,0.45)] transition-all duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100">
-								Alonso Viñé
+							<span
+								className="translate-y-2 text-lg font-semibold tracking-[0.18em] text-white opacity-0 drop-shadow-[0_6px_18px_rgba(0,0,0,0.45)] transition-all duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100"
+								style={{ fontFamily: "var(--font-cinzel)" }}
+							>
+								ALONSO&nbsp;VIÑÉ
 							</span>
 						</div>
 						{/* Imagen anterior conservada por si se desea volver
