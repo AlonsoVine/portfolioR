@@ -74,11 +74,5 @@ export const es = {
         "Actualmente estoy buscando nuevas oportunidades y colaboraciones interesantes. Si tienes un proyecto en mente, hablemos.",
     },
   },
-  footer: {
-    tagline: "Desarrollador y Analista",
-    madeWith: "Hecho con ♥ por Alonso Viñé",
-    rights: (year: number) => `© ${year} Todos los derechos reservados.`,
-    builtWith: "Desarrollado con React, Tailwind CSS y mucho cafe ☕",
-  },
   socialLinks,
 };

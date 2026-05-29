@@ -297,11 +297,5 @@ export const en = {
         "I'm currently looking for new opportunities and interesting collaborations. If you have a project in mind, let's talk.",
     },
   },
-  footer: {
-    tagline: "Developer and Analyst",
-    madeWith: "Made with ♥ by Alonso Viñé",
-    rights: (year: number) => `© ${year} All rights reserved.`,
-    builtWith: "Built with React, Tailwind CSS, and plenty of coffee ☕",
-  },
   socialLinks,
 };
