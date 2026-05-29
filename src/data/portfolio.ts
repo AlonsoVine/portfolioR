@@ -97,30 +97,34 @@ export const heroContent = {
 
 export const aboutContent = {
   textBlocks: [
-    "Encantado de conocerte!",
-    "Soy un entusiasta de las tecnolog\u00edas emergentes siempre motivado.",
-    "Emocionado por lo que el mundo del desarrollo de software me tiene preparado.",
+    "Empec\u00e9 en 2021 en Atos, en proyectos del Ministerio de Defensa. Pas\u00e9 por Fervimax (FCC) afilando la parte de DevOps y testing, luego Inetum modernizando interfaces cr\u00edticas del Ej\u00e9rcito del Aire. Ahora en Seres, automatizando el ciclo de despliegue de la plataforma central.",
+    "Perfil multidisciplinar con experiencia en todo el ciclo de desarrollo: an\u00e1lisis, dise\u00f1o, implementaci\u00f3n, despliegue y mantenimiento. Manejo el stack web moderno (Angular, React, Java/Spring, Node) junto a la capa DevOps que automatiza el ciclo (GitLab CI/CD, Nexus, Maven, Docker) y una capa fresca de desarrollo asistido por agentes IA para acelerar lo repetitivo y centrar la energ\u00eda donde aporta.",
+    "Madrid, ingl\u00e9s C2 y curiosidad permanente. Cuando no escribo c\u00f3digo juego a cl\u00e1sicos retro (s\u00ed, escrib\u00ed mi propio Space Invaders) o exploro lo \u00faltimo en IA. Lo que m\u00e1s me mueve es convertir un 'no se puede' en 'mira c\u00f3mo lo hicimos'.",
   ],
   highlights: [
     {
-      title: "Desarrollo Frontend",
+      title: "Madrid, Espa\u00f1a",
       description:
-        "Especializado en Angular y TypeScript con enfoque en interfaces modernas y limpias.",
-      icon: "code",
+        "Remoto preferente. Abierto a h\u00edbrido o presencial en Madrid.",
+      icon: "pin",
     },
     {
-      title: "Desarrollo Backend",
+      title: "Ingl\u00e9s C2",
       description:
-        "Enfocado en Java/Spring Boot y NestJS, creando APIs robustas. Experiencia en SQL y en tareas ETL.",
-      icon: "gear",
+        "EF SET Proficient. Listo para entornos internacionales sin barrera.",
+      icon: "languages",
     },
     {
-      title: "Aprendizaje Continuo",
+      title: "Foco en IA",
       description:
-        "Siempre explorando nuevas tecnolog\u00edas y mejorando mis habilidades.",
-      icon: "zap",
+        "Bootcamp Neoland, agentes IA y prompt engineering en mi d\u00eda a d\u00eda.",
+      icon: "bot",
     },
   ],
+  cta: {
+    label: "\u00bfTe encaja para tu proyecto? Hablemos",
+    href: "#contact",
+  },
 };
 
 export const socialLinks: SocialLink[] = [

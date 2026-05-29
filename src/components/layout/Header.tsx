@@ -41,19 +41,19 @@ export function Header() {
           scrolled ? "shadow-[0_12px_40px_rgba(15,23,42,0.35)]" : "bg-transparent"
         )}
       >
-        <Link href="#hero" className="flex items-center gap-2">
+        <Link href="#hero" className="flex min-w-0 items-center gap-2">
           <Image
             src={`${prefix}/images/logo.png`}
             alt="Logotipo personal"
             width={32}
             height={32}
-            className="transition-transform duration-300 hover:scale-[1.02]"
+            className="shrink-0 transition-transform duration-300 hover:scale-[1.02]"
           />
           <span
-            className="text-base font-semibold tracking-[0.18em] text-[var(--foreground)]"
+            className="min-w-0 text-sm font-semibold leading-tight tracking-[0.08em] text-[var(--foreground)] sm:text-base sm:tracking-[0.18em]"
             style={{ fontFamily: "var(--font-cinzel)" }}
           >
-            ALONSO&nbsp;VIÑÉ
+            ALONSO VIÑÉ
           </span>
         </Link>
 

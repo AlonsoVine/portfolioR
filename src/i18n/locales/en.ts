@@ -49,39 +49,43 @@ export const en = {
     eyebrow: "About",
     title: "Get to know me",
     description:
-      "Passionate about technology and always looking for new opportunities to grow professionally.",
+      "Senior Full Stack mindset, hands-on DevOps and a growing focus on AI-agent-assisted development.",
     textBlocks: [
-      "Nice to meet you!",
-      "I'm an enthusiast of emerging technologies, always motivated.",
-      "Excited about what the world of software development has in store for me.",
+      "I started in 2021 at Atos, on Spanish Ministry of Defence projects. Then Fervimax (FCC) sharpening DevOps and testing, and Inetum modernizing critical interfaces for the Air Force. Now at Seres, automating the deployment cycle of the central platform.",
+      "Multidisciplinary profile with experience across the full software development lifecycle: analysis, design, implementation, deployment and maintenance. I handle the modern web stack (Angular, React, Java/Spring, Node) alongside the DevOps layer that automates the cycle (GitLab CI/CD, Nexus, Maven, Docker) and a fresh layer of AI-agent-assisted development to accelerate repetitive work and focus energy where it matters.",
+      "Madrid-based, English C2 and permanent curiosity. When I'm not writing code I play retro classics (yes, I wrote my own Space Invaders) or explore the latest in AI. What drives me most is turning a 'can't be done' into 'look how we did it'.",
     ],
     highlights: aboutContent.highlights.map((item) => {
-      if (item.title === "Desarrollo Frontend") {
+      if (item.title === "Madrid, España") {
         return {
           ...item,
-          title: "Frontend Development",
+          title: "Madrid, Spain",
           description:
-            "Specialized in Angular and TypeScript with a focus on modern, clean interfaces.",
+            "Remote-first. Open to hybrid or on-site in Madrid.",
         };
       }
-      if (item.title === "Desarrollo Backend") {
+      if (item.title === "Inglés C2") {
         return {
           ...item,
-          title: "Backend Development",
+          title: "English C2",
           description:
-            "Focused on Java/Spring Boot and NestJS, building robust APIs. Experienced in SQL and ETL tasks.",
+            "EF SET Proficient. Comfortable in international, English-speaking teams.",
         };
       }
-      if (item.title === "Aprendizaje Continuo") {
+      if (item.title === "Foco en IA") {
         return {
           ...item,
-          title: "Continuous Learning",
+          title: "AI focus",
           description:
-            "Always exploring new technologies and improving my skills.",
+            "Neoland bootcamp, AI agents and prompt engineering in my daily work.",
         };
       }
       return item;
     }),
+    cta: {
+      ...aboutContent.cta,
+      label: "Sounds like a fit? Let's talk",
+    },
   },
   skills: {
     eyebrow: "Stack",

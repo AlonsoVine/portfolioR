@@ -11,8 +11,7 @@ import { ScrollToTopButton } from "@/components/ui/ScrollToTopButton";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-[var(--background)] text-[var(--foreground)] transition-colors">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(251,191,36,0.25),_transparent_55%)]" />
+    <div className="relative min-h-screen text-[var(--foreground)] transition-colors">
       <Header />
       <main className="flex flex-col gap-6">
         <Hero />

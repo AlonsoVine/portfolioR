@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cinzel, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/i18n";
+import { Aurora } from "@/components/shared/Aurora";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -150,6 +151,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${cinzel.variable} antialiased bg-slate-950 text-white`}
       >
+        <Aurora />
+        <div
+          aria-hidden="true"
+          className="bg-noise pointer-events-none fixed inset-0 z-[9999] opacity-[0.06] mix-blend-overlay"
+        />
         <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
