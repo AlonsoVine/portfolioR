@@ -14,7 +14,7 @@ export function ReadingProgress() {
 		<motion.div
 			aria-hidden="true"
 			style={{ scaleX }}
-			className="pointer-events-none fixed inset-x-0 top-0 z-[60] h-[2px] origin-left bg-gradient-to-r from-amber-400 via-rose-400 to-violet-500"
+			className="pointer-events-none fixed inset-x-0 top-0 z-[60] h-[2px] origin-left bg-gradient-to-r from-amber-400 via-rose-400 to-violet-500 print:hidden"
 		/>
 	);
 }

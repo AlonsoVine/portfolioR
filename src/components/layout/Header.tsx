@@ -37,7 +37,7 @@ export function Header() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 flex w-full justify-center px-4 transition-all duration-500",
+        "fixed inset-x-0 top-0 z-50 flex w-full justify-center px-4 transition-all duration-500 print:hidden",
         scrolled ? "translate-y-0" : ""
       )}
     >
@@ -72,14 +72,14 @@ export function Header() {
                 href={link.href}
                 aria-current={isActive ? "page" : undefined}
                 className={cn(
-                  "group relative rounded-full px-4 py-2 text-sm transition-all duration-300 hover:text-amber-200",
-                  isActive ? "text-amber-200" : "text-[var(--foreground)]",
+                  "group relative rounded-full px-4 py-2 text-sm transition-all duration-300 hover:text-[var(--nav-active-text)]",
+                  isActive ? "text-[var(--nav-active-text)]" : "text-[var(--foreground)]",
                 )}
               >
                 <span className="relative z-10">{link.label}</span>
                 <span
                   className={cn(
-                    "pointer-events-none absolute inset-x-2 -bottom-1 h-0.5 rounded-full bg-gradient-to-r from-amber-200 to-rose-200 transition-all duration-300",
+                    "nav-active-underline pointer-events-none absolute inset-x-2 -bottom-1 h-0.5 rounded-full transition-all duration-300",
                     isActive
                       ? "scale-x-100 opacity-100"
                       : "scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-100",
@@ -120,7 +120,7 @@ export function Header() {
                   className={cn(
                     "text-base transition-colors",
                     isActive
-                      ? "text-amber-200"
+                      ? "text-[var(--nav-active-text)]"
                       : "text-muted hover:text-[var(--foreground)]",
                   )}
                 >

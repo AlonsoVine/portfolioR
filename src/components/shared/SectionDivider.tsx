@@ -2,7 +2,7 @@ export function SectionDivider() {
 	return (
 		<div
 			aria-hidden="true"
-			className="mx-auto flex w-full max-w-sm items-center gap-4 px-4 py-2"
+			className="mx-auto flex w-full max-w-sm items-center gap-4 px-4 py-2 print:hidden"
 		>
 			<span className="h-px flex-1 bg-gradient-to-r from-transparent to-white/15" />
 			<span

@@ -157,7 +157,7 @@ export default function RootLayout({
         <Aurora />
         <div
           aria-hidden="true"
-          className="bg-noise pointer-events-none fixed inset-0 z-[9999] opacity-[0.06] mix-blend-overlay"
+          className="bg-noise pointer-events-none fixed inset-0 z-[9999] opacity-[0.06] mix-blend-overlay print:hidden"
         />
         <ConsoleSignature />
         <ReadingProgress />

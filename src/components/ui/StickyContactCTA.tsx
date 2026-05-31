@@ -28,7 +28,7 @@ export function StickyContactCTA() {
 		<a
 			href="#contact"
 			aria-label={label}
-			className={`fixed bottom-6 left-6 z-40 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-400 to-rose-400 px-5 py-3 text-sm font-semibold text-slate-900 shadow-[0_20px_60px_rgba(248,212,128,0.35)] transition-all duration-300 hover:-translate-y-0.5 ${
+			className={`fixed bottom-6 left-6 z-40 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-400 to-rose-400 px-5 py-3 text-sm font-semibold text-slate-900 shadow-[0_20px_60px_rgba(248,212,128,0.35)] transition-all duration-300 hover:-translate-y-0.5 print:hidden ${
 				show ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0"
 			}`}
 		>

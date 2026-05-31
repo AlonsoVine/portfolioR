@@ -97,7 +97,7 @@ export function ProjectCarousel({ images, alt, intervalMs = 3200 }: Props) {
 							type="button"
 							onClick={prev}
 							aria-label="Imagen anterior"
-							className="absolute left-2 top-1/2 z-10 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white opacity-0 backdrop-blur-sm transition-all duration-300 hover:bg-black/60 group-hover:opacity-100 focus:opacity-100"
+							className="absolute left-2 top-1/2 z-10 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white opacity-0 backdrop-blur-sm transition-all duration-300 hover:bg-black/60 group-hover:opacity-100 focus:opacity-100 print:hidden"
 						>
 							<ChevronLeft className="h-5 w-5" aria-hidden="true" />
 						</button>
@@ -105,12 +105,12 @@ export function ProjectCarousel({ images, alt, intervalMs = 3200 }: Props) {
 							type="button"
 							onClick={next}
 							aria-label="Imagen siguiente"
-							className="absolute right-2 top-1/2 z-10 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white opacity-0 backdrop-blur-sm transition-all duration-300 hover:bg-black/60 group-hover:opacity-100 focus:opacity-100"
+							className="absolute right-2 top-1/2 z-10 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white opacity-0 backdrop-blur-sm transition-all duration-300 hover:bg-black/60 group-hover:opacity-100 focus:opacity-100 print:hidden"
 						>
 							<ChevronRight className="h-5 w-5" aria-hidden="true" />
 						</button>
 
-						<div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 gap-1.5">
+						<div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 gap-1.5 print:hidden">
 							{images.map((src, i) => {
 								const active = i === index;
 								return (

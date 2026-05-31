@@ -35,7 +35,7 @@ export function CopyLinkButton({ sectionId }: { sectionId: string }) {
 			onClick={copy}
 			aria-label={label}
 			title={label}
-			className="absolute right-4 top-24 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full border border-soft bg-black/30 text-white/60 opacity-0 backdrop-blur transition-all duration-300 hover:bg-black/60 hover:text-white focus:opacity-100 group-hover/section:opacity-100 sm:right-6"
+			className="absolute right-4 top-24 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full border border-soft bg-black/30 text-white/60 opacity-0 backdrop-blur transition-all duration-300 hover:bg-black/60 hover:text-white focus:opacity-100 group-hover/section:opacity-100 sm:right-6 print:hidden"
 		>
 			{copied ? (
 				<Check className="h-4 w-4 text-emerald-300" aria-hidden="true" />
