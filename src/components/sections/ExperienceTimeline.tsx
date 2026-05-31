@@ -54,11 +54,11 @@ export function ExperienceTimeline() {
   const fillHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   const companyLogos: Record<string, string> = {
-    Seres: `${prefix}/images/company/seres_logo.png`,
-    Inetum: `${prefix}/images/company/inetum_logo.jpg`,
-    "Fervimax Group (FCC)": `${prefix}/images/company/fervimax_logo.jpg`,
-    "Atos (Cestic)": `${prefix}/images/company/atos_logo.jpg`,
-    Atos: `${prefix}/images/company/atos_logo.jpg`,
+    Seres: `${prefix}/images/company/seres_logo.webp`,
+    Inetum: `${prefix}/images/company/inetum_logo.webp`,
+    "Fervimax Group (FCC)": `${prefix}/images/company/fervimax_logo.webp`,
+    "Atos (Cestic)": `${prefix}/images/company/atos_logo.webp`,
+    Atos: `${prefix}/images/company/atos_logo.webp`,
   };
 
   return (

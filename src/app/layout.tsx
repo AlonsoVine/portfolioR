@@ -27,7 +27,7 @@ const DEFAULT_TITLE =
   "Alonso Viñé | Full Stack Developer (Angular · Java · React · DevOps)";
 const DESCRIPTION =
   "Alonso Viñé Barrancos · Full Stack Developer en Madrid. 5+ años construyendo software para Defensa, FCC, Inetum y Seres. Especialización en IA y agentes.";
-const OG_IMAGE = "/portfolioR/assets/og-portfolio.png";
+const OG_IMAGE = "/portfolioR/assets/og-portfolio.webp";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -93,7 +93,7 @@ const personJsonLd = {
   name: "Alonso Viñé Barrancos",
   alternateName: "Alonso Viñé",
   url: SITE_FULL_URL,
-  image: `${SITE_URL}/portfolioR/images/mi-foto.png`,
+  image: `${SITE_URL}/portfolioR/images/mi-foto.webp`,
   jobTitle: "Full Stack Developer",
   worksFor: { "@type": "Organization", name: "Seres" },
   address: {

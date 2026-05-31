@@ -49,7 +49,7 @@ export function Header() {
       >
         <Link href="#hero" className="flex min-w-0 items-center gap-2">
           <Image
-            src={`${prefix}/images/logo.png`}
+            src={`${prefix}/images/logo.webp`}
             alt="Logotipo personal"
             width={32}
             height={32}

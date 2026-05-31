@@ -76,11 +76,11 @@ export const heroContent = {
     "{years}+ a\u00f1os construyendo software para Defensa, FCC e Inetum. Ahora en Seres modernizando pipelines de despliegue y explorando el desarrollo asistido por agentes de IA.",
   image: {
     front: {
-      src: "/images/mi-foto.png",
+      src: "/images/mi-foto.webp",
       alt: "Retrato de Alonso Vi\u00f1\u00e9",
     },
     back: {
-      src: "/images/logo/logo-negro-redondo-conFondo.png",
+      src: "/images/logo/logo-negro-redondo-conFondo.webp",
       alt: "Monograma de Alonso Vi\u00f1\u00e9",
     },
   },
@@ -386,19 +386,19 @@ export const projects: Project[] = [
     featured: true,
     description:
       "Web artesana para registrar y acompa\u00f1ar la vida de las plantas. Incluye panel con KPIs, filtros din\u00e1micos, exportaci\u00f3n de fichas (JSON/TXT/CSV), tema claro/oscuro, sonido ambiente y hojas flotantes.",
-    image: "/images/proyectos/jardinDigital/jardinDigitalFoto3.png",
+    image: "/images/proyectos/jardinDigital/jardinDigitalFoto3.webp",
     gallery: [
-      "/images/proyectos/jardinDigital/jardinDigitalFoto3.png",
-      "/images/proyectos/jardinDigital/jardinDigitalFoto0.png",
-      "/images/proyectos/jardinDigital/jardinDigitalFoto1.png",
-      "/images/proyectos/jardinDigital/jardinDigitalFoto2.png",
-      "/images/proyectos/jardinDigital/jardinDigitalFoto4.png",
-      "/images/proyectos/jardinDigital/jardinDigitalFoto5.png",
-      "/images/proyectos/jardinDigital/jardinDigitalFoto6.png",
-      "/images/proyectos/jardinDigital/jardinDigitalFoto7.png",
-      "/images/proyectos/jardinDigital/jardinDigitalFoto8.png",
-      "/images/proyectos/jardinDigital/jardinDigitalFoto9.png",
-      "/images/proyectos/jardinDigital/jardindigitalFoto01.png",
+      "/images/proyectos/jardinDigital/jardinDigitalFoto3.webp",
+      "/images/proyectos/jardinDigital/jardinDigitalFoto0.webp",
+      "/images/proyectos/jardinDigital/jardinDigitalFoto1.webp",
+      "/images/proyectos/jardinDigital/jardinDigitalFoto2.webp",
+      "/images/proyectos/jardinDigital/jardinDigitalFoto4.webp",
+      "/images/proyectos/jardinDigital/jardinDigitalFoto5.webp",
+      "/images/proyectos/jardinDigital/jardinDigitalFoto6.webp",
+      "/images/proyectos/jardinDigital/jardinDigitalFoto7.webp",
+      "/images/proyectos/jardinDigital/jardinDigitalFoto8.webp",
+      "/images/proyectos/jardinDigital/jardinDigitalFoto9.webp",
+      "/images/proyectos/jardinDigital/jardindigitalFoto01.webp",
     ],
     tech: ["Angular", "TypeScript", "Tailwind CSS", "LocalStorage", "JSON"],
     links: {
@@ -411,16 +411,16 @@ export const projects: Project[] = [
     featured: true,
     description:
       "Reimaginaci\u00f3n del cl\u00e1sico arcade en JavaScript + HTML5 Canvas, jugable online. Incluye 6 modos (cl\u00e1sico, oleadas, supervivencia, contrarreloj y 2 jugadores cooperativo y competitivo), sistema de logros y recompensas, personalizaci\u00f3n de nave y bestiario de enemigos derrotados. Con tests (Vitest), linting y hooks de pre-commit.",
-    image: "/images/proyectos/spaceInvaders/menu-seleccion-partida.png",
+    image: "/images/proyectos/spaceInvaders/menu-seleccion-partida.webp",
     gallery: [
-      "/images/proyectos/spaceInvaders/menu-seleccion-partida.png",
-      "/images/proyectos/spaceInvaders/gameplay-clasico.png",
-      "/images/proyectos/spaceInvaders/menu-edicion-nave.png",
-      "/images/proyectos/spaceInvaders/gameplay-oleadas.png",
-      "/images/proyectos/spaceInvaders/menu-bestiario.png",
-      "/images/proyectos/spaceInvaders/gameplay-2p-coop.png",
-      "/images/proyectos/spaceInvaders/menu-resumen-partidas.png",
-      "/images/proyectos/spaceInvaders/gameplay-contrareloj.png",
+      "/images/proyectos/spaceInvaders/menu-seleccion-partida.webp",
+      "/images/proyectos/spaceInvaders/gameplay-clasico.webp",
+      "/images/proyectos/spaceInvaders/menu-edicion-nave.webp",
+      "/images/proyectos/spaceInvaders/gameplay-oleadas.webp",
+      "/images/proyectos/spaceInvaders/menu-bestiario.webp",
+      "/images/proyectos/spaceInvaders/gameplay-2p-coop.webp",
+      "/images/proyectos/spaceInvaders/menu-resumen-partidas.webp",
+      "/images/proyectos/spaceInvaders/gameplay-contrareloj.webp",
     ],
     tech: ["JavaScript", "HTML5 Canvas", "Vitest"],
     links: {
@@ -433,13 +433,13 @@ export const projects: Project[] = [
     description:
       "Herramienta en Python para descargar audio de YouTube en varios formatos (MP3, WAV, FLAC) a partir de URLs individuales o listas, con selecci\u00f3n de formato y carpeta destino.",
     image:
-      "/images/proyectos/forYouTobe/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_3.jpg",
+      "/images/proyectos/forYouTobe/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_3.webp",
     gallery: [
-      "/images/proyectos/forYouTobe/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_3.jpg",
-      "/images/proyectos/forYouTobe/captura-codigo.png",
-      "/images/proyectos/forYouTobe/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_0.jpg",
-      "/images/proyectos/forYouTobe/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_20.jpg",
-      "/images/proyectos/forYouTobe/Leonardo_Anime_XL_An_electrifyingly_vibrant_speech_recognition_1.jpg",
+      "/images/proyectos/forYouTobe/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_3.webp",
+      "/images/proyectos/forYouTobe/captura-codigo.webp",
+      "/images/proyectos/forYouTobe/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_0.webp",
+      "/images/proyectos/forYouTobe/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_20.webp",
+      "/images/proyectos/forYouTobe/Leonardo_Anime_XL_An_electrifyingly_vibrant_speech_recognition_1.webp",
     ],
     tech: ["Python", "yt-dlp"],
     links: {
@@ -451,15 +451,15 @@ export const projects: Project[] = [
     description:
       "Aplicacion Python que renombra fotos usando metadatos EXIF (fecha tomada) siguiendo el formato YYYY_MM_DD_nombreOriginal.ext, facilitando el orden cronologico.",
     image:
-      "/images/proyectos/photoDateRenamer/fotografia-movil-versus-camara2.jpg",
+      "/images/proyectos/photoDateRenamer/fotografia-movil-versus-camara2.webp",
     gallery: [
-      "/images/proyectos/photoDateRenamer/fotografia-movil-versus-camara2.jpg",
-      "/images/proyectos/photoDateRenamer/img_codigo_photoDateRenamer.png",
-      "/images/proyectos/photoDateRenamer/img_codigo_photoDateRenamer2.png",
-      "/images/proyectos/photoDateRenamer/captura-pantalla.png",
-      "/images/proyectos/photoDateRenamer/fotografo.jpg",
-      "/images/proyectos/photoDateRenamer/fotografa.png",
-      "/images/proyectos/photoDateRenamer/photos2.jpg",
+      "/images/proyectos/photoDateRenamer/fotografia-movil-versus-camara2.webp",
+      "/images/proyectos/photoDateRenamer/img_codigo_photoDateRenamer.webp",
+      "/images/proyectos/photoDateRenamer/img_codigo_photoDateRenamer2.webp",
+      "/images/proyectos/photoDateRenamer/captura-pantalla.webp",
+      "/images/proyectos/photoDateRenamer/fotografo.webp",
+      "/images/proyectos/photoDateRenamer/fotografa.webp",
+      "/images/proyectos/photoDateRenamer/photos2.webp",
     ],
     tech: ["Python", "EXIF"],
     links: {
@@ -470,16 +470,16 @@ export const projects: Project[] = [
     title: "Jarvis Asistente de Voz",
     description:
       "Asistente virtual en Python capaz de ejecutar comandos de voz: abrir apps, buscar en internet, consultar clima, crear recordatorios y enviar correos, entre otros.",
-    image: "/images/proyectos/jarvisVozAssistant/speech-recognition.jpg",
+    image: "/images/proyectos/jarvisVozAssistant/speech-recognition.webp",
     gallery: [
-      "/images/proyectos/jarvisVozAssistant/speech-recognition.jpg",
-      "/images/proyectos/jarvisVozAssistant/javis-captura-codigo.png",
-      "/images/proyectos/jarvisVozAssistant/speech-recognition-img2.png",
-      "/images/proyectos/jarvisVozAssistant/Leonardo_Phoenix_An_electrifyingly_vibrant_speech_recognitiont_1.jpg",
-      "/images/proyectos/jarvisVozAssistant/Leonardo_Anime_XL_An_electrifyingly_vibrant_speech_recognition_0.jpg",
-      "/images/proyectos/jarvisVozAssistant/Leonardo_Anime_XL_An_electrifyingly_vibrant_speech_recognition_2.jpg",
-      "/images/proyectos/jarvisVozAssistant/Leonardo_Anime_XL_An_electrifyingly_vibrant_speech_recognition_3.jpg",
-      "/images/proyectos/jarvisVozAssistant/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_22.jpg",
+      "/images/proyectos/jarvisVozAssistant/speech-recognition.webp",
+      "/images/proyectos/jarvisVozAssistant/javis-captura-codigo.webp",
+      "/images/proyectos/jarvisVozAssistant/speech-recognition-img2.webp",
+      "/images/proyectos/jarvisVozAssistant/Leonardo_Phoenix_An_electrifyingly_vibrant_speech_recognitiont_1.webp",
+      "/images/proyectos/jarvisVozAssistant/Leonardo_Anime_XL_An_electrifyingly_vibrant_speech_recognition_0.webp",
+      "/images/proyectos/jarvisVozAssistant/Leonardo_Anime_XL_An_electrifyingly_vibrant_speech_recognition_2.webp",
+      "/images/proyectos/jarvisVozAssistant/Leonardo_Anime_XL_An_electrifyingly_vibrant_speech_recognition_3.webp",
+      "/images/proyectos/jarvisVozAssistant/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_22.webp",
     ],
     tech: ["Python", "Speech Recognition"],
     links: {
@@ -495,7 +495,7 @@ export const education: Education[] = [
     details:
       "Curso universitario especializado de 200 horas enfocado en el uso pr\u00e1ctico de la IA en desarrollo de software. Incluye aprendizaje autom\u00e1tico, redes neuronales, NLP, visi\u00f3n artificial, big data, optimizaci\u00f3n de modelos y despliegue en producci\u00f3n, proporcionando una base s\u00f3lida y aplicada en IA moderna.",
     image:
-      "/images/certificados/Certificado-Utamed-InteligenciaArtificialParaProgramadores_page-0001.jpg",
+      "/images/certificados/Certificado-Utamed-InteligenciaArtificialParaProgramadores_page-0001.webp",
   },
   {
     institution: " Universitat Oberta de Catalunya",
@@ -503,7 +503,7 @@ export const education: Education[] = [
     dates: "2025",
     details:
       "Certificado universitario de formaci\u00f3n continua en fundamentos de Inteligencia Artificial, con 24 cr\u00e9ditos ECTS y una dedicaci\u00f3n de 600 horas. Proporciona conocimientos esenciales sobre los principios de la IA, su contexto acad\u00e9mico y su aplicaci\u00f3n en entornos reales.",
-    image: "/images/certificados/Certificado-UOC-Iniciacion-IA_page-0001.jpg",
+    image: "/images/certificados/Certificado-UOC-Iniciacion-IA_page-0001.webp",
   },
   {
     institution: "Universidad Nebrija",
@@ -512,7 +512,7 @@ export const education: Education[] = [
     details:
       "Curso universitario en Prompt Engineering orientado al dise\u00f1o, optimizaci\u00f3n e integraci\u00f3n de prompts avanzados para sistemas de IA generativa. Incluye fundamentos de IA, creaci\u00f3n de chatbots, mejora de interacci\u00f3n, aplicaci\u00f3n \u00e9tica y despliegue de soluciones basadas en ChatGPT en entornos web y aplicaciones.",
     image:
-      "/images/certificados/Certificado-UniversidadNebrija-PromptEngineering.jpg",
+      "/images/certificados/Certificado-UniversidadNebrija-PromptEngineering.webp",
   },
   {
     institution: "Neoland",
@@ -520,7 +520,7 @@ export const education: Education[] = [
     dates: "2025",
     details:
       "Bootcamp intensivo de 360 horas en desarrollo web full stack (HTML5, CSS3, JavaScript, TypeScript, React y Node.js) con especializaci\u00f3n en construcci\u00f3n de aplicaciones potenciadas por agentes de IA y prompt engineering.",
-    image: "/images/certificados/certificado_bootcamp_neoland_desarrolloWeb.jpg",
+    image: "/images/certificados/certificado_bootcamp_neoland_desarrolloWeb.webp",
   },
   {
     institution: "AWS",
@@ -528,7 +528,7 @@ export const education: Education[] = [
     dates: "2024",
     details:
       "El certificado AWS Cloud Practitioner acredita conocimientos fundamentales sobre la nube, incluyendo los servicios principales de AWS, seguridad, modelos de precios y conceptos clave de facturaci\u00f3n.",
-    image: "/images/certificados/Certificado AWS.png",
+    image: "/images/certificados/Certificado AWS.webp",
   },
   {
     institution: "EF SET",
@@ -536,7 +536,7 @@ export const education: Education[] = [
     dates: "2024",
     details:
       "Certifica el nivel de ingl\u00e9s seg\u00fan el Marco Com\u00fan Europeo, evaluando habilidades de lectura y comprensi\u00f3n auditiva.",
-    image: "/images/certificados/EF SET Certificate ingl\u00e9s_recortada.jpg",
+    image: "/images/certificados/EF SET Certificate ingl\u00e9s_recortada.webp",
   },
   {
     institution: "GitHub",
@@ -544,7 +544,7 @@ export const education: Education[] = [
     dates: "2024",
     details:
       "Valida conocimientos de Git y GitHub para gesti\u00f3n de proyectos y colaboraci\u00f3n en repositorios.",
-    image: "/images/certificados/GitHubFoundations_Badge20241008_page-0001.jpg",
+    image: "/images/certificados/GitHubFoundations_Badge20241008_page-0001.webp",
   },
   {
     institution: "LPI",
@@ -552,7 +552,7 @@ export const education: Education[] = [
     dates: "2024",
     details:
       "Acredita habilidades para manejar conceptos b\u00e1sicos de Linux, incluyendo su funcionamiento, l\u00ednea de comandos y gesti\u00f3n de archivos, fomentando una base s\u00f3lida en software de c\u00f3digo abierto.",
-    image: "/images/certificados/Udemy_certificate_Linux_essentials.jpg",
+    image: "/images/certificados/Udemy_certificate_Linux_essentials.webp",
   },
   {
     institution: "Microsoft Learn",
@@ -561,7 +561,7 @@ export const education: Education[] = [
     details:
       "Reconoce habilidades para dise\u00f1ar, construir y gesti\u00f3nar aplicaciones en Power Apps, integrando datos y creando soluciones personalizadas sin programaci\u00f3n avanzada.",
     image:
-      "/images/certificados/Credencial - vinebarrancoalonso _ Microsoft Learn_Crea y administra aplicaciones de lienzo con Power Apps_page-0001.jpg",
+      "/images/certificados/Credencial - vinebarrancoalonso _ Microsoft Learn_Crea y administra aplicaciones de lienzo con Power Apps_page-0001.webp",
   },
   {
     institution: "Udemy",
@@ -569,7 +569,7 @@ export const education: Education[] = [
     dates: "2024",
     details:
       "Certifica habilidades para liderar equipos \u00e1giles, aplicando principios y pr\u00e1cticas de Scrum, facilitando reuniones clave, eliminando impedimentos y promoviendo la mejora continua en proyectos de desarrollo \u00e1gil.",
-    image: "/images/certificados/Udemy_certificate_Scrum_master.jpg",
+    image: "/images/certificados/Udemy_certificate_Scrum_master.webp",
   },
   {
     institution: "Udemy",
@@ -577,6 +577,6 @@ export const education: Education[] = [
     dates: "2024",
     details:
       "Habilidades para automatizar pruebas de software utilizando Selenium 4 con Java, cubriendo desde la instalaci\u00f3n y configuraci\u00f3n hasta la creaci\u00f3n de scripts de prueba avanzados, garantizando un desarrollo de software m\u00e1s eficiente y confiable.",
-    image: "/images/certificados/Udemy_certificate_Selenium.jpg",
+    image: "/images/certificados/Udemy_certificate_Selenium.webp",
   },
 ];
