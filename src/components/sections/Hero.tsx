@@ -36,7 +36,7 @@ export function Hero() {
 	const rotate = useTransform(scrollY, [0, 400], [0, -3]);
 
 	return (
-		<section id="hero" className="relative overflow-hidden">
+		<section id="hero" className="relative scroll-mt-32 overflow-hidden">
 			<div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(251,191,36,0.25),_transparent_55%)]" />
 			<div className="relative mx-auto flex max-w-6xl flex-col gap-12 px-4 pb-24 pt-32 text-[var(--foreground)] sm:px-6 lg:flex-row lg:items-center lg:gap-20">
 				<div className="flex-1 text-left">

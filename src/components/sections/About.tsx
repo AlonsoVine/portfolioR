@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
 import { scrollRevealConfig } from "@/lib/utils";
-import { aboutContent } from "@/data/portfolio";
 import { useLanguage } from "@/i18n";
 import { ArrowRight, Bot, Code2, Cog, Languages, MapPin, Target, Zap } from "lucide-react";
 
@@ -24,14 +23,14 @@ const highlightIconMap = {
 export function About() {
 	const { dict } = useLanguage();
 	const paragraphs = dict.about.textBlocks;
-	const highlights = dict.about.highlights ?? aboutContent.highlights;
-	const cta = dict.about.cta ?? aboutContent.cta;
+	const highlights = dict.about.highlights;
+	const cta = dict.about.cta;
 	return (
 		<SectionShell id="about">
 			<SectionHeading
-				eyebrow={dict.about.eyebrow ?? "Sobre mi"}
-				title={dict.about.title ?? "Conoceme mejor"}
-				description={dict.about.description ?? "Apasionado por la tecnologia y siempre en busca de nuevas oportunidades para crecer profesionalmente."}
+				eyebrow={dict.about.eyebrow}
+				title={dict.about.title}
+				description={dict.about.description}
 			/>
 			<div className="mt-12 grid gap-10 md:grid-cols-2 md:items-stretch">
 				<div className="flex flex-col gap-6">

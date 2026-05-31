@@ -51,7 +51,7 @@ export function SectionShell({
 			: undefined;
 
 	return (
-		<section id={id} className={`relative isolate w-full ${className ?? ""}`}>
+		<section id={id} className={`relative isolate w-full scroll-mt-32 ${className ?? ""}`}>
 			{backgroundImage ? (
 				<div
 					aria-hidden="true"
