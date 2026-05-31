@@ -8,6 +8,7 @@ import { ProjectsGrid } from "@/components/sections/ProjectsGrid";
 import { Education } from "@/components/sections/Education";
 import { Contact } from "@/components/sections/Contact";
 import { ScrollToTopButton } from "@/components/ui/ScrollToTopButton";
+import { SectionDivider } from "@/components/shared/SectionDivider";
 
 export default function Home() {
   return (
@@ -15,11 +16,17 @@ export default function Home() {
       <Header />
       <main className="flex flex-col gap-6">
         <Hero />
+        <SectionDivider />
         <SkillsGrid />
+        <SectionDivider />
         <About />
+        <SectionDivider />
         <ExperienceTimeline />
+        <SectionDivider />
         <ProjectsGrid />
+        <SectionDivider />
         <Education />
+        <SectionDivider />
         <Contact />
       </main>
       <ScrollToTopButton />

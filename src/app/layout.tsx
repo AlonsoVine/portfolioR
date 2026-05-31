@@ -3,6 +3,9 @@ import { Cinzel, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/i18n";
 import { Aurora } from "@/components/shared/Aurora";
+import { ConsoleSignature } from "@/components/shared/ConsoleSignature";
+import { ReadingProgress } from "@/components/ui/ReadingProgress";
+import { StickyContactCTA } from "@/components/ui/StickyContactCTA";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -156,7 +159,12 @@ export default function RootLayout({
           aria-hidden="true"
           className="bg-noise pointer-events-none fixed inset-0 z-[9999] opacity-[0.06] mix-blend-overlay"
         />
-        <LanguageProvider>{children}</LanguageProvider>
+        <ConsoleSignature />
+        <ReadingProgress />
+        <LanguageProvider>
+          {children}
+          <StickyContactCTA />
+        </LanguageProvider>
       </body>
     </html>
   );

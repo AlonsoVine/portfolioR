@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { CopyLinkButton } from "../ui/CopyLinkButton";
 
 type Tone = "amber" | "rose" | "violet" | "emerald" | "sky";
 type Position =
@@ -51,7 +52,7 @@ export function SectionShell({
 			: undefined;
 
 	return (
-		<section id={id} className={`relative isolate w-full scroll-mt-32 ${className ?? ""}`}>
+		<section id={id} className={`group/section relative isolate w-full scroll-mt-32 ${className ?? ""}`}>
 			{backgroundImage ? (
 				<div
 					aria-hidden="true"
@@ -59,6 +60,7 @@ export function SectionShell({
 					style={{ backgroundImage }}
 				/>
 			) : null}
+			<CopyLinkButton sectionId={id} />
 			<div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
 				{children}
 			</div>
