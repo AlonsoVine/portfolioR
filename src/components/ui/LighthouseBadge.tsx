@@ -7,7 +7,7 @@ import { Gauge } from "lucide-react";
  * Actualizar manualmente tras cada cambio importante (deploy + PSI).
  */
 const SCORES = {
-	performance: 87,
+	performance: 95,
 	accessibility: 95,
 	bestPractices: 100,
 	seo: 100,
