@@ -292,6 +292,11 @@ body {
 }
 
 /* Print styles · snapshot live del portfolio */
+@page {
+  size: A4 portrait;
+  margin: 1.5cm;
+}
+
 @media print {
   html,
   body {

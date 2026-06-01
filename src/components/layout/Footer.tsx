@@ -1,6 +1,6 @@
 "use client";
 
-import { GithubIcon, Linkedin, Mail } from "lucide-react";
+import { GithubIcon, Linkedin, Mail, Printer } from "lucide-react";
 import { useLanguage } from "@/i18n";
 
 const socialIconMap = {
@@ -11,12 +11,20 @@ const socialIconMap = {
 export function Footer() {
 	const { dict } = useLanguage();
 	const year = new Date().getFullYear();
+	const isEn = dict.lang === "en";
 	const footerSocials = dict.socialLinks.filter(
 		(link) => link.icon === "linkedin" || link.icon === "github",
 	);
 	const navLinks = dict.nav.links;
 	const role = dict.hero.role;
 	const location = dict.hero.location;
+	const printLabel = isEn ? "Print live snapshot" : "Imprimir versión actual";
+	const printHint = isEn
+		? "Always-up-to-date snapshot · prints directly from this page"
+		: "Snapshot live siempre actualizado · imprime desde esta página";
+	const handlePrint = () => {
+		if (typeof window !== "undefined") window.print();
+	};
 
 	return (
 		<footer className="mt-24 border-t border-soft/60 pt-14 pb-10 text-sm text-subtle">
@@ -78,6 +86,15 @@ export function Footer() {
 						>
 							<Mail className="h-4 w-4" aria-hidden="true" />
 						</a>
+						<button
+							type="button"
+							onClick={handlePrint}
+							aria-label={printLabel}
+							title={printHint}
+							className="inline-flex h-10 w-10 items-center justify-center rounded-full border-soft text-[var(--foreground)] transition-all duration-300 hover:-translate-y-0.5 hover:border-strong print:hidden"
+						>
+							<Printer className="h-4 w-4" aria-hidden="true" />
+						</button>
 					</div>
 				</div>
 			</div>

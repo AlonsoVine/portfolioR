@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import { ArrowRight, Download, GithubIcon, Linkedin, MapPin, Printer, Twitter } from "lucide-react";
+import { ArrowRight, Download, GithubIcon, Linkedin, MapPin, Twitter } from "lucide-react";
 import { useLanguage } from "@/i18n";
 import { calcYearsExperience } from "@/lib/years";
 
@@ -27,14 +27,6 @@ export function Hero() {
 	const { dict } = useLanguage();
 	const { hero, socialLinks, experiences } = dict;
 	const { title, role, subtitle, image, ctas, location, availability } = hero;
-	const isEn = dict.lang === "en";
-	const printLabel = isEn ? "Print live snapshot" : "Imprimir versión actual";
-	const printHint = isEn
-		? "Always-up-to-date snapshot · prints directly from this page"
-		: "Snapshot live siempre actualizado · imprime desde esta página";
-	const handlePrint = () => {
-		if (typeof window !== "undefined") window.print();
-	};
 	const yearsExp = calcYearsExperience(experiences.map((e) => e.period));
 	const subtitleWithYears = subtitle.replace("{years}", String(yearsExp));
 	const cvHref = `${process.env.NEXT_PUBLIC_BASE_PATH || ""}${ctas.secondary.href}`;
@@ -116,15 +108,6 @@ export function Hero() {
 							</span>
 							<span className="pointer-events-none absolute inset-0 rounded-full bg-white/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 						</a>
-						<button
-							type="button"
-							onClick={handlePrint}
-							aria-label={printLabel}
-							title={printHint}
-							className="group inline-flex h-12 w-12 items-center justify-center rounded-full border-soft text-[var(--foreground)]/80 transition-all duration-300 hover:-translate-y-0.5 hover:border-strong hover:text-[var(--foreground)] print:hidden"
-						>
-							<Printer className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" aria-hidden="true" />
-						</button>
 						<a
 							href={ctas.tertiary.href}
 							className="group inline-flex items-center gap-1.5 px-2 py-3 text-base font-semibold text-[var(--foreground)] transition-colors duration-300 hover:text-[var(--accent-warm)]"
