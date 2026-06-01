@@ -1,4 +1,19 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 export function Aurora() {
+	const [mounted, setMounted] = useState(false);
+
+	useEffect(() => {
+		// Diferimos el render de las blobs hasta el siguiente frame para
+		// no penalizar el LCP del Hero (las blobs con blur son GPU-costosas).
+		const id = window.requestAnimationFrame(() => setMounted(true));
+		return () => window.cancelAnimationFrame(id);
+	}, []);
+
+	if (!mounted) return null;
+
 	return (
 		<div
 			aria-hidden="true"

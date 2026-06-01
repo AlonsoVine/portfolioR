@@ -5,6 +5,7 @@ import { LanguageProvider } from "@/i18n";
 import { Aurora } from "@/components/shared/Aurora";
 import { ConsoleSignature } from "@/components/shared/ConsoleSignature";
 import { MotionGate } from "@/components/shared/MotionGate";
+import { RetroEasterEgg } from "@/components/shared/RetroEasterEgg";
 import { SkipToContent } from "@/components/shared/SkipToContent";
 import { ReadingProgress } from "@/components/ui/ReadingProgress";
 import { StickyContactCTA } from "@/components/ui/StickyContactCTA";
@@ -33,6 +34,8 @@ const DEFAULT_TITLE =
 const DESCRIPTION =
   "Alonso Viñé Barrancos · Full Stack Developer en Madrid. 5+ años construyendo software para Defensa, FCC, Inetum y Seres. Especialización en IA y agentes.";
 const OG_IMAGE = "/portfolioR/assets/og-portfolio.webp";
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
+const HERO_AVATAR_PATH = `${BASE_PATH}/images/mi-foto.webp`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -147,6 +150,13 @@ export default function RootLayout({
   return (
     <html lang="es" data-theme="dark">
       <head>
+        <link
+          rel="preload"
+          as="image"
+          href={HERO_AVATAR_PATH}
+          type="image/webp"
+          fetchPriority="high"
+        />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script
           type="application/ld+json"
@@ -168,6 +178,7 @@ export default function RootLayout({
             <SkipToContent />
             {children}
             <StickyContactCTA />
+            <RetroEasterEgg />
           </MotionGate>
         </LanguageProvider>
       </body>

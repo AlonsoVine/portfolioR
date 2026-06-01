@@ -2,6 +2,7 @@
 
 import { GithubIcon, Linkedin, Mail, Printer } from "lucide-react";
 import { useLanguage } from "@/i18n";
+import { LighthouseBadge } from "../ui/LighthouseBadge";
 
 const socialIconMap = {
 	linkedin: Linkedin,
@@ -62,7 +63,10 @@ export function Footer() {
 				</div>
 
 				<div className="flex flex-col gap-6 border-t border-soft/30 pt-6 sm:flex-row sm:items-center sm:justify-between">
-					<p className="text-xs text-subtle">© {year} Alonso Viñé Barrancos</p>
+					<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+						<p className="text-xs text-subtle">© {year} Alonso Viñé Barrancos</p>
+						<LighthouseBadge />
+					</div>
 					<div className="flex items-center gap-3">
 						{footerSocials.map((social) => {
 							const Icon = socialIconMap[social.icon as keyof typeof socialIconMap];
