@@ -36,6 +36,8 @@
   --nav-active-text: #fde68a;
   --nav-active-grad-from: #fde68a;
   --nav-active-grad-to: #fecdd3;
+  --divider-line: rgba(248, 250, 252, 0.18);
+  --divider-ornament: rgba(248, 250, 252, 0.4);
   color-scheme: dark;
 }
 
@@ -75,6 +77,8 @@
   --nav-active-text: #6d28d9;
   --nav-active-grad-from: #7c3aed;
   --nav-active-grad-to: #6366f1;
+  --divider-line: rgba(15, 23, 42, 0.42);
+  --divider-ornament: rgba(15, 23, 42, 0.75);
   color-scheme: light;
 }
 
