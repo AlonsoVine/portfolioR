@@ -73,7 +73,7 @@ export const heroContent = {
   location: "Madrid, Espa\u00f1a",
   availability: "Disponible para colaborar",
   subtitle:
-    "{years}+ a\u00f1os construyendo software para Defensa, FCC e Inetum. Ahora en Seres modernizando pipelines de despliegue y explorando el desarrollo asistido por agentes de IA.",
+    "Multidisciplinar por elecci\u00f3n. Creo en software simple, decisiones explicables y entregas que no rompen la confianza.",
   image: {
     front: {
       src: "/images/mi-foto.webp",

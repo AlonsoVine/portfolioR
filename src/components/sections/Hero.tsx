@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ArrowRight, Download, GithubIcon, Linkedin, MapPin, Twitter } from "lucide-react";
 import { useLanguage } from "@/i18n";
 import { calcYearsExperience } from "@/lib/years";
+import { RotatingTagline } from "../ui/RotatingTagline";
 
 const socialIconMap = {
 	linkedin: Linkedin,
@@ -27,8 +28,31 @@ export function Hero() {
 	const { dict } = useLanguage();
 	const { hero, socialLinks, experiences } = dict;
 	const { title, role, subtitle, image, ctas, location, availability } = hero;
+	const isEn = dict.lang === "en";
 	const yearsExp = calcYearsExperience(experiences.map((e) => e.period));
 	const subtitleWithYears = subtitle.replace("{years}", String(yearsExp));
+	const currentExp =
+		experiences.find((e) => /actual|present|current/i.test(e.period)) ?? experiences[0];
+	const projectsCount = dict.projects.items.length;
+	const taglines = (
+		isEn
+			? [
+					`Currently · ${currentExp?.title ?? ""}`,
+					currentExp?.tech?.slice(0, 3).join(" · ") ?? "",
+					`${yearsExp}+ years shipping code to production`,
+					"Frontend · Backend · DevOps",
+					`${projectsCount} GitHub projects · 1 playable, the rest pure code`,
+					"English C2 + Spanish · ready for international teams",
+				]
+			: [
+					`Actualmente · ${currentExp?.title ?? ""}`,
+					currentExp?.tech?.slice(0, 3).join(" · ") ?? "",
+					`${yearsExp}+ años entregando código en producción`,
+					"Frontend · Backend · DevOps",
+					`${projectsCount} proyectos en GitHub · 1 jugable, el resto código`,
+					"Inglés C2 + Español · entornos internacionales OK",
+				]
+	).filter((t) => t.trim().length > 0);
 	const cvHref = `${process.env.NEXT_PUBLIC_BASE_PATH || ""}${ctas.secondary.href}`;
 	const prefix: string = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 	const { scrollY } = useScroll();
@@ -74,11 +98,19 @@ export function Hero() {
 						<MapPin className="h-4 w-4 text-[var(--accent-warm)]" aria-hidden="true" />
 						{location}
 					</motion.p>
+					<motion.div
+						initial={{ opacity: 0, y: 16 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ delay: 0.32, duration: 0.7 }}
+						className="max-w-2xl"
+					>
+						<RotatingTagline phrases={taglines} />
+					</motion.div>
 					<motion.p
 						className="mt-4 max-w-2xl text-lg text-muted"
 						initial={{ opacity: 0, y: 24 }}
 						animate={{ opacity: 1, y: 0 }}
-						transition={{ delay: 0.35, duration: 0.85 }}
+						transition={{ delay: 0.4, duration: 0.85 }}
 					>
 						{subtitleWithYears}
 					</motion.p>

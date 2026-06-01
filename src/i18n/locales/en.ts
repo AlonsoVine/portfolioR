@@ -32,7 +32,7 @@ export const en = {
     location: "Madrid, Spain",
     availability: "Available for new opportunities",
     subtitle:
-      "{years}+ years building software for Defense, FCC and Inetum. Currently at Seres modernizing deployment pipelines and exploring AI-agent-assisted development.",
+      "Multidisciplinary by choice. I believe in simple software, explainable decisions, and deliveries that don't break trust.",
     ctas: {
       ...heroContent.ctas,
       primary: { ...heroContent.ctas.primary, label: "View Projects" },
