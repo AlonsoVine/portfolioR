@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
-import { scrollRevealConfig } from "@/lib/utils";
+import { scrollRevealConfig, cn } from "@/lib/utils";
 import { CheckCircle2, ChevronDown, Clock, GithubIcon, Linkedin, Mail } from "lucide-react";
 import { useLanguage } from "@/i18n";
 
@@ -18,6 +18,7 @@ type FormState = {
 };
 
 type FormStatus = "idle" | "sending" | "success" | "error";
+type FieldName = "intent" | "name" | "email" | "message";
 
 const platformIconMap = {
 	LinkedIn: Linkedin,
@@ -49,6 +50,8 @@ export function Contact() {
 	const [form, setForm] = useState<FormState>(EMPTY_FORM);
 	const [status, setStatus] = useState<FormStatus>("idle");
 	const [errorMsg, setErrorMsg] = useState<string | null>(null);
+	const [fieldErrors, setFieldErrors] = useState<Partial<Record<FieldName, string>>>({});
+	const [submitAttempted, setSubmitAttempted] = useState(false);
 	const mountedAt = useRef<number>(Date.now());
 	const isEn = dict.lang === "en";
 
@@ -79,54 +82,98 @@ export function Contact() {
 	const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
 	const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
+	const validateField = (field: FieldName, value: string): string | null => {
+		const trimmed = value.trim();
+		switch (field) {
+			case "intent":
+				if (!value)
+					return isEn ? "Pick a topic for your message." : "Selecciona el motivo del mensaje.";
+				return null;
+			case "name":
+				if (trimmed.length === 0)
+					return isEn ? "Name is required." : "El nombre es obligatorio.";
+				if (trimmed.length < LIMITS.name.min)
+					return isEn
+						? `Name must be at least ${LIMITS.name.min} characters.`
+						: `Mínimo ${LIMITS.name.min} caracteres.`;
+				if (trimmed.length > LIMITS.name.max)
+					return isEn
+						? `Name can't exceed ${LIMITS.name.max} characters.`
+						: `Máximo ${LIMITS.name.max} caracteres.`;
+				return null;
+			case "email":
+				if (trimmed.length === 0)
+					return isEn ? "Email is required." : "El email es obligatorio.";
+				if (trimmed.length > LIMITS.email.max)
+					return isEn ? "Email is too long." : "Email demasiado largo.";
+				if (!EMAIL_RX.test(trimmed))
+					return isEn ? "Please enter a valid email." : "Introduce un email válido.";
+				return null;
+			case "message":
+				if (trimmed.length === 0)
+					return isEn ? "Message is required." : "El mensaje es obligatorio.";
+				if (trimmed.length < LIMITS.message.min)
+					return isEn
+						? `Message must be at least ${LIMITS.message.min} characters.`
+						: `Mínimo ${LIMITS.message.min} caracteres.`;
+				if (trimmed.length > LIMITS.message.max)
+					return isEn
+						? `Message can't exceed ${LIMITS.message.max} characters.`
+						: `Máximo ${LIMITS.message.max} caracteres.`;
+				return null;
+			default:
+				return null;
+		}
+	};
+
+	const validateAll = (): boolean => {
+		const errors: Partial<Record<FieldName, string>> = {};
+		(["intent", "name", "email", "message"] as const).forEach((field) => {
+			const err = validateField(field, form[field]);
+			if (err) errors[field] = err;
+		});
+		setFieldErrors(errors);
+		return Object.keys(errors).length === 0;
+	};
+
 	const handleChange =
 		(field: keyof FormState) =>
 		(
 			event: React.ChangeEvent<
 				HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
 			>,
-		) =>
-			setForm((prev) => ({ ...prev, [field]: event.target.value }));
+		) => {
+			const value = event.target.value;
+			setForm((prev) => ({ ...prev, [field]: value }));
+			if (submitAttempted && field !== "website") {
+				const err = validateField(field as FieldName, value);
+				setFieldErrors((prev) => ({ ...prev, [field as FieldName]: err ?? undefined }));
+			}
+		};
 
-	const validate = (): string | null => {
-		const name = form.name.trim();
-		const email = form.email.trim();
-		const message = form.message.trim();
-		if (!form.intent) {
-			return isEn
-				? "Pick a topic for your message."
-				: "Selecciona el motivo del mensaje.";
-		}
-		if (name.length < LIMITS.name.min || name.length > LIMITS.name.max) {
-			return isEn
-				? `Name must be between ${LIMITS.name.min} and ${LIMITS.name.max} characters.`
-				: `El nombre debe tener entre ${LIMITS.name.min} y ${LIMITS.name.max} caracteres.`;
-		}
-		if (email.length > LIMITS.email.max || !EMAIL_RX.test(email)) {
-			return isEn ? "Please enter a valid email." : "Introduce un email válido.";
-		}
-		if (message.length < LIMITS.message.min || message.length > LIMITS.message.max) {
-			return isEn
-				? `Message must be between ${LIMITS.message.min} and ${LIMITS.message.max} characters.`
-				: `El mensaje debe tener entre ${LIMITS.message.min} y ${LIMITS.message.max} caracteres.`;
-		}
-		return null;
+	const handleBlur = (field: FieldName) => () => {
+		const err = validateField(field, form[field]);
+		setFieldErrors((prev) => ({ ...prev, [field]: err ?? undefined }));
 	};
 
 	const resetForm = () => {
 		setForm(EMPTY_FORM);
 		setStatus("idle");
 		setErrorMsg(null);
+		setFieldErrors({});
+		setSubmitAttempted(false);
 		mountedAt.current = Date.now();
 	};
 
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+		setSubmitAttempted(true);
 
 		if (form.website.trim().length > 0) {
 			setStatus("success");
 			setErrorMsg(null);
 			setForm(EMPTY_FORM);
+			setFieldErrors({});
 			return;
 		}
 
@@ -140,10 +187,14 @@ export function Contact() {
 			return;
 		}
 
-		const validationError = validate();
-		if (validationError) {
+		const isValid = validateAll();
+		if (!isValid) {
 			setStatus("error");
-			setErrorMsg(validationError);
+			setErrorMsg(
+				isEn
+					? "Please fix the errors above."
+					: "Corrige los errores antes de enviar.",
+			);
 			return;
 		}
 
@@ -187,6 +238,7 @@ export function Contact() {
 			setStatus("success");
 			setErrorMsg(null);
 			setForm(EMPTY_FORM);
+			setFieldErrors({});
 			try {
 				window.localStorage.setItem(RATE_LIMIT_KEY, String(Date.now()));
 			} catch {
@@ -200,6 +252,31 @@ export function Contact() {
 			);
 		}
 	};
+
+	const fieldClass = (field: FieldName, extra = "") =>
+		cn(
+			"mt-1.5 w-full rounded-xl border bg-white/5 px-4 py-2.5 text-sm text-[var(--foreground)] outline-none transition-all focus:bg-white/10",
+			fieldErrors[field]
+				? "border-rose-400/70 focus:border-rose-400"
+				: "border-soft focus:border-amber-300",
+			extra,
+		);
+
+	const renderFieldError = (field: FieldName) =>
+		fieldErrors[field] ? (
+			<p
+				id={`contact-${field}-error`}
+				role="alert"
+				className="mt-1 text-xs text-rose-300"
+			>
+				{fieldErrors[field]}
+			</p>
+		) : null;
+
+	const ariaProps = (field: FieldName) => ({
+		"aria-invalid": Boolean(fieldErrors[field]),
+		"aria-describedby": fieldErrors[field] ? `contact-${field}-error` : undefined,
+	});
 
 	const platforms = [
 		{
@@ -322,8 +399,15 @@ export function Contact() {
 												id="contact-intent"
 												value={form.intent}
 												onChange={handleChange("intent")}
+												onBlur={handleBlur("intent")}
+												{...ariaProps("intent")}
 												required
-												className="w-full appearance-none rounded-xl border border-soft bg-white/5 px-4 py-2.5 pr-10 text-sm text-[var(--foreground)] outline-none transition-all focus:border-amber-300 focus:bg-white/10"
+												className={cn(
+													"w-full appearance-none rounded-xl border bg-white/5 px-4 py-2.5 pr-10 text-sm text-[var(--foreground)] outline-none transition-all focus:bg-white/10",
+													fieldErrors.intent
+														? "border-rose-400/70 focus:border-rose-400"
+														: "border-soft focus:border-amber-300",
+												)}
 											>
 												<option value="" disabled className="bg-[var(--background)] text-[var(--foreground)]">
 													{intentPlaceholder}
@@ -339,48 +423,80 @@ export function Contact() {
 												aria-hidden="true"
 											/>
 										</div>
+										{renderFieldError("intent")}
 									</div>
 									<div>
-										<label className="text-[10px] uppercase tracking-[0.28em] text-subtle">{contact.form.name.label}</label>
+										<label
+											htmlFor="contact-name"
+											className="text-[10px] uppercase tracking-[0.28em] text-subtle"
+										>
+											{contact.form.name.label}
+										</label>
 										<input
+											id="contact-name"
 											value={form.name}
 											onChange={handleChange("name")}
-											className="mt-1.5 w-full rounded-xl border border-soft bg-white/5 px-4 py-2.5 text-sm text-[var(--foreground)] outline-none transition-all focus:border-amber-300 focus:bg-white/10"
+											onBlur={handleBlur("name")}
+											{...ariaProps("name")}
+											className={fieldClass("name")}
 											placeholder={contact.form.name.placeholder}
 											required
 											minLength={LIMITS.name.min}
 											maxLength={LIMITS.name.max}
 											autoComplete="name"
 										/>
+										{renderFieldError("name")}
 									</div>
 								</div>
 								<div>
-									<label className="text-[10px] uppercase tracking-[0.28em] text-subtle">{contact.form.email.label}</label>
+									<label
+										htmlFor="contact-email"
+										className="text-[10px] uppercase tracking-[0.28em] text-subtle"
+									>
+										{contact.form.email.label}
+									</label>
 									<input
+										id="contact-email"
 										value={form.email}
 										onChange={handleChange("email")}
+										onBlur={handleBlur("email")}
+										{...ariaProps("email")}
 										type="email"
-										className="mt-1.5 w-full rounded-xl border border-soft bg-white/5 px-4 py-2.5 text-sm text-[var(--foreground)] outline-none transition-all focus:border-amber-300 focus:bg-white/10"
+										className={fieldClass("email")}
 										placeholder={contact.form.email.placeholder}
 										required
 										maxLength={LIMITS.email.max}
 										autoComplete="email"
 									/>
+									{renderFieldError("email")}
 								</div>
 								<div>
-									<label className="text-[10px] uppercase tracking-[0.28em] text-subtle">{contact.form.message.label}</label>
+									<label
+										htmlFor="contact-message"
+										className="text-[10px] uppercase tracking-[0.28em] text-subtle"
+									>
+										{contact.form.message.label}
+									</label>
 									<textarea
+										id="contact-message"
 										value={form.message}
 										onChange={handleChange("message")}
-										className="mt-1.5 min-h-[110px] w-full rounded-2xl border border-soft bg-white/5 px-4 py-3 text-sm text-[var(--foreground)] outline-none transition-all focus:border-amber-300 focus:bg-white/10"
+										onBlur={handleBlur("message")}
+										{...ariaProps("message")}
+										className={fieldClass("message", "min-h-[110px] rounded-2xl py-3")}
 										placeholder={contact.form.message.placeholder}
 										required
 										minLength={LIMITS.message.min}
 										maxLength={LIMITS.message.max}
 									/>
-									<p className="mt-1 text-right text-[10px] text-subtle">
-										{form.message.length}/{LIMITS.message.max}
-									</p>
+									<div className="mt-1 flex items-start justify-between gap-3">
+										<div className="min-w-0 flex-1">
+											{renderFieldError("message")}
+										</div>
+										<p className="shrink-0 text-[10px] text-subtle">
+											{form.message.length}/{LIMITS.message.max}
+										</p>
+									</div>
 								</div>
 							</div>
 							<div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
