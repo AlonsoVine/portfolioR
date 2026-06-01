@@ -2,11 +2,12 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Award, X } from "lucide-react";
 import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
 import { scrollRevealConfig } from "@/lib/utils";
+import { useFocusTrap } from "@/lib/useFocusTrap";
 import { useLanguage } from "@/i18n";
 
 type EducationItem = ReturnType<typeof useLanguage>["dict"]["education"]["items"][number];
@@ -36,6 +37,8 @@ export function Education() {
     items: EducationItem[];
   };
   const [selected, setSelected] = useState<EducationItem | null>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  useFocusTrap(modalRef, selected !== null);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -44,6 +47,17 @@ export function Education() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
+
+  useEffect(() => {
+    if (selected) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [selected]);
 
   return (
     <SectionShell id="education">
@@ -93,10 +107,11 @@ export function Education() {
 
       {selected ? (
         <div
+          ref={modalRef}
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
           role="dialog"
           aria-modal="true"
-          aria-label={`Certificado ${selected.title}`}
+          aria-label={`${lang === "en" ? "Certificate" : "Certificado"} ${selected.title}`}
           onClick={() => setSelected(null)}
         >
           <div
@@ -105,7 +120,7 @@ export function Education() {
           >
             <button
               className="absolute right-3 top-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-[var(--foreground)] transition hover:bg-white/20"
-              aria-label="Cerrar"
+              aria-label={lang === "en" ? "Close" : "Cerrar"}
               onClick={() => setSelected(null)}
             >
               <X className="h-5 w-5" aria-hidden="true" />

@@ -3,7 +3,8 @@
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useFocusTrap } from "@/lib/useFocusTrap";
 
 type Props = {
 	images: string[];
@@ -18,6 +19,8 @@ export function ProjectCarousel({ images, alt, intervalMs = 3200 }: Props) {
 	const [paused, setPaused] = useState(false);
 	const [zoomed, setZoomed] = useState(false);
 	const reduceMotion = useReducedMotion();
+	const lightboxRef = useRef<HTMLDivElement>(null);
+	useFocusTrap(lightboxRef, zoomed);
 
 	const total = images.length;
 	const goTo = useCallback((i: number) => setIndex(((i % total) + total) % total), [total]);
@@ -133,6 +136,7 @@ export function ProjectCarousel({ images, alt, intervalMs = 3200 }: Props) {
 
 			{zoomed ? (
 				<div
+					ref={lightboxRef}
 					className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
 					role="dialog"
 					aria-modal="true"

@@ -15,8 +15,16 @@ const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
 export function Header() {
   const { dict } = useLanguage();
   const links = dict.nav.links;
+  const isEn = dict.lang === "en";
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const menuLabel = open
+    ? isEn
+      ? "Close menu"
+      : "Cerrar menú"
+    : isEn
+      ? "Open menu"
+      : "Abrir menú";
   const sectionIds = useMemo(
     () => links.map((l) => l.href.replace("#", "")),
     [links],
@@ -96,13 +104,17 @@ export function Header() {
           <button
             className="inline-flex h-10 w-10 items-center justify-center rounded-full border-soft text-[var(--foreground)] transition-all duration-300 hover:scale-105 md:hidden"
             onClick={() => setOpen((prev) => !prev)}
-            aria-label="Abrir menú"
+            aria-label={menuLabel}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
           >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {open ? <X className="h-5 w-5" aria-hidden="true" /> : <Menu className="h-5 w-5" aria-hidden="true" />}
           </button>
         </div>
 
         <div
+          id="mobile-menu"
+          aria-hidden={!open}
           className={cn(
             "absolute left-0 top-full mt-4 w-full origin-top scale-y-0 rounded-3xl surface-panel p-6 shadow-2xl backdrop-blur-xl transition-transform duration-300 md:hidden",
             open ? "scale-y-100" : "pointer-events-none"

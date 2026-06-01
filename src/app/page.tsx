@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <div className="relative min-h-screen text-[var(--foreground)] transition-colors">
       <Header />
-      <main className="flex flex-col gap-6">
+      <main id="main-content" className="flex flex-col gap-6">
         <Hero />
         <SectionDivider />
         <SkillsGrid />

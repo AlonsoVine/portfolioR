@@ -4,6 +4,8 @@ import "./globals.css";
 import { LanguageProvider } from "@/i18n";
 import { Aurora } from "@/components/shared/Aurora";
 import { ConsoleSignature } from "@/components/shared/ConsoleSignature";
+import { MotionGate } from "@/components/shared/MotionGate";
+import { SkipToContent } from "@/components/shared/SkipToContent";
 import { ReadingProgress } from "@/components/ui/ReadingProgress";
 import { StickyContactCTA } from "@/components/ui/StickyContactCTA";
 
@@ -162,8 +164,11 @@ export default function RootLayout({
         <ConsoleSignature />
         <ReadingProgress />
         <LanguageProvider>
-          {children}
-          <StickyContactCTA />
+          <MotionGate>
+            <SkipToContent />
+            {children}
+            <StickyContactCTA />
+          </MotionGate>
         </LanguageProvider>
       </body>
     </html>
