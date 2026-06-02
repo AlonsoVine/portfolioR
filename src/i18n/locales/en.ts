@@ -127,8 +127,8 @@ export const en = {
         ? "Functional and Data Analyst & Scrum Master Assistant"
         : exp.title,
     period:
-      exp.period === "Feb 2026 - Actual"
-        ? "Feb 2026 - Present"
+      exp.period === "Ene 2026 - Actual"
+        ? "Jan 2026 - Present"
         : exp.period,
     location: exp.location,
     company: exp.company,

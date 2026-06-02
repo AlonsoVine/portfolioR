@@ -6,8 +6,9 @@ import emailjs from "@emailjs/browser";
 import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
 import { scrollRevealConfig, cn } from "@/lib/utils";
-import { CheckCircle2, ChevronDown, Clock, GithubIcon, Linkedin, Mail } from "lucide-react";
+import { CheckCircle2, Clock, GithubIcon, Linkedin, Mail } from "lucide-react";
 import { useLanguage } from "@/i18n";
+import { IntentSelect } from "../ui/IntentSelect";
 
 type FormState = {
 	name: string;
@@ -394,33 +395,28 @@ export function Contact() {
 										>
 											{intentLabel}
 										</label>
-										<div className="relative mt-1.5">
-											<select
+										<div className="mt-1.5">
+											<IntentSelect
 												id="contact-intent"
+												options={intents}
 												value={form.intent}
-												onChange={handleChange("intent")}
+												onChange={(v) => {
+													setForm((prev) => ({ ...prev, intent: v }));
+													if (submitAttempted) {
+														const err = validateField("intent", v);
+														setFieldErrors((prev) => ({
+															...prev,
+															intent: err ?? undefined,
+														}));
+													}
+												}}
 												onBlur={handleBlur("intent")}
-												{...ariaProps("intent")}
+												placeholder={intentPlaceholder}
 												required
-												className={cn(
-													"w-full appearance-none rounded-xl border bg-white/5 px-4 py-2.5 pr-10 text-sm text-[var(--foreground)] outline-none transition-all focus:bg-white/10",
-													fieldErrors.intent
-														? "border-rose-400/70 focus:border-rose-400"
-														: "border-soft focus:border-amber-300",
-												)}
-											>
-												<option value="" disabled className="bg-[var(--background)] text-[var(--foreground)]">
-													{intentPlaceholder}
-												</option>
-												{intents.map((it) => (
-													<option key={it.value} value={it.value} className="bg-[var(--background)] text-[var(--foreground)]">
-														{it.label}
-													</option>
-												))}
-											</select>
-											<ChevronDown
-												className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--foreground)]/60"
-												aria-hidden="true"
+												ariaInvalid={Boolean(fieldErrors.intent)}
+												ariaDescribedBy={
+													fieldErrors.intent ? "contact-intent-error" : undefined
+												}
 											/>
 										</div>
 										{renderFieldError("intent")}

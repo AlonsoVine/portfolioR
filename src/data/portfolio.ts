@@ -243,7 +243,7 @@ export const experiences: Experience[] = [
     company: "Seres",
     project: "Aplicaci\u00f3n central de Seres",
     location: "Madrid, Espa\u00f1a",
-    period: "Feb 2026 - Actual",
+    period: "Ene 2026 - Actual",
     tech: [
       "GitLab",
       "GitLab CI/CD",
