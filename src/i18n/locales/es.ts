@@ -47,7 +47,13 @@ export const es = {
     mediaToggleLabel: "Vista multimedia de Liberty",
     logoAlt: "Logo de Liberty",
     videoAlt: "Vídeo de demostración de Liberty",
-    items: projects,
+    items: projects.map((project) => ({
+      ...project,
+      demoLinkLabel:
+        project.title === "Liberty" || project.title === "Jardin Digital"
+          ? "Ver web"
+          : undefined,
+    })),
   },
   education: {
     eyebrow: "Formacion",

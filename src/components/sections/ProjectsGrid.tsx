@@ -172,7 +172,7 @@ function ProjectCard({ project, index, labels }: ProjectCardProps) {
 							rel="noreferrer"
 							className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 px-5 py-3 text-sm font-semibold text-slate-900 shadow-[0_20px_50px_rgba(52,211,153,0.35)] transition-all duration-300 hover:-translate-y-0.5"
 						>
-							{labels.demoLabel}
+							{project.demoLinkLabel ?? labels.demoLabel}
 						</a>
 					) : null}
 				</div>

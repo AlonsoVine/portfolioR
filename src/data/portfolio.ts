@@ -46,6 +46,7 @@ export type Project = {
   tech: string[];
   featured?: boolean;
   spotlight?: boolean;
+  demoLinkLabel?: string;
   links: {
     demo?: string;
     code: string;
@@ -404,10 +405,13 @@ export const projects: Project[] = [
     video: "/images/proyectos/liberty/Grabación 2026-10-08 131217.mp4",
     tech: [
       "Aplicación de escritorio",
+      "100% local",
       "Gestión patrimonial",
-      "Privacidad local",
-      "Importación Excel/CSV",
       "Rentabilidad (TIR)",
+      "Importación Excel/CSV",
+      "Sin nube",
+      "Sin cuentas",
+      "Sin telemetría",
     ],
     links: {
       demo: "https://alonsovine.github.io/liberty/",

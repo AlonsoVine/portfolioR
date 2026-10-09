@@ -216,14 +216,21 @@ export const en = {
     items: projects.map((p) => ({
       ...p,
       title: p.title,
+      demoLinkLabel:
+        p.title === "Liberty" || p.title === "Jardin Digital"
+          ? "View website"
+          : undefined,
       tech:
         p.title === "Liberty"
           ? [
               "Desktop app",
+              "100% local",
               "Wealth management",
-              "Local privacy",
-              "Excel/CSV import",
               "Investment returns (IRR)",
+              "Excel/CSV import",
+              "No cloud",
+              "No accounts",
+              "No telemetry",
             ]
           : p.tech,
       description:
