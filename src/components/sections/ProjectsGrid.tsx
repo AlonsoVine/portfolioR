@@ -62,7 +62,7 @@ function ProjectCard({ project, index, labels }: ProjectCardProps) {
 			<div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
 				<div className="absolute inset-0 bg-gradient-to-br from-amber-200/8 via-transparent to-rose-300/8" />
 			</div>
-			<div className={`relative overflow-hidden ${isSpotlight ? "lg:min-h-[460px]" : ""}`}>
+			<div className={`relative overflow-hidden ${isSpotlight ? "lg:h-full lg:min-h-[460px]" : ""}`}>
 				{isSpotlight && project.video ? (
 					<div
 						role="group"
@@ -103,7 +103,7 @@ function ProjectCard({ project, index, labels }: ProjectCardProps) {
 						playsInline
 						preload="none"
 						aria-label={labels.videoAlt}
-						className="h-72 w-full bg-black object-contain md:h-96 lg:h-[460px]"
+						className="h-72 w-full bg-black object-contain md:h-96 lg:h-full lg:min-h-[460px]"
 					/>
 				) : (
 					<ProjectCarousel

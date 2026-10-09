@@ -61,7 +61,7 @@ export function ProjectCarousel({ images, alt, intervalMs = 3200, size = "defaul
 	return (
 		<>
 			<div
-				className={`relative w-full overflow-hidden ${size === "large" ? "h-72 md:h-96 lg:h-[460px]" : "h-60"}`}
+				className={`relative w-full overflow-hidden ${size === "large" ? "h-72 md:h-96 lg:h-full lg:min-h-[460px]" : "h-60"}`}
 				role="group"
 				aria-roledescription="carousel"
 				aria-label={alt}
