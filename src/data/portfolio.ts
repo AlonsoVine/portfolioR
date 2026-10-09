@@ -41,8 +41,11 @@ export type Project = {
   description: string;
   image: string;
   gallery?: string[];
+  logo?: string;
+  video?: string;
   tech: string[];
   featured?: boolean;
+  spotlight?: boolean;
   links: {
     demo?: string;
     code: string;
@@ -381,6 +384,36 @@ export const experiences: Experience[] = [
   },
 ];
 export const projects: Project[] = [
+  {
+    title: "Liberty",
+    featured: true,
+    spotlight: true,
+    description:
+      "Aplicación de escritorio para gestionar el patrimonio del hogar: reúne cuentas, inversiones, inmuebles y deudas, y ayuda a seguir ingresos, gastos y evolución. Privada por diseño: funciona localmente, sin cuentas ni servidores.",
+    image: "/images/proyectos/liberty/Panel_1_patrimonio1.webp",
+    gallery: [
+      "/images/proyectos/liberty/Panel_1_patrimonio1.webp",
+      "/images/proyectos/liberty/Panel_2_distribucion.webp",
+      "/images/proyectos/liberty/Panel_5_Evolucion.webp",
+      "/images/proyectos/liberty/Panel_5_Evolucion2.webp",
+      "/images/proyectos/liberty/MisDatos_1_Activos.webp",
+      "/images/proyectos/liberty/MisDatos_7_Configuracion.webp",
+      "/images/proyectos/liberty/MisDatos_8_Importar.webp",
+    ],
+    logo: "/images/proyectos/liberty/logo_liberty.png",
+    video: "/images/proyectos/liberty/Grabación 2026-10-08 131217.mp4",
+    tech: [
+      "Aplicación de escritorio",
+      "Gestión patrimonial",
+      "Privacidad local",
+      "Importación Excel/CSV",
+      "Rentabilidad (TIR)",
+    ],
+    links: {
+      demo: "https://alonsovine.github.io/liberty/",
+      code: "https://github.com/AlonsoVine/liberty",
+    },
+  },
   {
     title: "Jardin Digital",
     featured: true,

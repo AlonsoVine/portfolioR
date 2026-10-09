@@ -10,11 +10,12 @@ type Props = {
 	images: string[];
 	alt: string;
 	intervalMs?: number;
+	size?: "default" | "large";
 };
 
 const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
-export function ProjectCarousel({ images, alt, intervalMs = 3200 }: Props) {
+export function ProjectCarousel({ images, alt, intervalMs = 3200, size = "default" }: Props) {
 	const [index, setIndex] = useState(0);
 	const [paused, setPaused] = useState(false);
 	const [zoomed, setZoomed] = useState(false);
@@ -60,7 +61,7 @@ export function ProjectCarousel({ images, alt, intervalMs = 3200 }: Props) {
 	return (
 		<>
 			<div
-				className="relative h-60 w-full overflow-hidden"
+				className={`relative w-full overflow-hidden ${size === "large" ? "h-72 md:h-96 lg:h-[460px]" : "h-60"}`}
 				role="group"
 				aria-roledescription="carousel"
 				aria-label={alt}
@@ -86,7 +87,7 @@ export function ProjectCarousel({ images, alt, intervalMs = 3200 }: Props) {
 							alt={alt}
 							width={1200}
 							height={800}
-							className="h-full w-full object-cover"
+							className={`h-full w-full ${size === "large" ? "bg-black object-contain" : "object-cover"}`}
 							priority={index === 0}
 						/>
 					</motion.button>

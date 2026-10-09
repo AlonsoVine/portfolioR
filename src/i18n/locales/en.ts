@@ -208,11 +208,28 @@ export const en = {
     codeLabel: "Code",
     demoLabel: "View Demo",
     featuredLabel: "Featured",
+    galleryLabel: "Screenshots",
+    videoLabel: "Video",
+    mediaToggleLabel: "Liberty media view",
+    logoAlt: "Liberty app logo",
+    videoAlt: "Liberty product demo video",
     items: projects.map((p) => ({
       ...p,
       title: p.title,
+      tech:
+        p.title === "Liberty"
+          ? [
+              "Desktop app",
+              "Wealth management",
+              "Local privacy",
+              "Excel/CSV import",
+              "Investment returns (IRR)",
+            ]
+          : p.tech,
       description:
-        p.title === "Jardin Digital"
+        p.title === "Liberty"
+          ? "Desktop app for managing household wealth: bring accounts, investments, property and debt together, and track income, spending and performance over time. Private by design: runs locally, with no accounts or servers."
+          : p.title === "Jardin Digital"
           ? "Handcrafted web app to record and accompany the life of plants. Includes KPI dashboard, dynamic search/filters, export to JSON/TXT/CSV, light/dark theme, ambient sound and floating leaves."
           : p.title === "ForYouToBe"
           ? "Python tool to download YouTube audio in multiple formats (MP3, WAV, FLAC) from single URLs or lists, with format and destination folder selection."

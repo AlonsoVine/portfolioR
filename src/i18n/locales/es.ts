@@ -42,6 +42,11 @@ export const es = {
     codeLabel: "Codigo",
     demoLabel: "Ver Demo",
     featuredLabel: "Destacado",
+    galleryLabel: "Capturas",
+    videoLabel: "Vídeo",
+    mediaToggleLabel: "Vista multimedia de Liberty",
+    logoAlt: "Logo de Liberty",
+    videoAlt: "Vídeo de demostración de Liberty",
     items: projects,
   },
   education: {
