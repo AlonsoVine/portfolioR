@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Cinzel, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/i18n";
 import { Aurora } from "@/components/shared/Aurora";
 import { ConsoleSignature } from "@/components/shared/ConsoleSignature";
+import { GoogleAnalyticsEvents } from "@/components/shared/GoogleAnalyticsEvents";
 import { MotionGate } from "@/components/shared/MotionGate";
 import { RetroEasterEgg } from "@/components/shared/RetroEasterEgg";
 import { SkipToContent } from "@/components/shared/SkipToContent";
@@ -150,6 +152,19 @@ export default function RootLayout({
   return (
     <html lang="es" data-theme="dark">
       <head>
+        {/* Google Analytics (GA4) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-SCJHRK7TQ7"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics-config" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){window.dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-SCJHRK7TQ7');
+          `}
+        </Script>
         <link
           rel="preload"
           as="image"
@@ -166,6 +181,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${cinzel.variable} antialiased bg-slate-950 text-white`}
       >
+        <GoogleAnalyticsEvents />
         <Aurora />
         <div
           aria-hidden="true"
