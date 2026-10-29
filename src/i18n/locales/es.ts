@@ -45,12 +45,14 @@ export const es = {
     galleryLabel: "Capturas",
     videoLabel: "Vídeo",
     mediaToggleLabel: "Vista multimedia de Liberty",
-    logoAlt: "Logo de Liberty",
+    logoAlt: "Logotipo del proyecto",
     videoAlt: "Vídeo de demostración de Liberty",
     items: projects.map((project) => ({
       ...project,
       demoLinkLabel:
-        project.title === "Liberty" || project.title === "Jardin Digital"
+        project.title === "Liberty" ||
+        project.title === "Jardin Digital" ||
+        project.title === "PhotoDateRenamer"
           ? "Ver web"
           : undefined,
     })),

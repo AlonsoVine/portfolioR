@@ -50,19 +50,30 @@ type ProjectCardProps = {
 function ProjectCard({ project, index, labels }: ProjectCardProps) {
 	const [showVideo, setShowVideo] = useState(false);
 	const isSpotlight = project.spotlight;
+	const isSingleImageSpotlight = isSpotlight && project.singleImage;
 
 	return (
 		<motion.article
 			{...scrollRevealConfig}
 			transition={{ delay: index * 0.08 }}
 			className={`group relative flex h-full flex-col overflow-hidden rounded-3xl surface-card shadow-[0_30px_80px_rgba(15,23,42,0.45)] backdrop-blur-xl transition-transform duration-500 hover:-translate-y-2 hover:shadow-[0_30px_100px_rgba(251,191,36,0.18)] ${
-				isSpotlight ? "md:col-span-2 lg:grid lg:grid-cols-[minmax(0,1.25fr)_minmax(22rem,0.75fr)]" : ""
+				isSpotlight
+					? `md:col-span-2 lg:grid ${
+							isSingleImageSpotlight
+								? "lg:grid-cols-[minmax(22rem,0.9fr)_minmax(0,1.1fr)]"
+								: "lg:grid-cols-[minmax(0,1.25fr)_minmax(22rem,0.75fr)]"
+						}`
+					: ""
 			}`}
 		>
 			<div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
 				<div className="absolute inset-0 bg-gradient-to-br from-amber-200/8 via-transparent to-rose-300/8" />
 			</div>
-			<div className={`relative overflow-hidden ${isSpotlight ? "lg:h-full lg:min-h-[460px]" : ""}`}>
+			<div
+				className={`relative overflow-hidden ${isSpotlight ? "lg:h-full lg:min-h-[460px]" : ""} ${
+					isSingleImageSpotlight ? "order-2" : ""
+				}`}
+			>
 				{isSpotlight && project.video ? (
 					<div
 						role="group"
@@ -91,7 +102,17 @@ function ProjectCard({ project, index, labels }: ProjectCardProps) {
 						</button>
 					</div>
 				) : null}
-				{isSpotlight && showVideo && project.video ? (
+				{isSingleImageSpotlight ? (
+					<div className="relative h-72 w-full bg-[var(--surface-soft)] md:h-96 lg:h-full lg:min-h-[460px]">
+						<Image
+							src={`${basePath}${encodeURI(project.image)}`}
+							alt={project.title}
+							fill
+							sizes="(min-width: 1024px) 40vw, 100vw"
+							className="object-cover"
+						/>
+					</div>
+				) : isSpotlight && showVideo && project.video ? (
 					<video
 						key={project.video}
 						src={`${basePath}${encodeURI(project.video)}`}
@@ -113,19 +134,35 @@ function ProjectCard({ project, index, labels }: ProjectCardProps) {
 					/>
 				)}
 			</div>
-			<div className={`flex flex-1 flex-col gap-6 p-8 ${isSpotlight ? "lg:justify-center lg:p-10" : ""}`}>
+			<div
+				className={`flex flex-1 flex-col gap-6 p-8 ${isSpotlight ? "lg:justify-center lg:p-10" : ""} ${
+					isSingleImageSpotlight ? "order-1" : ""
+				}`}
+			>
 				<div className="flex flex-col gap-3">
-					<div className="flex items-center gap-3">
+					<div className="flex flex-wrap items-center gap-3">
 						{project.logo ? (
 							<Image
 								src={`${basePath}${project.logo}`}
 								alt={labels.logoAlt}
-								width={52}
-								height={52}
-								className="h-12 w-12 rounded-xl object-cover"
+								width={project.singleImage ? 1248 : 52}
+								height={project.singleImage ? 832 : 52}
+								className={`shrink-0 ${
+									project.singleImage
+										? "h-12 w-auto object-contain"
+										: "h-12 w-12 rounded-xl object-cover"
+								}`}
 							/>
 						) : null}
-						<h3 className={`font-semibold text-[var(--foreground)] ${isSpotlight ? "text-3xl md:text-4xl" : "text-2xl"}`}>
+						<h3
+							className={`font-semibold text-[var(--foreground)] ${
+								isSpotlight
+									? isSingleImageSpotlight
+										? "min-w-0 [overflow-wrap:anywhere] text-xl sm:text-2xl lg:text-4xl"
+										: "text-3xl md:text-4xl"
+									: "text-2xl"
+							}`}
+						>
 							{project.title}
 						</h3>
 						{project.featured ? (

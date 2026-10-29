@@ -211,13 +211,15 @@ export const en = {
     galleryLabel: "Screenshots",
     videoLabel: "Video",
     mediaToggleLabel: "Liberty media view",
-    logoAlt: "Liberty app logo",
+    logoAlt: "Project logo",
     videoAlt: "Liberty product demo video",
     items: projects.map((p) => ({
       ...p,
       title: p.title,
       demoLinkLabel:
-        p.title === "Liberty" || p.title === "Jardin Digital"
+        p.title === "Liberty" ||
+        p.title === "Jardin Digital" ||
+        p.title === "PhotoDateRenamer"
           ? "View website"
           : undefined,
       tech:
@@ -232,6 +234,8 @@ export const en = {
               "No accounts",
               "No telemetry",
             ]
+          : p.title === "PhotoDateRenamer"
+          ? ["Browser", "EXIF metadata", "Local processing", "Batch renaming"]
           : p.tech,
       description:
         p.title === "Liberty"
@@ -241,7 +245,7 @@ export const en = {
           : p.title === "ForYouToBe"
           ? "Python tool to download YouTube audio in multiple formats (MP3, WAV, FLAC) from single URLs or lists, with format and destination folder selection."
           : p.title === "PhotoDateRenamer"
-          ? "Python app that renames photos using EXIF metadata (taken date) following YYYY_MM_DD_originalName.ext to keep chronological order."
+          ? "Renames photos using EXIF capture dates, falling back to file dates when needed. Available as a web app and portable Windows app; photos stay on your device and are never sent to external services."
           : p.title === "Jarvis Asistente de Voz"
           ? "Python voice assistant capable of executing voice commands: open apps, web search, weather, reminders, and email, among others."
           : p.title === "Space Invaders"

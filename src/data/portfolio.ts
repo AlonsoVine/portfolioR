@@ -47,6 +47,7 @@ export type Project = {
   featured?: boolean;
   spotlight?: boolean;
   demoLinkLabel?: string;
+  singleImage?: boolean;
   links: {
     demo?: string;
     code: string;
@@ -419,6 +420,21 @@ export const projects: Project[] = [
     },
   },
   {
+    title: "PhotoDateRenamer",
+    featured: true,
+    spotlight: true,
+    singleImage: true,
+    description:
+      "Renombra fotos con la fecha de captura EXIF o, si falta, la fecha del archivo. Disponible como web y aplicación portable para Windows; procesa las fotos localmente, sin enviarlas a servicios externos.",
+    image: "/images/proyectos/photoDateRenamer/captura_card.webp",
+    logo: "/images/proyectos/photoDateRenamer/logo_photo_date_renamer.webp",
+    tech: ["Navegador", "Metadatos EXIF", "Procesamiento local", "Renombrado por lotes"],
+    links: {
+      demo: "https://alonsovine.github.io/PhotoDateRenamer/",
+      code: "https://github.com/AlonsoVine/PhotoDateRenamer",
+    },
+  },
+  {
     title: "Jardin Digital",
     featured: true,
     description:
@@ -481,26 +497,6 @@ export const projects: Project[] = [
     tech: ["Python", "yt-dlp"],
     links: {
       code: "https://github.com/AlonsoVine/forYouToBe",
-    },
-  },
-  {
-    title: "PhotoDateRenamer",
-    description:
-      "Aplicacion Python que renombra fotos usando metadatos EXIF (fecha tomada) siguiendo el formato YYYY_MM_DD_nombreOriginal.ext, facilitando el orden cronologico.",
-    image:
-      "/images/proyectos/photoDateRenamer/fotografia-movil-versus-camara2.webp",
-    gallery: [
-      "/images/proyectos/photoDateRenamer/fotografia-movil-versus-camara2.webp",
-      "/images/proyectos/photoDateRenamer/img_codigo_photoDateRenamer.webp",
-      "/images/proyectos/photoDateRenamer/img_codigo_photoDateRenamer2.webp",
-      "/images/proyectos/photoDateRenamer/captura-pantalla.webp",
-      "/images/proyectos/photoDateRenamer/fotografo.webp",
-      "/images/proyectos/photoDateRenamer/fotografa.webp",
-      "/images/proyectos/photoDateRenamer/photos2.webp",
-    ],
-    tech: ["Python", "EXIF"],
-    links: {
-      code: "https://github.com/AlonsoVine/PhotoDateRenamer",
     },
   },
   {
