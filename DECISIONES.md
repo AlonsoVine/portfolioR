@@ -115,6 +115,18 @@ Registro de decisiones, inventario de efectos que no pueden degradarse y pregunt
 - **D-30 · Rol del hero**: cada parte ("Full Stack Developer", "DevOps & IA") no se parte por dentro, pero el corte entre partes sí puede ocurrir. A 390 px se cortaba la línea.
 - **D-31 · `turbopack.root`**: un `package-lock.json` vacío de 2023 en `C:\proyectos` provocaba un warning de build. No se ha borrado, porque es ajeno al repo; se fija la raíz en `next.config.ts`.
 
+### Vuelta 3 (tras el árbitro de la vuelta 2, ponderada 7,05)
+- **D-32 · Timeline como grafo de ramas**: cada puesto sale de la línea central con una curva tipo `git branch` que se dibuja al entrar en pantalla. En la mitad vacía de la alternancia aparecen el año de inicio, en Cinzel con contorno, y la empresa; quedan fijos mientras se lee la tarjeta. Los datos salen de `period`/`company`, sin texto nuevo. La línea con muelle, el cometa y los nodos con ping (inventario 33) se mantienen. Los párrafos de las tarjetas de la izquierda pasan a ir alineados a la izquierda.
+- **D-33 · Skills en bento**: las tarjetas 2, 3 y 6 ocupan dos columnas en escritorio (zigzag sin huecos). Cada tarjeta muestra en grande, con contorno, cuántas tecnologías agrupa. Ese número se deriva de los datos.
+- **D-34 · Textos de componentes a los diccionarios**: unas 40 cadenas `isEn ? … : …` pasan a `dict.ui` (a11y, formulario, impresión, modo retro, timeline, formación). Se corrigen "Proyectos y código" y "Jardín Digital".
+- **D-35 · Cifras del hero sin parpadeo**: `CountUp` no reinicia la cuenta si la entrada CSS ya ha mostrado la cifra antes de hidratar.
+- **D-36 · Tarjetas de formación**: sin `aria-label`. El nombre accesible es el texto visible más "· Ver certificado" en `sr-only` (label-in-name).
+- **D-37 · CTA flotante**: cuando está oculto es `invisible` y sale del orden de tabulación. Está dentro de un `<aside>` (landmark). En móvil es un botón redondo de 48 px para no tapar los enlaces de las tarjetas.
+- **D-38 · Índice lateral**: el número activo usa `--foreground` (AA sobre la aurora) y el índice se oculta cuando el footer está a la vista. Las muescas de la barra de progreso solo aparecen al salir del hero.
+- **D-39 · Botones de proyecto**: "Código" con borde neutro y "Ver web" con el degradado de marca (ámbar→rosa, como el CTA del hero) y una flecha. Se quita el verde esmeralda, que estaba fuera de la paleta.
+- **D-40 · Impresión**: el email y los perfiles van en la cabecera del PDF. No se imprimen el reloj, el CTA del About ni el botón de copiar.
+- **D-41 · Documento de identidad tapado**: los certificados de Prompt Engineering (Nebrija) e IA para Programadores (UTAMED) mostraban el número de DNI en la tarjeta y en el modal. Se tapa con una franja oscura en el asset de la rama; el resto del certificado, incluido el código de verificación, queda igual. Ver pregunta 6.
+
 ## 4. Preguntas pendientes sobre contenido
 
 1. ¿Hay logros cuantificables (tiempos de release, nº de pipelines o proyectos cliente migrados en Seres, etc.) que se puedan publicar? Darían más fuerza a Experiencia; no se han inventado.
@@ -122,3 +134,4 @@ Registro de decisiones, inventario de efectos que no pueden degradarse y pregunt
 3. ¿Quieres mantener el badge Lighthouse con cifras manuales o quitarlo/actualizarlo tras el próximo deploy?
 4. ¿Se mantiene Google Analytics? Ya estaba en `main` y no se ha tocado, pero choca con un portfolio "sin rastreadores".
 5. Varias imágenes de proyecto (ForYouToBe, Jarvis) son ilustraciones generadas, no capturas reales. ¿Hay capturas reales?
+6. Tu número de DNI aparecía en los certificados de Nebrija y UTAMED (y ya está publicado en `main` y en el historial de git). En esta rama queda tapado, pero he revisado UOC y Neoland (sin DNI); conviene que revises los de AWS, Microsoft, EF SET, GitHub y Udemy, y decidir si hace falta limpiar el historial.
