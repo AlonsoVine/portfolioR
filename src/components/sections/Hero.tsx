@@ -15,6 +15,7 @@ import { ArrowRight, Download, GithubIcon, Linkedin, MapPin, Twitter } from "luc
 import { useLanguage } from "@/i18n";
 import { calcYearsExperience } from "@/lib/years";
 import { withBasePath } from "@/lib/utils";
+import { GITHUB_PROJECTS } from "@/data/portfolio";
 import { RotatingTagline } from "../ui/RotatingTagline";
 import { CountUp } from "../ui/CountUp";
 
@@ -34,7 +35,6 @@ export function Hero() {
 	const subtitleWithYears = subtitle.replace("{years}", String(yearsExp));
 	const currentExp =
 		experiences.find((e) => /actual|present|current/i.test(e.period)) ?? experiences[0];
-	const projectsCount = dict.projects.items.length;
 	const companiesCount = new Set(experiences.map((e) => e.company.replace(/\s*\(.*\)\s*/, "").trim())).size;
 	const certsCount = dict.education.items.length;
 	const taglines = ui.taglines
@@ -43,7 +43,7 @@ export function Hero() {
 				.replace("{current}", currentExp?.title ?? "")
 				.replace("{tech}", currentExp?.tech?.slice(0, 3).join(" · ") ?? "")
 				.replace("{years}", String(yearsExp))
-				.replace("{projects}", String(projectsCount)),
+				.replace("{projects}", `${GITHUB_PROJECTS}+`),
 		)
 		.filter((t) => t.trim().length > 0);
 	const cvHref = withBasePath(ctas.secondary.href);
@@ -80,7 +80,7 @@ export function Hero() {
 	const stats = [
 		{ value: yearsExp, suffix: "+", label: ui.heroStats.years },
 		{ value: companiesCount, suffix: "", label: ui.heroStats.companies },
-		{ value: projectsCount, suffix: "", label: ui.heroStats.projects },
+		{ value: GITHUB_PROJECTS, suffix: "+", label: ui.heroStats.projects },
 		{ value: certsCount, suffix: "", label: ui.heroStats.certifications },
 	];
 

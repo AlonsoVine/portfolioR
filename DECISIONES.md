@@ -126,6 +126,7 @@ Registro de decisiones, inventario de efectos que no pueden degradarse y pregunt
 - **D-39 · Botones de proyecto**: "Código" con borde neutro y "Ver web" con el degradado de marca (ámbar→rosa, como el CTA del hero) y una flecha. Se quita el verde esmeralda, que estaba fuera de la paleta.
 - **D-40 · Impresión**: el email y los perfiles van en la cabecera del PDF. No se imprimen el reloj, el CTA del About ni el botón de copiar.
 - **D-41 · Documento de identidad tapado**: los certificados de Prompt Engineering (Nebrija) e IA para Programadores (UTAMED) mostraban el número de DNI en la tarjeta y en el modal. Se tapa con una franja oscura en el asset de la rama; el resto del certificado, incluido el código de verificación, queda igual. Ver pregunta 6.
+- **D-42 · "40+ proyectos en GitHub"** (dato aportado por el autor durante la vuelta 3): la cifra del hero y la frase rotatoria usan `GITHUB_PROJECTS = 40` (`portfolio.ts`) con sufijo "+". La sección Proyectos sigue numerando su selección (01 / 06).
 
 ## 4. Preguntas pendientes sobre contenido
 
