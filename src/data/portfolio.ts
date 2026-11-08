@@ -64,11 +64,11 @@ export type Education = {
 
 export const navLinks: NavLink[] = [
   { label: "Inicio", href: "#hero" },
-  { label: "Skills", href: "#skills" },
+  { label: "Herramientas", href: "#skills" },
   { label: "Sobre m\u00ed", href: "#about" },
   { label: "Experiencia", href: "#experience" },
   { label: "Proyectos", href: "#projects" },
-  { label: "Educaci\u00f3n", href: "#education" },
+  { label: "Formaci\u00f3n", href: "#education" },
   { label: "Contacto", href: "#contact" },
 ];
 
@@ -78,7 +78,7 @@ export const heroContent = {
   location: "Madrid, Espa\u00f1a",
   availability: "Disponible para colaborar",
   subtitle:
-    "Multidisciplinar por elecci\u00f3n. Creo en software simple, decisiones explicables y entregas que no rompen la confianza.",
+    "Trabajo en todo el ciclo del software, del an\u00e1lisis al despliegue. Creo en el software simple, las decisiones explicables y las entregas que no rompen la confianza.",
   image: {
     front: {
       src: "/images/retrato-recorte.webp",
@@ -86,13 +86,13 @@ export const heroContent = {
     },
   },
   ctas: {
-    primary: { label: "Ver Proyectos", href: "#projects" },
+    primary: { label: "Ver proyectos", href: "#projects" },
     secondary: {
       label: "Descargar CV",
       href: "/assets/cv/Alonso Vi\u00f1\u00e9 CV_Espa\u00f1ol.pdf",
       download: true,
     },
-    tertiary: { label: "Cont\u00E1ctame", href: "#contact" },
+    tertiary: { label: "Escribirme", href: "#contact" },
   },
 };
 
@@ -112,18 +112,18 @@ export const aboutContent = {
     {
       title: "Ingl\u00e9s C2",
       description:
-        "EF SET Proficient. Listo para entornos internacionales sin barrera.",
+        "EF SET Proficient. Trabajo con soltura en equipos internacionales.",
       icon: "languages",
     },
     {
       title: "Foco en IA",
       description:
-        "Bootcamp Neoland, agentes IA y prompt engineering en mi d\u00eda a d\u00eda.",
+        "Bootcamp en Neoland y cursos universitarios; uso agentes de IA a diario.",
       icon: "bot",
     },
   ],
   cta: {
-    label: "\u00bfTe encaja para tu proyecto? Hablemos",
+    label: "Escribirme",
     href: "#contact",
   },
 };

@@ -1,7 +1,6 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Check, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -137,23 +136,14 @@ export function IntentSelect({
 						onBlur?.();
 					}
 				}}
-				className={cn(
-					"flex w-full items-center justify-between gap-2 rounded-xl border bg-white/5 px-4 py-2.5 text-left text-sm text-[var(--foreground)] outline-none transition-all hover:bg-white/10 focus:bg-white/10",
-					ariaInvalid
-						? "border-rose-400/70 focus:border-rose-400"
-						: "border-soft focus:border-amber-300",
-				)}
+				className="field flex items-center justify-between gap-2 text-left"
 			>
 				<span className={cn("truncate", selectedOption ? "" : "text-muted")}>
 					{selectedOption?.label ?? placeholder}
 				</span>
-				<ChevronDown
-					className={cn(
-						"h-4 w-4 shrink-0 text-[var(--foreground)]/60 transition-transform duration-300",
-						open && "rotate-180 text-[var(--accent-warm)]",
-					)}
-					aria-hidden="true"
-				/>
+				<span aria-hidden="true" className={cn("meta shrink-0 text-subtle transition-transform duration-300", open && "rotate-180 text-ink")}>
+					↓
+				</span>
 			</button>
 
 			<AnimatePresence>
@@ -164,7 +154,7 @@ export function IntentSelect({
 						animate={{ opacity: 1, y: 0, scale: 1 }}
 						exit={{ opacity: 0, y: -6, scale: 0.97 }}
 						transition={{ duration: 0.18, ease: "easeOut" }}
-						className="absolute inset-x-0 top-full z-30 mt-2 origin-top overflow-hidden rounded-2xl border border-soft/70 bg-[var(--surface-panel)] shadow-[0_24px_60px_rgba(15,23,42,0.55)] backdrop-blur-xl"
+						className="absolute inset-x-0 top-full z-30 -mt-px origin-top overflow-hidden rounded-[2px] border border-ink bg-paper"
 						style={{ transformOrigin: "top center" }}
 					>
 						<ul
@@ -174,7 +164,7 @@ export function IntentSelect({
 							aria-activedescendant={
 								activeIndex >= 0 ? `${id}-option-${activeIndex}` : undefined
 							}
-							className="max-h-72 overflow-auto p-1.5"
+							className="max-h-72 overflow-auto"
 						>
 							{options.map((opt, idx) => {
 								const isSelected = opt.value === value;
@@ -191,19 +181,14 @@ export function IntentSelect({
 										onClick={() => handleSelect(opt.value)}
 										onMouseEnter={() => setActiveIndex(idx)}
 										className={cn(
-											"flex cursor-pointer items-center justify-between gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors",
-											isActive
-												? "bg-white/10 text-[var(--foreground)]"
-												: "text-[var(--foreground)]/80",
-											isSelected && !isActive && "text-[var(--foreground)]",
+											"flex cursor-pointer items-center justify-between gap-3 px-4 py-3 text-[0.95rem] transition-colors",
+											isActive ? "bg-surface text-ink" : "text-muted",
+											isSelected && "text-ink",
 										)}
 									>
 										<span className="truncate">{opt.label}</span>
 										{isSelected ? (
-											<Check
-												className="h-4 w-4 shrink-0 text-[var(--accent-warm)]"
-												aria-hidden="true"
-											/>
+											<span aria-hidden="true" className="signal-dot" />
 										) : null}
 									</li>
 								);

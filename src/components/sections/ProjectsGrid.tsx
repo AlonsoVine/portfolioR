@@ -1,127 +1,68 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { SectionHeading } from "../shared/SectionHeading";
-import { SectionShell } from "../shared/SectionShell";
-import { revealWith } from "@/lib/utils";
-import { ArrowUpRight, GithubIcon, Sparkles } from "lucide-react";
-import { useLanguage } from "@/i18n";
-import { CurtainReveal } from "../shared/CurtainReveal";
-import { ProjectCarousel } from "../ui/ProjectCarousel";
 import Image from "next/image";
 import { useState } from "react";
-import type { Project } from "@/data/portfolio";
+import { SectionHeading } from "../shared/SectionHeading";
+import { SectionShell } from "../shared/SectionShell";
+import { CurtainReveal } from "../shared/CurtainReveal";
+import { ProjectCarousel } from "../ui/ProjectCarousel";
+import { cn, scrollRevealConfig, withBasePath } from "@/lib/utils";
+import { useLanguage } from "@/i18n";
+import { GITHUB_PROJECTS, socialLinks, type Project } from "@/data/portfolio";
 
-const techPillPalette = ["--pill-emerald", "--pill-sky", "--pill-amber", "--pill-violet", "--pill-rose", "--pill-teal"];
-const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+type Labels = {
+	codeLabel: string;
+	demoLabel: string;
+	featuredLabel: string;
+	galleryLabel: string;
+	videoLabel: string;
+	mediaToggleLabel: string;
+	logoAlt: string;
+	videoAlt: string;
+};
 
-const highlightTech = (text: string, techs?: string[]) => {
-	if (!techs?.length) return text;
-	const pattern = techs.map(escapeRegExp).join("|");
-	if (!pattern) return text;
-	const regex = new RegExp(`(${pattern})`, "gi");
-	const parts = text.split(regex);
-	return parts.map((part, idx) =>
-		regex.test(part) ? (
-			<em key={`${part}-${idx}`} className="italic not-italic font-semibold text-[var(--foreground)]">
-				{part}
-			</em>
-		) : (
-			<span key={`${part}-${idx}`}>{part}</span>
-		),
+const pad = (n: number) => String(n).padStart(2, "0");
+
+function ProjectLinks({ project, labels }: { project: Project; labels: Labels }) {
+	return (
+		<div className="print-hide flex flex-wrap items-center gap-x-6 gap-y-3">
+			{project.links.demo ? (
+				<a href={project.links.demo} target="_blank" rel="noreferrer" className="btn btn-ink min-h-11">
+					{project.demoLinkLabel ?? labels.demoLabel}
+					<span aria-hidden="true" className="link-arrow">↗</span>
+				</a>
+			) : null}
+			<a href={project.links.code} target="_blank" rel="noreferrer" className="link-rule text-ink">
+				{labels.codeLabel}
+				<span aria-hidden="true" className="link-arrow">↗</span>
+			</a>
+		</div>
 	);
-};
+}
 
-type ProjectCardProps = {
-	project: Project;
-	index: number;
-	total: number;
-	counterLabel: string;
-	labels: {
-		codeLabel: string;
-		demoLabel: string;
-		featuredLabel: string;
-		galleryLabel: string;
-		videoLabel: string;
-		mediaToggleLabel: string;
-		logoAlt: string;
-		videoAlt: string;
-	};
-};
-
-function ProjectCard({ project, index, total, counterLabel, labels }: ProjectCardProps) {
+function ProjectMedia({ project, labels, large }: { project: Project; labels: Labels; large: boolean }) {
 	const [showVideo, setShowVideo] = useState(false);
-	const isSpotlight = project.spotlight;
-	const isSingleImageSpotlight = isSpotlight && project.singleImage;
+	const images = project.gallery && project.gallery.length > 0 ? project.gallery : [project.image];
 
 	return (
-		<motion.article
-			{...revealWith({ delay: isSpotlight ? 0 : (index % 2) * 0.1, duration: 0.85 })}
-			data-spotlight
-			className={`group relative flex h-full flex-col overflow-hidden rounded-3xl surface-card shadow-[0_30px_80px_rgba(15,23,42,0.45)] backdrop-blur-xl transition-transform duration-500 hover:-translate-y-2 hover:shadow-[0_30px_100px_rgba(251,191,36,0.18)] ${
-				isSpotlight
-					? `md:col-span-2 lg:grid ${
-							isSingleImageSpotlight
-								? "lg:grid-cols-[minmax(22rem,0.9fr)_minmax(0,1.1fr)]"
-								: "lg:grid-cols-[minmax(0,1.25fr)_minmax(22rem,0.75fr)]"
-						}`
-					: ""
-			}`}
-		>
-			<span aria-hidden="true" className="spotlight" />
-			<div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-				<div className="absolute inset-0 bg-gradient-to-br from-amber-200/8 via-transparent to-rose-300/8" />
-			</div>
-			<div
-				className={`print-hide relative overflow-hidden ${isSpotlight ? "lg:h-full lg:min-h-[460px]" : ""} ${
-					isSingleImageSpotlight ? "order-2" : ""
-				}`}
-			>
-				{isSpotlight && project.video ? (
-					<div
-						role="group"
-						aria-label={labels.mediaToggleLabel}
-						className="absolute right-4 top-4 z-20 inline-flex rounded-full border border-white/15 bg-slate-950/80 p-1 shadow-lg backdrop-blur-md"
-					>
-						<button
-							type="button"
-							onClick={() => setShowVideo(false)}
-							aria-pressed={!showVideo}
-							className={`rounded-full px-4 py-2 text-xs font-semibold transition-colors ${
-								!showVideo ? "bg-white text-slate-950" : "text-white/75 hover:text-white"
-							}`}
-						>
-							{labels.galleryLabel}
-						</button>
-						<button
-							type="button"
-							onClick={() => setShowVideo(true)}
-							aria-pressed={showVideo}
-							className={`rounded-full px-4 py-2 text-xs font-semibold transition-colors ${
-								showVideo ? "bg-white text-slate-950" : "text-white/75 hover:text-white"
-							}`}
-						>
-							{labels.videoLabel}
-						</button>
-					</div>
-				) : null}
-				<CurtainReveal className={isSpotlight ? "lg:h-full" : ""}>
-				{isSingleImageSpotlight ? (
-					<div className="relative h-72 w-full bg-[var(--surface-soft)] md:h-96 lg:h-full lg:min-h-[460px]">
+		<div className="print-hide relative">
+			<CurtainReveal>
+				{project.singleImage ? (
+					<div className={cn("media-frame relative w-full", large ? "aspect-[16/11]" : "aspect-[16/10]")}>
 						<Image
-							src={`${basePath}${encodeURI(project.image)}`}
+							src={withBasePath(encodeURI(project.image))}
 							alt={project.title}
 							fill
-							sizes="(min-width: 1024px) 40vw, 100vw"
-							className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
+							sizes="(min-width: 1024px) 55vw, 100vw"
+							className="media-tone object-cover"
 						/>
 					</div>
-				) : isSpotlight && showVideo && project.video ? (
+				) : showVideo && project.video ? (
 					<video
 						key={project.video}
-						src={`${basePath}${encodeURI(project.video)}`}
-						poster={`${basePath}${project.image}`}
+						src={withBasePath(encodeURI(project.video))}
+						poster={withBasePath(project.image)}
 						controls
 						autoPlay
 						loop
@@ -129,109 +70,81 @@ function ProjectCard({ project, index, total, counterLabel, labels }: ProjectCar
 						playsInline
 						preload="none"
 						aria-label={labels.videoAlt}
-						className="h-72 w-full bg-black object-contain md:h-96 lg:h-full lg:min-h-[460px]"
+						className="aspect-[16/10] w-full bg-black object-contain"
 					/>
 				) : (
-					<ProjectCarousel
-						images={project.gallery && project.gallery.length > 0 ? project.gallery : [project.image]}
-						alt={project.title}
-						size={isSpotlight ? "large" : "default"}
-					/>
+					<ProjectCarousel images={images} alt={project.title} size={large ? "large" : "default"} />
 				)}
-				</CurtainReveal>
+			</CurtainReveal>
+			{project.video ? (
+				<div role="group" aria-label={labels.mediaToggleLabel} className="meta mt-3 flex gap-5">
+					{[
+						{ value: false, label: labels.galleryLabel },
+						{ value: true, label: labels.videoLabel },
+					].map((option) => (
+						<button
+							key={option.label}
+							type="button"
+							onClick={() => setShowVideo(option.value)}
+							aria-pressed={showVideo === option.value}
+							className={cn(
+								"min-h-11 border-b py-1 transition-colors",
+								showVideo === option.value ? "border-ink text-ink" : "border-transparent text-subtle hover:text-ink",
+							)}
+						>
+							{option.label}
+						</button>
+					))}
+				</div>
+			) : null}
+		</div>
+	);
+}
+
+function ProjectRow({ project, index, total, counterLabel, labels }: { project: Project; index: number; total: number; counterLabel: string; labels: Labels }) {
+	const large = Boolean(project.spotlight);
+	// Las dos piezas principales alternan el lado de la imagen; el resto va en una retícula más estrecha.
+	const mediaFirst = large ? index % 2 === 1 : false;
+
+	return (
+		<motion.article
+			{...scrollRevealConfig}
+			className={cn("print-row grid-page gap-y-8 border-t border-rule", large ? "py-12 lg:py-16" : "py-10 lg:py-12")}
+		>
+			<div
+				className={cn(
+					"col-span-4 flex flex-col gap-6",
+					large
+						? cn("md:col-span-8 lg:col-span-5", mediaFirst ? "lg:order-2 lg:col-start-8" : "")
+						: "md:col-span-4 lg:col-span-6",
+				)}
+			>
+				<div className="flex items-baseline justify-between gap-4">
+					<p className="meta text-subtle tabular">
+						<span className="sr-only">{counterLabel} </span>
+						<span className="text-ink">{pad(index + 1)}</span>
+						<span aria-hidden="true"> / </span>
+						<span className="sr-only"> / </span>
+						{pad(total)}
+					</p>
+					{project.featured && large ? <p className="meta text-subtle">{labels.featuredLabel}</p> : null}
+				</div>
+				<h3 className={cn("font-display leading-[0.95] text-ink break-words", large ? "text-[clamp(2.5rem,4.4vw,4.25rem)]" : "text-[clamp(2.1rem,3.4vw,3rem)]")}>
+						{project.title}
+					</h3>
+				<p className="print-compact-text max-w-[52ch] text-[1.0625rem] leading-relaxed text-muted">{project.description}</p>
+				<p className="print-compact-text font-mono text-[0.8rem] leading-relaxed text-subtle">{project.tech.join(" · ")}</p>
+				<ProjectLinks project={project} labels={labels} />
 			</div>
 			<div
-				className={`relative z-10 flex flex-1 flex-col gap-6 p-8 ${isSpotlight ? "lg:justify-center lg:p-10" : ""} ${
-					isSingleImageSpotlight ? "order-1" : ""
-				}`}
+				className={cn(
+					"col-span-4",
+					large
+						? cn("md:col-span-8 lg:col-span-7", mediaFirst ? "lg:order-1 lg:col-start-1" : "lg:col-start-6")
+						: "md:col-span-4 lg:col-span-5 lg:col-start-8",
+				)}
 			>
-				<div className="flex flex-col gap-3">
-					<p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-muted">
-						<span className="sr-only">{counterLabel} </span>
-						<span className="font-display tabular text-sm tracking-[0.15em] text-[var(--accent-warm)]">
-							{String(index + 1).padStart(2, "0")}
-						</span>
-						<span aria-hidden="true" className="h-px w-8 bg-[var(--divider-line)] transition-transform duration-500 group-hover:scale-x-150 origin-left" />
-						<span className="tabular">
-							<span className="sr-only">/</span>
-							<span aria-hidden="true">/ </span>
-							{String(total).padStart(2, "0")}
-						</span>
-					</p>
-					<div className="flex flex-wrap items-center gap-3">
-						{project.logo ? (
-							<Image
-								src={`${basePath}${project.logo}`}
-								alt={labels.logoAlt}
-								width={project.singleImage ? 1248 : 52}
-								height={project.singleImage ? 832 : 52}
-								className={`shrink-0 ${
-									project.singleImage
-										? "h-12 w-auto object-contain"
-										: "h-12 w-12 rounded-xl object-cover"
-								}`}
-							/>
-						) : null}
-						<h3
-							className={`font-semibold text-[var(--foreground)] ${
-								isSpotlight
-									? isSingleImageSpotlight
-										? "min-w-0 [overflow-wrap:anywhere] text-xl sm:text-2xl lg:text-4xl"
-										: "text-3xl md:text-4xl"
-									: "text-2xl"
-							}`}
-						>
-							{project.title}
-						</h3>
-						{project.featured ? (
-							<span className="inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-warm-soft)] px-3 py-1 text-xs font-semibold text-[var(--accent-warm)]">
-								<Sparkles className="h-4 w-4" aria-hidden="true" />
-								{labels.featuredLabel}
-							</span>
-						) : null}
-					</div>
-					<p className="text-base text-muted">{highlightTech(project.description, project.tech)}</p>
-				</div>
-				<div className="flex flex-wrap gap-2">
-					{project.tech.map((tech, i) => {
-						const tone = techPillPalette[i % techPillPalette.length];
-						return (
-							<span
-								key={tech}
-								className="rounded-full border px-3 py-1 text-xs font-semibold"
-								style={{
-									borderColor: `var(${tone}-border)`,
-									backgroundColor: `var(${tone}-bg)`,
-									color: `var(${tone}-text)`,
-								}}
-							>
-								{tech}
-							</span>
-						);
-					})}
-				</div>
-				<div className={`mt-auto grid grid-cols-1 gap-3 ${project.links.demo ? "sm:grid-cols-2" : ""}`}>
-					<a
-						href={project.links.code}
-						target="_blank"
-						rel="noreferrer"
-						className="group/code inline-flex items-center justify-center gap-2 rounded-xl border border-[color:var(--foreground)]/25 px-5 py-3 text-sm font-semibold text-[var(--foreground)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[color:var(--accent-warm)]"
-					>
-						<GithubIcon className="h-4 w-4" aria-hidden="true" />
-						{labels.codeLabel}
-					</a>
-					{project.links.demo ? (
-						<a
-							href={project.links.demo}
-							target="_blank"
-							rel="noreferrer"
-							className="group/demo inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--foreground)] px-5 py-3 text-sm font-semibold text-[var(--background)] transition-transform duration-300 hover:-translate-y-0.5"
-						>
-							{project.demoLinkLabel ?? labels.demoLabel}
-							<ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/demo:-translate-y-0.5 group-hover/demo:translate-x-0.5" aria-hidden="true" />
-						</a>
-					) : null}
-				</div>
+				<ProjectMedia project={project} labels={labels} large={large} />
 			</div>
 		</motion.article>
 	);
@@ -240,13 +153,28 @@ function ProjectCard({ project, index, total, counterLabel, labels }: ProjectCar
 export function ProjectsGrid() {
 	const { dict } = useLanguage();
 	const { projects } = dict;
+	const github = socialLinks.find((l) => l.icon === "github");
 
 	return (
-		<SectionShell id="projects">
-			<SectionHeading eyebrow={projects.eyebrow} index="04" title={projects.title} description={projects.description} />
-			<div className="mt-12 grid gap-8 md:grid-cols-2">
+		<SectionShell id="projects" className="pt-20 pb-28 lg:pt-28 lg:pb-36">
+			<SectionHeading
+				sectionId="projects"
+				index="04"
+				eyebrow={projects.eyebrow}
+				title={projects.title}
+				description={projects.description.replace("{projects}", String(GITHUB_PROJECTS))}
+				aside={
+					github ? (
+						<a href={github.href} target="_blank" rel="noreferrer" className="print-hide link-rule shrink-0 text-ink">
+							{projects.moreLabel}
+							<span aria-hidden="true" className="link-arrow">↗</span>
+						</a>
+					) : null
+				}
+			/>
+			<div className="print-tight mt-14 lg:mt-20">
 				{projects.items.map((project, index) => (
-					<ProjectCard
+					<ProjectRow
 						key={project.title}
 						project={project}
 						index={index}
@@ -255,6 +183,7 @@ export function ProjectsGrid() {
 						labels={projects}
 					/>
 				))}
+				<div aria-hidden="true" className="h-px bg-rule" />
 			</div>
 		</SectionShell>
 	);

@@ -8,27 +8,19 @@ import { ProjectsGrid } from "@/components/sections/ProjectsGrid";
 import { Education } from "@/components/sections/Education";
 import { Contact } from "@/components/sections/Contact";
 import { ScrollToTopButton } from "@/components/ui/ScrollToTopButton";
-import { SectionDivider } from "@/components/shared/SectionDivider";
-import { CareerMarquee } from "@/components/shared/CareerMarquee";
 import { SectionIndex } from "@/components/ui/SectionIndex";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen text-[var(--foreground)] transition-colors">
+    <div className="relative min-h-screen">
       <Header />
-      <main id="main-content" className="flex flex-col gap-6">
+      <main id="main-content" tabIndex={-1} className="outline-none">
         <Hero />
-        <CareerMarquee />
         <SkillsGrid />
-        <SectionDivider />
         <About />
-        <SectionDivider />
         <ExperienceTimeline />
-        <SectionDivider />
         <ProjectsGrid />
-        <SectionDivider />
         <Education />
-        <SectionDivider />
         <Contact />
       </main>
       <SectionIndex />

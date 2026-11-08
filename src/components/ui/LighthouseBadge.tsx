@@ -1,26 +1,16 @@
-"use client";
-
-import { Gauge } from "lucide-react";
-
 /**
- * Scores reales tras la última auditoría de Lighthouse.
- * Actualizar manualmente tras cada cambio importante (deploy + PSI).
+ * Puntuaciones de la última auditoría de Lighthouse publicada.
+ * Actualizar a mano tras cada despliegue relevante (PageSpeed Insights).
  */
-const SCORES = {
-	performance: 95,
-	accessibility: 95,
-	bestPractices: 100,
-	seo: 100,
-};
+const SCORES = [
+	{ label: "Performance", value: 95 },
+	{ label: "Accessibility", value: 95 },
+	{ label: "Best Practices", value: 100 },
+	{ label: "SEO", value: 100 },
+];
 
 const SITE_URL = "https://alonsovine.github.io/portfolioR/";
 const PSI_URL = `https://pagespeed.web.dev/analysis?url=${encodeURIComponent(SITE_URL)}`;
-
-function colorFor(score: number): string {
-	if (score >= 90) return "text-[var(--pill-emerald-text)]";
-	if (score >= 50) return "text-[var(--pill-amber-text)]";
-	return "text-[var(--pill-rose-text)]";
-}
 
 export function LighthouseBadge() {
 	return (
@@ -29,21 +19,16 @@ export function LighthouseBadge() {
 			target="_blank"
 			rel="noreferrer"
 			title="Lighthouse · Performance · Accessibility · Best Practices · SEO"
-			className="inline-flex items-center gap-2 rounded-full border border-soft/60 bg-white/5 px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.18em] text-subtle transition-all duration-300 hover:-translate-y-0.5 hover:border-strong hover:text-[var(--foreground)] print:hidden"
+			className="meta inline-flex min-h-11 items-center gap-2 text-subtle transition-colors hover:text-ink"
 		>
-			<Gauge className="h-3 w-3 text-[var(--accent-warm)]" aria-hidden="true" />
-			<span className="text-muted">Lighthouse</span>
-			<span className="sr-only">Performance </span>
-			<span className={colorFor(SCORES.performance)}>{SCORES.performance}</span>
-			<span aria-hidden="true" className="text-subtle">·</span>
-			<span className="sr-only">Accessibility </span>
-			<span className={colorFor(SCORES.accessibility)}>{SCORES.accessibility}</span>
-			<span aria-hidden="true" className="text-subtle">·</span>
-			<span className="sr-only">Best Practices </span>
-			<span className={colorFor(SCORES.bestPractices)}>{SCORES.bestPractices}</span>
-			<span aria-hidden="true" className="text-subtle">·</span>
-			<span className="sr-only">SEO </span>
-			<span className={colorFor(SCORES.seo)}>{SCORES.seo}</span>
+			<span>Lighthouse</span>
+			{SCORES.map((score, i) => (
+				<span key={score.label} className="text-ink tabular">
+					<span className="sr-only">{score.label} </span>
+					{score.value}
+					{i < SCORES.length - 1 ? <span aria-hidden="true" className="text-subtle"> /</span> : null}
+				</span>
+			))}
 		</a>
 	);
 }

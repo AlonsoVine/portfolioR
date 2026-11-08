@@ -1,12 +1,13 @@
 "use client";
 
-import { Check } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useLanguage } from "@/i18n";
 import { useActiveSection } from "@/lib/useActiveSection";
 import { cn } from "@/lib/utils";
 
-/** Índice lateral leído como un pipeline: etapas superadas (✓), en curso (●) y pendientes (○). */
+const pad = (n: number) => String(n).padStart(2, "0");
+
+/** Índice marginal en pantallas anchas: número de sección y un filete que crece en la activa. */
 export function SectionIndex() {
 	const { dict } = useLanguage();
 	const links = useMemo(() => dict.nav.links.filter((l) => l.href !== "#hero"), [dict.nav.links]);
@@ -14,6 +15,7 @@ export function SectionIndex() {
 	const active = useActiveSection(ids);
 	const activeIndex = links.findIndex((l) => l.href === `#${active}`);
 	const [footerInView, setFooterInView] = useState(false);
+
 	useEffect(() => {
 		const footer = document.querySelector("footer");
 		if (!footer) return;
@@ -23,60 +25,38 @@ export function SectionIndex() {
 		io.observe(footer);
 		return () => io.disconnect();
 	}, []);
+
 	const visible = activeIndex >= 0 && !footerInView;
-	const pad = (n: number) => String(n).padStart(2, "0");
 
 	return (
 		<nav
 			aria-label={dict.ui.sectionNav}
 			className={cn(
-				"fixed right-6 top-1/2 z-40 hidden -translate-y-1/2 transition-[opacity,visibility] duration-500 min-[1400px]:block print:hidden",
+				"floating-ui fixed left-5 top-1/2 z-40 hidden -translate-y-1/2 transition-[opacity,visibility] duration-500 min-[1520px]:block print:hidden",
 				visible ? "opacity-100" : "invisible pointer-events-none opacity-0",
 			)}
 		>
-			<p className="tabular mb-4 text-right font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
-				{dict.ui.stage} {pad(Math.max(activeIndex, 0) + 1)} / {pad(links.length)}
-			</p>
-			<ol className="flex flex-col items-end gap-3">
+			<ol className="flex flex-col gap-1">
 				{links.map((link, i) => {
-					const state = i < activeIndex ? "done" : i === activeIndex ? "running" : "pending";
+					const isActive = i === activeIndex;
 					return (
 						<li key={link.href}>
 							<a
 								href={link.href}
-								aria-current={state === "running" ? "true" : undefined}
-								className="group flex items-center gap-3 py-0.5"
+								aria-current={isActive ? "true" : undefined}
+								className="group flex min-h-7 items-center gap-2.5"
 							>
-								<span
-									className={cn(
-										"translate-x-2 text-[11px] font-medium uppercase tracking-[0.25em] opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100",
-										state === "running" ? "text-[var(--foreground)]" : "text-muted",
-									)}
-								>
-									{link.label}
-								</span>
-								<span
-									className={cn(
-										"font-display tabular text-xs transition-opacity duration-300",
-										state === "running"
-											? "font-semibold text-[var(--foreground)]"
-											: "text-[var(--foreground)] opacity-75 group-hover:opacity-100",
-									)}
-								>
+								<span className={cn("meta tabular transition-colors", isActive ? "text-ink" : "text-subtle group-hover:text-ink")}>
 									{pad(i + 1)}
 								</span>
-								<span aria-hidden="true" className="relative flex h-4 w-4 items-center justify-center">
-									{state === "done" ? (
-										<Check className="h-3 w-3 text-[var(--accent-warm)]" strokeWidth={3} />
-									) : state === "running" ? (
-										<>
-											<span className="stage-pulse absolute h-4 w-4 rounded-full bg-[var(--accent-warm)]" />
-											<span className="relative h-2 w-2 rounded-full bg-[var(--accent-warm)]" />
-										</>
-									) : (
-										<span className="h-2 w-2 rounded-full border border-[var(--foreground)] opacity-50" />
+								<span
+									aria-hidden="true"
+									className={cn(
+										"block h-px w-6 origin-left transition-transform duration-500",
+										isActive ? "scale-x-100 bg-signal" : "scale-x-50 bg-rule-strong group-hover:scale-x-100",
 									)}
-								</span>
+								/>
+								<span className="meta sr-only text-ink group-hover:not-sr-only group-focus-visible:not-sr-only">{link.label}</span>
 							</a>
 						</li>
 					);

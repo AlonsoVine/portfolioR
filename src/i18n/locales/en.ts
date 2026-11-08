@@ -9,13 +9,16 @@ import {
   socialLinks,
 } from "@/data/portfolio";
 
+const stripAccents = (text: string) => text.normalize("NFD").replace(/[̀-ͯ]/g, "");
+const MONTHS_EN: Record<string, string> = { Ene: "Jan", Abr: "Apr", Ago: "Aug", Dic: "Dec", Actual: "Present" };
+
 export const en = {
   lang: "en",
   nav: {
     links: navLinks.map((item) => {
       const map: Record<string, string> = {
         "#hero": "Home",
-        "#skills": "Skills",
+        "#skills": "Toolkit",
         "#about": "About",
         "#experience": "Experience",
         "#projects": "Projects",
@@ -32,25 +35,25 @@ export const en = {
     location: "Madrid, Spain",
     availability: "Available for new opportunities",
     subtitle:
-      "Multidisciplinary by choice. I believe in simple software, explainable decisions, and deliveries that don't break trust.",
+      "I work across the whole software cycle, from analysis to deployment. I believe in simple software, explainable decisions and deliveries that don't break trust.",
     ctas: {
       ...heroContent.ctas,
-      primary: { ...heroContent.ctas.primary, label: "View Projects" },
+      primary: { ...heroContent.ctas.primary, label: "View projects" },
       secondary: {
         ...heroContent.ctas.secondary,
         label: "Download CV",
         href: "/assets/cv/Alonso Viñé CV_English.pdf",
       },
-      tertiary: { ...heroContent.ctas.tertiary, label: "Contact me" },
+      tertiary: { ...heroContent.ctas.tertiary, label: "Write to me" },
     },
   },
   about: {
     ...aboutContent,
-    eyebrow: "About",
-    pullQuote: "What drives me most is turning a “can't be done” into “look how we did it”.",
-    title: "Get to know me",
+    eyebrow: "Profile",
+    pullQuote: "What is done by hand today should run on its own tomorrow. And be explainable.",
+    title: "From analysis to deployment",
     description:
-      "Senior Full Stack mindset, hands-on DevOps and a growing focus on AI-agent-assisted development.",
+      "I work across the whole software cycle: analysis, development, testing, delivery and maintenance.",
     textBlocks: [
       "I started in 2021 at Atos, on Spanish Ministry of Defence projects. Then Fervimax (FCC) sharpening DevOps and testing, and Inetum modernizing critical interfaces for the Air Force. Now at Seres, automating the deployment cycle of the central platform.",
       "Multidisciplinary profile with experience across the full software development lifecycle: analysis, design, implementation, deployment and maintenance. I handle the modern web stack (Angular, React, Java/Spring, Node) alongside the DevOps layer that automates the cycle (GitLab CI/CD, Nexus, Maven, Docker) and a fresh layer of AI-agent-assisted development to accelerate repetitive work and focus energy where it matters.",
@@ -70,7 +73,7 @@ export const en = {
           ...item,
           title: "English C2",
           description:
-            "EF SET Proficient. Comfortable in international, English-speaking teams.",
+            "EF SET Proficient. At ease in international, English-speaking teams.",
         };
       }
       if (item.title === "Foco en IA") {
@@ -78,20 +81,20 @@ export const en = {
           ...item,
           title: "AI focus",
           description:
-            "Neoland bootcamp, AI agents and prompt engineering in my daily work.",
+            "Neoland bootcamp and university courses; I use AI agents every day.",
         };
       }
       return item;
     }),
     cta: {
       ...aboutContent.cta,
-      label: "Sounds like a fit? Let's talk",
+      label: "Write to me",
     },
   },
   skills: {
-    eyebrow: "Stack",
-    title: "Tech Stack",
-    description: "Key skills and essential tools I use daily.",
+    eyebrow: "Toolkit",
+    title: "What I work with",
+    description: "Languages, frameworks and platforms I use on real projects, grouped by layer.",
     cards: skillCards.map((card) => ({
       ...card,
       title:
@@ -112,13 +115,13 @@ export const en = {
   },
   experienceHeading: {
     eyebrow: "Experience",
-    title: "Professional timeline",
-    description: "A chronological overview of my work experience.",
+    title: "Career",
+    description: "From the current role back to the first. All based in Madrid.",
   },
   experiences: experiences.map((exp) => ({
     ...exp,
     title:
-      exp.title === "Ingeniero Informatico"
+      stripAccents(exp.title) === "Ingeniero Informatico"
         ? "Software Engineer"
         : exp.title === "Analista de Testing Automatizado y Soluciones Power Platform"
         ? "Automated Testing Analyst & Power Platform Solutions Developer"
@@ -127,10 +130,7 @@ export const en = {
         : exp.title === "Analista Funcional y de Datos & Scrum Master Assistant"
         ? "Functional and Data Analyst & Scrum Master Assistant"
         : exp.title,
-    period:
-      exp.period === "Ene 2026 - Actual"
-        ? "Jan 2026 - Present"
-        : exp.period,
+    period: exp.period.replace(/\b(Ene|Abr|Ago|Dic|Actual)\b/g, (m) => MONTHS_EN[m] ?? m),
     location: exp.location,
     company: exp.company,
     project:
@@ -198,16 +198,23 @@ export const en = {
           "Connected devices via Azure IoT providing real-time telemetry.",
         "Implemente una app Android en Java para interactuar con la plataforma desde campo.":
           "Implemented an Android app in Java to interact with the platform from the field.",
+        "Desarrollé funcionalidades backend con Java y Spring Boot, implementando APIs REST para gestionar y validar datos operativos de las Fuerzas Armadas.":
+          "Developed backend functionalities with Java and Spring Boot, implementing REST APIs to manage and validate operational data for the Armed Forces.",
+        "Creé interfaces con Angular, Bootstrap y PrimeNG para experiencias de usuario intuitivas y atractivas.":
+          "Built interfaces with Angular, Bootstrap and PrimeNG to create intuitive and visually appealing user experiences.",
       };
-      return map[bullet] ?? bullet;
+      const byKey = new Map(Object.entries(map).map(([es, en]) => [stripAccents(es), en]));
+      return byKey.get(stripAccents(bullet)) ?? bullet;
     }),
   })),
   projects: {
-    eyebrow: "Work",
-    title: "Highlighted projects",
-    description: "A sample of what I build.",
+    eyebrow: "Projects",
+    title: "Personal work",
+    description:
+      "Six projects picked from the more than {projects} I keep on GitHub. Open source and, where there is one, a live demo.",
     codeLabel: "Code",
-    demoLabel: "View Demo",
+    demoLabel: "View demo",
+    moreLabel: "The rest of my projects on GitHub",
     featuredLabel: "Featured",
     galleryLabel: "Screenshots",
     videoLabel: "Video",
@@ -256,8 +263,8 @@ export const en = {
   },
   education: {
     eyebrow: "Education",
-    title: "Education & Certifications",
-    description: "My most relevant education and certifications.",
+    title: "Education and certifications",
+    description: "University courses, a bootcamp and certifications. Each entry opens its certificate.",
     items: education.map((item, index) => {
       let title = item.title;
       let details = item.details;
@@ -309,45 +316,35 @@ export const en = {
   },
   contact: {
     eyebrow: "Contact",
-    title: "Let's work together",
+    title: "Let's talk",
     description:
-      "I'm open to new opportunities and collaborations. Feel free to reach out.",
+      "Job offers, projects or a technical question. Use the form or write straight to my inbox.",
     form: {
-      title: "Send me a message",
-      helper: "Fill out the form and I'll get back to you as soon as possible.",
+      title: "Write here",
+      helper: "All fields are required. I reply by email.",
       name: { label: "Name", placeholder: "Your name" },
       email: { label: "Email", placeholder: "your@email.com" },
-      message: { label: "Message", placeholder: "Write your message here..." },
+      message: { label: "Message", placeholder: "Context, timing, anything I should know" },
       submit: "Send message",
     },
     platforms: {
-      title: "Connect with me",
-      subtitle: "Find me on these platforms.",
+      title: "Elsewhere",
+      subtitle: "Professional profile, code and email.",
     },
     availability: {
       title: "Available for collaboration",
       description:
-        "I'm currently looking for new opportunities and interesting collaborations. If you have a project in mind, let's talk.",
+        "Open to new roles and projects. Remote-first; hybrid or on-site in Madrid.",
     },
   },
   ui: {
     present: "now",
     stage: "Stage",
-    taglines: [
-      "Currently · {current}",
-      "{tech}",
-      "{years}+ years shipping code to production",
-      "Frontend · Backend · DevOps",
-      "{projects} GitHub projects · {demos} with a live demo",
-      "English C2 + Spanish · ready for international teams",
-    ],
-    heroStats: {
-      years: "years in production",
-      companies: "companies",
-      projects: "projects on GitHub",
-      certifications: "courses & certificates",
+    hero: {
+      now: "Now",
+      trajectory: "Career",
+      contact: "Contact",
     },
-    scrollCue: "Scroll",
     sectionNav: "Section index",
     socialProfile: "{name} profile",
     projectCounter: "Project",
@@ -380,17 +377,25 @@ export const en = {
       close: "Close",
     },
     locale: "en-GB",
-    contactCta: "Contact me",
-    cursor: { zoom: "Zoom", open: "Open" },
-    skillsCount: { items: "technologies", certs: "certifications" },
-    print: {
-      label: "Print live snapshot",
-      hint: "Always-up-to-date snapshot · prints directly from this page",
+    contactCta: "Write to me",
+    menu: "Menu",
+    notFound: {
+      title: "Page not found",
+      body: "This address does not exist, or no longer does. The portfolio is still on the home page.",
+      back: "Back to home",
     },
+    cursor: { zoom: "Zoom", open: "Open" },
+    print: {
+      label: "Print or save as PDF",
+      hint: "A4 version generated from this very page",
+    },
+    theme: { light: "Light", dark: "Dark" },
+    colophon:
+      "Set in Instrument Serif, Schibsted Grotesk and IBM Plex Mono. Static site exported with Next.js.",
     experience: {
-      tech: "Technologies used",
-      years: "years of experience",
-      current: "Current",
+      tech: "Technologies",
+      current: "Ongoing",
+      project: "Project",
     },
     education: {
       certificate: "Certificate",

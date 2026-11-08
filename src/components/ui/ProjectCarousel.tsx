@@ -3,10 +3,10 @@
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Portal, useInertOutside } from "../shared/Portal";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useFocusTrap } from "@/lib/useFocusTrap";
 import { useLanguage } from "@/i18n";
+import { cn, withBasePath } from "@/lib/utils";
 
 type Props = {
 	images: string[];
@@ -15,9 +15,9 @@ type Props = {
 	size?: "default" | "large";
 };
 
-const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
+const pad = (n: number) => String(n).padStart(2, "0");
 
-export function ProjectCarousel({ images, alt, intervalMs = 3200, size = "default" }: Props) {
+export function ProjectCarousel({ images, alt, intervalMs = 4200, size = "default" }: Props) {
 	const { ui } = useLanguage().dict;
 	const t = ui.carousel;
 	const fill = (text: string, n: number) => text.replace("{n}", String(n)).replace("{total}", String(images.length));
@@ -63,11 +63,11 @@ export function ProjectCarousel({ images, alt, intervalMs = 3200, size = "defaul
 	}, [zoomed, next, prev, close]);
 
 	const current = images[index];
+	const contain = size === "large";
 
 	return (
 		<>
 			<div
-				className={`relative w-full overflow-hidden ${size === "large" ? "h-72 md:h-96 lg:h-full lg:min-h-[460px]" : "h-60"}`}
 				role="group"
 				aria-roledescription="carousel"
 				aria-label={alt}
@@ -76,51 +76,37 @@ export function ProjectCarousel({ images, alt, intervalMs = 3200, size = "defaul
 				onFocus={() => setPaused(true)}
 				onBlur={() => setPaused(false)}
 			>
-				<AnimatePresence initial={false} mode="sync">
-					<motion.button
-						key={current}
-						type="button"
-						onClick={() => setZoomed(true)}
-						aria-label={fill(t.zoom, index + 1)}
-						data-cursor={ui.cursor.zoom}
-						className="absolute inset-0 cursor-zoom-in"
-						initial={reduceMotion ? false : { opacity: 0 }}
-						animate={{ opacity: 1 }}
-						exit={{ opacity: 0 }}
-						transition={{ duration: reduceMotion ? 0 : 0.7, ease: "easeInOut" }}
-					>
-						<Image
-							src={`${prefix}${current}`}
-							alt={alt}
-							width={1200}
-							height={800}
-							className={`h-full w-full transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04] ${size === "large" ? "bg-black object-contain" : "object-cover"}`}
-						/>
-					</motion.button>
-				</AnimatePresence>
-
-				<div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent opacity-80" />
+				<div className="media-frame relative aspect-[16/10] w-full overflow-hidden">
+					<AnimatePresence initial={false} mode="sync">
+						<motion.button
+							key={current}
+							type="button"
+							onClick={() => setZoomed(true)}
+							aria-label={fill(t.zoom, index + 1)}
+							className="absolute inset-0 cursor-zoom-in"
+							initial={reduceMotion ? false : { opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
+							transition={{ duration: reduceMotion ? 0 : 0.8, ease: "easeInOut" }}
+						>
+							<Image
+								src={withBasePath(current)}
+								alt={alt}
+								width={1200}
+								height={800}
+								sizes={contain ? "(min-width: 1024px) 55vw, 100vw" : "(min-width: 1024px) 40vw, 100vw"}
+								className={cn("media-tone h-full w-full", contain ? "object-contain" : "object-cover")}
+							/>
+						</motion.button>
+					</AnimatePresence>
+				</div>
 
 				{total > 1 ? (
-					<>
-						<button
-							type="button"
-							onClick={prev}
-							aria-label={t.prev}
-							className="absolute left-2 top-1/2 z-10 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white opacity-0 backdrop-blur-sm transition-all duration-300 hover:bg-black/60 group-hover:opacity-100 focus:opacity-100 print:hidden"
-						>
-							<ChevronLeft className="h-5 w-5" aria-hidden="true" />
-						</button>
-						<button
-							type="button"
-							onClick={next}
-							aria-label={t.next}
-							className="absolute right-2 top-1/2 z-10 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white opacity-0 backdrop-blur-sm transition-all duration-300 hover:bg-black/60 group-hover:opacity-100 focus:opacity-100 print:hidden"
-						>
-							<ChevronRight className="h-5 w-5" aria-hidden="true" />
-						</button>
-
-						<div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 gap-1.5 print:hidden">
+					<div className="print-hide mt-3 flex items-center gap-4">
+						<p className="meta w-16 shrink-0 text-subtle tabular" aria-live="off">
+							<span className="text-ink">{pad(index + 1)}</span> / {pad(total)}
+						</p>
+						<div className="flex flex-1 items-center gap-1">
 							{images.map((src, i) => {
 								const active = i === index;
 								return (
@@ -130,82 +116,76 @@ export function ProjectCarousel({ images, alt, intervalMs = 3200, size = "defaul
 										onClick={() => goTo(i)}
 										aria-label={fill(t.goTo, i + 1)}
 										aria-current={active}
-										className={`h-1.5 rounded-full transition-all duration-300 ${
-											active ? "w-6 bg-[var(--accent-warm)]" : "w-1.5 bg-white/40 hover:bg-white/70"
-										}`}
-									/>
+										className="group flex h-6 flex-1 items-center"
+									>
+										<span
+											className={cn(
+												"block h-px w-full transition-colors duration-300",
+												active ? "bg-ink" : "bg-rule-strong group-hover:bg-ink-muted",
+											)}
+										/>
+									</button>
 								);
 							})}
 						</div>
-					</>
+						<div className="flex shrink-0">
+							<button type="button" onClick={prev} aria-label={t.prev} className="meta inline-flex h-11 w-11 items-center justify-center text-ink transition-colors hover:text-muted">
+								<span aria-hidden="true">←</span>
+							</button>
+							<button type="button" onClick={next} aria-label={t.next} className="meta inline-flex h-11 w-11 items-center justify-center text-ink transition-colors hover:text-muted">
+								<span aria-hidden="true">→</span>
+							</button>
+						</div>
+					</div>
 				) : null}
 			</div>
 
 			<Portal>
-			{zoomed ? (
-				<div
-					ref={lightboxRef}
-					className="fixed inset-0 z-[80] flex items-center justify-center bg-black/90"
-					role="dialog"
-					aria-modal="true"
-					aria-label={`${alt} — ${t.zoomed}`}
-					onClick={close}
-				>
-					<button
-						type="button"
-						onClick={(e) => { e.stopPropagation(); close(); }}
-						aria-label={t.close}
-						className="absolute right-4 top-4 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full bg-black/60 text-white shadow-lg backdrop-blur transition hover:bg-black/80 focus:outline-none focus:ring-2 focus:ring-white/60"
-					>
-						<X className="h-5 w-5" aria-hidden="true" />
-					</button>
-
-					{total > 1 ? (
-						<span
-							className="absolute left-1/2 top-4 z-20 -translate-x-1/2 rounded-full bg-black/60 px-3 py-1 text-xs font-medium text-white/90 backdrop-blur"
-							aria-live="polite"
-						>
-							{index + 1} / {total}
-						</span>
-					) : null}
-
+				{zoomed ? (
 					<div
-						className="relative h-full w-full p-6 sm:p-12"
-						onClick={(e) => {
-							if (e.target === e.currentTarget) close();
-						}}
+						ref={lightboxRef}
+						className="fixed inset-0 z-[80] flex flex-col bg-paper"
+						role="dialog"
+						aria-modal="true"
+						aria-label={`${alt} — ${t.zoomed}`}
 					>
-						<Image
-							src={`${prefix}${current}`}
-							alt={alt}
-							fill
-							sizes="100vw"
-							className="object-contain"
-						/>
+						<div className="page flex h-14 shrink-0 items-center justify-between border-b border-rule">
+							<p className="meta text-ink">
+								{alt}
+								{total > 1 ? (
+									<span className="ml-3 text-subtle tabular" aria-live="polite">
+										{pad(index + 1)} / {pad(total)}
+									</span>
+								) : null}
+							</p>
+							<button type="button" onClick={close} className="meta -mr-2 min-h-11 px-2 text-ink hover:text-muted">
+								{t.close}
+							</button>
+						</div>
+						<div
+							className="relative flex-1"
+							onClick={(e) => {
+								if (e.target === e.currentTarget) close();
+							}}
+						>
+							<div className="absolute inset-4 sm:inset-10">
+								<Image src={withBasePath(current)} alt={alt} fill sizes="100vw" className="object-contain" />
+							</div>
+						</div>
+						{total > 1 ? (
+							<div className="page flex h-14 shrink-0 items-center justify-between border-t border-rule">
+								<button type="button" onClick={prev} className="meta -ml-2 min-h-11 px-2 text-ink hover:text-muted">
+									<span aria-hidden="true">← </span>
+									{t.prev}
+								</button>
+								<button type="button" onClick={next} className="meta -mr-2 min-h-11 px-2 text-ink hover:text-muted">
+									{t.next}
+									<span aria-hidden="true"> →</span>
+								</button>
+							</div>
+						) : null}
 					</div>
-
-					{total > 1 ? (
-						<>
-							<button
-								type="button"
-								onClick={(e) => { e.stopPropagation(); prev(); }}
-								aria-label={t.prev}
-								className="absolute left-4 top-1/2 z-20 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white shadow-lg backdrop-blur transition hover:bg-black/80 focus:outline-none focus:ring-2 focus:ring-white/60"
-							>
-								<ChevronLeft className="h-6 w-6" aria-hidden="true" />
-							</button>
-							<button
-								type="button"
-								onClick={(e) => { e.stopPropagation(); next(); }}
-								aria-label={t.next}
-								className="absolute right-4 top-1/2 z-20 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white shadow-lg backdrop-blur transition hover:bg-black/80 focus:outline-none focus:ring-2 focus:ring-white/60"
-							>
-								<ChevronRight className="h-6 w-6" aria-hidden="true" />
-							</button>
-						</>
-					) : null}
-				</div>
-			) : null}
+				) : null}
 			</Portal>
 		</>
 	);

@@ -1,11 +1,10 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
 import { cn, revealWith, scrollRevealConfig } from "@/lib/utils";
-import { Check, CheckCircle2, Clock, Copy, GithubIcon, Linkedin, Mail } from "lucide-react";
 import { useLanguage } from "@/i18n";
 import { CONTACT_EMAIL } from "@/data/portfolio";
 import { IntentSelect } from "../ui/IntentSelect";
@@ -20,12 +19,6 @@ type FormState = {
 
 type FormStatus = "idle" | "sending" | "success" | "error";
 type FieldName = "intent" | "name" | "email" | "message";
-
-const platformIconMap = {
-	LinkedIn: Linkedin,
-	GitHub: GithubIcon,
-	Email: Mail,
-};
 
 const RATE_LIMIT_KEY = "contact_last_submit";
 const RATE_LIMIT_MS = 60_000;
@@ -242,22 +235,14 @@ export function Contact() {
 		}
 	};
 
-	const fieldClass = (field: FieldName, extra = "") =>
-		cn(
-			"mt-1.5 w-full rounded-xl border bg-white/5 px-4 py-2.5 text-sm text-[var(--foreground)] outline-none transition-all focus:bg-white/10",
-			fieldErrors[field]
-				? "border-rose-400/70 focus:border-rose-400"
-				: "border-soft focus:border-amber-300",
-			extra,
-		);
+	const fieldClass = (field: FieldName, extra = "") => cn("field mt-2", extra);
 
 	const renderFieldError = (field: FieldName) =>
 		fieldErrors[field] ? (
-			<p
-				id={`contact-${field}-error`}
-				role="alert"
-				className="mt-1 text-xs text-[var(--pill-rose-text)]"
-			>
+			<p id={`contact-${field}-error`} role="alert" className="mt-2 text-sm text-ink">
+				<span aria-hidden="true" className="meta mr-2 text-subtle">
+					!
+				</span>
 				{fieldErrors[field]}
 			</p>
 		) : null;
@@ -278,51 +263,86 @@ export function Contact() {
 			description: t.githubDesc,
 			href: socialLinks.find((l) => l.label.toLowerCase().includes("github"))?.href ?? "#",
 		},
-		{
-			label: "Email",
-			description: CONTACT_EMAIL,
-			href: `mailto:${CONTACT_EMAIL}`,
-		},
 	];
 
-	const intentLabel = t.intentLabel;
-	const intentPlaceholder = t.intentPlaceholder;
-	const responseLabel = t.responseTime;
-
-	const successTitle = t.successTitle;
-	const successBody = (
-		<>
-			{t.successBefore}
-			<a href="#projects" className="underline decoration-emerald-300/60 underline-offset-4 hover:text-[var(--pill-emerald-text)]">
-				{t.successProjects}
-			</a>
-			{t.successMiddle}
-			<a href="#experience" className="underline decoration-emerald-300/60 underline-offset-4 hover:text-[var(--pill-emerald-text)]">
-				{t.successExperience}
-			</a>
-			.
-		</>
-	);
-	const sendAnotherLabel = t.sendAnother;
+	const labelClass = "meta text-muted";
 
 	return (
-		<SectionShell id="contact">
-			<SectionHeading eyebrow={contact.eyebrow} index="06" title={contact.title} description={contact.description} />
+		<SectionShell id="contact" className="pt-20 pb-24 lg:pt-28 lg:pb-32">
+			<SectionHeading
+				sectionId="contact"
+				index="06"
+				eyebrow={contact.eyebrow}
+				title={contact.title}
+				description={contact.description}
+			/>
 
-			<div className="mt-12 grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-2">
+			<div className="grid-page mt-14 gap-y-16 lg:mt-20">
+				<motion.div {...scrollRevealConfig} className="col-span-4 md:col-span-8 lg:col-span-5">
+					<p className="meta text-subtle">{contact.form.email.label}</p>
+					<div className="mt-3 flex flex-wrap items-baseline gap-x-5 gap-y-2">
+						<a
+							href={`mailto:${CONTACT_EMAIL}`}
+							className="link-rule font-display text-[clamp(1.7rem,7.4vw,2.9rem)] leading-tight text-ink [overflow-wrap:anywhere] lg:text-[clamp(1.9rem,2.7vw,2.9rem)]"
+						>
+							{CONTACT_EMAIL}
+						</a>
+						<button
+							type="button"
+							onClick={copyEmail}
+							className="print-hide meta min-h-11 text-subtle transition-colors hover:text-ink"
+						>
+							{emailCopied ? dict.ui.emailCopied : dict.ui.copyEmail}
+						</button>
+						<span role="status" aria-live="polite" className="sr-only">
+							{emailCopied ? dict.ui.emailCopied : ""}
+						</span>
+					</div>
+
+					<div className="mt-12 border-t border-rule pt-5">
+						<p className="flex items-center gap-2.5 text-ink">
+							<span aria-hidden="true" className="signal-dot signal-dot-live" />
+							<span className="font-medium">{contact.availability.title}</span>
+						</p>
+						<p className="mt-2 max-w-[44ch] text-muted">{contact.availability.description}</p>
+						<p className="meta mt-4 text-subtle">{t.responseTime}</p>
+					</div>
+
+					<div className="mt-10 border-t border-rule pt-5">
+						<h3 className="meta text-subtle">{contact.platforms.title}</h3>
+						<ul className="mt-2">
+							{platforms.map((platform) => (
+								<li key={platform.label} className="border-b border-rule last:border-b-0">
+									<a
+										href={platform.href}
+										target="_blank"
+										rel="noreferrer"
+										className="group flex items-baseline justify-between gap-4 py-4 text-ink"
+									>
+										<span className="text-lg">{platform.label}</span>
+										<span className="meta flex items-baseline gap-2 text-muted transition-colors group-hover:text-ink">
+											{platform.description}
+											<span aria-hidden="true" className="link-arrow">↗</span>
+										</span>
+									</a>
+								</li>
+							))}
+						</ul>
+					</div>
+				</motion.div>
+
 				<motion.form
-					{...scrollRevealConfig}
+					{...revealWith({ delay: 0.1 })}
 					onSubmit={handleSubmit}
 					noValidate
-					className="print-hide relative rounded-3xl surface-card p-6 shadow-[0_30px_80px_rgba(15,23,42,0.35)] sm:p-7"
+					className="print-hide col-span-4 md:col-span-8 lg:col-span-6 lg:col-start-7"
 				>
-					<h3 className="text-xl font-semibold text-[var(--foreground)] sm:text-2xl">{contact.form.title}</h3>
-					<p className="mt-1 text-xs text-muted sm:text-sm">{contact.form.helper}</p>
+					<div className="flex items-baseline justify-between gap-4 border-t border-rule-strong pt-5">
+						<h3 className="font-display text-[2rem] leading-none text-ink">{contact.form.title}</h3>
+						<p className="meta text-right text-subtle">{contact.form.helper}</p>
+					</div>
 
-					<div
-						aria-hidden="true"
-						className="pointer-events-none absolute left-[-9999px] top-auto h-px w-px overflow-hidden opacity-0"
-					>
+					<div aria-hidden="true" className="pointer-events-none absolute left-[-9999px] top-auto h-px w-px overflow-hidden opacity-0">
 						<label htmlFor="contact-website">Website (leave empty)</label>
 						<input
 							id="contact-website"
@@ -339,91 +359,77 @@ export function Contact() {
 						<motion.div
 							initial={{ opacity: 0, y: 10 }}
 							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 0.4, ease: "easeOut" }}
-							className="mt-8 rounded-2xl border border-emerald-400/30 bg-emerald-400/10 p-6"
+							transition={{ duration: 0.5, ease: "easeOut" }}
+							className="mt-8 border-l-2 border-signal py-2 pl-6"
 							role="status"
 							aria-live="polite"
 						>
-							<div className="flex items-start gap-3">
-								<CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[var(--pill-emerald-text)]" aria-hidden="true" />
-								<div className="flex flex-col gap-3">
-									<p className="text-base font-semibold text-[var(--pill-emerald-text)]">{successTitle}</p>
-									<p className="text-sm text-[var(--foreground)]/80">{successBody}</p>
-									<button
-										type="button"
-										onClick={resetForm}
-										className="self-start text-xs uppercase tracking-[0.3em] text-[var(--pill-emerald-text)] transition-colors hover:text-[var(--pill-emerald-text)]"
-									>
-										{sendAnotherLabel} →
-									</button>
-								</div>
-							</div>
+							<p className="font-display text-[2rem] leading-tight text-ink">{t.successTitle}</p>
+							<p className="mt-3 max-w-[48ch] text-muted">
+								{t.successBefore}
+								<a href="#projects" className="link-rule text-ink">
+									{t.successProjects}
+								</a>
+								{t.successMiddle}
+								<a href="#experience" className="link-rule text-ink">
+									{t.successExperience}
+								</a>
+								.
+							</p>
+							<button type="button" onClick={resetForm} className="link-rule meta mt-6 text-ink">
+								{t.sendAnother}
+								<span aria-hidden="true" className="link-arrow">→</span>
+							</button>
 						</motion.div>
 					) : (
 						<>
-							<div className="mt-5 grid gap-4">
-								<div className="grid gap-4 sm:grid-cols-2">
-									<div>
-										<label
-											htmlFor="contact-intent"
-											className="text-[10px] uppercase tracking-[0.28em] text-subtle"
-										>
-											{intentLabel}
-										</label>
-										<div className="mt-1.5">
-											<IntentSelect
-												id="contact-intent"
-												options={intents}
-												value={form.intent}
-												onChange={(v) => {
-													setForm((prev) => ({ ...prev, intent: v }));
-													if (submitAttempted) {
-														const err = validateField("intent", v);
-														setFieldErrors((prev) => ({
-															...prev,
-															intent: err ?? undefined,
-														}));
-													}
-												}}
-												onBlur={handleBlur("intent")}
-												placeholder={intentPlaceholder}
-												required
-												ariaInvalid={Boolean(fieldErrors.intent)}
-												ariaDescribedBy={
-													fieldErrors.intent ? "contact-intent-error" : undefined
+							<div className="mt-8 grid gap-6 sm:grid-cols-2">
+								<div>
+									<label htmlFor="contact-intent" className={labelClass}>
+										{t.intentLabel}
+									</label>
+									<div className="mt-2">
+										<IntentSelect
+											id="contact-intent"
+											options={intents}
+											value={form.intent}
+											onChange={(v) => {
+												setForm((prev) => ({ ...prev, intent: v }));
+												if (submitAttempted) {
+													const err = validateField("intent", v);
+													setFieldErrors((prev) => ({ ...prev, intent: err ?? undefined }));
 												}
-											/>
-										</div>
-										{renderFieldError("intent")}
-									</div>
-									<div>
-										<label
-											htmlFor="contact-name"
-											className="text-[10px] uppercase tracking-[0.28em] text-subtle"
-										>
-											{contact.form.name.label}
-										</label>
-										<input
-											id="contact-name"
-											value={form.name}
-											onChange={handleChange("name")}
-											onBlur={handleBlur("name")}
-											{...ariaProps("name")}
-											className={fieldClass("name")}
-											placeholder={contact.form.name.placeholder}
+											}}
+											onBlur={handleBlur("intent")}
+											placeholder={t.intentPlaceholder}
 											required
-											minLength={LIMITS.name.min}
-											maxLength={LIMITS.name.max}
-											autoComplete="name"
+											ariaInvalid={Boolean(fieldErrors.intent)}
+											ariaDescribedBy={fieldErrors.intent ? "contact-intent-error" : undefined}
 										/>
-										{renderFieldError("name")}
 									</div>
+									{renderFieldError("intent")}
 								</div>
 								<div>
-									<label
-										htmlFor="contact-email"
-										className="text-[10px] uppercase tracking-[0.28em] text-subtle"
-									>
+									<label htmlFor="contact-name" className={labelClass}>
+										{contact.form.name.label}
+									</label>
+									<input
+										id="contact-name"
+										value={form.name}
+										onChange={handleChange("name")}
+										onBlur={handleBlur("name")}
+										{...ariaProps("name")}
+										className={fieldClass("name")}
+										placeholder={contact.form.name.placeholder}
+										required
+										minLength={LIMITS.name.min}
+										maxLength={LIMITS.name.max}
+										autoComplete="name"
+									/>
+									{renderFieldError("name")}
+								</div>
+								<div className="sm:col-span-2">
+									<label htmlFor="contact-email" className={labelClass}>
 										{contact.form.email.label}
 									</label>
 									<input
@@ -441,11 +447,8 @@ export function Contact() {
 									/>
 									{renderFieldError("email")}
 								</div>
-								<div>
-									<label
-										htmlFor="contact-message"
-										className="text-[10px] uppercase tracking-[0.28em] text-subtle"
-									>
+								<div className="sm:col-span-2">
+									<label htmlFor="contact-message" className={labelClass}>
 										{contact.form.message.label}
 									</label>
 									<textarea
@@ -454,117 +457,34 @@ export function Contact() {
 										onChange={handleChange("message")}
 										onBlur={handleBlur("message")}
 										{...ariaProps("message")}
-										className={fieldClass("message", "min-h-[110px] rounded-2xl py-3")}
+										className={fieldClass("message", "min-h-[9.5rem] resize-y")}
 										placeholder={contact.form.message.placeholder}
 										required
 										minLength={LIMITS.message.min}
 										maxLength={LIMITS.message.max}
 									/>
 									<div className="mt-1 flex items-start justify-between gap-3">
-										<div className="min-w-0 flex-1">
-											{renderFieldError("message")}
-										</div>
-										<p className="shrink-0 text-[10px] text-subtle">
+										<div className="min-w-0 flex-1">{renderFieldError("message")}</div>
+										<p className="meta shrink-0 pt-2 text-subtle tabular">
 											{form.message.length}/{LIMITS.message.max}
 										</p>
 									</div>
 								</div>
 							</div>
-							<div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-								<div className="inline-flex items-center gap-1.5 text-[11px] text-muted">
-									<Clock className="h-3 w-3 text-[var(--accent-warm)]" aria-hidden="true" />
-									<span>{responseLabel}</span>
-								</div>
-								<motion.button
-									type="submit"
-									disabled={status === "sending"}
-									whileTap={{ scale: 0.98 }}
-									className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-amber-400 via-rose-400 to-violet-500 px-8 py-3 text-sm font-semibold text-slate-900 shadow-[0_20px_50px_rgba(251,191,36,0.35)] disabled:cursor-not-allowed disabled:opacity-70"
-								>
+							<div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+								<button type="submit" disabled={status === "sending"} className="btn btn-ink disabled:cursor-not-allowed disabled:opacity-60">
 									{status === "sending" ? t.sending : contact.form.submit}
-									<span className="absolute inset-0 bg-white/25 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-								</motion.button>
+									<span aria-hidden="true" className="link-arrow">→</span>
+								</button>
+								{errorMsg ? (
+									<p className="text-sm text-ink" role="status" aria-live="polite">
+										{errorMsg}
+									</p>
+								) : null}
 							</div>
-							{errorMsg ? (
-								<p className="mt-4 text-sm text-[var(--pill-rose-text)]" role="status" aria-live="polite">
-									{errorMsg}
-								</p>
-							) : null}
 						</>
 					)}
 				</motion.form>
-
-				<motion.div
-					{...revealWith({ delay: 0.1 })}
-					className="flex flex-col gap-6 rounded-3xl bg-white/5 p-8 shadow-[0_30px_80px_rgba(15,23,42,0.35)] backdrop-blur"
-				>
-					<div className="rounded-2xl border border-soft/40 bg-white/5 p-6">
-						<h3 className="text-xl font-semibold text-[var(--foreground)]">{contact.platforms.title}</h3>
-						<p className="mt-1 text-sm text-muted">{contact.platforms.subtitle}</p>
-						<div className="mt-5 flex flex-col gap-3">
-							{platforms.map((platform) => {
-								const Icon = platformIconMap[platform.label as keyof typeof platformIconMap] ?? Mail;
-								const isEmail = platform.label === "Email";
-								return (
-									<div key={platform.label} className="group/platform relative">
-										<a
-											href={platform.href}
-											target={isEmail ? undefined : "_blank"}
-											rel={isEmail ? undefined : "noreferrer"}
-											className={cn(
-												"flex items-center justify-between rounded-2xl border border-soft/40 bg-black/20 px-5 py-4 text-[var(--foreground)] transition-all duration-300 hover:-translate-y-0.5 hover:border-amber-300 hover:bg-white/10",
-												isEmail && "pr-16",
-											)}
-										>
-											<div className="flex min-w-0 items-center gap-3">
-												<Icon className="h-5 w-5 shrink-0 text-[var(--foreground)]/70 transition-transform duration-300 group-hover/platform:-rotate-6 group-hover/platform:scale-110" aria-hidden="true" />
-												<div className="min-w-0 text-sm">
-													<p className="font-medium">{platform.label}</p>
-													<p className="truncate text-muted">{platform.description}</p>
-												</div>
-											</div>
-										</a>
-										{isEmail ? (
-											<>
-												<button
-													type="button"
-													onClick={copyEmail}
-													aria-label={emailCopied ? dict.ui.emailCopied : dict.ui.copyEmail}
-													title={dict.ui.copyEmail}
-													className="print-hide absolute right-3 top-1/2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-soft/60 text-[var(--foreground)] transition-colors duration-300 hover:border-amber-300 hover:text-[var(--accent-warm)]"
-												>
-													<AnimatePresence mode="wait" initial={false}>
-														<motion.span
-															key={emailCopied ? "ok" : "copy"}
-															initial={{ opacity: 0, scale: 0.6, rotate: -20 }}
-															animate={{ opacity: 1, scale: 1, rotate: 0 }}
-															exit={{ opacity: 0, scale: 0.6 }}
-															transition={{ duration: 0.2 }}
-															className="inline-flex"
-														>
-															{emailCopied ? (
-																<Check className="h-4 w-4 text-emerald-400" aria-hidden="true" />
-															) : (
-																<Copy className="h-4 w-4" aria-hidden="true" />
-															)}
-														</motion.span>
-													</AnimatePresence>
-												</button>
-												<span role="status" aria-live="polite" className="sr-only">
-													{emailCopied ? dict.ui.emailCopied : ""}
-												</span>
-											</>
-										) : null}
-									</div>
-								);
-							})}
-						</div>
-					</div>
-					<div className="rounded-2xl bg-gradient-to-r from-amber-400 via-rose-400 to-violet-500 p-6 text-slate-900 shadow-[0_20px_60px_rgba(251,191,36,0.35)]">
-						<h4 className="text-lg font-semibold">{contact.availability.title}</h4>
-						<p className="mt-2 text-sm text-slate-900/80">{contact.availability.description}</p>
-					</div>
-				</motion.div>
 			</div>
 		</SectionShell>
 	);

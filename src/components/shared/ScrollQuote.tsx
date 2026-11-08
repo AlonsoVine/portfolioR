@@ -13,27 +13,26 @@ function Word({ word, index, total, progress }: { word: string; index: number; t
 	);
 }
 
-/** Cita que se ilumina palabra a palabra al recorrerla con el scroll (solo opacidad). */
-export function ScrollQuote({ text }: { text: string }) {
+/** Cita que se entinta palabra a palabra al recorrerla con el scroll (solo opacidad). */
+export function ScrollQuote({ text, marks }: { text: string; marks: readonly [string, string] }) {
 	const ref = useRef<HTMLQuoteElement>(null);
-	const { scrollYProgress } = useScroll({ target: ref, offset: ["start 85%", "end 50%"] });
+	const { scrollYProgress } = useScroll({ target: ref, offset: ["start 85%", "end 55%"] });
 	const words = text.split(/\s+/);
 
 	return (
 		<blockquote
 			ref={ref}
-			className="print-hide font-display relative mx-auto mt-20 max-w-4xl text-center text-[clamp(1.6rem,3.6vw,2.9rem)] font-semibold leading-[1.2] tracking-[0.01em] text-[var(--foreground)]"
+			className="print-hide hang-quote font-display text-[clamp(2.1rem,5vw,4.4rem)] italic leading-[1.04] tracking-[-0.02em] text-ink"
 		>
-			<span aria-hidden="true" className="mb-6 block text-sm text-[var(--accent-warm)]">
-				✦
-			</span>
 			<p>
+				<span aria-hidden="true">{marks[0]}</span>
 				{words.map((w, i) => (
 					<span key={`${w}-${i}`}>
 						<Word word={w} index={i} total={words.length} progress={scrollYProgress} />
 						{i < words.length - 1 ? " " : null}
 					</span>
 				))}
+				<span aria-hidden="true">{marks[1]}</span>
 			</p>
 		</blockquote>
 	);
