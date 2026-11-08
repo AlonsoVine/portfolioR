@@ -11,7 +11,7 @@ export function LanguageToggle() {
 		<button
 			type="button"
 			onClick={() => setLang(next)}
-			className="meta inline-flex min-h-11 items-center gap-1.5 px-2 text-subtle transition-colors hover:text-ink"
+			className="meta inline-flex min-h-11 items-center gap-1.5 px-2 text-subtle hover:text-ink"
 		>
 			<span className="sr-only">{dict.ui.languageCurrent}: </span>
 			<span aria-hidden="true" className={cn(lang === "es" && "text-ink")}>ES</span>

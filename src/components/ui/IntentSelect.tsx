@@ -181,7 +181,7 @@ export function IntentSelect({
 										onClick={() => handleSelect(opt.value)}
 										onMouseEnter={() => setActiveIndex(idx)}
 										className={cn(
-											"flex cursor-pointer items-center justify-between gap-3 px-4 py-3 text-[0.95rem] transition-colors",
+											"flex cursor-pointer items-center justify-between gap-3 px-4 py-3 text-[0.95rem]",
 											isActive ? "bg-surface text-ink" : "text-muted",
 											isSelected && "text-ink",
 										)}

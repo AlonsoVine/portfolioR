@@ -263,7 +263,24 @@ Criterios:
 
 1. ¿Tienes **logros cuantificados reales** (por ejemplo, reducción del tiempo de release en Seres o número de proyectos cliente migrados)? Hoy no se muestra ninguno porque no se pueden inventar.
 2. ¿**Fechas** de los proyectos personales (Liberty, PhotoDateRenamer, etc.)? Permitirían ordenarlos y fecharlos como el resto del documento.
-3. ¿Las cifras del **badge de Lighthouse** (95/95/100/100) son de la versión publicada? Conviene medirlas de nuevo con PageSpeed tras desplegar.
-4. ¿Mantenemos la foto `public/images/mi-foto_sin fondo.jpg` (1,2 MB, ya no se usa) o la borramos del repositorio?
-5. ¿Generamos una **imagen OG** nueva con el estilo actual? La actual (`og-portfolio.webp`) es de la etapa anterior.
-6. ¿«Suelo responder en ≤ 24h» sigue siendo cierto?
+3. ¿Mantenemos la foto `public/images/mi-foto_sin fondo.jpg` (1,2 MB, ya no se usa) o la borramos del repositorio?
+4. ¿«Suelo responder en ≤ 24h» sigue siendo cierto?
+5. **Google Analytics (GA4)** ya estaba en la línea base y se mantiene tal cual (no se ha añadido nada). Se carga sin banner de consentimiento: ¿lo quitamos, o añadimos consentimiento? No se toca sin tu decisión.
+6. ¿Tienes **capturas reales** de ForYouToBe y Jarvis para sustituir las portadas ilustradas? Mientras tanto se muestran desaturadas.
+
+Resueltas en la vuelta 2: el badge de Lighthouse con cifras escritas a mano se sustituye por el commit y la fecha reales del build (`BuildStamp`) más un enlace a PageSpeed; la imagen OG se ha regenerado con el estilo actual (`public/assets/og-portfolio.png`).
+
+## 12. Cambio de dirección en la vuelta 2: herramientas de desarrollador
+
+Tras la vuelta 1 pediste más ambición: «efectos espectaculares y elementos que hagan asombrar al usuario, cosas que tengan que ver con el software». Se mantiene la base editorial (paleta, retícula, tipografía, sin gradientes, glows ni partículas) y el espectáculo sale del oficio del perfil: todo lo nuevo es una herramienta de desarrollador real y funcional, no decoración.
+
+| Elemento | Qué hace | Por qué encaja | Accesibilidad / movimiento |
+|---|---|---|---|
+| Retrato ASCII (`AsciiPortrait`) | Al cargar, el retrato se «compila» como texto monoespaciado (densidad de glifos por luminancia), de abajo arriba con ruido en el color de acento, y se funde con la foto | Convierte la imagen en salida de terminal; es el primer gesto de la página | Canvas `aria-hidden`; con reduced motion no se monta y la foto aparece directa; solo pinta ~1,3 s |
+| Texto descifrado (`ScrambleText`) | Etiquetas de sección, rol del hero y nav: los caracteres se resuelven desde glifos de código | Lenguaje de terminal para los metadatos | Texto real en `sr-only`; el ancho lo fija el texto real (sin saltos de layout); desactivado con reduced motion |
+| Paleta de comandos (`CommandPalette`) | Ctrl K / ⌘K o «/»: ir a secciones, tema, idioma, copiar email, CV, imprimir, terminal, retro, enlaces; búsqueda difusa | Patrón de editores y herramientas de desarrollo; acelera la navegación | `role=dialog` modal, combobox + listbox con `aria-activedescendant`, Esc y retorno del foco, resto de la página `inert` |
+| Terminal (`Terminal`) | Sección interactiva: `help`, `whoami`, `ls`, `cd`, `git log`, `stack`, `proyectos`, `formacion`, `contacto`, `cv`, `tema`, `idioma`, `retro`, `clear`, historial con ↑↓ y autocompletado con Tab; arranca escribiendo `whoami` | El CV consultable como un sistema; todo el contenido sale de los diccionarios, nada nuevo | Campo etiquetado, salida en `role=log` con `aria-live`; sin animación de escritura con reduced motion |
+| Pipeline de despliegue (`DeployPipeline`) | En el pie, las fases reales de `.github/workflows/deploy.yml` se recorren al entrar en pantalla; botón «Repetir» | Muestra cómo se publica esta misma web, con datos reales | Estado anunciado en texto; relleno con `scaleX`; estático con reduced motion |
+| Nodos de commit en Experiencia | En ≥1280 px la línea de progreso lleva un nodo por puesto (relleno con acento el actual, hueco y menor el segundo tramo en la misma empresa) | Lectura de la trayectoria como un `git log --graph` | `aria-hidden`; escala con muelle solo si no hay reduced motion |
+
+Las animaciones nuevas siguen limitadas a transform y opacity, salvo el canvas del retrato, que pinta durante la intro y después queda en reposo. No se ha añadido ninguna dependencia.

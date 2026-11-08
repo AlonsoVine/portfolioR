@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { useLanguage } from "@/i18n";
 import { CONTACT_EMAIL } from "@/data/portfolio";
 import { useIsClient } from "@/lib/useIsClient";
-import { LighthouseBadge } from "../ui/LighthouseBadge";
+import { BuildStamp } from "../ui/BuildStamp";
+import { DeployPipeline } from "../ui/DeployPipeline";
 import { RevealText } from "../shared/RevealText";
 
 function madridTime(locale: string) {
@@ -60,7 +61,7 @@ export function Footer() {
 						<ul className="flex flex-col gap-1">
 							{navLinks.map((link) => (
 								<li key={link.href}>
-									<a href={link.href} className="inline-block py-1 text-muted transition-colors hover:text-ink">
+									<a href={link.href} className="inline-block py-1 text-muted hover:text-ink">
 										{link.label}
 									</a>
 								</li>
@@ -78,7 +79,7 @@ export function Footer() {
 								href={social.href}
 								target="_blank"
 								rel="noreferrer"
-								className="inline-flex items-baseline gap-1.5 py-1 text-muted transition-colors hover:text-ink"
+								className="inline-flex items-baseline gap-1.5 py-1 text-muted hover:text-ink"
 							>
 								{social.label}
 								<span aria-hidden="true" className="link-arrow text-sm">↗</span>
@@ -90,11 +91,15 @@ export function Footer() {
 					</div>
 				</div>
 
+				<div className="border-t border-rule py-8">
+					<DeployPipeline />
+				</div>
+
 				<div className="grid-page gap-y-4 border-t border-rule py-6">
 					<p className="meta col-span-4 text-subtle md:col-span-2 lg:col-span-3">© {year} Alonso Viñé Barrancos</p>
-					<p className="col-span-4 text-[0.85rem] leading-snug text-subtle md:col-span-6 lg:col-span-5">{dict.ui.colophon}</p>
-					<div className="col-span-4 flex flex-wrap items-center gap-x-6 gap-y-2 md:col-span-8 lg:col-span-4 lg:justify-end">
-						<LighthouseBadge />
+					<p className="col-span-4 text-[0.85rem] leading-snug text-subtle md:col-span-6 lg:col-span-4">{dict.ui.colophon}</p>
+					<div className="col-span-4 flex flex-wrap items-center gap-x-6 gap-y-2 md:col-span-8 lg:col-span-5 lg:justify-end">
+						<BuildStamp />
 						<button
 							type="button"
 							onClick={() => window.print()}

@@ -7,7 +7,7 @@ import { useLanguage } from "@/i18n";
 const yearOf = (part: string) => Number(part.trim().split(/\s+/).pop());
 
 /** Trayectoria en una línea, derivada de `experiences`: empresa y años, de la más reciente a la primera. */
-export function CareerStrip({ label }: { label: string }) {
+export function CareerStrip({ label, variant = "strip" }: { label: string; variant?: "strip" | "column" }) {
 	const { dict } = useLanguage();
 	const present = dict.ui.present;
 
@@ -33,8 +33,25 @@ export function CareerStrip({ label }: { label: string }) {
 		}));
 	}, [dict.experiences, present]);
 
+	if (variant === "column") {
+		return (
+			<div>
+				<p className="meta text-subtle">{label}</p>
+				<ol className="mt-3 border-t border-rule">
+					{stops.map((stop) => (
+						<li key={stop.name} className="meta flex items-center gap-2 border-b border-rule py-2">
+							{stop.current ? <span aria-hidden="true" className="signal-dot" /> : null}
+							<span className="text-ink">{stop.name}</span>
+							<span className="ml-auto tabular text-subtle">{stop.years}</span>
+						</li>
+					))}
+				</ol>
+			</div>
+		);
+	}
+
 	return (
-		<div className="page print-hide hero-in" style={{ "--d": "900ms" } as CSSProperties}>
+		<div className="page print-hide hero-in lg:hidden" style={{ "--d": "900ms" } as CSSProperties}>
 			<div aria-hidden="true" className="h-px bg-rule-strong" />
 			<div className="grid-page gap-y-3 py-4">
 				<p className="meta col-span-4 text-subtle md:col-span-2 lg:col-span-3">{label}</p>

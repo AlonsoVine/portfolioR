@@ -88,7 +88,7 @@ function ProjectMedia({ project, labels, large }: { project: Project; labels: La
 							onClick={() => setShowVideo(option.value)}
 							aria-pressed={showVideo === option.value}
 							className={cn(
-								"min-h-11 border-b py-1 transition-colors",
+								"min-h-11 border-b py-1",
 								showVideo === option.value ? "border-ink text-ink" : "border-transparent text-subtle hover:text-ink",
 							)}
 						>

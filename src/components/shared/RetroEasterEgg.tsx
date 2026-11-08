@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useKonamiCode } from "@/lib/useKonamiCode";
 import { useLanguage } from "@/i18n";
+import { RETRO_TOGGLE_EVENT } from "@/lib/siteActions";
 
 const RETRO_CLASS = "retro-mode";
 
@@ -15,6 +16,15 @@ export function RetroEasterEgg() {
 		setActive((prev) => !prev);
 		setJustUnlocked(true);
 	});
+
+	useEffect(() => {
+		const onToggle = () => {
+			setActive((prev) => !prev);
+			setJustUnlocked(true);
+		};
+		window.addEventListener(RETRO_TOGGLE_EVENT, onToggle);
+		return () => window.removeEventListener(RETRO_TOGGLE_EVENT, onToggle);
+	}, []);
 
 	useEffect(() => {
 		if (typeof document === "undefined") return;

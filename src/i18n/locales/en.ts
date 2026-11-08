@@ -35,7 +35,7 @@ export const en = {
     location: "Madrid, Spain",
     availability: "Available for new opportunities",
     subtitle:
-      "I work across the whole software cycle, from analysis to deployment. I believe in simple software, explainable decisions and deliveries that don't break trust.",
+      "I believe in simple software, explainable decisions and deliveries that don't break trust.",
     ctas: {
       ...heroContent.ctas,
       primary: { ...heroContent.ctas.primary, label: "View projects" },
@@ -50,10 +50,10 @@ export const en = {
   about: {
     ...aboutContent,
     eyebrow: "Profile",
-    pullQuote: "What is done by hand today should run on its own tomorrow. And be explainable.",
-    title: "From analysis to deployment",
+    pullQuote: "What drives me most is turning a ‘can't be done’ into ‘look how we did it’.",
+    title: "Multidisciplinary by choice",
     description:
-      "I work across the whole software cycle: analysis, development, testing, delivery and maintenance.",
+      "Full stack development and DevOps since 2021, always in Madrid.",
     textBlocks: [
       "I started in 2021 at Atos, on Spanish Ministry of Defence projects. Then Fervimax (FCC) sharpening DevOps and testing, and Inetum modernizing critical interfaces for the Air Force. Now at Seres, automating the deployment cycle of the central platform.",
       "Multidisciplinary profile with experience across the full software development lifecycle: analysis, design, implementation, deployment and maintenance. I handle the modern web stack (Angular, React, Java/Spring, Node) alongside the DevOps layer that automates the cycle (GitLab CI/CD, Nexus, Maven, Docker) and a fresh layer of AI-agent-assisted development to accelerate repetitive work and focus energy where it matters.",
@@ -73,7 +73,7 @@ export const en = {
           ...item,
           title: "English C2",
           description:
-            "EF SET Proficient. At ease in international, English-speaking teams.",
+            "EF SET Proficient. Comfortable in international, English-speaking teams.",
         };
       }
       if (item.title === "Foco en IA") {
@@ -81,7 +81,7 @@ export const en = {
           ...item,
           title: "AI focus",
           description:
-            "Neoland bootcamp and university courses; I use AI agents every day.",
+            "Neoland bootcamp, AI agents and prompt engineering in my daily work.",
         };
       }
       return item;
@@ -93,8 +93,8 @@ export const en = {
   },
   skills: {
     eyebrow: "Toolkit",
-    title: "What I work with",
-    description: "Languages, frameworks and platforms I use on real projects, grouped by layer.",
+    title: "Stack and tools",
+    description: "Languages, frameworks, platforms and tools, grouped by area.",
     cards: skillCards.map((card) => ({
       ...card,
       title:
@@ -211,7 +211,7 @@ export const en = {
   })),
   projects: {
     eyebrow: "Projects",
-    title: "Personal work",
+    title: "Personal projects",
     description:
       "Six projects picked from the more than {projects} I keep on GitHub. Open source and, where there is one, a live demo.",
     codeLabel: "Code",
@@ -318,15 +318,15 @@ export const en = {
   },
   contact: {
     eyebrow: "Contact",
-    title: "Let's talk",
+    title: "Write to me",
     description:
       "Job offers, projects or a technical question. Use the form or write straight to my inbox.",
     form: {
-      title: "Write here",
+      title: "Form",
       helper: "All fields are required. I reply by email.",
       name: { label: "Name", placeholder: "Your name" },
       email: { label: "Email", placeholder: "your@email.com" },
-      message: { label: "Message", placeholder: "Context, timing, anything I should know" },
+      message: { label: "Message", placeholder: "Context and timing, if any" },
       submit: "Send message",
     },
     platforms: {
@@ -344,13 +344,14 @@ export const en = {
     stage: "Stage",
     hero: {
       now: "Now",
-      trajectory: "Career",
+      trajectory: "Companies",
       contact: "Contact",
     },
     sectionNav: "Section index",
     socialProfile: "{name} profile",
     projectCounter: "Project",
     copyEmail: "Copy email",
+    copyLinkShort: "Link",
     emailCopied: "Email copied",
     madridTime: "Time in Madrid",
     languageCurrent: "Language",
@@ -392,6 +393,65 @@ export const en = {
       hint: "A4 version generated from this very page",
     },
     theme: { light: "Light", dark: "Dark" },
+    build: { label: "Build", audit: "Audit on PageSpeed" },
+    palette: {
+      label: "Command palette",
+      open: "Commands",
+      placeholder: "Type a section or an action",
+      empty: "Nothing matches “{q}”.",
+      footer: "↑ ↓ move · ↵ run · esc close",
+      groups: { nav: "Go to", actions: "Actions", links: "Links" },
+      actions: {
+        theme: "Switch to {mode} mode",
+        lang: "Cambiar a español",
+        copyEmail: "Copy the email address",
+        cv: "Download the CV as PDF",
+        print: "Print or save as PDF",
+        terminal: "Open the terminal",
+        retro: "Toggle retro mode",
+        top: "Back to the top",
+      },
+      done: { copied: "Email copied to the clipboard", failed: "Could not copy; the email is {email}" },
+    },
+    terminal: {
+      eyebrow: "Console",
+      title: "The CV, in a terminal",
+      description: "Everything above, queryable with commands. Type help to start, or press Ctrl K (⌘K on a Mac) anywhere.",
+      window: "alonso@portfolio: ~",
+      inputLabel: "Terminal command",
+      hint: "Try: whoami · ls · git log · stack · projects · contact",
+      notFound: "command not found: {cmd}. Type help.",
+      denied: "Permission denied: this portfolio is read-only.",
+      exit: "Nowhere to exit to: this is the web. Try cd contact.",
+      moved: "→ {section}",
+      noSection: "No such section. Options: {list}",
+      downloading: "Downloading {file}…",
+      themeSet: "Theme: {mode}",
+      langSet: "Language: Español",
+      retro: "Retro mode toggled. Esc to leave.",
+      help: [
+        ["help", "this help"],
+        ["whoami", "who I am"],
+        ["now", "current role"],
+        ["ls", "what the portfolio holds"],
+        ["cd <section>", "jump to a section"],
+        ["git log", "career as a history"],
+        ["stack [area]", "technologies by area"],
+        ["projects", "personal projects and links"],
+        ["education", "courses and certifications"],
+        ["contact", "email and profiles"],
+        ["cv", "download the CV"],
+        ["theme · lang · retro", "preferences"],
+        ["clear", "clear the screen"],
+      ],
+    },
+    pipeline: {
+      title: "How this site ships",
+      description: "GitHub Actions, on every commit to main that starts with deploy:. The stages are the real workflow's.",
+      steps: ["checkout", "setup node 20", "npm ci", "next build", "upload artifact", "deploy pages"],
+      status: { queued: "queued", running: "running", done: "done" },
+      replay: "Replay",
+    },
     colophon:
       "Set in Instrument Serif, Schibsted Grotesk and IBM Plex Mono. Static site exported with Next.js.",
     experience: {

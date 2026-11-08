@@ -40,7 +40,7 @@ export function SkillsGrid() {
 										<>
 											<span className="sr-only">, </span>
 											<span aria-hidden="true" className="px-2 text-ink-subtle">
-												/
+												·
 											</span>{" "}
 										</>
 									) : null}

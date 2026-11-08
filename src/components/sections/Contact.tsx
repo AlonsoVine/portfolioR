@@ -290,7 +290,7 @@ export function Contact() {
 						<button
 							type="button"
 							onClick={copyEmail}
-							className="print-hide meta min-h-11 text-subtle transition-colors hover:text-ink"
+							className="print-hide meta min-h-11 text-subtle hover:text-ink"
 						>
 							{emailCopied ? dict.ui.emailCopied : dict.ui.copyEmail}
 						</button>
@@ -320,7 +320,7 @@ export function Contact() {
 										className="group flex items-baseline justify-between gap-4 py-4 text-ink"
 									>
 										<span className="text-lg">{platform.label}</span>
-										<span className="meta flex items-baseline gap-2 text-muted transition-colors group-hover:text-ink">
+										<span className="meta flex items-baseline gap-2 text-muted group-hover:text-ink">
 											{platform.description}
 											<span aria-hidden="true" className="link-arrow">↗</span>
 										</span>

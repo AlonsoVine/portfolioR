@@ -21,7 +21,7 @@ export function ScrollToTopButton() {
 			aria-label={dict.ui.scrollTop}
 			onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
 			className={cn(
-				"floating-ui fixed bottom-5 right-4 z-40 inline-flex h-11 w-11 items-center justify-center border border-rule-strong bg-paper text-ink transition-[opacity,transform,border-color] duration-300 hover:border-ink sm:right-6 print:hidden",
+				"floating-ui fixed bottom-5 right-4 z-40 inline-flex h-11 w-11 items-center justify-center border border-rule-strong bg-paper text-ink transition-[opacity,transform] duration-300 hover:border-ink sm:right-6 lg:right-3 lg:bottom-3 print:hidden",
 				visible ? "translate-y-0 opacity-100" : "pointer-events-none invisible translate-y-2 opacity-0",
 			)}
 		>

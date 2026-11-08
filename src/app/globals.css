@@ -74,7 +74,6 @@ body {
   line-height: 1.6;
   font-feature-settings: "ss01", "kern";
   text-rendering: optimizeLegibility;
-  transition: background-color 0.4s var(--ease-out-quart), color 0.4s var(--ease-out-quart);
 }
 
 ::selection {
@@ -85,9 +84,6 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-  body {
-    transition: none;
   }
 }
 
@@ -237,8 +233,12 @@ a:focus-visible > .link-arrow-down {
   font-size: 0.95rem;
   font-weight: 500;
   letter-spacing: 0.005em;
-  transition: background-color 0.3s var(--ease-out-quart), color 0.3s var(--ease-out-quart),
-    border-color 0.3s var(--ease-out-quart);
+}
+
+.btn-sm {
+  min-height: 2.25rem;
+  padding: 0 0.85rem;
+  font-size: 0.85rem;
 }
 
 .btn-ink {
@@ -272,7 +272,6 @@ a:focus-visible > .link-arrow-down {
   padding: 0.75rem 0.9rem;
   font-size: 1rem;
   color: var(--foreground);
-  transition: border-color 0.25s var(--ease-out-quart);
 }
 
 .field::placeholder {
@@ -409,6 +408,20 @@ html[data-js] .rule-draw[data-drawn="false"] {
 .portrait-mono {
   filter: grayscale(1) contrast(1.04);
   opacity: var(--image-tone);
+  transition: opacity 0.9s var(--ease-out-quart);
+}
+
+/* Intro ASCII del retrato: mientras el canvas «compila», la foto espera; al terminar se cruzan */
+.ascii-portrait {
+  transition: opacity 0.9s var(--ease-out-quart);
+}
+
+.ascii-portrait.is-done {
+  opacity: 0;
+}
+
+.portrait:has(.ascii-portrait.is-running:not(.is-done)) .portrait-mono {
+  opacity: 0;
 }
 
 .portrait-color {
@@ -497,6 +510,25 @@ html[data-js] .reveal-pending .reveal-word {
   opacity: 1;
 }
 
+/* Capturas y portadas en una sola tinta hasta que se señalan: una capa neutra en modo
+   saturation quita el color y basta con su opacidad para devolverlo. */
+.media-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: #808080;
+  mix-blend-mode: saturation;
+  transition: opacity 0.6s var(--ease-out-quart);
+}
+
+article:hover .media-frame::after,
+article:focus-within .media-frame::after,
+.media-frame:hover::after,
+.media-frame:focus-within::after {
+  opacity: 0;
+}
+
 /* Logos de empresa en una sola tinta */
 .logo-mono {
   filter: grayscale(1);
@@ -546,6 +578,7 @@ html[data-js] .reveal-pending .reveal-word {
   }
   .portrait-color,
   .media-tone,
+  .media-frame::after,
   .link-rule::before,
   .link-arrow,
   .link-arrow-down,
@@ -575,6 +608,65 @@ html.retro-mode body::before {
 @page {
   size: A4;
   margin: 14mm 14mm 16mm;
+}
+
+/* ───────── Herramientas de desarrollador: paleta, terminal, pipeline ───────── */
+
+.palette-scrim {
+  background: color-mix(in srgb, var(--background) 74%, transparent);
+}
+
+.palette-bar {
+  transition: opacity 0.2s var(--ease-out-quart);
+}
+
+.terminal-input {
+  caret-color: var(--accent);
+}
+
+.terminal-input:focus-visible {
+  outline: 1px solid var(--border-strong);
+  outline-offset: 2px;
+  border-radius: 0;
+}
+
+/* En la paleta el foco nunca sale del campo: el indicador es el cursor y la fila activa */
+.palette-input:focus-visible {
+  outline: none;
+}
+
+.terminal:focus-within {
+  border-color: var(--foreground);
+}
+
+.terminal-line {
+  animation: terminal-line-in 0.35s var(--ease-out-quart) both;
+}
+
+@keyframes terminal-line-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+.pipeline-fill {
+  transform: scaleX(0);
+  transition: transform 0.6s var(--ease-out-expo);
+}
+
+.pipeline-fill.is-done {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal-line {
+    animation: none;
+  }
+  .pipeline-fill,
+  .palette-bar {
+    transition: none;
+  }
 }
 
 @media print {

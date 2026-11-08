@@ -7,6 +7,8 @@ import { LanguageToggle } from "../ui/LanguageToggle";
 import { useLanguage } from "@/i18n";
 import { cn, EASE_OUT_EXPO } from "@/lib/utils";
 import { useActiveSection } from "@/lib/useActiveSection";
+import { openPalette } from "@/lib/siteActions";
+import { ScrambleText } from "../shared/ScrambleText";
 
 const HIDE_AFTER = 640;
 const pad = (n: number) => String(n).padStart(2, "0");
@@ -48,12 +50,14 @@ export function Header() {
 	}, [open]);
 
 	return (
+		// En reposo sin ninguna clase translate: cualquier translate convierte el header en bloque
+		// contenedor y el panel fixed del menú móvil quedaría medido contra él (altura cero).
 		<header
 			ref={headerRef}
 			onFocusCapture={() => setHidden(false)}
 			className={cn(
 				"site-header fixed inset-x-0 top-0 z-50 bg-paper transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] print:hidden",
-				hidden ? "-translate-y-full" : "translate-y-0",
+				hidden && !open ? "-translate-y-full" : "",
 			)}
 		>
 			<div className="page flex h-14 items-center justify-between gap-6">
@@ -71,12 +75,12 @@ export function Header() {
 										href={link.href}
 										aria-current={isActive ? "page" : undefined}
 										className={cn(
-											"relative flex items-baseline gap-1.5 py-2 text-[0.9rem] transition-colors duration-300",
+											"relative flex items-baseline gap-1.5 py-2 text-[0.9rem]",
 											isActive ? "text-ink" : "text-muted hover:text-ink",
 										)}
 									>
 										<span className="font-mono text-[0.68rem] text-subtle tabular">{pad(i + 1)}</span>
-										{link.label}
+										<ScrambleText text={link.label} trigger="hover" duration={420} />
 										{isActive ? (
 											<motion.span
 												layoutId="nav-active"
@@ -93,6 +97,20 @@ export function Header() {
 				</nav>
 
 				<div className="flex items-center gap-1 sm:gap-2">
+					<button
+						type="button"
+						onClick={openPalette}
+						aria-keyshortcuts="Control+K Meta+K"
+						className="meta mr-2 hidden min-h-11 items-center gap-2 px-2 text-muted hover:text-ink xl:inline-flex"
+					>
+						{dict.ui.palette.open}
+						<kbd className="border border-rule-strong px-1.5 py-0.5 text-[0.65rem] leading-none text-ink">Ctrl K</kbd>
+					</button>
+					<span className="mr-3 hidden lg:block">
+						<a href="#contact" className="btn btn-line btn-sm">
+							{dict.ui.contactCta}
+						</a>
+					</span>
 					<LanguageToggle />
 					<span aria-hidden="true" className="h-4 w-px bg-rule-strong" />
 					<ThemeToggle />
@@ -148,6 +166,19 @@ export function Header() {
 									</motion.li>
 								);
 							})}
+							<li className="border-b border-rule">
+								<button
+									type="button"
+									onClick={() => {
+										setOpen(false);
+										openPalette();
+									}}
+									className="flex w-full items-baseline gap-4 py-4 text-left text-muted"
+								>
+									<span className="font-mono w-6 text-xs text-subtle">&gt;</span>
+									<span className="font-mono text-base">{dict.ui.palette.open}</span>
+								</button>
+							</li>
 						</ol>
 					</motion.div>
 				) : null}

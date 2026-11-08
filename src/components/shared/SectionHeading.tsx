@@ -5,6 +5,7 @@ import { ReactNode } from "react";
 import { RevealText } from "./RevealText";
 import { RuleDraw } from "./RuleDraw";
 import { CopyLinkButton } from "../ui/CopyLinkButton";
+import { ScrambleText } from "./ScrambleText";
 import { scrollRevealConfig } from "@/lib/utils";
 
 type SectionHeadingProps = {
@@ -19,13 +20,13 @@ type SectionHeadingProps = {
 /** Cabecera de sección: columna de metadatos a la izquierda y titular a la derecha, sobre un filete. */
 export function SectionHeading({ sectionId, index, eyebrow, title, description, aside }: SectionHeadingProps) {
 	return (
-		<header className="section-head">
+		<header className="section-head group/head">
 			<RuleDraw />
 			<div className="grid-page gap-y-6 pt-5">
 				<div className="col-span-4 flex items-start justify-between gap-4 md:col-span-2 lg:col-span-3 lg:flex-col lg:justify-start">
 					<p className="meta flex items-baseline gap-3 text-subtle">
 						<span className="tabular text-ink">{index}</span>
-						<span>{eyebrow}</span>
+						<ScrambleText text={eyebrow} />
 					</p>
 					<CopyLinkButton sectionId={sectionId} />
 				</div>

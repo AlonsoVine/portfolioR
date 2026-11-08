@@ -4,7 +4,7 @@ import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
 import { useRef } from "react";
 import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
-import { scrollRevealConfig } from "@/lib/utils";
+import { cn, scrollRevealConfig } from "@/lib/utils";
 import { useLanguage } from "@/i18n";
 
 const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -55,14 +55,32 @@ export function ExperienceTimeline() {
 				/>
 
 				<ol className="print-tight">
-					{experiences.map((experience) => {
+					{experiences.map((experience, i) => {
 						const isCurrent = isCurrentPeriod(experience.period);
+						// Dos puestos seguidos en la misma empresa se leen como un tramo: el segundo no repite el nombre en grande
+						const continues = i > 0 && experiences[i - 1].company === experience.company;
 						return (
 							<motion.li
 								key={`${experience.company}-${experience.period}-${experience.title}`}
 								{...scrollRevealConfig}
-								className="print-row grid-page gap-y-5 border-t border-rule py-10 last:border-b lg:py-14"
+								className={cn(
+									"print-row relative grid-page gap-y-5 border-t py-10 last:border-b last:border-rule lg:py-14",
+									continues ? "border-dashed border-rule" : "border-rule",
+								)}
 							>
+								<motion.span
+									aria-hidden="true"
+									className={cn(
+										"commit-node absolute top-[2.85rem] hidden rounded-full border xl:block lg:top-[3.85rem] print:hidden",
+										isCurrent ? "border-signal bg-signal" : continues ? "border-rule-strong bg-paper" : "border-ink bg-paper",
+										continues ? "h-2 w-2" : "h-3 w-3",
+									)}
+									style={{ left: continues ? "calc(-1.5rem - 3.5px)" : "calc(-1.5rem - 5.5px)" }}
+									initial={reduce ? false : { scale: 0 }}
+									whileInView={{ scale: 1 }}
+									viewport={{ once: true, amount: 1 }}
+									transition={{ type: "spring", stiffness: 420, damping: 22, delay: 0.15 }}
+								/>
 								<div className="col-span-4 md:col-span-3 lg:col-span-4">
 									<div className="lg:sticky lg:top-24">
 										<p className="meta flex items-center gap-2.5 text-ink tabular">
@@ -70,7 +88,12 @@ export function ExperienceTimeline() {
 											{experience.period}
 											{isCurrent ? <span className="text-signal">· {currentLabel}</span> : null}
 										</p>
-										<p className="mt-3 font-display text-[2.25rem] leading-none text-ink lg:text-[2.75rem]">
+										<p
+											className={cn(
+												"mt-3 font-display leading-none",
+												continues ? "text-[1.5rem] italic text-subtle" : "text-[2.25rem] text-ink lg:text-[2.75rem]",
+											)}
+										>
 											{experience.company}
 										</p>
 									</div>

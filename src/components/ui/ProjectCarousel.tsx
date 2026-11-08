@@ -120,7 +120,7 @@ export function ProjectCarousel({ images, alt, intervalMs = 4200, size = "defaul
 									>
 										<span
 											className={cn(
-												"block h-px w-full transition-colors duration-300",
+												"block h-px w-full",
 												active ? "bg-ink" : "bg-rule-strong group-hover:bg-ink-muted",
 											)}
 										/>
@@ -129,10 +129,10 @@ export function ProjectCarousel({ images, alt, intervalMs = 4200, size = "defaul
 							})}
 						</div>
 						<div className="flex shrink-0">
-							<button type="button" onClick={prev} aria-label={t.prev} className="meta inline-flex h-11 w-11 items-center justify-center text-ink transition-colors hover:text-muted">
+							<button type="button" onClick={prev} aria-label={t.prev} className="meta inline-flex h-11 w-11 items-center justify-center text-ink hover:text-muted">
 								<span aria-hidden="true">←</span>
 							</button>
-							<button type="button" onClick={next} aria-label={t.next} className="meta inline-flex h-11 w-11 items-center justify-center text-ink transition-colors hover:text-muted">
+							<button type="button" onClick={next} aria-label={t.next} className="meta inline-flex h-11 w-11 items-center justify-center text-ink hover:text-muted">
 								<span aria-hidden="true">→</span>
 							</button>
 						</div>

@@ -70,9 +70,9 @@ export function Education() {
 										<h3 className="text-[1.1875rem] font-medium leading-snug text-ink">{item.title}</h3>
 										<p className="meta mt-1.5 text-muted lg:hidden">{item.institution.trim()}</p>
 									</div>
-									<p className="print-compact-text text-[0.95rem] leading-relaxed text-muted md:col-start-1 lg:col-start-2 lg:row-start-1">
-										<span className="meta mb-1.5 hidden text-ink lg:block">{item.institution.trim()}</span>
-										{item.details}
+									<p className="text-[0.95rem] leading-relaxed text-muted md:col-start-1 lg:col-start-2 lg:row-start-1">
+										<span className="meta mb-1.5 hidden text-ink lg:block print:hidden">{item.institution.trim()}</span>
+										<span className="print:hidden">{item.details}</span>
 									</p>
 									{item.image ? (
 										<button

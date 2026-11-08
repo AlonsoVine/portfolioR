@@ -78,7 +78,7 @@ export const heroContent = {
   location: "Madrid, Espa\u00f1a",
   availability: "Disponible para colaborar",
   subtitle:
-    "Trabajo en todo el ciclo del software, del an\u00e1lisis al despliegue. Creo en el software simple, las decisiones explicables y las entregas que no rompen la confianza.",
+    "Creo en software simple, decisiones explicables y entregas que no rompen la confianza.",
   image: {
     front: {
       src: "/images/retrato-recorte.webp",
@@ -112,13 +112,13 @@ export const aboutContent = {
     {
       title: "Ingl\u00e9s C2",
       description:
-        "EF SET Proficient. Trabajo con soltura en equipos internacionales.",
+        "EF SET Proficient. Preparado para entornos internacionales.",
       icon: "languages",
     },
     {
       title: "Foco en IA",
       description:
-        "Bootcamp en Neoland y cursos universitarios; uso agentes de IA a diario.",
+        "Bootcamp en Neoland; agentes de IA y prompt engineering en el d\u00eda a d\u00eda.",
       icon: "bot",
     },
   ],

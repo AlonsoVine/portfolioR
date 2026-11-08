@@ -6,6 +6,8 @@ import { useLanguage } from "@/i18n";
 import { withBasePath } from "@/lib/utils";
 import { CONTACT_EMAIL } from "@/data/portfolio";
 import { CareerStrip } from "../shared/CareerStrip";
+import { ScrambleText } from "../shared/ScrambleText";
+import { AsciiPortrait } from "../shared/AsciiPortrait";
 
 const delay = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
 
@@ -22,10 +24,10 @@ export function Hero() {
 		<section id="hero" className="relative flex min-h-[100svh] flex-col pt-14 print:min-h-0 print:pt-0">
 			<div className="page flex flex-1 flex-col">
 				<div className="grid-page hero-in gap-y-1 pt-8 text-subtle sm:pt-10 lg:pt-12" style={delay(500)}>
-					<p className="meta col-span-4 text-ink md:col-span-3 lg:col-span-4">{role}</p>
-					<p className="meta col-span-4 md:col-span-2 lg:col-span-3">{location}</p>
+					<p className="meta col-span-4 text-ink md:col-span-5 lg:col-span-4"><ScrambleText text={role} duration={900} /></p>
+					<p className="meta col-span-4 md:col-span-3 md:text-right lg:col-span-3 lg:text-left">{location}</p>
 					{availability ? (
-						<p className="meta col-span-4 flex items-center gap-2.5 md:col-span-3 md:justify-end lg:col-span-5">
+						<p className="meta col-span-4 flex items-center gap-2.5 md:col-span-8 lg:col-span-5 lg:justify-end">
 							<span aria-hidden="true" className="signal-dot signal-dot-live" />
 							{availability}
 						</p>
@@ -34,7 +36,7 @@ export function Hero() {
 				<div aria-hidden="true" className="hero-rule mt-4 h-px bg-rule-strong" style={delay(200)} />
 
 				<div className="grid-page flex-1 gap-y-10 pb-10 lg:pb-0">
-					<h1 className="hero-name col-span-4 pt-6 font-display text-[clamp(5.25rem,27vw,9rem)] leading-[0.8] tracking-[-0.03em] md:col-span-8 md:text-[clamp(8rem,20vw,12rem)] lg:col-span-8 lg:row-start-1 lg:pt-6 lg:text-[clamp(9rem,15.6vw,16rem)]">
+					<h1 className="hero-name col-span-4 pt-6 font-display text-[clamp(5.25rem,27vw,9rem)] leading-[0.8] tracking-[-0.03em] md:col-span-8 md:text-[clamp(8rem,20vw,12rem)] lg:col-span-8 lg:row-start-1 lg:pt-6 lg:text-[clamp(8.5rem,12.6vw,14rem)]">
 						<span className="hero-line">
 							<span style={delay(80)}>{firstName}</span>
 						</span>{" "}
@@ -62,13 +64,18 @@ export function Hero() {
 							sizes="(min-width: 1024px) 24vw, (min-width: 768px) 36vw, 50vw"
 							className="portrait-color object-contain object-bottom"
 						/>
+						<AsciiPortrait src={withBasePath(image.front.src)} />
 					</figure>
 
 					<div className="col-span-4 grid grid-cols-subgrid gap-y-6 self-end md:col-span-8 lg:col-span-8 lg:pb-10">
-						<p className="meta hero-in col-span-4 text-subtle md:col-span-2 lg:col-span-3" style={delay(700)}>
+						<p className="meta hero-in col-span-4 text-subtle md:col-span-2 lg:hidden" style={delay(700)}>
 							{ui.hero.now}
 						</p>
+						<div className="print-hide hero-in hidden self-end lg:col-span-3 lg:block" style={delay(900)}>
+							<CareerStrip label={ui.hero.trajectory} variant="column" />
+						</div>
 						<div className="hero-in col-span-4 md:col-span-6 lg:col-span-5" style={delay(780)}>
+							<p className="meta mb-3 hidden text-subtle lg:block">{ui.hero.now}</p>
 							<p className="text-[1.375rem] font-medium leading-tight text-ink sm:text-[1.6rem]">{current.title}</p>
 							<p className="meta mt-2 text-muted">
 								{current.company} · {current.period}

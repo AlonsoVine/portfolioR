@@ -30,9 +30,9 @@ export function CopyLinkButton({ sectionId }: { sectionId: string }) {
 			type="button"
 			onClick={copy}
 			title={label}
-			className="meta print-hide -m-2 p-2 text-subtle transition-colors hover:text-ink"
+			className="meta print-hide -m-2 p-2 text-subtle transition-opacity duration-300 hover:text-ink focus-visible:opacity-100 group-hover/head:opacity-100 [@media(hover:hover)]:opacity-0"
 		>
-			<span aria-hidden="true">{copied ? label : "#"}</span>
+			<span aria-hidden="true">{copied ? dict.ui.a11y.linkCopied : dict.ui.copyLinkShort}</span>
 			<span className="sr-only">{copied ? "" : label}</span>
 			<span role="status" aria-live="polite" className="sr-only">
 				{copied ? dict.ui.a11y.linkCopied : ""}

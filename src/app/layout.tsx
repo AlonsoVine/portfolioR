@@ -10,6 +10,7 @@ import { RetroEasterEgg } from "@/components/shared/RetroEasterEgg";
 import { SkipToContent } from "@/components/shared/SkipToContent";
 import { ReadingProgress } from "@/components/ui/ReadingProgress";
 import { StickyContactCTA } from "@/components/ui/StickyContactCTA";
+import { CommandPalette } from "@/components/ui/CommandPalette";
 
 const display = Instrument_Serif({
   variable: "--font-display-serif",
@@ -40,7 +41,7 @@ const DEFAULT_TITLE =
   "Alonso Viñé | Full Stack Developer (Angular · Java · React · DevOps)";
 const DESCRIPTION =
   "Alonso Viñé Barrancos, Full Stack Developer en Madrid. Desde 2021 en proyectos para Defensa con Atos, Fervimax (FCC), Inetum y, ahora, Seres como DevOps Engineer. Formación en IA y agentes.";
-const OG_IMAGE = "/portfolioR/assets/og-portfolio.webp";
+const OG_IMAGE = "/portfolioR/assets/og-portfolio.png";
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const HERO_AVATAR_PATH = `${BASE_PATH}/images/retrato-recorte.webp`;
 
@@ -203,6 +204,7 @@ export default function RootLayout({
             {children}
             <StickyContactCTA />
             <RetroEasterEgg />
+            <CommandPalette />
           </MotionGate>
         </LanguageProvider>
       </body>
