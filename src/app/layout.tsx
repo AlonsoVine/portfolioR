@@ -1,9 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { Cinzel, Geist, Geist_Mono } from "next/font/google";
+import { IBM_Plex_Mono, Instrument_Serif, Schibsted_Grotesk } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/i18n";
-import { Aurora } from "@/components/shared/Aurora";
 import { ConsoleSignature } from "@/components/shared/ConsoleSignature";
 import { GoogleAnalyticsEvents } from "@/components/shared/GoogleAnalyticsEvents";
 import { MotionGate } from "@/components/shared/MotionGate";
@@ -11,21 +10,28 @@ import { RetroEasterEgg } from "@/components/shared/RetroEasterEgg";
 import { SkipToContent } from "@/components/shared/SkipToContent";
 import { ReadingProgress } from "@/components/ui/ReadingProgress";
 import { StickyContactCTA } from "@/components/ui/StickyContactCTA";
+import { CommandPalette } from "@/components/ui/CommandPalette";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const display = Instrument_Serif({
+  variable: "--font-display-serif",
   subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const text = Schibsted_Grotesk({
+  variable: "--font-text",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
 });
 
-const cinzel = Cinzel({
-  variable: "--font-cinzel",
+const mono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  weight: ["400", "500"],
+  display: "swap",
 });
 
 const SITE_URL = "https://alonsovine.github.io";
@@ -34,10 +40,17 @@ const SITE_FULL_URL = `${SITE_URL}${SITE_PATH}`;
 const DEFAULT_TITLE =
   "Alonso Viñé | Full Stack Developer (Angular · Java · React · DevOps)";
 const DESCRIPTION =
-  "Alonso Viñé Barrancos · Full Stack Developer en Madrid. 5+ años construyendo software para Defensa, FCC, Inetum y Seres. Especialización en IA y agentes.";
-const OG_IMAGE = "/portfolioR/assets/og-portfolio.webp";
+  "Alonso Viñé Barrancos, Full Stack Developer en Madrid. Desde 2021 en proyectos para Defensa con Atos, Fervimax (FCC), Inetum y, ahora, Seres como DevOps Engineer. Formación en IA y agentes.";
+const OG_IMAGE = "/portfolioR/assets/og-portfolio.png";
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
-const HERO_AVATAR_PATH = `${BASE_PATH}/images/mi-foto.webp`;
+const HERO_AVATAR_PATH = `${BASE_PATH}/images/retrato-recorte.webp`;
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#121211" },
+    { media: "(prefers-color-scheme: light)", color: "#f2f1ed" },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -131,6 +144,7 @@ const personJsonLd = {
 
 const themeScript = `
 (() => {
+  document.documentElement.dataset.js = '1';
   try {
     const stored = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -150,7 +164,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" data-theme="dark">
+    <html lang="es" data-theme="dark" className={`${display.variable} ${text.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
         {/* Google Analytics (GA4) */}
         <Script
@@ -179,14 +193,9 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${cinzel.variable} antialiased bg-slate-950 text-white`}
+        className="antialiased"
       >
         <GoogleAnalyticsEvents />
-        <Aurora />
-        <div
-          aria-hidden="true"
-          className="bg-noise pointer-events-none fixed inset-0 z-[9999] opacity-[0.06] mix-blend-overlay print:hidden"
-        />
         <ConsoleSignature />
         <ReadingProgress />
         <LanguageProvider>
@@ -195,6 +204,7 @@ export default function RootLayout({
             {children}
             <StickyContactCTA />
             <RetroEasterEgg />
+            <CommandPalette />
           </MotionGate>
         </LanguageProvider>
       </body>

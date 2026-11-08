@@ -64,11 +64,11 @@ export type Education = {
 
 export const navLinks: NavLink[] = [
   { label: "Inicio", href: "#hero" },
-  { label: "Skills", href: "#skills" },
+  { label: "Herramientas", href: "#skills" },
   { label: "Sobre m\u00ed", href: "#about" },
   { label: "Experiencia", href: "#experience" },
   { label: "Proyectos", href: "#projects" },
-  { label: "Educaci\u00f3n", href: "#education" },
+  { label: "Formaci\u00f3n", href: "#education" },
   { label: "Contacto", href: "#contact" },
 ];
 
@@ -78,25 +78,21 @@ export const heroContent = {
   location: "Madrid, Espa\u00f1a",
   availability: "Disponible para colaborar",
   subtitle:
-    "Multidisciplinar por elecci\u00f3n. Creo en software simple, decisiones explicables y entregas que no rompen la confianza.",
+    "Creo en software simple, decisiones explicables y entregas que no rompen la confianza.",
   image: {
     front: {
-      src: "/images/mi-foto.webp",
+      src: "/images/retrato-recorte.webp",
       alt: "Retrato de Alonso Vi\u00f1\u00e9",
-    },
-    back: {
-      src: "/images/logo/logo-negro-redondo-conFondo.webp",
-      alt: "Monograma de Alonso Vi\u00f1\u00e9",
     },
   },
   ctas: {
-    primary: { label: "Ver Proyectos", href: "#projects" },
+    primary: { label: "Ver proyectos", href: "#projects" },
     secondary: {
       label: "Descargar CV",
       href: "/assets/cv/Alonso Vi\u00f1\u00e9 CV_Espa\u00f1ol.pdf",
       download: true,
     },
-    tertiary: { label: "Cont\u00E1ctame", href: "#contact" },
+    tertiary: { label: "Escribirme", href: "#contact" },
   },
 };
 
@@ -104,7 +100,7 @@ export const aboutContent = {
   textBlocks: [
     "Empec\u00e9 en 2021 en Atos, en proyectos del Ministerio de Defensa. Pas\u00e9 por Fervimax (FCC) afilando la parte de DevOps y testing, luego Inetum modernizando interfaces cr\u00edticas del Ej\u00e9rcito del Aire. Ahora en Seres, automatizando el ciclo de despliegue de la plataforma central.",
     "Perfil multidisciplinar con experiencia en todo el ciclo de desarrollo: an\u00e1lisis, dise\u00f1o, implementaci\u00f3n, despliegue y mantenimiento. Manejo el stack web moderno (Angular, React, Java/Spring, Node) junto a la capa DevOps que automatiza el ciclo (GitLab CI/CD, Nexus, Maven, Docker) y una capa fresca de desarrollo asistido por agentes IA para acelerar lo repetitivo y centrar la energ\u00eda donde aporta.",
-    "Madrid, ingl\u00e9s C2 y curiosidad permanente. Cuando no escribo c\u00f3digo juego a cl\u00e1sicos retro (s\u00ed, escrib\u00ed mi propio Space Invaders) o exploro lo \u00faltimo en IA. Lo que m\u00e1s me mueve es convertir un 'no se puede' en 'mira c\u00f3mo lo hicimos'.",
+    "Madrid, ingl\u00e9s C2 y curiosidad permanente. Cuando no escribo c\u00f3digo juego a cl\u00e1sicos retro (s\u00ed, escrib\u00ed mi propio Space Invaders) o exploro lo \u00faltimo en IA.",
   ],
   highlights: [
     {
@@ -116,21 +112,25 @@ export const aboutContent = {
     {
       title: "Ingl\u00e9s C2",
       description:
-        "EF SET Proficient. Listo para entornos internacionales sin barrera.",
+        "EF SET Proficient. Preparado para entornos internacionales.",
       icon: "languages",
     },
     {
       title: "Foco en IA",
       description:
-        "Bootcamp Neoland, agentes IA y prompt engineering en mi d\u00eda a d\u00eda.",
+        "Bootcamp en Neoland; agentes de IA y prompt engineering en el d\u00eda a d\u00eda.",
       icon: "bot",
     },
   ],
   cta: {
-    label: "\u00bfTe encaja para tu proyecto? Hablemos",
+    label: "Escribirme",
     href: "#contact",
   },
 };
+
+// Total de repos públicos según el autor; la sección Proyectos muestra solo una selección.
+export const GITHUB_PROJECTS = 40;
+export const CONTACT_EMAIL = "alonvineba@gmail.com";
 
 export const socialLinks: SocialLink[] = [
   {
@@ -143,7 +143,7 @@ export const socialLinks: SocialLink[] = [
 
 export const skillCards: SkillCard[] = [
   {
-    title: "Lenguajes y Programacion",
+    title: "Lenguajes y programación",
     icon: "code",
     tone: "blue",
     items: [
@@ -153,12 +153,13 @@ export const skillCards: SkillCard[] = [
       "Node",
       "Python",
       "SQL",
+      "PL/SQL",
       "HTML5",
       "CSS3",
     ],
   },
   {
-    title: "Frameworks y Librerias",
+    title: "Frameworks y librerías",
     icon: "layers",
     tone: "green",
     items: [
@@ -176,6 +177,7 @@ export const skillCards: SkillCard[] = [
       "RxJS",
       "Android SDK",
       "Vitest",
+      "Vite",
     ],
   },
   {
@@ -186,28 +188,34 @@ export const skillCards: SkillCard[] = [
       "AWS",
       "Azure",
       "Docker",
+      "Docker Compose",
       "Jenkins",
       "GitHub Actions",
       "GitLab CI/CD",
       "Maven",
       "Nexus",
       "SonarQube",
+      "Nginx",
+      "Vercel",
+      "GitHub Pages",
     ],
   },
   {
-    title: "Bases de Datos",
+    title: "Bases de datos",
     icon: "database",
     tone: "purple",
     items: [
       "Oracle SQL Developer",
       "MySQL",
+      "PostgreSQL",
+      "Supabase",
       "MongoDB",
       "Firebase",
-      "Analisis de Datos (R)",
+      "Análisis de datos (R)",
     ],
   },
   {
-    title: "Herramientas y Plataformas",
+    title: "Herramientas y plataformas",
     icon: "wrench",
     tone: "rose",
     items: [
@@ -223,7 +231,19 @@ export const skillCards: SkillCard[] = [
       "PowerApps",
       "Jira",
       "Scrum",
+      "VS Code",
+      "IntelliJ IDEA",
+      "DBeaver",
+      "PuTTY",
+      "FileZilla",
+      "Tailscale",
     ],
+  },
+  {
+    title: "IA aplicada al desarrollo",
+    icon: "code",
+    tone: "teal",
+    items: ["Claude Code", "GitHub Copilot", "ChatGPT"],
   },
   {
     title: "Certificaciones",
@@ -435,7 +455,7 @@ export const projects: Project[] = [
     },
   },
   {
-    title: "Jardin Digital",
+    title: "Jardín Digital",
     featured: true,
     description:
       "Web artesana para registrar y acompa\u00f1ar la vida de las plantas. Incluye panel con KPIs, filtros din\u00e1micos, exportaci\u00f3n de fichas (JSON/TXT/CSV), tema claro/oscuro, sonido ambiente y hojas flotantes.",

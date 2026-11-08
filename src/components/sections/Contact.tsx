@@ -1,13 +1,12 @@
 'use client';
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import emailjs from "@emailjs/browser";
 import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
-import { scrollRevealConfig, cn } from "@/lib/utils";
-import { CheckCircle2, Clock, GithubIcon, Linkedin, Mail } from "lucide-react";
+import { cn, revealWith, scrollRevealConfig } from "@/lib/utils";
 import { useLanguage } from "@/i18n";
+import { CONTACT_EMAIL } from "@/data/portfolio";
 import { IntentSelect } from "../ui/IntentSelect";
 
 type FormState = {
@@ -20,12 +19,6 @@ type FormState = {
 
 type FormStatus = "idle" | "sending" | "success" | "error";
 type FieldName = "intent" | "name" | "email" | "message";
-
-const platformIconMap = {
-	LinkedIn: Linkedin,
-	GitHub: GithubIcon,
-	Email: Mail,
-};
 
 const RATE_LIMIT_KEY = "contact_last_submit";
 const RATE_LIMIT_MS = 60_000;
@@ -53,27 +46,36 @@ export function Contact() {
 	const [errorMsg, setErrorMsg] = useState<string | null>(null);
 	const [fieldErrors, setFieldErrors] = useState<Partial<Record<FieldName, string>>>({});
 	const [submitAttempted, setSubmitAttempted] = useState(false);
-	const mountedAt = useRef<number>(Date.now());
-	const isEn = dict.lang === "en";
+	const mountedAt = useRef<number>(0);
+	const [emailCopied, setEmailCopied] = useState(false);
 
+	useEffect(() => {
+		mountedAt.current = Date.now();
+	}, []);
+
+	useEffect(() => {
+		if (!emailCopied) return;
+		const id = window.setTimeout(() => setEmailCopied(false), 2200);
+		return () => window.clearTimeout(id);
+	}, [emailCopied]);
+
+	const copyEmail = async () => {
+		try {
+			await navigator.clipboard.writeText(CONTACT_EMAIL);
+			setEmailCopied(true);
+		} catch {
+			// sin permiso de portapapeles el enlace mailto sigue disponible
+		}
+	};
+
+	const t = dict.ui.form;
 	const intents = useMemo(
 		() =>
-			isEn
-				? [
-						{ value: "job", label: "Job offer" },
-						{ value: "freelance", label: "Freelance / Project" },
-						{ value: "networking", label: "Networking" },
-						{ value: "technical", label: "Technical question" },
-						{ value: "other", label: "Other" },
-					]
-				: [
-						{ value: "job", label: "Oferta laboral" },
-						{ value: "freelance", label: "Freelance / Proyecto" },
-						{ value: "networking", label: "Networking" },
-						{ value: "technical", label: "Pregunta técnica" },
-						{ value: "other", label: "Otro" },
-					],
-		[isEn],
+			(["job", "freelance", "networking", "technical", "other"] as const).map((value) => ({
+				value,
+				label: t.intents[value],
+			})),
+		[t],
 	);
 
 	const intentLabelOf = (value: string) =>
@@ -88,39 +90,31 @@ export function Contact() {
 		switch (field) {
 			case "intent":
 				if (!value)
-					return isEn ? "Pick a topic for your message." : "Selecciona el motivo del mensaje.";
+					return t.errors.intent;
 				return null;
 			case "name":
 				if (trimmed.length === 0)
-					return isEn ? "Name is required." : "El nombre es obligatorio.";
+					return t.errors.nameRequired;
 				if (trimmed.length < LIMITS.name.min)
-					return isEn
-						? `Name must be at least ${LIMITS.name.min} characters.`
-						: `Mínimo ${LIMITS.name.min} caracteres.`;
+					return t.errors.min.replace("{n}", String(LIMITS.name.min));
 				if (trimmed.length > LIMITS.name.max)
-					return isEn
-						? `Name can't exceed ${LIMITS.name.max} characters.`
-						: `Máximo ${LIMITS.name.max} caracteres.`;
+					return t.errors.max.replace("{n}", String(LIMITS.name.max));
 				return null;
 			case "email":
 				if (trimmed.length === 0)
-					return isEn ? "Email is required." : "El email es obligatorio.";
+					return t.errors.emailRequired;
 				if (trimmed.length > LIMITS.email.max)
-					return isEn ? "Email is too long." : "Email demasiado largo.";
+					return t.errors.emailLong;
 				if (!EMAIL_RX.test(trimmed))
-					return isEn ? "Please enter a valid email." : "Introduce un email válido.";
+					return t.errors.emailInvalid;
 				return null;
 			case "message":
 				if (trimmed.length === 0)
-					return isEn ? "Message is required." : "El mensaje es obligatorio.";
+					return t.errors.messageRequired;
 				if (trimmed.length < LIMITS.message.min)
-					return isEn
-						? `Message must be at least ${LIMITS.message.min} characters.`
-						: `Mínimo ${LIMITS.message.min} caracteres.`;
+					return t.errors.min.replace("{n}", String(LIMITS.message.min));
 				if (trimmed.length > LIMITS.message.max)
-					return isEn
-						? `Message can't exceed ${LIMITS.message.max} characters.`
-						: `Máximo ${LIMITS.message.max} caracteres.`;
+					return t.errors.max.replace("{n}", String(LIMITS.message.max));
 				return null;
 			default:
 				return null;
@@ -180,22 +174,14 @@ export function Contact() {
 
 		if (Date.now() - mountedAt.current < MIN_FORM_TIME_MS) {
 			setStatus("error");
-			setErrorMsg(
-				isEn
-					? "Please take a moment to fill out the form."
-					: "Tómate un momento para completar el formulario.",
-			);
+			setErrorMsg(t.errors.tooFast);
 			return;
 		}
 
 		const isValid = validateAll();
 		if (!isValid) {
 			setStatus("error");
-			setErrorMsg(
-				isEn
-					? "Please fix the errors above."
-					: "Corrige los errores antes de enviar.",
-			);
+			setErrorMsg(t.errors.fix);
 			return;
 		}
 
@@ -204,11 +190,7 @@ export function Contact() {
 			if (Date.now() - lastSubmit < RATE_LIMIT_MS) {
 				const remaining = Math.ceil((RATE_LIMIT_MS - (Date.now() - lastSubmit)) / 1000);
 				setStatus("error");
-				setErrorMsg(
-					isEn
-						? `Please wait ${remaining}s before sending another message.`
-						: `Espera ${remaining}s antes de enviar otro mensaje.`,
-				);
+				setErrorMsg(t.errors.wait.replace("{n}", String(remaining)));
 				return;
 			}
 		} catch {
@@ -217,15 +199,16 @@ export function Contact() {
 
 		if (!serviceId || !templateId || !publicKey) {
 			setStatus("error");
-			setErrorMsg(isEn ? "Missing EmailJS keys" : "Faltan las claves de EmailJS");
+			setErrorMsg(t.errors.keys);
 			return;
 		}
 
 		setStatus("sending");
 		setErrorMsg(null);
 		try {
-			const topicLabel = isEn ? "Topic" : "Motivo";
+			const topicLabel = t.topic;
 			const composedMessage = `[${topicLabel}: ${intentLabelOf(form.intent)}]\n\n${form.message.trim()}`;
+			const { default: emailjs } = await import("@emailjs/browser");
 			await emailjs.send(
 				serviceId,
 				templateId,
@@ -248,28 +231,18 @@ export function Contact() {
 		} catch (error) {
 			console.error("EmailJS error:", error);
 			setStatus("error");
-			setErrorMsg(
-				isEn ? "Something went wrong. Please try later." : "Algo falló. Inténtalo más tarde.",
-			);
+			setErrorMsg(t.errors.failed);
 		}
 	};
 
-	const fieldClass = (field: FieldName, extra = "") =>
-		cn(
-			"mt-1.5 w-full rounded-xl border bg-white/5 px-4 py-2.5 text-sm text-[var(--foreground)] outline-none transition-all focus:bg-white/10",
-			fieldErrors[field]
-				? "border-rose-400/70 focus:border-rose-400"
-				: "border-soft focus:border-amber-300",
-			extra,
-		);
+	const fieldClass = (field: FieldName, extra = "") => cn("field mt-2", extra);
 
 	const renderFieldError = (field: FieldName) =>
 		fieldErrors[field] ? (
-			<p
-				id={`contact-${field}-error`}
-				role="alert"
-				className="mt-1 text-xs text-rose-300"
-			>
+			<p id={`contact-${field}-error`} role="alert" className="mt-2 text-sm text-ink">
+				<span aria-hidden="true" className="meta mr-2 text-subtle">
+					!
+				</span>
 				{fieldErrors[field]}
 			</p>
 		) : null;
@@ -282,72 +255,94 @@ export function Contact() {
 	const platforms = [
 		{
 			label: "LinkedIn",
-			description: isEn ? "Professional profile" : "Perfil profesional",
+			description: t.linkedinDesc,
 			href: socialLinks.find((l) => l.label.toLowerCase().includes("linkedin"))?.href ?? "#",
 		},
 		{
 			label: "GitHub",
-			description: isEn ? "Projects and code" : "Proyectos y codigo",
+			description: t.githubDesc,
 			href: socialLinks.find((l) => l.label.toLowerCase().includes("github"))?.href ?? "#",
-		},
-		{
-			label: "Email",
-			description: "alonvineba@gmail.com",
-			href: "mailto:alonvineba@gmail.com",
 		},
 	];
 
-	const intentLabel = isEn ? "What's this about?" : "¿De qué quieres hablar?";
-	const intentPlaceholder = isEn ? "Pick a topic" : "Elige un motivo";
-	const responseLabel = isEn ? "I usually reply within 24h" : "Suelo responder en ≤ 24h";
-
-	const successTitle = isEn ? "Got it · message received." : "Mensaje recibido.";
-	const successBody = isEn ? (
-		<>
-			I&apos;ll reply within 24 hours. In the meantime, check out my{" "}
-			<a href="#projects" className="underline decoration-emerald-300/60 underline-offset-4 hover:text-emerald-200">
-				projects
-			</a>{" "}
-			or my{" "}
-			<a href="#experience" className="underline decoration-emerald-300/60 underline-offset-4 hover:text-emerald-200">
-				experience
-			</a>
-			.
-		</>
-	) : (
-		<>
-			Te respondo en menos de 24 horas. Mientras, échale un ojo a mis{" "}
-			<a href="#projects" className="underline decoration-emerald-300/60 underline-offset-4 hover:text-emerald-200">
-				proyectos
-			</a>{" "}
-			o a mi{" "}
-			<a href="#experience" className="underline decoration-emerald-300/60 underline-offset-4 hover:text-emerald-200">
-				trayectoria
-			</a>
-			.
-		</>
-	);
-	const sendAnotherLabel = isEn ? "Send another message" : "Enviar otro mensaje";
+	const labelClass = "meta text-muted";
 
 	return (
-		<SectionShell id="contact">
-			<SectionHeading eyebrow={contact.eyebrow} title={contact.title} description={contact.description} />
+		<SectionShell id="contact" className="pt-20 pb-24 lg:pt-28 lg:pb-32">
+			<SectionHeading
+				sectionId="contact"
+				index="06"
+				eyebrow={contact.eyebrow}
+				title={contact.title}
+				description={contact.description}
+			/>
 
-			<div className="mt-12 grid gap-8 lg:grid-cols-2">
+			<div className="grid-page mt-14 gap-y-16 lg:mt-20">
+				<motion.div {...scrollRevealConfig} className="col-span-4 md:col-span-8 lg:col-span-5">
+					<p className="meta text-subtle">{contact.form.email.label}</p>
+					<div className="mt-3 flex flex-wrap items-baseline gap-x-5 gap-y-2">
+						<a
+							href={`mailto:${CONTACT_EMAIL}`}
+							className="link-rule font-display text-[clamp(1.7rem,7.4vw,2.9rem)] leading-tight text-ink [overflow-wrap:anywhere] lg:text-[clamp(1.9rem,2.7vw,2.9rem)]"
+						>
+							{CONTACT_EMAIL}
+						</a>
+						<button
+							type="button"
+							onClick={copyEmail}
+							className="print-hide meta min-h-11 text-subtle hover:text-ink"
+						>
+							{emailCopied ? dict.ui.emailCopied : dict.ui.copyEmail}
+						</button>
+						<span role="status" aria-live="polite" className="sr-only">
+							{emailCopied ? dict.ui.emailCopied : ""}
+						</span>
+					</div>
+
+					<div className="mt-12 border-t border-rule pt-5">
+						<p className="flex items-center gap-2.5 text-ink">
+							<span aria-hidden="true" className="signal-dot signal-dot-live" />
+							<span className="font-medium">{contact.availability.title}</span>
+						</p>
+						<p className="mt-2 max-w-[44ch] text-muted">{contact.availability.description}</p>
+						<p className="meta mt-4 text-subtle">{t.responseTime}</p>
+					</div>
+
+					<div className="mt-10 border-t border-rule pt-5">
+						<h3 className="meta text-subtle">{contact.platforms.title}</h3>
+						<ul className="mt-2">
+							{platforms.map((platform) => (
+								<li key={platform.label} className="border-b border-rule last:border-b-0">
+									<a
+										href={platform.href}
+										target="_blank"
+										rel="noreferrer"
+										className="group flex items-baseline justify-between gap-4 py-4 text-ink"
+									>
+										<span className="text-lg">{platform.label}</span>
+										<span className="meta flex items-baseline gap-2 text-muted group-hover:text-ink">
+											{platform.description}
+											<span aria-hidden="true" className="link-arrow">↗</span>
+										</span>
+									</a>
+								</li>
+							))}
+						</ul>
+					</div>
+				</motion.div>
+
 				<motion.form
-					{...(scrollRevealConfig as any)}
+					{...revealWith({ delay: 0.1 })}
 					onSubmit={handleSubmit}
 					noValidate
-					className="relative rounded-3xl surface-card p-6 shadow-[0_30px_80px_rgba(15,23,42,0.35)] sm:p-7"
-					transition={{ duration: 0.6, ease: "easeOut" }}
+					className="print-hide col-span-4 md:col-span-8 lg:col-span-6 lg:col-start-7"
 				>
-					<h3 className="text-xl font-semibold text-[var(--foreground)] sm:text-2xl">{contact.form.title}</h3>
-					<p className="mt-1 text-xs text-muted sm:text-sm">{contact.form.helper}</p>
+					<div className="flex items-baseline justify-between gap-4 border-t border-rule-strong pt-5">
+						<h3 className="font-display text-[2rem] leading-none text-ink">{contact.form.title}</h3>
+						<p className="meta text-right text-subtle">{contact.form.helper}</p>
+					</div>
 
-					<div
-						aria-hidden="true"
-						className="pointer-events-none absolute left-[-9999px] top-auto h-px w-px overflow-hidden opacity-0"
-					>
+					<div aria-hidden="true" className="pointer-events-none absolute left-[-9999px] top-auto h-px w-px overflow-hidden opacity-0">
 						<label htmlFor="contact-website">Website (leave empty)</label>
 						<input
 							id="contact-website"
@@ -364,91 +359,77 @@ export function Contact() {
 						<motion.div
 							initial={{ opacity: 0, y: 10 }}
 							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 0.4, ease: "easeOut" }}
-							className="mt-8 rounded-2xl border border-emerald-400/30 bg-emerald-400/10 p-6"
+							transition={{ duration: 0.5, ease: "easeOut" }}
+							className="mt-8 border-l-2 border-signal py-2 pl-6"
 							role="status"
 							aria-live="polite"
 						>
-							<div className="flex items-start gap-3">
-								<CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-300" aria-hidden="true" />
-								<div className="flex flex-col gap-3">
-									<p className="text-base font-semibold text-emerald-200">{successTitle}</p>
-									<p className="text-sm text-[var(--foreground)]/80">{successBody}</p>
-									<button
-										type="button"
-										onClick={resetForm}
-										className="self-start text-xs uppercase tracking-[0.3em] text-emerald-300/80 transition-colors hover:text-emerald-200"
-									>
-										{sendAnotherLabel} →
-									</button>
-								</div>
-							</div>
+							<p className="font-display text-[2rem] leading-tight text-ink">{t.successTitle}</p>
+							<p className="mt-3 max-w-[48ch] text-muted">
+								{t.successBefore}
+								<a href="#projects" className="link-rule text-ink">
+									{t.successProjects}
+								</a>
+								{t.successMiddle}
+								<a href="#experience" className="link-rule text-ink">
+									{t.successExperience}
+								</a>
+								.
+							</p>
+							<button type="button" onClick={resetForm} className="link-rule meta mt-6 text-ink">
+								{t.sendAnother}
+								<span aria-hidden="true" className="link-arrow">→</span>
+							</button>
 						</motion.div>
 					) : (
 						<>
-							<div className="mt-5 grid gap-4">
-								<div className="grid gap-4 sm:grid-cols-2">
-									<div>
-										<label
-											htmlFor="contact-intent"
-											className="text-[10px] uppercase tracking-[0.28em] text-subtle"
-										>
-											{intentLabel}
-										</label>
-										<div className="mt-1.5">
-											<IntentSelect
-												id="contact-intent"
-												options={intents}
-												value={form.intent}
-												onChange={(v) => {
-													setForm((prev) => ({ ...prev, intent: v }));
-													if (submitAttempted) {
-														const err = validateField("intent", v);
-														setFieldErrors((prev) => ({
-															...prev,
-															intent: err ?? undefined,
-														}));
-													}
-												}}
-												onBlur={handleBlur("intent")}
-												placeholder={intentPlaceholder}
-												required
-												ariaInvalid={Boolean(fieldErrors.intent)}
-												ariaDescribedBy={
-													fieldErrors.intent ? "contact-intent-error" : undefined
+							<div className="mt-8 grid gap-6 sm:grid-cols-2">
+								<div>
+									<label htmlFor="contact-intent" className={labelClass}>
+										{t.intentLabel}
+									</label>
+									<div className="mt-2">
+										<IntentSelect
+											id="contact-intent"
+											options={intents}
+											value={form.intent}
+											onChange={(v) => {
+												setForm((prev) => ({ ...prev, intent: v }));
+												if (submitAttempted) {
+													const err = validateField("intent", v);
+													setFieldErrors((prev) => ({ ...prev, intent: err ?? undefined }));
 												}
-											/>
-										</div>
-										{renderFieldError("intent")}
-									</div>
-									<div>
-										<label
-											htmlFor="contact-name"
-											className="text-[10px] uppercase tracking-[0.28em] text-subtle"
-										>
-											{contact.form.name.label}
-										</label>
-										<input
-											id="contact-name"
-											value={form.name}
-											onChange={handleChange("name")}
-											onBlur={handleBlur("name")}
-											{...ariaProps("name")}
-											className={fieldClass("name")}
-											placeholder={contact.form.name.placeholder}
+											}}
+											onBlur={handleBlur("intent")}
+											placeholder={t.intentPlaceholder}
 											required
-											minLength={LIMITS.name.min}
-											maxLength={LIMITS.name.max}
-											autoComplete="name"
+											ariaInvalid={Boolean(fieldErrors.intent)}
+											ariaDescribedBy={fieldErrors.intent ? "contact-intent-error" : undefined}
 										/>
-										{renderFieldError("name")}
 									</div>
+									{renderFieldError("intent")}
 								</div>
 								<div>
-									<label
-										htmlFor="contact-email"
-										className="text-[10px] uppercase tracking-[0.28em] text-subtle"
-									>
+									<label htmlFor="contact-name" className={labelClass}>
+										{contact.form.name.label}
+									</label>
+									<input
+										id="contact-name"
+										value={form.name}
+										onChange={handleChange("name")}
+										onBlur={handleBlur("name")}
+										{...ariaProps("name")}
+										className={fieldClass("name")}
+										placeholder={contact.form.name.placeholder}
+										required
+										minLength={LIMITS.name.min}
+										maxLength={LIMITS.name.max}
+										autoComplete="name"
+									/>
+									{renderFieldError("name")}
+								</div>
+								<div className="sm:col-span-2">
+									<label htmlFor="contact-email" className={labelClass}>
 										{contact.form.email.label}
 									</label>
 									<input
@@ -466,11 +447,8 @@ export function Contact() {
 									/>
 									{renderFieldError("email")}
 								</div>
-								<div>
-									<label
-										htmlFor="contact-message"
-										className="text-[10px] uppercase tracking-[0.28em] text-subtle"
-									>
+								<div className="sm:col-span-2">
+									<label htmlFor="contact-message" className={labelClass}>
 										{contact.form.message.label}
 									</label>
 									<textarea
@@ -479,82 +457,34 @@ export function Contact() {
 										onChange={handleChange("message")}
 										onBlur={handleBlur("message")}
 										{...ariaProps("message")}
-										className={fieldClass("message", "min-h-[110px] rounded-2xl py-3")}
+										className={fieldClass("message", "min-h-[9.5rem] resize-y")}
 										placeholder={contact.form.message.placeholder}
 										required
 										minLength={LIMITS.message.min}
 										maxLength={LIMITS.message.max}
 									/>
 									<div className="mt-1 flex items-start justify-between gap-3">
-										<div className="min-w-0 flex-1">
-											{renderFieldError("message")}
-										</div>
-										<p className="shrink-0 text-[10px] text-subtle">
+										<div className="min-w-0 flex-1">{renderFieldError("message")}</div>
+										<p className="meta shrink-0 pt-2 text-subtle tabular">
 											{form.message.length}/{LIMITS.message.max}
 										</p>
 									</div>
 								</div>
 							</div>
-							<div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-								<div className="inline-flex items-center gap-1.5 text-[11px] text-muted">
-									<Clock className="h-3 w-3 text-[var(--accent-warm)]" aria-hidden="true" />
-									<span>{responseLabel}</span>
-								</div>
-								<motion.button
-									type="submit"
-									disabled={status === "sending"}
-									whileTap={{ scale: 0.98 }}
-									className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-amber-400 via-rose-400 to-violet-500 px-8 py-3 text-sm font-semibold text-slate-900 shadow-[0_20px_50px_rgba(251,191,36,0.35)] disabled:cursor-not-allowed disabled:opacity-70"
-								>
-									{status === "sending" ? (isEn ? "Sending..." : "Enviando...") : contact.form.submit}
-									<span className="absolute inset-0 bg-white/25 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-								</motion.button>
+							<div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+								<button type="submit" disabled={status === "sending"} className="btn btn-ink disabled:cursor-not-allowed disabled:opacity-60">
+									{status === "sending" ? t.sending : contact.form.submit}
+									<span aria-hidden="true" className="link-arrow">→</span>
+								</button>
+								{errorMsg ? (
+									<p className="text-sm text-ink" role="status" aria-live="polite">
+										{errorMsg}
+									</p>
+								) : null}
 							</div>
-							{errorMsg ? (
-								<p className="mt-4 text-sm text-rose-300" role="status" aria-live="polite">
-									{errorMsg}
-								</p>
-							) : null}
 						</>
 					)}
 				</motion.form>
-
-				<motion.div
-					{...scrollRevealConfig}
-					transition={{ delay: 0.1 }}
-					className="flex flex-col gap-6 rounded-3xl bg-white/5 p-8 shadow-[0_30px_80px_rgba(15,23,42,0.35)] backdrop-blur"
-				>
-					<div className="rounded-2xl border border-soft/40 bg-white/5 p-6">
-						<h3 className="text-xl font-semibold text-[var(--foreground)]">{contact.platforms.title}</h3>
-						<p className="mt-1 text-sm text-muted">{contact.platforms.subtitle}</p>
-						<div className="mt-5 flex flex-col gap-3">
-							{platforms.map((platform) => {
-								const Icon = platformIconMap[platform.label as keyof typeof platformIconMap] ?? Mail;
-								return (
-									<a
-										key={platform.label}
-										href={platform.href}
-										target="_blank"
-										rel="noreferrer"
-										className="flex items-center justify-between rounded-2xl border border-soft/40 bg-black/20 px-5 py-4 text-[var(--foreground)] transition-all duration-300 hover:-translate-y-0.5 hover:border-amber-300 hover:bg-white/10"
-									>
-										<div className="flex items-center gap-3">
-											<Icon className="h-5 w-5 text-[var(--foreground)]/70" aria-hidden="true" />
-											<div className="text-sm">
-												<p className="font-medium">{platform.label}</p>
-												<p className="text-muted">{platform.description}</p>
-											</div>
-										</div>
-									</a>
-								);
-							})}
-						</div>
-					</div>
-					<div className="rounded-2xl bg-gradient-to-r from-amber-400 via-rose-400 to-violet-500 p-6 text-slate-900 shadow-[0_20px_60px_rgba(251,191,36,0.35)]">
-						<h4 className="text-lg font-semibold">{contact.availability.title}</h4>
-						<p className="mt-2 text-sm text-slate-900/80">{contact.availability.description}</p>
-					</div>
-				</motion.div>
 			</div>
 		</SectionShell>
 	);

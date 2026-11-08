@@ -9,13 +9,16 @@ import {
   socialLinks,
 } from "@/data/portfolio";
 
+const stripAccents = (text: string) => text.normalize("NFD").replace(/[̀-ͯ]/g, "");
+const MONTHS_EN: Record<string, string> = { Ene: "Jan", Abr: "Apr", Ago: "Aug", Dic: "Dec", Actual: "Present" };
+
 export const en = {
   lang: "en",
   nav: {
     links: navLinks.map((item) => {
       const map: Record<string, string> = {
         "#hero": "Home",
-        "#skills": "Skills",
+        "#skills": "Toolkit",
         "#about": "About",
         "#experience": "Experience",
         "#projects": "Projects",
@@ -32,28 +35,29 @@ export const en = {
     location: "Madrid, Spain",
     availability: "Available for new opportunities",
     subtitle:
-      "Multidisciplinary by choice. I believe in simple software, explainable decisions, and deliveries that don't break trust.",
+      "I believe in simple software, explainable decisions and deliveries that don't break trust.",
     ctas: {
       ...heroContent.ctas,
-      primary: { ...heroContent.ctas.primary, label: "View Projects" },
+      primary: { ...heroContent.ctas.primary, label: "View projects" },
       secondary: {
         ...heroContent.ctas.secondary,
         label: "Download CV",
         href: "/assets/cv/Alonso Viñé CV_English.pdf",
       },
-      tertiary: { ...heroContent.ctas.tertiary, label: "Contact me" },
+      tertiary: { ...heroContent.ctas.tertiary, label: "Write to me" },
     },
   },
   about: {
     ...aboutContent,
-    eyebrow: "About",
-    title: "Get to know me",
+    eyebrow: "Profile",
+    pullQuote: "I like things to work, and I like knowing why they work even more.",
+    title: "Multidisciplinary by choice",
     description:
-      "Senior Full Stack mindset, hands-on DevOps and a growing focus on AI-agent-assisted development.",
+      "Full stack development and DevOps since 2021, always in Madrid.",
     textBlocks: [
       "I started in 2021 at Atos, on Spanish Ministry of Defence projects. Then Fervimax (FCC) sharpening DevOps and testing, and Inetum modernizing critical interfaces for the Air Force. Now at Seres, automating the deployment cycle of the central platform.",
       "Multidisciplinary profile with experience across the full software development lifecycle: analysis, design, implementation, deployment and maintenance. I handle the modern web stack (Angular, React, Java/Spring, Node) alongside the DevOps layer that automates the cycle (GitLab CI/CD, Nexus, Maven, Docker) and a fresh layer of AI-agent-assisted development to accelerate repetitive work and focus energy where it matters.",
-      "Madrid-based, English C2 and permanent curiosity. When I'm not writing code I play retro classics (yes, I wrote my own Space Invaders) or explore the latest in AI. What drives me most is turning a 'can't be done' into 'look how we did it'.",
+      "Madrid-based, English C2 and permanent curiosity. When I'm not writing code I play retro classics (yes, I wrote my own Space Invaders) or explore the latest in AI.",
     ],
     highlights: aboutContent.highlights.map((item) => {
       if (item.title === "Madrid, España") {
@@ -84,26 +88,28 @@ export const en = {
     }),
     cta: {
       ...aboutContent.cta,
-      label: "Sounds like a fit? Let's talk",
+      label: "Write to me",
     },
   },
   skills: {
-    eyebrow: "Stack",
-    title: "Tech Stack",
-    description: "Key skills and essential tools I use daily.",
+    eyebrow: "Toolkit",
+    title: "Stack and tools",
+    description: "Languages, frameworks, platforms and tools, grouped by area.",
     cards: skillCards.map((card) => ({
       ...card,
       title:
-        card.title === "Lenguajes y Programacion"
+        card.title === "Lenguajes y programación"
           ? "Languages & Programming"
-          : card.title === "Frameworks y Librerias"
+          : card.title === "Frameworks y librerías"
           ? "Frameworks & Libraries"
           : card.title === "Cloud y DevOps"
           ? "Cloud & DevOps"
-          : card.title === "Bases de Datos"
+          : card.title === "Bases de datos"
           ? "Databases"
-          : card.title === "Herramientas y Plataformas"
+          : card.title === "Herramientas y plataformas"
           ? "Tools & Platforms"
+          : card.title === "IA aplicada al desarrollo"
+          ? "AI-assisted development"
           : card.title === "Certificaciones"
           ? "Certifications"
           : card.title,
@@ -111,13 +117,13 @@ export const en = {
   },
   experienceHeading: {
     eyebrow: "Experience",
-    title: "Professional timeline",
-    description: "A chronological overview of my work experience.",
+    title: "Career",
+    description: "From the current role back to the first. All based in Madrid.",
   },
   experiences: experiences.map((exp) => ({
     ...exp,
     title:
-      exp.title === "Ingeniero Informatico"
+      stripAccents(exp.title) === "Ingeniero Informatico"
         ? "Software Engineer"
         : exp.title === "Analista de Testing Automatizado y Soluciones Power Platform"
         ? "Automated Testing Analyst & Power Platform Solutions Developer"
@@ -126,10 +132,7 @@ export const en = {
         : exp.title === "Analista Funcional y de Datos & Scrum Master Assistant"
         ? "Functional and Data Analyst & Scrum Master Assistant"
         : exp.title,
-    period:
-      exp.period === "Ene 2026 - Actual"
-        ? "Jan 2026 - Present"
-        : exp.period,
+    period: exp.period.replace(/\b(Ene|Abr|Ago|Dic|Actual)\b/g, (m) => MONTHS_EN[m] ?? m),
     location: exp.location,
     company: exp.company,
     project:
@@ -197,16 +200,23 @@ export const en = {
           "Connected devices via Azure IoT providing real-time telemetry.",
         "Implemente una app Android en Java para interactuar con la plataforma desde campo.":
           "Implemented an Android app in Java to interact with the platform from the field.",
+        "Desarrollé funcionalidades backend con Java y Spring Boot, implementando APIs REST para gestionar y validar datos operativos de las Fuerzas Armadas.":
+          "Developed backend functionalities with Java and Spring Boot, implementing REST APIs to manage and validate operational data for the Armed Forces.",
+        "Creé interfaces con Angular, Bootstrap y PrimeNG para experiencias de usuario intuitivas y atractivas.":
+          "Built interfaces with Angular, Bootstrap and PrimeNG to create intuitive and visually appealing user experiences.",
       };
-      return map[bullet] ?? bullet;
+      const byKey = new Map(Object.entries(map).map(([es, en]) => [stripAccents(es), en]));
+      return byKey.get(stripAccents(bullet)) ?? bullet;
     }),
   })),
   projects: {
-    eyebrow: "Work",
-    title: "Highlighted projects",
-    description: "A sample of what I build.",
+    eyebrow: "Projects",
+    title: "Personal projects",
+    description:
+      "Six projects picked from the more than {projects} I keep on GitHub. Open source and, where there is one, a live demo.",
     codeLabel: "Code",
-    demoLabel: "View Demo",
+    demoLabel: "View demo",
+    moreLabel: "The rest of my projects on GitHub",
     featuredLabel: "Featured",
     galleryLabel: "Screenshots",
     videoLabel: "Video",
@@ -218,7 +228,7 @@ export const en = {
       title: p.title,
       demoLinkLabel:
         p.title === "Liberty" ||
-        p.title === "Jardin Digital" ||
+        p.title === "Jardín Digital" ||
         p.title === "PhotoDateRenamer"
           ? "View website"
           : undefined,
@@ -240,7 +250,7 @@ export const en = {
       description:
         p.title === "Liberty"
           ? "Desktop app for managing household wealth: bring accounts, investments, property and debt together, and track income, spending and performance over time. Private by design: runs locally, with no accounts or servers."
-          : p.title === "Jardin Digital"
+          : p.title === "Jardín Digital"
           ? "Handcrafted web app to record and accompany the life of plants. Includes KPI dashboard, dynamic search/filters, export to JSON/TXT/CSV, light/dark theme, ambient sound and floating leaves."
           : p.title === "ForYouToBe"
           ? "Python tool to download YouTube audio in multiple formats (MP3, WAV, FLAC) from single URLs or lists, with format and destination folder selection."
@@ -255,8 +265,8 @@ export const en = {
   },
   education: {
     eyebrow: "Education",
-    title: "Education & Certifications",
-    description: "My most relevant education and certifications.",
+    title: "Education and certifications",
+    description: "University courses, a bootcamp and certifications. Each entry opens its certificate.",
     items: education.map((item, index) => {
       let title = item.title;
       let details = item.details;
@@ -308,25 +318,193 @@ export const en = {
   },
   contact: {
     eyebrow: "Contact",
-    title: "Let's work together",
+    title: "Write to me",
     description:
-      "I'm open to new opportunities and collaborations. Feel free to reach out.",
+      "Job offers, projects or a technical question. Use the form or write straight to my inbox.",
     form: {
-      title: "Send me a message",
-      helper: "Fill out the form and I'll get back to you as soon as possible.",
+      title: "Form",
+      helper: "All fields are required. I reply by email.",
       name: { label: "Name", placeholder: "Your name" },
       email: { label: "Email", placeholder: "your@email.com" },
-      message: { label: "Message", placeholder: "Write your message here..." },
+      message: { label: "Message", placeholder: "Context and timing, if any" },
       submit: "Send message",
     },
     platforms: {
-      title: "Connect with me",
-      subtitle: "Find me on these platforms.",
+      title: "Elsewhere",
+      subtitle: "Professional profile, code and email.",
     },
     availability: {
       title: "Available for collaboration",
       description:
-        "I'm currently looking for new opportunities and interesting collaborations. If you have a project in mind, let's talk.",
+        "Open to new roles and projects. Remote-first; hybrid or on-site in Madrid.",
+    },
+  },
+  ui: {
+    present: "now",
+    stage: "Stage",
+    hero: {
+      now: "Now",
+      trajectory: "Companies",
+      contact: "Contact",
+    },
+    sectionNav: "Section index",
+    socialProfile: "{name} profile",
+    projectCounter: "Project",
+    copyEmail: "Copy email",
+    copyLinkShort: "Link",
+    emailCopied: "Email copied",
+    madridTime: "Time in Madrid",
+    languageCurrent: "Language",
+    languageSwitch: "switch to Spanish",
+    carousel: {
+      zoom: "Enlarge image {n} of {total}",
+      prev: "Previous image",
+      next: "Next image",
+      goTo: "Go to image {n} of {total}",
+      zoomed: "enlarged view",
+      close: "Close enlarged view",
+    },
+    scrollTop: "Back to top",
+    a11y: {
+      skipToContent: "Skip to main content",
+      mainNav: "Main navigation",
+      footerNav: "Footer navigation",
+      openMenu: "Open menu",
+      closeMenu: "Close menu",
+      logoAlt: "Personal logo",
+      aboutPhotoAlt: "Alonso Viñé, developer and analyst",
+      toDark: "Switch to dark mode",
+      toLight: "Switch to light mode",
+      copyLink: "Copy link to this section",
+      linkCopied: "Link copied",
+      close: "Close",
+    },
+    locale: "en-GB",
+    contactCta: "Write to me",
+    menu: "Menu",
+    notFound: {
+      title: "Page not found",
+      body: "This address does not exist, or no longer does. The portfolio is still on the home page.",
+      back: "Back to home",
+    },
+    cursor: { zoom: "Zoom", open: "Open" },
+    print: {
+      label: "Print or save as PDF",
+      hint: "A4 version generated from this very page",
+    },
+    theme: { light: "Light", dark: "Dark" },
+    build: { label: "Build", audit: "Audit on PageSpeed" },
+    palette: {
+      label: "Command palette",
+      open: "Commands",
+      placeholder: "Type a section or an action",
+      empty: "Nothing matches “{q}”.",
+      footer: "↑ ↓ move · ↵ run · esc close",
+      groups: { nav: "Go to", actions: "Actions", links: "Links" },
+      actions: {
+        theme: "Switch to {mode} mode",
+        lang: "Cambiar a español",
+        copyEmail: "Copy the email address",
+        cv: "Download the CV as PDF",
+        print: "Print or save as PDF",
+        terminal: "Open the terminal",
+        retro: "Toggle retro mode",
+        top: "Back to the top",
+      },
+      done: { copied: "Email copied to the clipboard", failed: "Could not copy; the email is {email}" },
+    },
+    terminal: {
+      eyebrow: "Console",
+      title: "The CV, in a terminal",
+      description: "Everything above, queryable with commands. Type help to start, or press Ctrl K (⌘K on a Mac) anywhere.",
+      window: "alonso@portfolio: ~",
+      inputLabel: "Terminal command",
+      hint: "Try: whoami · ls · git log · stack · projects · contact",
+      notFound: "command not found: {cmd}. Type help.",
+      denied: "Permission denied: this portfolio is read-only.",
+      exit: "Nowhere to exit to: this is the web. Try cd contact.",
+      moved: "→ {section}",
+      noSection: "No such section. Options: {list}",
+      downloading: "Downloading {file}…",
+      themeSet: "Theme: {mode}",
+      langSet: "Language: Español",
+      retro: "Retro mode toggled. Esc to leave.",
+      help: [
+        ["help", "this help"],
+        ["whoami", "who I am"],
+        ["now", "current role"],
+        ["ls", "what the portfolio holds"],
+        ["cd <section>", "jump to a section"],
+        ["git log", "career as a history"],
+        ["stack [area]", "technologies by area"],
+        ["projects", "personal projects and links"],
+        ["education", "courses and certifications"],
+        ["contact", "email and profiles"],
+        ["cv", "download the CV"],
+        ["theme · lang · retro", "preferences"],
+        ["clear", "clear the screen"],
+      ],
+    },
+    pipeline: {
+      title: "How this site ships",
+      description: "GitHub Actions, on every commit to main that starts with deploy:. The stages are the real workflow's.",
+      steps: ["checkout", "setup node 20", "npm ci", "next build", "upload artifact", "deploy pages"],
+      status: { queued: "queued", running: "running", done: "done" },
+      replay: "Replay",
+    },
+    colophon:
+      "Set in Instrument Serif, Schibsted Grotesk and IBM Plex Mono. Static site exported with Next.js.",
+    experience: {
+      tech: "Technologies",
+      current: "Ongoing",
+      project: "Project",
+    },
+    education: {
+      certificate: "Certificate",
+      view: "View certificate",
+    },
+    retro: {
+      on: "RETRO MODE ON",
+      off: "RETRO MODE OFF",
+      hint: "Press Esc or konami again to toggle",
+      close: "Close retro mode",
+    },
+    form: {
+      intents: {
+        job: "Job offer",
+        freelance: "Freelance / Project",
+        networking: "Networking",
+        technical: "Technical question",
+        other: "Other",
+      },
+      intentLabel: "What's this about?",
+      intentPlaceholder: "Pick a topic",
+      responseTime: "I usually reply within 24h",
+      topic: "Topic",
+      sending: "Sending...",
+      successTitle: "Got it · message received.",
+      successBefore: "I'll reply within 24 hours. In the meantime, check out my ",
+      successProjects: "projects",
+      successMiddle: " or my ",
+      successExperience: "experience",
+      sendAnother: "Send another message",
+      linkedinDesc: "Professional profile",
+      githubDesc: "Projects and code",
+      errors: {
+        intent: "Pick a topic for your message.",
+        nameRequired: "Name is required.",
+        min: "Must be at least {n} characters.",
+        max: "Can't exceed {n} characters.",
+        emailRequired: "Email is required.",
+        emailLong: "Email is too long.",
+        emailInvalid: "Please enter a valid email.",
+        messageRequired: "Message is required.",
+        tooFast: "Please take a moment to fill out the form.",
+        fix: "Please fix the errors above.",
+        wait: "Please wait {n}s before sending another message.",
+        keys: "Missing EmailJS keys",
+        failed: "Something went wrong. Please try later.",
+      },
     },
   },
   socialLinks,

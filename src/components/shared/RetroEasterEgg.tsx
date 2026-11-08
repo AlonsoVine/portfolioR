@@ -1,15 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Gamepad2, X } from "lucide-react";
 import { useKonamiCode } from "@/lib/useKonamiCode";
 import { useLanguage } from "@/i18n";
+import { RETRO_TOGGLE_EVENT } from "@/lib/siteActions";
 
 const RETRO_CLASS = "retro-mode";
 
 export function RetroEasterEgg() {
 	const { dict } = useLanguage();
-	const isEn = dict.lang === "en";
 	const [active, setActive] = useState(false);
 	const [justUnlocked, setJustUnlocked] = useState(false);
 
@@ -17,6 +16,15 @@ export function RetroEasterEgg() {
 		setActive((prev) => !prev);
 		setJustUnlocked(true);
 	});
+
+	useEffect(() => {
+		const onToggle = () => {
+			setActive((prev) => !prev);
+			setJustUnlocked(true);
+		};
+		window.addEventListener(RETRO_TOGGLE_EVENT, onToggle);
+		return () => window.removeEventListener(RETRO_TOGGLE_EVENT, onToggle);
+	}, []);
 
 	useEffect(() => {
 		if (typeof document === "undefined") return;
@@ -43,32 +51,17 @@ export function RetroEasterEgg() {
 
 	if (!active && !justUnlocked) return null;
 
-	const titleOn = isEn ? "RETRO MODE ON" : "MODO RETRO ACTIVADO";
-	const titleOff = isEn ? "RETRO MODE OFF" : "MODO RETRO DESACTIVADO";
-	const hint = isEn
-		? "Press Esc or konami again to toggle"
-		: "Pulsa Esc o el konami otra vez para alternar";
+	const { on: titleOn, off: titleOff, hint, close: closeLabel } = dict.ui.retro;
 
 	return (
-		<div
-			className="pointer-events-none fixed bottom-6 left-1/2 z-[9000] -translate-x-1/2 print:hidden"
-			aria-live="polite"
-		>
-			<div className="pointer-events-auto flex items-center gap-3 rounded-full border border-emerald-400/60 bg-black/90 px-4 py-2 text-xs font-mono tracking-[0.18em] text-emerald-300 shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
-				<Gamepad2 className="h-4 w-4" aria-hidden="true" />
+		<div className="floating-ui pointer-events-none fixed bottom-5 left-1/2 z-[9000] -translate-x-1/2 print:hidden" aria-live="polite">
+			<div className="meta pointer-events-auto flex items-center gap-3 border border-ink bg-paper px-4 py-2 text-ink">
+				<span aria-hidden="true" className="signal-dot" />
 				<span>{active ? titleOn : titleOff}</span>
-				<span className="hidden text-emerald-400/60 sm:inline">·</span>
-				<span className="hidden text-[10px] normal-case tracking-normal text-emerald-400/60 sm:inline">
-					{hint}
-				</span>
+				<span className="hidden normal-case text-subtle sm:inline">{hint}</span>
 				{active ? (
-					<button
-						type="button"
-						onClick={() => setActive(false)}
-						aria-label={isEn ? "Close retro mode" : "Cerrar modo retro"}
-						className="ml-1 inline-flex h-5 w-5 items-center justify-center rounded-full text-emerald-300/80 transition-colors hover:text-emerald-200"
-					>
-						<X className="h-3 w-3" aria-hidden="true" />
+					<button type="button" onClick={() => setActive(false)} className="ml-1 min-h-8 px-1 text-ink hover:text-muted">
+						{closeLabel}
 					</button>
 				) : null}
 			</div>
