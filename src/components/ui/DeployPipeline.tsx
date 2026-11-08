@@ -4,14 +4,17 @@ import { useInView, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/i18n";
 import { cn } from "@/lib/utils";
+import { useIsClient } from "@/lib/useIsClient";
 
 const STEP_MS = 620;
 
 /** Las fases del workflow real (.github/workflows/deploy.yml), recorridas una vez al entrar en pantalla. */
 export function DeployPipeline() {
 	const { dict } = useLanguage();
+	const isClient = useIsClient();
 	const p = dict.ui.pipeline;
-	const reduce = useReducedMotion();
+	// Solo tras hidratar: en el servidor no se sabe si el visitante pide movimiento reducido
+	const reduce = useReducedMotion() && isClient;
 	const ref = useRef<HTMLDivElement>(null);
 	const inView = useInView(ref, { once: true, amount: 0.6 });
 	const [run, setRun] = useState(0);

@@ -132,8 +132,6 @@ export function AsciiPortrait({ src, className }: { src: string; className?: str
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [reduce, src]);
 
-	if (reduce) return null;
-
 	return (
 		<canvas
 			ref={canvasRef}

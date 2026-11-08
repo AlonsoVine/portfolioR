@@ -76,10 +76,10 @@ export function ExperienceTimeline() {
 										continues ? "h-2 w-2" : "h-3 w-3",
 									)}
 									style={{ left: continues ? "calc(-1.5rem - 3.5px)" : "calc(-1.5rem - 5.5px)" }}
-									initial={reduce ? false : { scale: 0 }}
+									initial={{ scale: 0 }}
 									whileInView={{ scale: 1 }}
 									viewport={{ once: true, amount: 1 }}
-									transition={{ type: "spring", stiffness: 420, damping: 22, delay: 0.15 }}
+									transition={reduce ? { duration: 0 } : { type: "spring", stiffness: 420, damping: 22, delay: 0.15 }}
 								/>
 								<div className="col-span-4 md:col-span-3 lg:col-span-4">
 									<div className="lg:sticky lg:top-24">
