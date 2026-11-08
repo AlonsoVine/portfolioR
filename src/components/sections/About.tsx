@@ -5,6 +5,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import { useRef } from "react";
 import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
+import { ScrollQuote } from "../shared/ScrollQuote";
 import { revealWith, scrollRevealConfig, withBasePath } from "@/lib/utils";
 import { useLanguage } from "@/i18n";
 import { ArrowRight, Bot, Code2, Cog, Languages, MapPin, Target, Zap } from "lucide-react";
@@ -42,7 +43,7 @@ export function About() {
 				<div className="flex flex-col gap-6">
 					<motion.div
 						{...scrollRevealConfig}
-						className="group relative rounded-[32px] border-soft bg-gradient-to-b from-white/20 to-transparent p-2 shadow-[0_30px_80px_rgba(15,23,42,0.45)] backdrop-blur-xl transition-transform duration-500 ease-out hover:-translate-y-1"
+						className="print-hide group relative rounded-[32px] border-soft bg-gradient-to-b from-white/20 to-transparent p-2 shadow-[0_30px_80px_rgba(15,23,42,0.45)] backdrop-blur-xl transition-transform duration-500 ease-out hover:-translate-y-1"
 					>
 						<div ref={photoRef} className="relative overflow-hidden rounded-[28px]">
 							<div className="pointer-events-none absolute inset-0 rounded-[28px] bg-gradient-to-br from-white/10 via-transparent to-amber-200/10 opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100" />
@@ -117,6 +118,7 @@ export function About() {
 					</div>
 				</motion.div>
 			</div>
+			<ScrollQuote text={dict.about.pullQuote} />
 		</SectionShell>
 	);
 }

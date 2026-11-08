@@ -358,7 +358,7 @@ export function Contact() {
 					{...scrollRevealConfig}
 					onSubmit={handleSubmit}
 					noValidate
-					className="relative rounded-3xl surface-card p-6 shadow-[0_30px_80px_rgba(15,23,42,0.35)] sm:p-7"
+					className="print-hide relative rounded-3xl surface-card p-6 shadow-[0_30px_80px_rgba(15,23,42,0.35)] sm:p-7"
 				>
 					<h3 className="text-xl font-semibold text-[var(--foreground)] sm:text-2xl">{contact.form.title}</h3>
 					<p className="mt-1 text-xs text-muted sm:text-sm">{contact.form.helper}</p>

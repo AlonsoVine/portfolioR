@@ -101,3 +101,12 @@ Registro de decisiones, inventario de efectos que no pueden degradarse y pregunt
 - **D-18 · Tarjetas de formación como `<button>`**: antes eran `div` con `onClick` (no operables con teclado). El modal de certificado entra/sale con animación y queda por encima del header.
 - **D-19 · Ortografía**: se añaden las tildes que faltaban en `es.ts` y en títulos de categorías ("Conóceme", "Código", "Formación", "Envíame", "programación"…). No cambia el contenido.
 - **D-20 · Badge Lighthouse**: muestra las puntuaciones manuales de la última auditoría PSI del sitio publicado (95/95/100/100). No se actualizan porque no se puede auditar el sitio publicado desde esta rama; solo se corrige su nombre accesible y su color en modo claro.
+- **D-21 · Cita destacada en About**: reutiliza la última frase del propio texto del About (ES/EN). El estado "apagado" no baja de 3:1 de contraste (`--quote-dim` por tema).
+
+## 4. Preguntas pendientes sobre contenido
+
+1. ¿Hay logros cuantificables (tiempos de release, nº de pipelines o proyectos cliente migrados en Seres, etc.) que se puedan publicar? Darían más fuerza a Experiencia; no se han inventado.
+2. ¿Fechas o año de cada proyecto personal? Permitiría ordenarlos o fecharlos.
+3. ¿Quieres mantener el badge Lighthouse con cifras manuales o quitarlo/actualizarlo tras el próximo deploy?
+4. ¿Se mantiene Google Analytics? Ya estaba en `main` y no se ha tocado, pero choca con un portfolio "sin rastreadores".
+5. Varias imágenes de proyecto (ForYouToBe, Jarvis) son ilustraciones generadas, no capturas reales. ¿Hay capturas reales?

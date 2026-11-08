@@ -42,6 +42,7 @@
   --marquee-stroke: rgba(248, 250, 252, 0.38);
   --name-muted: 0.24;
   --name-muted-hover: 0.5;
+  --quote-dim: 0.4;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
   color-scheme: dark;
@@ -89,6 +90,7 @@
   --marquee-stroke: rgba(15, 23, 42, 0.42);
   --name-muted: 0.26;
   --name-muted-hover: 0.55;
+  --quote-dim: 0.52;
   color-scheme: light;
 }
 
@@ -448,7 +450,8 @@ html.retro-mode body::after {
   [style*="opacity"],
   .hero-in,
   .hero-letter,
-  .reveal-word {
+  .reveal-word,
+  .quote-word {
     opacity: 1 !important;
     transform: none !important;
   }
@@ -461,6 +464,26 @@ html.retro-mode body::after {
   h2,
   h3 {
     break-after: avoid;
+  }
+
+  #hero {
+    min-height: 0 !important;
+  }
+
+  main > section > div {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  article,
+  section .rounded-3xl,
+  section .rounded-2xl {
+    border: 1px solid #e2e8f0 !important;
+    break-inside: avoid;
+  }
+
+  .grid {
+    gap: 0.75rem !important;
   }
 }
 
@@ -646,6 +669,10 @@ p {
 ::view-transition-new(root) {
   animation-duration: 0.45s;
   animation-timing-function: var(--ease-out-quart);
+}
+
+.quote-word {
+  opacity: calc(var(--quote-dim) + (1 - var(--quote-dim)) * var(--lit, 1));
 }
 
 .magnetic {

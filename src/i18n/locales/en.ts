@@ -47,6 +47,7 @@ export const en = {
   about: {
     ...aboutContent,
     eyebrow: "About",
+    pullQuote: "What drives me most is turning a “can't be done” into “look how we did it”.",
     title: "Get to know me",
     description:
       "Senior Full Stack mindset, hands-on DevOps and a growing focus on AI-agent-assisted development.",
@@ -348,6 +349,15 @@ export const en = {
     builtWith: "Handmade with Next.js, Tailwind and framer-motion",
     languageCurrent: "Language",
     languageSwitch: "switch to Spanish",
+    carousel: {
+      zoom: "Enlarge image {n} of {total}",
+      prev: "Previous image",
+      next: "Next image",
+      goTo: "Go to image {n} of {total}",
+      zoomed: "enlarged view",
+      close: "Close enlarged view",
+    },
+    scrollTop: "Back to top",
   },
   socialLinks,
 };

@@ -73,7 +73,7 @@ function ProjectCard({ project, index, total, counterLabel, labels }: ProjectCar
 				<div className="absolute inset-0 bg-gradient-to-br from-amber-200/8 via-transparent to-rose-300/8" />
 			</div>
 			<div
-				className={`relative overflow-hidden ${isSpotlight ? "lg:h-full lg:min-h-[460px]" : ""} ${
+				className={`print-hide relative overflow-hidden ${isSpotlight ? "lg:h-full lg:min-h-[460px]" : ""} ${
 					isSingleImageSpotlight ? "order-2" : ""
 				}`}
 			>

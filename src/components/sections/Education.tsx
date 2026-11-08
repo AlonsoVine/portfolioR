@@ -73,7 +73,7 @@ export function Education() {
                 <span className="absolute inset-0 bg-gradient-to-br from-[color:var(--accent-warm-soft)] via-transparent to-rose-300/10" />
               </span>
               {item.image ? (
-                <span className="relative block h-48 w-full overflow-hidden rounded-t-3xl">
+                <span className="print-hide relative block h-48 w-full overflow-hidden rounded-t-3xl">
                   <Image
                     src={withBasePath(item.image)}
                     alt=""

@@ -3,8 +3,10 @@
 import { useEffect, useState } from "react";
 import { ArrowUp } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/i18n";
 
 export function ScrollToTopButton() {
+	const { dict } = useLanguage();
 	const [visible, setVisible] = useState(false);
 
 	useEffect(() => {
@@ -24,10 +26,10 @@ export function ScrollToTopButton() {
 	return (
 		<button
 			type="button"
-			aria-label="Volver al inicio"
+			aria-label={dict.ui.scrollTop}
 			onClick={scrollToTop}
 			className={cn(
-				"group fixed bottom-6 right-4 z-40 inline-flex h-12 w-12 items-center justify-center rounded-full border border-soft bg-[var(--background)]/85 text-[var(--foreground)] shadow-[0_12px_30px_rgba(15,23,42,0.35)] backdrop-blur duration-300 ease-out hover:-translate-y-1 hover:scale-105 hover:border-strong hover:bg-[var(--background)] cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300 sm:right-6 print:hidden",
+				"group fixed bottom-6 right-4 z-40 inline-flex h-12 w-12 items-center justify-center rounded-full border border-soft bg-[var(--background)]/85 text-[var(--foreground)] shadow-[0_12px_30px_rgba(15,23,42,0.35)] backdrop-blur transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-105 hover:border-strong hover:bg-[var(--background)] cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300 sm:right-6 print:hidden",
 				visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
 			)}
 		>

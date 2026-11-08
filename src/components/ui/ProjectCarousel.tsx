@@ -5,6 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useFocusTrap } from "@/lib/useFocusTrap";
+import { useLanguage } from "@/i18n";
 
 type Props = {
 	images: string[];
@@ -16,6 +17,8 @@ type Props = {
 const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 export function ProjectCarousel({ images, alt, intervalMs = 3200, size = "default" }: Props) {
+	const t = useLanguage().dict.ui.carousel;
+	const fill = (text: string, n: number) => text.replace("{n}", String(n)).replace("{total}", String(images.length));
 	const [index, setIndex] = useState(0);
 	const [paused, setPaused] = useState(false);
 	const [zoomed, setZoomed] = useState(false);
@@ -75,7 +78,7 @@ export function ProjectCarousel({ images, alt, intervalMs = 3200, size = "defaul
 						key={current}
 						type="button"
 						onClick={() => setZoomed(true)}
-						aria-label={`Ampliar imagen ${index + 1} de ${total}`}
+						aria-label={fill(t.zoom, index + 1)}
 						className="absolute inset-0 cursor-zoom-in"
 						initial={reduceMotion ? false : { opacity: 0 }}
 						animate={{ opacity: 1 }}
@@ -100,7 +103,7 @@ export function ProjectCarousel({ images, alt, intervalMs = 3200, size = "defaul
 						<button
 							type="button"
 							onClick={prev}
-							aria-label="Imagen anterior"
+							aria-label={t.prev}
 							className="absolute left-2 top-1/2 z-10 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white opacity-0 backdrop-blur-sm transition-all duration-300 hover:bg-black/60 group-hover:opacity-100 focus:opacity-100 print:hidden"
 						>
 							<ChevronLeft className="h-5 w-5" aria-hidden="true" />
@@ -108,7 +111,7 @@ export function ProjectCarousel({ images, alt, intervalMs = 3200, size = "defaul
 						<button
 							type="button"
 							onClick={next}
-							aria-label="Imagen siguiente"
+							aria-label={t.next}
 							className="absolute right-2 top-1/2 z-10 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white opacity-0 backdrop-blur-sm transition-all duration-300 hover:bg-black/60 group-hover:opacity-100 focus:opacity-100 print:hidden"
 						>
 							<ChevronRight className="h-5 w-5" aria-hidden="true" />
@@ -122,7 +125,7 @@ export function ProjectCarousel({ images, alt, intervalMs = 3200, size = "defaul
 										key={src}
 										type="button"
 										onClick={() => goTo(i)}
-										aria-label={`Ir a la imagen ${i + 1} de ${total}`}
+										aria-label={fill(t.goTo, i + 1)}
 										aria-current={active}
 										className={`h-1.5 rounded-full transition-all duration-300 ${
 											active ? "w-6 bg-[var(--accent-warm)]" : "w-1.5 bg-white/40 hover:bg-white/70"
@@ -141,13 +144,13 @@ export function ProjectCarousel({ images, alt, intervalMs = 3200, size = "defaul
 					className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
 					role="dialog"
 					aria-modal="true"
-					aria-label={`${alt} — vista ampliada`}
+					aria-label={`${alt} — ${t.zoomed}`}
 					onClick={close}
 				>
 					<button
 						type="button"
 						onClick={(e) => { e.stopPropagation(); close(); }}
-						aria-label="Cerrar vista ampliada"
+						aria-label={t.close}
 						className="absolute right-4 top-4 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full bg-black/60 text-white shadow-lg backdrop-blur transition hover:bg-black/80 focus:outline-none focus:ring-2 focus:ring-white/60"
 					>
 						<X className="h-5 w-5" aria-hidden="true" />
@@ -182,7 +185,7 @@ export function ProjectCarousel({ images, alt, intervalMs = 3200, size = "defaul
 							<button
 								type="button"
 								onClick={(e) => { e.stopPropagation(); prev(); }}
-								aria-label="Imagen anterior"
+								aria-label={t.prev}
 								className="absolute left-4 top-1/2 z-20 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white shadow-lg backdrop-blur transition hover:bg-black/80 focus:outline-none focus:ring-2 focus:ring-white/60"
 							>
 								<ChevronLeft className="h-6 w-6" aria-hidden="true" />
@@ -190,7 +193,7 @@ export function ProjectCarousel({ images, alt, intervalMs = 3200, size = "defaul
 							<button
 								type="button"
 								onClick={(e) => { e.stopPropagation(); next(); }}
-								aria-label="Imagen siguiente"
+								aria-label={t.next}
 								className="absolute right-4 top-1/2 z-20 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white shadow-lg backdrop-blur transition hover:bg-black/80 focus:outline-none focus:ring-2 focus:ring-white/60"
 							>
 								<ChevronRight className="h-6 w-6" aria-hidden="true" />

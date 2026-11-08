@@ -18,6 +18,7 @@ export const es = {
   about: {
     ...aboutContent,
     eyebrow: "Sobre mí",
+    pullQuote: "Lo que más me mueve es convertir un «no se puede» en «mira cómo lo hicimos».",
     title: "Conóceme mejor",
     description:
       "Apasionado por la tecnología y siempre en busca de nuevas oportunidades para crecer profesionalmente.",
@@ -106,6 +107,15 @@ export const es = {
     builtWith: "Hecho a mano con Next.js, Tailwind y framer-motion",
     languageCurrent: "Idioma",
     languageSwitch: "cambiar a inglés",
+    carousel: {
+      zoom: "Ampliar imagen {n} de {total}",
+      prev: "Imagen anterior",
+      next: "Imagen siguiente",
+      goTo: "Ir a la imagen {n} de {total}",
+      zoomed: "vista ampliada",
+      close: "Cerrar vista ampliada",
+    },
+    scrollTop: "Volver al inicio",
   },
   socialLinks,
 };
