@@ -77,6 +77,15 @@ Checks (`capturas/vuelta-3/checks.md`): lint 0 · build sin warnings · consola 
 
 Incidencia: durante la medición se borró `node_modules` (un `git worktree remove --force` siguió una unión de directorio). Se restauró con `npm ci` desde el lockfile; no afecta al repo.
 
+**Notas del árbitro (vuelta 3)**: Diseño 7,5 · Usabilidad 7,5 · Creatividad 7 · Contenido 7 → **ponderada 7,35** (+0,30).
+Defectos: diálogos por debajo del header y de los flotantes (mayor, heredado de la línea base); la frase "1 jugable, el resto código" no era cierta (mayor); "Desliza" se imprimía; URLs duplicadas en la cabecera impresa; bento con huecos y cifras ambiguas; timeline de dos columnas demasiado estrecho a 768 px; email escrito a mano. Nada del inventario perdido.
+
+## Vuelta 4 (commits 2926349, 382f6ba)
+
+Corrige todos los defectos de la vuelta 3 (D-43…D-47). Novedades para subir Creatividad y Diseño: hero "eclipse" con el retrato recortado aportado por el autor (D-53), nombre en abanico al salir del hero (D-48), entrada tipo telón en imágenes (D-49) y cursor contextual (D-50). Por petición del autor se elimina el giro del avatar (D-54).
+
+Checks (`capturas/vuelta-4/checks.md`): lint 0 · consola 0 · overflow OK · impresión 10 páginas · A11y 100 · BP 100 · Perf escritorio 69–80 (línea base 84–88; deuda de TBT ya registrada).
+
 ### (Histórico) cambios añadidos tras la vuelta 1
 - Cita destacada en About que se enciende palabra a palabra con el scroll (frase ya existente del About, ES/EN).
 - Impresión como CV compacto (sin galerías, fotos de certificados ni formulario).
