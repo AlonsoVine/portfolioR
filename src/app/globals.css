@@ -654,6 +654,10 @@ p {
     transition: none;
   }
 
+  .quote-word {
+    opacity: 1 !important;
+  }
+
   .spotlight {
     display: none;
   }

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useTransform, type MotionStyle, type MotionValue } from "framer-motion";
+import { motion, useScroll, useTransform, type MotionStyle, type MotionValue } from "framer-motion";
 import { useRef } from "react";
 
 function Word({ word, index, total, progress }: { word: string; index: number; total: number; progress: MotionValue<number> }) {
@@ -16,7 +16,6 @@ function Word({ word, index, total, progress }: { word: string; index: number; t
 /** Cita que se ilumina palabra a palabra al recorrerla con el scroll (solo opacidad). */
 export function ScrollQuote({ text }: { text: string }) {
 	const ref = useRef<HTMLQuoteElement>(null);
-	const reduce = useReducedMotion();
 	const { scrollYProgress } = useScroll({ target: ref, offset: ["start 85%", "end 50%"] });
 	const words = text.split(/\s+/);
 
@@ -31,7 +30,7 @@ export function ScrollQuote({ text }: { text: string }) {
 			<p>
 				{words.map((w, i) => (
 					<span key={`${w}-${i}`}>
-						{reduce ? w : <Word word={w} index={i} total={words.length} progress={scrollYProgress} />}
+						<Word word={w} index={i} total={words.length} progress={scrollYProgress} />
 						{i < words.length - 1 ? " " : null}
 					</span>
 				))}
