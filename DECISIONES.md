@@ -124,3 +124,146 @@ Todos los puestos son en Madrid, España. Los bullets de cada puesto están en `
 - **Certificaciones**: EF SET (C2 Proficient), LPI Linux, AWS Cloud Practitioner, Prompt Engineering, GitHub Foundations, Introducing AI, AI for Developers.
 
 **About:** 3 párrafos, 3 highlights, una cita y un CTA (en `es.ts`/`en.ts`).
+
+## 4. Concepto: «expediente técnico»
+
+La página se lee como un documento técnico bien compuesto: una hoja de servicio con secciones numeradas, filetes finos, metadatos en monoespaciada y un titular tipográfico por sección. Todo cuelga de una retícula de 12 columnas con dos ejes fijos: la columna 1, para los metadatos (número de sección, etiqueta, enlace), y la columna 4, para los titulares y las listas. En Perfil y Experiencia el cuerpo de texto arranca en la columna 6.
+
+Por qué este concepto y no otro:
+- El perfil es de alguien que **documenta pipelines, versiona artefactos y trabaja para Defensa**. El tono que mejor le representa es el de «oficio, precisión y trazabilidad», no el de «espectáculo».
+- Un documento resiste mejor el paso del tiempo que una moda visual. La misma estructura sirve de **versión imprimible** casi sin cambios.
+- Deja que el contenido real (puestos, proyectos, formación) sea el protagonista. La jerarquía la marcan el cuerpo, el peso y el espacio, no el color.
+
+Asimetrías deliberadas:
+- El apellido va desplazado y en cursiva respecto al nombre.
+- Los espaciados entre secciones son distintos en cada una.
+- Las dos piezas principales de Proyectos alternan el lado de la imagen.
+- El resto de proyectos forman un índice más estrecho.
+- Formación se agrupa por año, con el año en grande.
+
+## 5. Paleta (tokens en `src/app/globals.css`)
+
+| Token | Oscuro | Claro | Uso |
+| --- | --- | --- | --- |
+| `--background` (papel) | `#121211` | `#f2f1ed` | fondo |
+| `--foreground` (tinta) | `#ecebe6` | `#161615` | texto principal, botón principal |
+| `--foreground-muted` | `#a7a59f` | `#53524d` | cuerpo secundario |
+| `--foreground-subtle` | `#8d8b85` | `#686761` | metadatos (≥ 4,5:1 sobre el papel) |
+| `--border-soft` / `--border-strong` | `#2c2b29` / `#4b4a46` | `#d7d5cf` / `#a6a49d` | filetes |
+| `--surface-soft` | `#1a1a18` | `#e9e8e3` | fondo de imágenes |
+| `--accent` (señal) | `#7cc9a6` | `#1c6b4e` | solo lo «vivo»: puesto actual, disponibilidad, sección activa, foco |
+
+Justificación:
+- Los neutros son cálidos y de saturación muy baja (≤ 6 %): papel y tinta, no gris de interfaz.
+- Hay un único acento, verde de señal (tono ≈ 153–157°), fuera de los rangos prohibidos. Tiene **significado y no decora**: en una página técnica, verde es «en marcha».
+- El acento ocupa menos del 1 % de la superficie.
+- Contraste AA: tinta sobre papel ≥ 15:1; atenuado ≥ 6:1; sutil ≥ 4,5:1; acento claro sobre papel ≈ 6:1.
+- `scripts/check-design.mjs` (`npm run check:design`) falla si aparecen:
+  - colores con saturación > 25 % en los tonos 250–320° o 15–45°;
+  - `background-clip: text`;
+  - degradados decorativos;
+  - emojis.
+- Excepciones admitidas: `mask-image` y el patrón de líneas del modo retro (easter egg opcional, solo se activa con el código Konami).
+
+## 6. Tipografía
+
+Las tres son OFL, se descargan en build con `next/font/google` y se sirven desde el propio sitio. El visitante no hace ninguna petición a Google.
+
+| Fuente | Uso |
+| --- | --- |
+| **Instrument Serif** (regular y cursiva) | Nombre, titulares, cita, años de Formación. Serif estrecha de contraste alto que permite cuerpos enormes sin ocupar la pantalla entera |
+| **Schibsted Grotesk** (400/500/600) | Texto. Grotesca de periódico con carácter, distinta de Inter/system-ui y muy legible en párrafos largos |
+| **IBM Plex Mono** (400/500) | Metadatos en versalitas: fechas, números de sección, tecnologías. Le da el aire de documento técnico y encaja con el perfil |
+
+Escala:
+- Nombre: 9–16 rem.
+- Titulares de sección: 2,75–6 rem.
+- Entradillas: 1,75–2,6 rem.
+- Cuerpo: 1,0625 rem.
+- Metadatos: 0,75 rem.
+
+Sustituyen a Geist, Geist Mono y Cinzel, que se eliminan.
+
+## 7. Destino de cada efecto del inventario
+
+| Código | Destino | Motivo |
+| --- | --- | --- |
+| G1 Aurora · G2 Grano | **Eliminados** | Prohibidos (blobs/glow) y además costaban rendimiento |
+| G3 Progreso de lectura | **Reestilizado** | Filete de tinta de 2 px, sin degradado ni muescas |
+| G4 Tema · View Transitions | **Se mantiene** | Toggle de texto («Claro/Oscuro») con disco partido; anti-FOUC intacto |
+| G5 Idioma | **Se mantiene** | «ES / EN» con el idioma activo en tinta |
+| G6 Firma en consola · G7 Konami | **Se mantienen** | Retro sin viñeta radial; aviso en papel y tinta |
+| G8 Skip link · G9 MotionConfig · G10 Foco | **Se mantienen** | Foco: contorno de 2 px en el acento |
+| G11 Scroll suave · G12 Impresión | **Se mantienen** | La impresión se reescribe para el nuevo marcado |
+| G13 Spotlight, magnetismo y cursor | **Eliminados** | Son espectáculo. La pista «Ampliar/Abrir» la dan ahora el cursor nativo `zoom-in` y botones con texto |
+| G14 Índice lateral | **Reestilizado** | Números y filete que crece en la sección activa (≥ 1520 px) |
+| H1 Barra que se oculta | **Se mantiene** | Ahora es sólida con filete inferior (sin cristal) |
+| H2 Logo | **Sustituido** | Firma tipográfica «Alonso Viñé» en serif |
+| H3 Sección activa | **Se mantiene** | Filete verde que se desplaza (`layoutId`, transform) |
+| H4 Menú móvil | **Se mantiene** | Pantalla completa con enlaces numerados en serif |
+| R1 Letra a letra y ola de luz | **Sustituido** | Cada línea del nombre sube desde su máscara (transform), sin ola |
+| R2 Rol/ubicación | **Se mantiene** | Fila de metadatos sobre un filete que se traza |
+| R3 Frase rotatoria | **Eliminada** | Ruido; la reemplaza el bloque «Ahora» con el puesto actual real |
+| R5 CTAs | **Reestilizados** | Bloque de tinta y enlaces con filete; sin degradado ni magnetismo |
+| R6 Iconos sociales | **Sustituidos** | Enlaces de texto con «↗» |
+| R7 Retrato con disco y órbitas | **Sustituido** | Recorte en escala de grises que recupera el color al pasar por encima (opacidad) |
+| R8 Parallax · R11 Abanico · R12 «Desliza» | **Eliminados** | Coreografía sin información |
+| R9 «Disponible» con ping | **Reestilizado** | Punto verde con pulso suave; estático con movimiento reducido |
+| R10 Contadores | **Eliminados** | Prohibidos (cifras de impacto) |
+| S1 Revelados | **Se mantienen** | `scrollRevealConfig` |
+| S2 Copiar enlace | **Reestilizado** | «#» en la columna de metadatos, visible siempre |
+| S3 Divisores ✦ | **Sustituidos** | Filete que se traza al entrar (scaleX) |
+| S4 Marquee | **Sustituido** | Tira estática «Trayectoria» bajo el hero |
+| S5 Bento | **Sustituido** | Índice tipográfico por capas; sin píldoras de color ni cifras |
+| S6 About | **Reestilizado** | Foto en escala de grises con telón; entradilla en serif; highlights como lista de definiciones; la cita que se entinta con el scroll se conserva |
+| S7 Experiencia | **Reestilizada** | Lista con filetes; columna de fecha y empresa fija (sticky); filete de progreso en el margen. Fuera: contador de años, cometa, ramas, ping, tarjetas alternas y logos |
+| S8 Proyectos | **Reestilizados** | Filas asimétricas. Se conservan carrusel con autoplay y pausa, controles visibles (contador, saltos, anterior/siguiente), lightbox con teclado y foco atrapado, conmutador Capturas/Vídeo, telón y enlaces Código/Web. Fuera: spotlights, emojis y logos |
+| S9 Educación | **Reestilizada** | Tabla agrupada por año; «Ver certificado» abre el mismo modal (portal, `inert`, foco atrapado, Esc), ahora a pantalla completa en papel |
+| S10 Contacto | **Reestilizado** | Toda la lógica intacta: combobox accesible, validación, contador, honeypot, tiempo mínimo, rate limit, copiar email |
+| F1 CTA flotante · F2 Volver arriba | **Reestilizados** | Bloque de tinta y botón cuadrado |
+| F3 Footer | **Reestilizado** | Firma en serif, navegación, contacto, reloj de Madrid, colofón, Lighthouse en texto e imprimir |
+
+Animaciones: solo `transform` y `opacity`. Las excepciones son transiciones de color en hover y el cambio de tema, que no se animan en scroll. Con `prefers-reduced-motion` todo aparece en su sitio, sin revelados, telones ni pulsos.
+
+## 8. Ambigüedades resueltas
+
+- **«40+ proyectos en GitHub»**: lo pidió el autor en la tarea anterior, pero esta tarea prohíbe contadores y cifras de impacto. Se conserva el dato como **texto** en la entradilla de Proyectos («seis proyectos escogidos entre los más de 40 que tengo en GitHub»), sin contador ni destacado, más un enlace «Resto de proyectos en GitHub».
+- **Metadatos**: la descripción decía «5+ años». Se cambia por hechos: «desde 2021 en proyectos para Defensa con Atos…».
+- **Cita del Perfil**: «convertir un "no se puede" en "mira cómo lo hicimos"» era un cliché. Se reescribe a partir de su trabajo real en Seres (sustituir flujos manuales por pipelines reproducibles): «Lo que hoy se hace a mano, mañana debería hacerse solo. Y poder explicarse».
+- **Microcopy reescrito**: títulos y descripciones de sección, CTAs («Ver proyectos», «Escribirme»), descripción del Perfil (antes «Apasionado por la tecnología…»), disponibilidad, ayuda del formulario y página 404. No se añade ningún dato nuevo.
+- **Traducciones**: la versión inglesa mostraba en español varios bullets, el puesto «Ingeniero Informático» y los meses, porque las claves de traducción iban sin tildes. Se corrige usando las traducciones que ya existían, sin redactar nada nuevo.
+- **Logos**: los de empresa y proyecto se retiran. En monocromo a 40 px no se reconocían y, en color, rompían la paleta. El nombre compuesto en serif cumple esa función.
+- **Google Analytics**: ya estaba en `main` y el autor pidió mantenerlo. No se añade nada nuevo.
+- **Badge de Lighthouse** (95/95/100/100): son valores escritos a mano en el código. Se mantienen, pero hay que verificarlos tras desplegar (ver preguntas).
+- **Servidor local**: `npm run serve:out` sirve `out/` bajo `/portfolioR` solo en `127.0.0.1` (por defecto en el puerto 4400).
+
+## 9. Tecnologías añadidas (commit aislado `contenido: tecnologías añadidas`)
+
+| Categoría | Añadidas |
+| --- | --- |
+| Lenguajes y programación | PL/SQL |
+| Frameworks y librerías | Vite |
+| Cloud y DevOps | Docker Compose, Nginx, Vercel, GitHub Pages |
+| Bases de datos | PostgreSQL, Supabase |
+| Herramientas y plataformas | VS Code, IntelliJ IDEA, DBeaver, PuTTY, FileZilla, Tailscale |
+| **IA aplicada al desarrollo** (nueva; EN: «AI-assisted development») | Claude Code, GitHub Copilot, ChatGPT |
+
+Criterios:
+- Son coherentes con su trabajo real: Oracle → PL/SQL; DevOps → Docker Compose y Nginx; sus proyectos ya se publican en GitHub Pages; usa agentes de IA a diario según su propio texto.
+- Sin niveles, barras, porcentajes ni años.
+- Ninguna tecnología existente se ha tocado ni quitado.
+
+## 10. Dependencias
+
+- No se añade ninguna dependencia.
+- Se eliminan del uso Geist, Geist Mono y Cinzel.
+- `lucide-react` sigue en `package.json`, pero ya no se importa en la interfaz: los iconos se sustituyen por texto y flechas tipográficas.
+
+## 11. Preguntas de contenido pendientes para el autor
+
+1. ¿Tienes **logros cuantificados reales** (por ejemplo, reducción del tiempo de release en Seres o número de proyectos cliente migrados)? Hoy no se muestra ninguno porque no se pueden inventar.
+2. ¿**Fechas** de los proyectos personales (Liberty, PhotoDateRenamer, etc.)? Permitirían ordenarlos y fecharlos como el resto del documento.
+3. ¿Las cifras del **badge de Lighthouse** (95/95/100/100) son de la versión publicada? Conviene medirlas de nuevo con PageSpeed tras desplegar.
+4. ¿Mantenemos la foto `public/images/mi-foto_sin fondo.jpg` (1,2 MB, ya no se usa) o la borramos del repositorio?
+5. ¿Generamos una **imagen OG** nueva con el estilo actual? La actual (`og-portfolio.webp`) es de la etapa anterior.
+6. ¿«Suelo responder en ≤ 24h» sigue siendo cierto?
