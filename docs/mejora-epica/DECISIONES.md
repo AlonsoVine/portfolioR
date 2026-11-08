@@ -1,0 +1,152 @@
+# DECISIONES — rama `mejora-epica`
+
+Registro de decisiones, inventario de efectos que no pueden degradarse y preguntas pendientes sobre contenido.
+
+## 1. Inspección inicial
+
+| Aspecto | Hallazgo |
+| --- | --- |
+| Stack | Next.js 16.0.3 (App Router) · React 19.2 · TypeScript 5 · Tailwind 4 (`@tailwindcss/postcss`) |
+| Animación | `framer-motion` 12 (ya instalado). Sin GSAP ni Lenis |
+| Iconos | `lucide-react` |
+| Formulario | `@emailjs/browser` (claves por env) |
+| Despliegue | `output: "export"`, `basePath` `/portfolioR` en producción, GitHub Pages vía Actions si el commit empieza por `deploy:` |
+| Estilos | Tokens de tema en CSS vars (`globals.css`), modo claro/oscuro por `data-theme` en `<html>` + script anti-FOUC |
+| i18n | Contexto propio (`src/i18n`), diccionarios `es.ts` / `en.ts`; contenido base en `src/data/portfolio.ts` |
+| Fuentes | Geist, Geist Mono, Cinzel (next/font) |
+| Comandos | `npm run dev`, `npm run build` (genera `/out`), `npm run lint` |
+
+### Estado de la línea base (antes de tocar nada)
+
+- `npm run build`: OK.
+- `npm run lint`: **13 errores y 2 warnings preexistentes** (`any`, `setState` en efectos, ref escrita en render, `Date.now()` en render, tipos sin uso).
+- Consola: **error de hidratación React #418 en modo claro** (el `ThemeToggle` pinta un icono distinto en servidor y cliente).
+- Scroll horizontal: **falla a 768 px** (888 px de ancho): la navegación de escritorio del header aparece en `md` y no cabe, y la rejilla del footer.
+- Lighthouse local (build servida en `/portfolioR/`, 2 ejecuciones): móvil Perf 40–58 (LCP ≈ 10 s, el H1 del hero arranca en `opacity:0` hasta hidratar), escritorio Perf 78–87, Accesibilidad 91, Best Practices 100, SEO 92 (el fallo de `robots-txt` se debe al subpath local).
+- Capturas, vídeo y JSON de la línea base: `capturas/00-linea-base/`.
+
+## 2. Inventario de efectos, animaciones, interacciones y recursos visuales (lista que no se puede degradar)
+
+### Globales
+1. **Aurora**: 3 blobs difuminados (ámbar, rosa, violeta) flotando en bucle 38–46 s, montados tras el primer frame; colores propios en modo claro; parados con reduced motion.
+2. **Grano/ruido** SVG fijo a pantalla completa (`bg-noise`, opacidad 0.06, `mix-blend-overlay`).
+3. **Barra de progreso de lectura** superior con degradado ámbar→rosa→violeta y muelle (`useSpring`).
+4. **Tema claro/oscuro** con script anti-FOUC, persistido en `localStorage`, respeta `prefers-color-scheme`; transición de color de fondo y texto en `body` (0.5 s).
+5. **Idioma ES/EN** con persistencia.
+6. **Firma ASCII "AV" en consola** con mensajes de estilo.
+7. **Easter egg Konami** (↑↑↓↓←→←→BA): modo retro con scanlines, viñeta y filtro de color; toast "MODO RETRO ACTIVADO"; Esc para salir.
+8. **Skip link** "Saltar al contenido principal".
+9. **`MotionConfig reducedMotion="user"`** en todo el árbol.
+10. **Foco visible** ámbar (`:focus-visible`), selección de texto ámbar.
+11. **Scroll suave** nativo (desactivado con reduced motion).
+12. **Estilos de impresión** (A4, sin decoración, URLs tras enlaces externos, avatar sin flip) + botón "Imprimir versión actual" en el footer.
+
+### Header
+13. Cápsula de cristal fija (`glass-panel`, blur 16 px) que gana sombra al hacer scroll > 32 px.
+14. Logo con micro-escala al hover; nombre en Cinzel.
+15. **Sección activa** detectada con IntersectionObserver: color + subrayado degradado; subrayado aparece en hover (scaleX).
+16. Menú móvil: botón hamburguesa/X, panel que se despliega con `scaleY`, bloqueo de scroll del body.
+17. Toggle de idioma (sube al hover) y de tema (icono gira 180° al hover, brillo).
+
+### Hero
+18. **Nombre en Cinzel** con iniciales sólidas y resto al 20 % de opacidad; entrada fade+slide.
+19. Rol, ubicación (icono pin), entradas escalonadas (0.2–0.6 s).
+20. **Tagline rotativa** (6 frases derivadas de los datos, cada 8 s, fade vertical, pausa al hover/foco, quieta con reduced motion).
+21. Subtítulo con años de experiencia calculados.
+22. CTA primario degradado ámbar→rosa con sombra cálida y velo blanco al hover; CTA secundario con borde degradado (descarga CV); CTA terciario con flecha que se desplaza.
+23. Iconos sociales que suben y escalan al hover.
+24. **Avatar con flip 3D** (rotateY 180°) al hover: foto ↔ monograma; halo difuminado esmeralda/rosa.
+25. **Parallax del avatar** con el scroll (translateY −40 px y rotate −3°).
+26. Badge "Disponible para colaborar" con punto que hace ping.
+27. Degradado radial ámbar en la parte superior.
+
+### Secciones
+28. **`scrollRevealConfig`** (fade + 24 px) en tarjetas de todas las secciones, con retardos escalonados.
+29. **SectionShell**: glow radial opcional, botón "copiar enlace a esta sección" que aparece al hover/foco.
+30. **SectionDivider** con líneas degradadas y ornamento ✦ en Cinzel.
+31. Skills: 6 tarjetas con icono, pills por tono (tokens `--pill-*`), elevación y velo degradado al hover.
+32. About: imagen con elevación, zoom al hover y nombre "ALONSO VIÑÉ" que emerge; 3 highlights; bloque de texto con brillo superior y CTA con flecha.
+33. Experiencia: contador "5+ años de experiencia"; **línea de timeline que se rellena con el scroll** (degradado ámbar→rosa→violeta); nodos con ping verde en el puesto actual; tarjetas alternas izquierda/derecha; tecnologías resaltadas en los bullets; logos de empresa; badge "Actual".
+34. Proyectos: tarjetas con elevación y sombra cálida al hover; **spotlights** (Liberty con conmutador Capturas/Vídeo, PhotoDateRenamer con imagen única); **carrusel** con crossfade cada 3.2 s, pausa al hover/foco, flechas y puntos, **lightbox** con teclado (←/→/Esc), cierre al hacer scroll, foco atrapado; pills de tecnología; botones Código / Ver web.
+35. Educación: tarjetas con imagen que hace zoom, velo y borde ámbar al hover; **modal de certificado** con foco atrapado, Esc y clic fuera.
+36. Contacto: **select de motivo propio accesible** (combobox con teclado, animación de apertura); validación por campo con mensajes; contador de caracteres; honeypot, tiempo mínimo y rate-limit; estado de éxito animado; botón con `whileTap`; plataformas con elevación; tarjeta de disponibilidad degradada.
+
+### Flotantes y footer
+37. **CTA "Contáctame" pegajoso** visible entre el 30 % y el 92 % del scroll.
+38. **Botón volver arriba** que aparece tras 160 px y sube al hover.
+39. Footer: firma "A·LONSO V·IÑÉ" en Cinzel, navegación, iconos sociales, **badge Lighthouse**, botón de imprimir.
+
+### Recursos visuales
+40. Fotos (`mi-foto.webp`, `about-img.webp`), monograma/logo, logos de empresa, capturas y vídeo de proyectos, certificados, CV ES/EN, imagen OG (`public/assets/og-portfolio.webp`).
+
+## 3. Decisiones (se amplía en cada vuelta)
+
+- **D-01 · Rama y alcance**: todo el trabajo en `mejora-epica`; no se toca `main`, no se hace merge ni deploy. Ningún commit empieza por `deploy:`.
+- **D-02 · Capturas**: van a `capturas/` en la raíz del proyecto, ignorada por git (`.gitignore`) y fuera de `out/`, así que no se despliega. Subcarpetas `00-linea-base`, `vuelta-1`, … Las herramientas (Playwright 1.56, Lighthouse 12, servidor estático) viven fuera del repo para no añadir dependencias al portfolio.
+- **D-03 · Sin librerías nuevas**: `framer-motion` ya cubre scroll-linked, springs y layout animations. No se añade Lenis (el scroll suave secuestrado empeora anclas, teclado y reduced motion) ni GSAP (peso extra para lo mismo).
+- **D-04 · Google Analytics**: ya estaba en `main` (commit `4775730`). La tarea prohíbe *añadir* analítica, no retirar la existente sin pedirlo, así que se mantiene tal cual; no se añade ningún otro rastreador. En las pruebas se bloquea para no ensuciar mediciones.
+- **D-05 · Contenido**: solo se reorganiza, se corrige ortografía (tildes ausentes en `es.ts`) o se deriva de datos ya presentes (años calculados, nº de empresas, proyectos y formaciones contados de los propios arrays).
+- **D-06 · Intro del hero en CSS, no en framer**: el H1 y el resto del hero entraban con `initial={{opacity:0}}` de framer, que en el HTML estático deja el contenido invisible hasta hidratar (LCP móvil ≈ 10 s). Ahora la coreografía (letra a letra + escalonado) es `@keyframes` sobre `transform`/`opacity` y arranca con el primer pintado.
+- **D-07 · Nombre como logotipo**: las letras atenuadas del nombre (hero y firma del footer) son un logotipo: WCAG 1.4.3 exime de contraste a los logotipos. Aun así el nombre completo está como texto real (`sr-only`) y la versión decorativa va `aria-hidden`. La opacidad de las letras atenuadas sube de 0.20 a 0.24 (oscuro) / 0.26 (claro) para que el nombre se lea mejor.
+- **D-08 · Sin cursor personalizado**: se descarta sustituir el cursor (rompe expectativas, añade latencia y es ruido en un CV). Las interacciones de puntero son: spotlight que sigue al cursor dentro de tarjetas, CTAs magnéticos, inclinación 3D del avatar y ola de luz en el nombre. Todo solo con `(hover:hover) and (pointer:fine)` y sin reduced motion; un único listener delegado con `requestAnimationFrame`.
+- **D-09 · Títulos en Cinzel**: los H2 pasan a Cinzel (la tipografía del nombre) con numeración editorial `01–06` que se repite en el menú móvil y en el índice lateral. Une la voz tipográfica del hero con el resto de la página.
+- **D-10 · Marquee de stack**: sustituye al primer `SectionDivider` (hero → stack). Sale de los propios `skillCards` (4 por categoría, sin certificaciones), alterna relleno y contorno, reacciona a la velocidad y al sentido del scroll con `skewX` y se detiene fuera de pantalla. Con reduced motion queda estático. Es decorativo (`aria-hidden`): la información está en la sección Stack.
+- **D-11 · Timeline con `scaleY`**: el relleno de la línea animaba `height`; ahora es `scaleY` con muelle, más un "cometa" que marca el punto de avance. Los nodos se encienden al llegar y las tarjetas entran desde su lado.
+- **D-12 · Índice lateral de secciones**: solo desde 1400 px de ancho (donde hay margen libre), oculto en el hero y fuera del orden de tabulación cuando no se ve.
+- **D-13 · Header que se aparta**: se oculta al bajar pasados 640 px y vuelve al subir o al recibir foco; nunca con reduced motion ni con el menú abierto. Navegación de escritorio desde `lg` (arregla el desbordamiento a 768 px).
+- **D-14 · Cambio de tema**: usa la View Transitions API (fundido de opacidad por defecto, 0.45 s) cuando existe y no hay reduced motion; si no, cambia como antes.
+- **D-15 · Hora de Madrid en el footer**: deriva de la ubicación ya publicada ("Madrid, España"); se pinta solo en cliente para no generar desajustes de hidratación.
+- **D-16 · Copiar email**: el email ya era público en Contacto y Footer; se añade un botón para copiarlo con confirmación accesible (`role="status"`).
+- **D-17 · emailjs bajo demanda**: `@emailjs/browser` se importa dinámicamente al enviar; menos JS en la carga inicial.
+- **D-18 · Tarjetas de formación como `<button>`**: antes eran `div` con `onClick` (no operables con teclado). El modal de certificado entra/sale con animación y queda por encima del header.
+- **D-19 · Ortografía**: se añaden las tildes que faltaban en `es.ts` y en títulos de categorías ("Conóceme", "Código", "Formación", "Envíame", "programación"…). No cambia el contenido.
+- **D-20 · Badge Lighthouse**: muestra las puntuaciones manuales de la última auditoría PSI del sitio publicado (95/95/100/100). No se actualizan porque no se puede auditar el sitio publicado desde esta rama; solo se corrige su nombre accesible y su color en modo claro.
+- **D-21 · Cita destacada en About**: reutiliza la última frase del propio texto del About (ES/EN). El estado "apagado" no baja de 3:1 de contraste (`--quote-dim` por tema).
+
+### Vuelta 2 (tras el árbitro de la vuelta 1b)
+- **D-22 · Marquee de trayectoria en vez de marquee de stack**: el árbitro lo vio repetitivo (enumeraba lo mismo que Skills justo debajo). Ahora recorre empresas y años derivados de `experiences` (Atos y Atos (Cestic) se agrupan). Mantiene la reacción a la velocidad del scroll y el contorno, así que el ítem del marquee no se pierde.
+- **D-23 · Progreso como pipeline**: la barra de lectura conserva el degradado con muelle (inventario 3) y añade una muesca por sección que se "supera" al pasarla. El índice lateral muestra cada sección como etapa: superada (✓), en curso (pulso) o pendiente (anillo), con "Etapa NN / 06". Encaja con el perfil DevOps sin añadir contenido nuevo.
+- **D-24 · Cita sin duplicar**: la frase "Lo que más me mueve…" sale del párrafo 3 del About (ES/EN) y vive solo en la cita iluminada. No se cambia el texto.
+- **D-25 · Acento en claro**: `--accent-warm` pasa a `#b4471a` en modo claro y la pill violeta deja de ser naranja (`#5b21b6`). Así cumplen AA sobre `--background` y en las tarjetas. El modo oscuro no cambia.
+- **D-26 · Impresión en 9 páginas** (antes 26): rejillas de 2–3 columnas, timeline a una columna, sin fotos decorativas, galerías, formulario ni navegación del footer. Los enlaces de proyecto se imprimen como texto.
+- **D-27 · Títulos legibles sin JS**: `RevealText` oculta las palabras por CSS solo si `html[data-js]`, atributo que pone el script anti-FOUC, así que el HTML estático se lee.
+- **D-28 · Header en móvil**: por debajo de 768 px ya no se esconde al bajar. Es pequeño, y al esconderse se perdía el acceso al menú.
+- **D-29 · Un solo "volver arriba"**: se quita el enlace del footer y se deja el botón flotante (inventario 38). El reloj de Madrid pierde el ping (queda un punto fijo) y el ping verde queda solo en el puesto actual y la disponibilidad.
+- **D-30 · Rol del hero**: cada parte ("Full Stack Developer", "DevOps & IA") no se parte por dentro, pero el corte entre partes sí puede ocurrir. A 390 px se cortaba la línea.
+- **D-31 · `turbopack.root`**: un `package-lock.json` vacío de 2023 en `C:\proyectos` provocaba un warning de build. No se ha borrado, porque es ajeno al repo; se fija la raíz en `next.config.ts`.
+
+### Vuelta 3 (tras el árbitro de la vuelta 2, ponderada 7,05)
+- **D-32 · Timeline como grafo de ramas**: cada puesto sale de la línea central con una curva tipo `git branch` que se dibuja al entrar en pantalla. En la mitad vacía de la alternancia aparecen el año de inicio, en Cinzel con contorno, y la empresa; quedan fijos mientras se lee la tarjeta. Los datos salen de `period`/`company`, sin texto nuevo. La línea con muelle, el cometa y los nodos con ping (inventario 33) se mantienen. Los párrafos de las tarjetas de la izquierda pasan a ir alineados a la izquierda.
+- **D-33 · Skills en bento**: las tarjetas 2, 3 y 6 ocupan dos columnas en escritorio (zigzag sin huecos). Cada tarjeta muestra en grande, con contorno, cuántas tecnologías agrupa. Ese número se deriva de los datos.
+- **D-34 · Textos de componentes a los diccionarios**: unas 40 cadenas `isEn ? … : …` pasan a `dict.ui` (a11y, formulario, impresión, modo retro, timeline, formación). Se corrigen "Proyectos y código" y "Jardín Digital".
+- **D-35 · Cifras del hero sin parpadeo**: `CountUp` no reinicia la cuenta si la entrada CSS ya ha mostrado la cifra antes de hidratar.
+- **D-36 · Tarjetas de formación**: sin `aria-label`. El nombre accesible es el texto visible más "· Ver certificado" en `sr-only` (label-in-name).
+- **D-37 · CTA flotante**: cuando está oculto es `invisible` y sale del orden de tabulación. Está dentro de un `<aside>` (landmark). En móvil es un botón redondo de 48 px para no tapar los enlaces de las tarjetas.
+- **D-38 · Índice lateral**: el número activo usa `--foreground` (AA sobre la aurora) y el índice se oculta cuando el footer está a la vista. Las muescas de la barra de progreso solo aparecen al salir del hero.
+- **D-39 · Botones de proyecto**: "Código" con borde neutro y "Ver web" con el degradado de marca (ámbar→rosa, como el CTA del hero) y una flecha. Se quita el verde esmeralda, que estaba fuera de la paleta.
+- **D-40 · Impresión**: el email y los perfiles van en la cabecera del PDF. No se imprimen el reloj, el CTA del About ni el botón de copiar.
+- **D-41 · Documento de identidad tapado**: los certificados de Prompt Engineering (Nebrija) e IA para Programadores (UTAMED) mostraban el número de DNI en la tarjeta y en el modal. Se tapa con una franja oscura en el asset de la rama; el resto del certificado, incluido el código de verificación, queda igual. Ver pregunta 6.
+- **D-42 · "40+ proyectos en GitHub"** (dato aportado por el autor durante la vuelta 3): la cifra del hero y la frase rotatoria usan `GITHUB_PROJECTS = 40` (`portfolio.ts`) con sufijo "+". La sección Proyectos sigue numerando su selección (01 / 06).
+
+### Vuelta 4 (tras el árbitro de la vuelta 3, ponderada 7,35)
+- **D-43 · Diálogos en `<body>`**: el modal de certificados y el lightbox de proyectos se montan con un portal y dejan `inert` el resto de la página mientras están abiertos. El foco vuelve al disparador al cerrar. Antes, el header y los flotantes quedaban por encima del velo y se podían pulsar; venía de la línea base.
+- **D-44 · Frase rotatoria honesta**: "40+ proyectos en GitHub · N con demo en vivo", donde N se deriva de `links.demo` (hoy 4). Se elimina "1 jugable, el resto código".
+- **D-45 · Impresión**: "Desliza" ya no se imprime (`print:!hidden`) y la cabecera de contacto muestra cada URL una sola vez. El email sale de `CONTACT_EMAIL` en hero, contacto y footer.
+- **D-46 · Timeline de dos columnas solo desde `lg`**: entre 768 y 1023 px se usa el layout de una columna.
+- **D-47 · Cifras del bento con etiqueta**: el número va abajo a la derecha con "tecnologías"/"certificaciones" (ES/EN). Rellena la parte baja de las tarjetas anchas y no se confunde con la numeración de secciones. El trazo del contorno en claro sube a 0,55.
+- **D-48 · Nombre del hero en abanico al salir**: con el scroll, cada letra se abre desde el centro con un leve giro. Usa las propiedades `translate` y `rotate`, que no chocan con la animación de entrada sobre `transform`. No se aplica con reduced motion.
+- **D-49 · Entrada tipo telón en imágenes**: un panel del color del fondo con filo de acento se retira mientras la imagen pasa de 1,18 a 1 (proyectos y foto de About). Es CSS con `html[data-js]`, así que sin JS no tapa nada; no se imprime ni se aplica con reduced motion.
+- **D-50 · Cursor contextual**: con puntero fino y sin reduced motion, un anillo sigue al puntero y se convierte en etiqueta ("Ampliar", "Abrir", ES/EN) sobre imágenes ampliables y certificados. El cursor nativo se mantiene.
+- **D-51 · Menos degradado**: "Ver web" pasa a un botón sólido invertido. El degradado de marca queda para el CTA principal, el envío del formulario y el CTA flotante.
+- **D-52 · Logros de Experiencia**: el autor pidió inventarlos; no se hace, porque un recruiter puede pedir que se justifiquen. Quedan pendientes de cifras reales (pregunta 1).
+- **D-53 · Hero "eclipse" con retrato recortado** (foto aportada por el autor, `public/images/mi-foto_sin fondo.jpg`, JPG con fondo blanco): el fondo se recorta por inundación desde los bordes, con borde suave y descontaminación del halo blanco. Sale `public/images/retrato-recorte.webp` (1114×1400, 64 KB, con alfa). El retrato está delante de un disco solar con el degradado de marca. Una máscara deja el cuerpo dentro del disco y la cabeza fuera, por arriba; en escritorio sube hasta solaparse con el nombre gigante, como una portada. Hay dos órbitas que giran despacio y profundidad con el puntero: el retrato va hacia el cursor, las órbitas al lado contrario y el disco se inclina en 3D. Se mantienen el parallax de scroll (inventario 25) y el badge "Disponible" (26). Se precarga como imagen LCP.
+- **D-54 · Sin giro del avatar** (petición del autor): el giro al monograma (inventario 24) sobraba con el retrato recortado y se elimina junto con su CSS y el dato `image.back`. La inclinación 3D con el puntero se mantiene.
+
+## 4. Preguntas pendientes sobre contenido
+
+1. (Sigue abierta, ver D-52) ¿Hay logros cuantificables (tiempos de release, nº de pipelines o proyectos cliente migrados en Seres, etc.) que se puedan publicar? Darían más fuerza a Experiencia; no se han inventado.
+2. ¿Fechas o año de cada proyecto personal? Permitiría ordenarlos o fecharlos.
+3. ¿Quieres mantener el badge Lighthouse con cifras manuales o quitarlo/actualizarlo tras el próximo deploy?
+4. ¿Se mantiene Google Analytics? Ya estaba en `main` y no se ha tocado, pero choca con un portfolio "sin rastreadores".
+5. Varias imágenes de proyecto (ForYouToBe, Jarvis) son ilustraciones generadas, no capturas reales. ¿Hay capturas reales?
+6. Tu número de DNI aparecía en los certificados de Nebrija y UTAMED (y ya está publicado en `main` y en el historial de git). En esta rama queda tapado, pero he revisado UOC y Neoland (sin DNI); conviene que revises los de AWS, Microsoft, EF SET, GitHub y Udemy, y decidir si hace falta limpiar el historial.

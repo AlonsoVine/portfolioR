@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "export": "next export"
+    "export": "next export",
+    "check:design": "node scripts/check-design.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
