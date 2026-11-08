@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { Portal, useInertOutside } from "../shared/Portal";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useFocusTrap } from "@/lib/useFocusTrap";
@@ -17,13 +18,15 @@ type Props = {
 const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 export function ProjectCarousel({ images, alt, intervalMs = 3200, size = "default" }: Props) {
-	const t = useLanguage().dict.ui.carousel;
+	const { ui } = useLanguage().dict;
+	const t = ui.carousel;
 	const fill = (text: string, n: number) => text.replace("{n}", String(n)).replace("{total}", String(images.length));
 	const [index, setIndex] = useState(0);
 	const [paused, setPaused] = useState(false);
 	const [zoomed, setZoomed] = useState(false);
 	const reduceMotion = useReducedMotion();
 	const lightboxRef = useRef<HTMLDivElement>(null);
+	useInertOutside(zoomed);
 	useFocusTrap(lightboxRef, zoomed);
 
 	const total = images.length;
@@ -79,6 +82,7 @@ export function ProjectCarousel({ images, alt, intervalMs = 3200, size = "defaul
 						type="button"
 						onClick={() => setZoomed(true)}
 						aria-label={fill(t.zoom, index + 1)}
+						data-cursor={ui.cursor.zoom}
 						className="absolute inset-0 cursor-zoom-in"
 						initial={reduceMotion ? false : { opacity: 0 }}
 						animate={{ opacity: 1 }}
@@ -137,10 +141,11 @@ export function ProjectCarousel({ images, alt, intervalMs = 3200, size = "defaul
 				) : null}
 			</div>
 
+			<Portal>
 			{zoomed ? (
 				<div
 					ref={lightboxRef}
-					className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
+					className="fixed inset-0 z-[80] flex items-center justify-center bg-black/90"
 					role="dialog"
 					aria-modal="true"
 					aria-label={`${alt} — ${t.zoomed}`}
@@ -201,6 +206,7 @@ export function ProjectCarousel({ images, alt, intervalMs = 3200, size = "defaul
 					) : null}
 				</div>
 			) : null}
+			</Portal>
 		</>
 	);
 }

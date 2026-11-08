@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { CurtainReveal } from "../shared/CurtainReveal";
 import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
 import { ScrollQuote } from "../shared/ScrollQuote";
@@ -46,15 +47,17 @@ export function About() {
 					>
 						<div ref={photoRef} className="relative overflow-hidden rounded-[28px]">
 							<div className="pointer-events-none absolute inset-0 rounded-[28px] bg-gradient-to-br from-white/10 via-transparent to-amber-200/10 opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100" />
-							<motion.div style={reduce ? undefined : { y: photoY, scale: 1.12 }}>
-								<Image
-									src={withBasePath("/assets/img/about-img.webp")}
-									alt={dict.ui.a11y.aboutPhotoAlt}
-									width={640}
-									height={640}
-									className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-								/>
-							</motion.div>
+							<CurtainReveal className="rounded-[28px]">
+								<motion.div style={reduce ? undefined : { y: photoY, scale: 1.12 }}>
+									<Image
+										src={withBasePath("/assets/img/about-img.webp")}
+										alt={dict.ui.a11y.aboutPhotoAlt}
+										width={640}
+										height={640}
+										className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+									/>
+								</motion.div>
+							</CurtainReveal>
 							<div className="pointer-events-none absolute inset-0 flex items-end justify-start p-4">
 								<span
 									className="translate-y-2 text-lg font-semibold tracking-[0.18em] text-white opacity-0 drop-shadow-[0_6px_18px_rgba(0,0,0,0.45)] transition-all duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100"

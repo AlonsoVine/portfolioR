@@ -86,15 +86,15 @@ export function ExperienceTimeline() {
       </motion.div>
 
       <div ref={timelineRef} className="relative mt-16">
-        <div className="pointer-events-none absolute left-6 top-0 h-full w-px bg-[var(--divider-line)] opacity-50 md:left-1/2 md:-translate-x-1/2" />
+        <div className="pointer-events-none absolute left-6 top-0 h-full w-px bg-[var(--divider-line)] opacity-50 lg:left-1/2 lg:-translate-x-1/2" />
         <motion.div
-          className="pointer-events-none absolute left-6 top-0 h-full w-px origin-top bg-gradient-to-b from-[color:var(--accent-warm)] via-rose-300 to-violet-400 md:left-1/2 md:-translate-x-1/2"
+          className="pointer-events-none absolute left-6 top-0 h-full w-px origin-top bg-gradient-to-b from-[color:var(--accent-warm)] via-rose-300 to-violet-400 lg:left-1/2 lg:-translate-x-1/2"
           style={{ scaleY: fillScale }}
           aria-hidden="true"
         />
         <motion.div
           aria-hidden="true"
-          className="pointer-events-none absolute left-6 top-0 h-full w-px md:left-1/2 md:-translate-x-1/2 print:hidden"
+          className="pointer-events-none absolute left-6 top-0 h-full w-px lg:left-1/2 lg:-translate-x-1/2 print:hidden"
           style={{ y: cometY, opacity: cometOpacity }}
         >
           <span className="absolute left-1/2 top-0 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--accent-warm)] shadow-[0_0_18px_6px_rgba(251,191,36,0.45)]" />
@@ -111,7 +111,7 @@ export function ExperienceTimeline() {
                 {...revealWith({ x: isLeft ? -36 : 36, duration: 0.9 })}
                 className="relative"
               >
-                <div className="pointer-events-none absolute left-6 top-9 z-10 -translate-x-1/2 md:left-1/2">
+                <div className="pointer-events-none absolute left-6 top-9 z-10 -translate-x-1/2 lg:left-1/2">
                   <motion.span
                     className="relative flex items-center justify-center"
                     initial={{ scale: 0.3, opacity: 0 }}
@@ -132,11 +132,11 @@ export function ExperienceTimeline() {
                   </motion.span>
                 </div>
 
-                <div className="grid md:grid-cols-2 md:gap-12">
+                <div className="grid lg:grid-cols-2 lg:gap-12">
                   <div
                     aria-hidden="true"
-                    className={`pointer-events-none hidden md:row-start-1 md:block print:hidden ${
-                      isLeft ? "md:col-start-2 md:pl-12" : "md:col-start-1 md:pr-12 md:text-right"
+                    className={`pointer-events-none hidden lg:row-start-1 lg:block print:hidden ${
+                      isLeft ? "lg:col-start-2 lg:pl-12" : "lg:col-start-1 lg:pr-12 lg:text-right"
                     }`}
                   >
                     <motion.div
@@ -155,15 +155,15 @@ export function ExperienceTimeline() {
                     </motion.div>
                   </div>
                   <div
-                    className={`relative pl-16 md:row-start-1 md:pl-0 ${
-                      isLeft ? "md:col-start-1 md:pr-12" : "md:col-start-2 md:pl-12"
+                    className={`relative pl-16 lg:row-start-1 lg:pl-0 ${
+                      isLeft ? "lg:col-start-1 lg:pr-12" : "lg:col-start-2 lg:pl-12"
                     }`}
                   >
                     <svg
                       aria-hidden="true"
                       viewBox="0 0 72 40"
                       fill="none"
-                      className={`pointer-events-none absolute top-11 hidden h-10 w-[72px] md:block print:hidden ${
+                      className={`pointer-events-none absolute top-11 hidden h-10 w-[72px] lg:block print:hidden ${
                         isLeft ? "-right-6 -scale-x-100" : "-left-6"
                       }`}
                     >

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Award, Maximize2, X } from "lucide-react";
 import { SectionHeading } from "../shared/SectionHeading";
+import { Portal, useInertOutside } from "../shared/Portal";
 import { SectionShell } from "../shared/SectionShell";
 import { EASE_OUT_EXPO, revealWith, withBasePath } from "@/lib/utils";
 import { useFocusTrap } from "@/lib/useFocusTrap";
@@ -31,6 +32,7 @@ export function Education() {
   const heading = dict.education;
   const [selected, setSelected] = useState<EducationItem | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
+  useInertOutside(selected !== null);
   useFocusTrap(modalRef, selected !== null);
   const { certificate: certificateLabel, view: viewLabel } = dict.ui.education;
 
@@ -64,6 +66,7 @@ export function Education() {
               onClick={() => setSelected(item)}
               aria-haspopup="dialog"
               data-spotlight
+              data-cursor={dict.ui.cursor.open}
               className="group relative flex h-full w-full cursor-zoom-in flex-col overflow-hidden rounded-3xl border border-soft/60 surface-card text-left shadow-[0_20px_60px_rgba(15,23,42,0.35)] transition-transform duration-300 hover:-translate-y-1 hover:border-[color:var(--accent-warm)]/60"
             >
               <span aria-hidden="true" className="spotlight" />
@@ -109,12 +112,13 @@ export function Education() {
         ))}
       </div>
 
+      <Portal>
       <AnimatePresence>
         {selected ? (
           <motion.div
             key="certificate"
             ref={modalRef}
-            className="fixed inset-0 z-[70] flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm"
+            className="fixed inset-0 z-[80] flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm"
             role="dialog"
             aria-modal="true"
             aria-label={`${certificateLabel} ${selected.title}`}
@@ -153,6 +157,7 @@ export function Education() {
           </motion.div>
         ) : null}
       </AnimatePresence>
+      </Portal>
     </SectionShell>
   );
 }

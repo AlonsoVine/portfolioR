@@ -134,6 +134,7 @@ export const aboutContent = {
 
 // Total de repos públicos según el autor; la sección Proyectos muestra solo una selección.
 export const GITHUB_PROJECTS = 40;
+export const CONTACT_EMAIL = "alonvineba@gmail.com";
 
 export const socialLinks: SocialLink[] = [
   {

@@ -128,9 +128,21 @@ Registro de decisiones, inventario de efectos que no pueden degradarse y pregunt
 - **D-41 · Documento de identidad tapado**: los certificados de Prompt Engineering (Nebrija) e IA para Programadores (UTAMED) mostraban el número de DNI en la tarjeta y en el modal. Se tapa con una franja oscura en el asset de la rama; el resto del certificado, incluido el código de verificación, queda igual. Ver pregunta 6.
 - **D-42 · "40+ proyectos en GitHub"** (dato aportado por el autor durante la vuelta 3): la cifra del hero y la frase rotatoria usan `GITHUB_PROJECTS = 40` (`portfolio.ts`) con sufijo "+". La sección Proyectos sigue numerando su selección (01 / 06).
 
+### Vuelta 4 (tras el árbitro de la vuelta 3, ponderada 7,35)
+- **D-43 · Diálogos en `<body>`**: el modal de certificados y el lightbox de proyectos se montan con un portal y dejan `inert` el resto de la página mientras están abiertos. El foco vuelve al disparador al cerrar. Antes, el header y los flotantes quedaban por encima del velo y se podían pulsar; venía de la línea base.
+- **D-44 · Frase rotatoria honesta**: "40+ proyectos en GitHub · N con demo en vivo", donde N se deriva de `links.demo` (hoy 4). Se elimina "1 jugable, el resto código".
+- **D-45 · Impresión**: "Desliza" ya no se imprime (`print:!hidden`) y la cabecera de contacto muestra cada URL una sola vez. El email sale de `CONTACT_EMAIL` en hero, contacto y footer.
+- **D-46 · Timeline de dos columnas solo desde `lg`**: entre 768 y 1023 px se usa el layout de una columna.
+- **D-47 · Cifras del bento con etiqueta**: el número va abajo a la derecha con "tecnologías"/"certificaciones" (ES/EN). Rellena la parte baja de las tarjetas anchas y no se confunde con la numeración de secciones. El trazo del contorno en claro sube a 0,55.
+- **D-48 · Nombre del hero en abanico al salir**: con el scroll, cada letra se abre desde el centro con un leve giro. Usa las propiedades `translate` y `rotate`, que no chocan con la animación de entrada sobre `transform`. No se aplica con reduced motion.
+- **D-49 · Entrada tipo telón en imágenes**: un panel del color del fondo con filo de acento se retira mientras la imagen pasa de 1,18 a 1 (proyectos y foto de About). Es CSS con `html[data-js]`, así que sin JS no tapa nada; no se imprime ni se aplica con reduced motion.
+- **D-50 · Cursor contextual**: con puntero fino y sin reduced motion, un anillo sigue al puntero y se convierte en etiqueta ("Ampliar", "Abrir", ES/EN) sobre imágenes ampliables y certificados. El cursor nativo se mantiene.
+- **D-51 · Menos degradado**: "Ver web" pasa a un botón sólido invertido. El degradado de marca queda para el CTA principal, el envío del formulario y el CTA flotante.
+- **D-52 · Logros de Experiencia**: el autor pidió inventarlos; no se hace, porque un recruiter puede pedir que se justifiquen. Quedan pendientes de cifras reales (pregunta 1).
+
 ## 4. Preguntas pendientes sobre contenido
 
-1. ¿Hay logros cuantificables (tiempos de release, nº de pipelines o proyectos cliente migrados en Seres, etc.) que se puedan publicar? Darían más fuerza a Experiencia; no se han inventado.
+1. (Sigue abierta, ver D-52) ¿Hay logros cuantificables (tiempos de release, nº de pipelines o proyectos cliente migrados en Seres, etc.) que se puedan publicar? Darían más fuerza a Experiencia; no se han inventado.
 2. ¿Fechas o año de cada proyecto personal? Permitiría ordenarlos o fecharlos.
 3. ¿Quieres mantener el badge Lighthouse con cifras manuales o quitarlo/actualizarlo tras el próximo deploy?
 4. ¿Se mantiene Google Analytics? Ya estaba en `main` y no se ha tocado, pero choca con un portfolio "sin rastreadores".

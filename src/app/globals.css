@@ -87,7 +87,7 @@
   --divider-line: rgba(15, 23, 42, 0.42);
   --divider-ornament: rgba(15, 23, 42, 0.75);
   --spotlight-color: rgba(227, 105, 39, 0.1);
-  --marquee-stroke: rgba(15, 23, 42, 0.42);
+  --marquee-stroke: rgba(15, 23, 42, 0.55);
   --name-muted: 0.26;
   --name-muted-hover: 0.55;
   --quote-dim: 0.52;
@@ -416,7 +416,8 @@ html.retro-mode body::after {
     word-break: break-all;
   }
 
-  /* No imprimir URLs de anchors internos ni de PDFs descargables */
+  /* No imprimir URLs de anchors internos, de PDFs ni de la cabecera de contacto (ya es la URL) */
+  .print-contact a::after,
   a[href^="#"]::after,
   a[href$=".pdf"]::after,
   a[download]::after {
@@ -493,29 +494,16 @@ html.retro-mode body::after {
   }
 
   /* Timeline a una columna en papel: sin la mitad vacía de la alternancia */
-  #experience .md\:grid-cols-2 {
+  #experience .lg\:grid-cols-2 {
     display: block !important;
   }
 
-  #experience .md\:grid-cols-2 > div {
+  #experience .lg\:grid-cols-2 > div {
     padding: 0 0 0 2.5rem !important;
     text-align: left !important;
   }
 
-  #experience .md\:flex-row-reverse {
-    flex-direction: row !important;
-    text-align: left !important;
-  }
-
-  #experience .md\:items-end {
-    align-items: flex-start !important;
-  }
-
-  #experience .md\:justify-end {
-    justify-content: flex-start !important;
-  }
-
-  #experience .md\:left-1\/2 {
+  #experience .lg\:left-1\/2 {
     left: 1rem !important;
   }
 
@@ -706,6 +694,12 @@ p {
   animation-delay: calc(var(--i, 0) * 42ms + 80ms);
 }
 
+/* Al salir del hero el nombre se abre en abanico: cada letra con su deriva (translate/rotate no chocan con la animación de entrada sobre transform). */
+.hero-name .hero-letter {
+  translate: calc(var(--hx, 0) * var(--lx, 0) * 1px) calc(var(--hx, 0) * var(--ly, 0) * 1px);
+  rotate: calc(var(--hx, 0) * var(--lr, 0) * 1deg);
+}
+
 .hero-name .letter-muted {
   opacity: var(--name-muted);
   transition: opacity 0.6s var(--ease-out-quart);
@@ -794,6 +788,133 @@ p {
 }
 
 /* Marquee de tecnologías */
+.curtain-panel {
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  pointer-events: none;
+  background: var(--background);
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 1.15s var(--ease-out-expo) 0.1s;
+}
+
+.curtain-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 2px;
+  background: var(--accent-warm);
+}
+
+.curtain-media {
+  transition: transform 1.6s var(--ease-out-expo);
+}
+
+html[data-js] .curtain:not(.curtain-in) .curtain-panel {
+  transform: scaleX(1);
+}
+
+html[data-js] .curtain:not(.curtain-in) .curtain-media {
+  transform: scale(1.18);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .curtain-panel {
+    display: none;
+  }
+  html[data-js] .curtain:not(.curtain-in) .curtain-media {
+    transform: none;
+  }
+}
+
+@media print {
+  .curtain-panel {
+    display: none !important;
+  }
+}
+
+.cursor-follower {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 90;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cursor-follower.is-visible {
+  opacity: 1;
+}
+
+.cursor-follower::before,
+.cursor-follower::after {
+  content: "";
+  position: absolute;
+  left: -18px;
+  top: -18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  transition:
+    transform 0.55s var(--ease-out-expo),
+    opacity 0.3s ease;
+}
+
+.cursor-follower::before {
+  border: 1px solid var(--foreground);
+  opacity: 0.45;
+}
+
+.cursor-follower::after {
+  background: var(--accent-warm);
+  opacity: 0;
+  transform: scale(0.4);
+}
+
+.cursor-follower.is-active::before {
+  opacity: 0;
+  transform: scale(2.7);
+}
+
+.cursor-follower.is-active::after {
+  opacity: 1;
+  transform: scale(2.7);
+}
+
+.cursor-follower span {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%) scale(0.6);
+  opacity: 0;
+  color: var(--background);
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    transform 0.55s var(--ease-out-expo),
+    opacity 0.3s ease;
+}
+
+.cursor-follower.is-active span {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+@media print {
+  .cursor-follower {
+    display: none !important;
+  }
+}
+
 .marquee-outline {
   color: transparent;
   -webkit-text-stroke: 1px var(--marquee-stroke);
@@ -833,6 +954,11 @@ html[data-js] .reveal-pending .reveal-word {
 
   .hero-name .letter-muted {
     transition: none;
+  }
+
+  .hero-name .hero-letter {
+    translate: none;
+    rotate: none;
   }
 
   .quote-word {

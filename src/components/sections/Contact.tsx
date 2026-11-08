@@ -7,6 +7,7 @@ import { SectionShell } from "../shared/SectionShell";
 import { cn, revealWith, scrollRevealConfig } from "@/lib/utils";
 import { Check, CheckCircle2, Clock, Copy, GithubIcon, Linkedin, Mail } from "lucide-react";
 import { useLanguage } from "@/i18n";
+import { CONTACT_EMAIL } from "@/data/portfolio";
 import { IntentSelect } from "../ui/IntentSelect";
 
 type FormState = {
@@ -67,13 +68,12 @@ export function Contact() {
 
 	const copyEmail = async () => {
 		try {
-			await navigator.clipboard.writeText("alonvineba@gmail.com");
+			await navigator.clipboard.writeText(CONTACT_EMAIL);
 			setEmailCopied(true);
 		} catch {
 			// sin permiso de portapapeles el enlace mailto sigue disponible
 		}
 	};
-
 
 	const t = dict.ui.form;
 	const intents = useMemo(
@@ -280,8 +280,8 @@ export function Contact() {
 		},
 		{
 			label: "Email",
-			description: "alonvineba@gmail.com",
-			href: "mailto:alonvineba@gmail.com",
+			description: CONTACT_EMAIL,
+			href: `mailto:${CONTACT_EMAIL}`,
 		},
 	];
 

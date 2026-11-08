@@ -2,6 +2,7 @@
 
 import {
 	motion,
+	type MotionStyle,
 	useMotionValue,
 	useReducedMotion,
 	useScroll,
@@ -15,7 +16,7 @@ import { ArrowRight, Download, GithubIcon, Linkedin, MapPin, Twitter } from "luc
 import { useLanguage } from "@/i18n";
 import { calcYearsExperience } from "@/lib/years";
 import { withBasePath } from "@/lib/utils";
-import { GITHUB_PROJECTS } from "@/data/portfolio";
+import { CONTACT_EMAIL, GITHUB_PROJECTS } from "@/data/portfolio";
 import { RotatingTagline } from "../ui/RotatingTagline";
 import { CountUp } from "../ui/CountUp";
 
@@ -26,6 +27,12 @@ const socialIconMap = {
 } as const;
 
 const delay = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
+
+// Deriva [px en vertical, grados] de cada letra al salir del hero; en horizontal se abren desde el centro. Fija para que SSR y cliente coincidan.
+const LETTER_DRIFT: ReadonlyArray<readonly [number, number]> = [
+	[-30, -14], [24, 9], [-46, -6], [12, 18], [-18, -11], [36, 12],
+	[-40, -20], [20, 7], [-10, -5], [30, 16], [-26, -12],
+];
 
 export function Hero() {
 	const { dict } = useLanguage();
@@ -43,7 +50,8 @@ export function Hero() {
 				.replace("{current}", currentExp?.title ?? "")
 				.replace("{tech}", currentExp?.tech?.slice(0, 3).join(" · ") ?? "")
 				.replace("{years}", String(yearsExp))
-				.replace("{projects}", `${GITHUB_PROJECTS}+`),
+				.replace("{projects}", `${GITHUB_PROJECTS}+`)
+				.replace("{demos}", String(dict.projects.items.filter((p) => p.links.demo).length)),
 		)
 		.filter((t) => t.trim().length > 0);
 	const cvHref = withBasePath(ctas.secondary.href);
@@ -55,6 +63,7 @@ export function Hero() {
 	const contentOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.15]);
 	const avatarY = useTransform(scrollYProgress, [0, 0.6], [0, -40]);
 	const avatarRotate = useTransform(scrollYProgress, [0, 0.6], [0, -3]);
+	const nameDrift = useTransform(scrollYProgress, [0, 0.75], [0, 1]);
 
 	const tiltX = useMotionValue(0);
 	const tiltY = useMotionValue(0);
@@ -75,6 +84,7 @@ export function Hero() {
 	};
 
 	const words = title.split(/\s+/);
+	const letterCount = words.join("").length;
 	let letterIndex = 0;
 
 	const stats = [
@@ -97,15 +107,17 @@ export function Hero() {
 			>
 				<h1 className="hero-name">
 					<span className="sr-only">{title} · </span>
-					<span
+					<motion.span
 						aria-hidden="true"
+						style={reduce ? undefined : ({ "--hx": nameDrift } as unknown as MotionStyle)}
 						className="font-display block whitespace-normal text-[clamp(3.4rem,17vw,5.5rem)] sm:text-[clamp(2.9rem,9.6vw,8.75rem)] font-semibold leading-[0.95] tracking-[0.02em]"
 					>
 						{words.map((word, wi) => (
 							<span key={wi} className="inline-block whitespace-nowrap">
 								{Array.from(word).map((char, ci) => {
 									const i = letterIndex++;
-									const style = { "--i": i } as CSSProperties;
+									const [ly, lr] = LETTER_DRIFT[i % LETTER_DRIFT.length];
+									const style = { "--i": i, "--lx": Math.round((i - (letterCount - 1) / 2) * 46), "--ly": ly, "--lr": lr } as CSSProperties;
 									return ci === 0 ? (
 										<span key={ci} className="hero-letter text-[var(--foreground)]" style={style}>
 											{char}
@@ -119,7 +131,7 @@ export function Hero() {
 								{wi < words.length - 1 ? <span className="inline-block w-[0.28em]" /> : null}
 							</span>
 						))}
-					</span>
+					</motion.span>
 					<span
 						className="hero-in-solid mt-5 block text-2xl font-medium text-muted sm:text-3xl"
 						style={delay(380)}
@@ -148,12 +160,12 @@ export function Hero() {
 						<p className="hero-in-solid mt-4 max-w-2xl text-lg text-muted" style={delay(580)}>
 							{subtitleWithYears}
 						</p>
-						<p className="hidden text-sm print:block">
-							<a href="mailto:alonvineba@gmail.com">alonvineba@gmail.com</a>
+						<p className="print-contact hidden text-sm print:block">
+							<a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
 							{socialLinks.map((social) => (
 								<span key={social.href}>
 									{" · "}
-									<a href={social.href}>{social.label}</a>
+									<a href={social.href}>{social.href.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")}</a>
 								</span>
 							))}
 						</p>
@@ -279,7 +291,7 @@ export function Hero() {
 
 			<a
 				href="#skills"
-				className="hero-in group relative mx-auto mb-8 hidden flex-col items-center gap-3 [@media(min-height:960px)]:md:flex text-[10px] font-semibold uppercase tracking-[0.4em] text-muted transition-colors hover:text-[var(--foreground)] print:hidden"
+				className="hero-in group relative mx-auto mb-8 hidden flex-col items-center gap-3 [@media(min-height:960px)]:md:flex text-[10px] font-semibold uppercase tracking-[0.4em] text-muted transition-colors hover:text-[var(--foreground)] print:!hidden"
 				style={delay(1100)}
 			>
 				{ui.scrollCue}

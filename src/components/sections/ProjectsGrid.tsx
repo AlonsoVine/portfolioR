@@ -6,6 +6,7 @@ import { SectionShell } from "../shared/SectionShell";
 import { revealWith } from "@/lib/utils";
 import { ArrowUpRight, GithubIcon, Sparkles } from "lucide-react";
 import { useLanguage } from "@/i18n";
+import { CurtainReveal } from "../shared/CurtainReveal";
 import { ProjectCarousel } from "../ui/ProjectCarousel";
 import Image from "next/image";
 import { useState } from "react";
@@ -105,6 +106,7 @@ function ProjectCard({ project, index, total, counterLabel, labels }: ProjectCar
 						</button>
 					</div>
 				) : null}
+				<CurtainReveal className={isSpotlight ? "lg:h-full" : ""}>
 				{isSingleImageSpotlight ? (
 					<div className="relative h-72 w-full bg-[var(--surface-soft)] md:h-96 lg:h-full lg:min-h-[460px]">
 						<Image
@@ -136,6 +138,7 @@ function ProjectCard({ project, index, total, counterLabel, labels }: ProjectCar
 						size={isSpotlight ? "large" : "default"}
 					/>
 				)}
+				</CurtainReveal>
 			</div>
 			<div
 				className={`relative z-10 flex flex-1 flex-col gap-6 p-8 ${isSpotlight ? "lg:justify-center lg:p-10" : ""} ${
@@ -222,7 +225,7 @@ function ProjectCard({ project, index, total, counterLabel, labels }: ProjectCar
 							href={project.links.demo}
 							target="_blank"
 							rel="noreferrer"
-							className="group/demo inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-400 to-rose-400 px-5 py-3 text-sm font-semibold text-slate-900 shadow-[0_20px_50px_rgba(248,212,128,0.25)] transition-all duration-300 hover:-translate-y-0.5"
+							className="group/demo inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--foreground)] px-5 py-3 text-sm font-semibold text-[var(--background)] transition-transform duration-300 hover:-translate-y-0.5"
 						>
 							{project.demoLinkLabel ?? labels.demoLabel}
 							<ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/demo:-translate-y-0.5 group-hover/demo:translate-x-0.5" aria-hidden="true" />

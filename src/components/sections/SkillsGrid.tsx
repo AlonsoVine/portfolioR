@@ -56,13 +56,7 @@ export function SkillsGrid() {
 						>
 							<span aria-hidden="true" className="spotlight" />
 							<div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-amber-200/5 via-transparent to-rose-300/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-							<span
-								aria-hidden="true"
-								className="font-display tabular marquee-outline pointer-events-none absolute right-5 top-3 text-[clamp(3rem,5vw,4.5rem)] leading-none opacity-80 transition-transform duration-500 group-hover:-translate-y-1"
-							>
-								{String(group.items.length).padStart(2, "0")}
-							</span>
-							<div className="relative z-10 flex items-center gap-3 pr-20">
+							<div className="relative z-10 flex items-center gap-3">
 								<span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/5">
 									<Icon className="h-5 w-5 text-[var(--accent-warm)]" aria-hidden="true" />
 								</span>
@@ -93,6 +87,14 @@ export function SkillsGrid() {
 									</motion.li>
 								))}
 							</motion.ul>
+							<p className="relative z-10 mt-auto flex items-end justify-end gap-3 pt-2">
+								<span className="pb-2 font-mono text-[10px] uppercase tracking-[0.3em] text-muted">
+									{group.icon === "badge" ? dict.ui.skillsCount.certs : dict.ui.skillsCount.items}
+								</span>
+								<span className="font-display tabular marquee-outline text-[clamp(3rem,5vw,4.5rem)] leading-[0.8] transition-transform duration-500 group-hover:-translate-y-1">
+									{String(group.items.length).padStart(2, "0")}
+								</span>
+							</p>
 						</motion.div>
 					);
 				})}

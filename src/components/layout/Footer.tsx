@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { GithubIcon, Linkedin, Mail, Printer } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLanguage } from "@/i18n";
+import { CONTACT_EMAIL } from "@/data/portfolio";
 import { EASE_OUT_EXPO } from "@/lib/utils";
 import { useIsClient } from "@/lib/useIsClient";
 import { LighthouseBadge } from "../ui/LighthouseBadge";
@@ -137,7 +138,7 @@ export function Footer() {
 							);
 						})}
 						<a
-							href="mailto:alonvineba@gmail.com"
+							href={`mailto:${CONTACT_EMAIL}`}
 							aria-label="Email"
 							className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-soft text-[var(--foreground)] transition-all duration-300 hover:-translate-y-0.5 hover:border-strong"
 						>

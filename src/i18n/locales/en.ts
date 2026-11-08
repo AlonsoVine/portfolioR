@@ -338,7 +338,7 @@ export const en = {
       "{tech}",
       "{years}+ years shipping code to production",
       "Frontend · Backend · DevOps",
-      "{projects} GitHub projects · 1 playable, the rest pure code",
+      "{projects} GitHub projects · {demos} with a live demo",
       "English C2 + Spanish · ready for international teams",
     ],
     heroStats: {
@@ -381,6 +381,8 @@ export const en = {
     },
     locale: "en-GB",
     contactCta: "Contact me",
+    cursor: { zoom: "Zoom", open: "Open" },
+    skillsCount: { items: "technologies", certs: "certifications" },
     print: {
       label: "Print live snapshot",
       hint: "Always-up-to-date snapshot · prints directly from this page",
