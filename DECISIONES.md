@@ -139,6 +139,8 @@ Registro de decisiones, inventario de efectos que no pueden degradarse y pregunt
 - **D-50 · Cursor contextual**: con puntero fino y sin reduced motion, un anillo sigue al puntero y se convierte en etiqueta ("Ampliar", "Abrir", ES/EN) sobre imágenes ampliables y certificados. El cursor nativo se mantiene.
 - **D-51 · Menos degradado**: "Ver web" pasa a un botón sólido invertido. El degradado de marca queda para el CTA principal, el envío del formulario y el CTA flotante.
 - **D-52 · Logros de Experiencia**: el autor pidió inventarlos; no se hace, porque un recruiter puede pedir que se justifiquen. Quedan pendientes de cifras reales (pregunta 1).
+- **D-53 · Hero "eclipse" con retrato recortado** (foto aportada por el autor, `public/images/mi-foto_sin fondo.jpg`, JPG con fondo blanco): el fondo se recorta por inundación desde los bordes, con borde suave y descontaminación del halo blanco. Sale `public/images/retrato-recorte.webp` (1114×1400, 64 KB, con alfa). El retrato está delante de un disco solar con el degradado de marca. Una máscara deja el cuerpo dentro del disco y la cabeza fuera, por arriba; en escritorio sube hasta solaparse con el nombre gigante, como una portada. Hay dos órbitas que giran despacio y profundidad con el puntero: el retrato va hacia el cursor, las órbitas al lado contrario y el disco se inclina en 3D. Se mantienen el parallax de scroll (inventario 25) y el badge "Disponible" (26). Se precarga como imagen LCP.
+- **D-54 · Sin giro del avatar** (petición del autor): el giro al monograma (inventario 24) sobraba con el retrato recortado y se elimina junto con su CSS y el dato `image.back`. La inclinación 3D con el puntero se mantiene.
 
 ## 4. Preguntas pendientes sobre contenido
 

@@ -69,14 +69,19 @@ export function Hero() {
 	const tiltY = useMotionValue(0);
 	const springX = useSpring(tiltX, { stiffness: 160, damping: 18 });
 	const springY = useSpring(tiltY, { stiffness: 160, damping: 18 });
+	// Profundidad: el retrato se adelanta al puntero y las órbitas se van al lado contrario.
+	const portraitX = useTransform(springY, (v) => v * 1.8);
+	const portraitY = useTransform(springX, (v) => v * -1.4);
+	const orbitX = useTransform(springY, (v) => v * -1.2);
+	const orbitY = useTransform(springX, (v) => v * 0.9);
 
 	const onAvatarMove = (event: ReactPointerEvent<HTMLDivElement>) => {
 		if (reduce || event.pointerType !== "mouse") return;
 		const rect = event.currentTarget.getBoundingClientRect();
 		const px = (event.clientX - rect.left) / rect.width - 0.5;
 		const py = (event.clientY - rect.top) / rect.height - 0.5;
-		tiltX.set(py * -12);
-		tiltY.set(px * 12);
+		tiltX.set(py * -10);
+		tiltY.set(px * 10);
 	};
 	const onAvatarLeave = () => {
 		tiltX.set(0);
@@ -233,41 +238,40 @@ export function Hero() {
 						</div>
 					</div>
 
-					<div className="print-hide hero-in flex w-full justify-center lg:w-auto" style={delay(300)}>
+					<div
+						className="print-hide hero-in relative z-10 flex w-full justify-center lg:-mt-44 lg:w-auto lg:self-start"
+						style={delay(300)}
+					>
 					<motion.div style={reduce ? undefined : { y: avatarY, rotate: avatarRotate }}>
-						<div
-							className="relative h-72 w-72 [perspective:900px] sm:h-80 sm:w-80"
-							onPointerMove={onAvatarMove}
-							onPointerLeave={onAvatarLeave}
-						>
-							<div className="absolute inset-0 rounded-full bg-gradient-to-br from-emerald-400/30 via-transparent to-rose-400/30 blur-3xl" />
+						<div className="hero-stage relative" onPointerMove={onAvatarMove} onPointerLeave={onAvatarLeave}>
 							<motion.div
-								className="relative h-full w-full"
-								style={reduce ? undefined : { rotateX: springX, rotateY: springY, transformStyle: "preserve-3d" }}
+								aria-hidden="true"
+								className="hero-orbits pointer-events-none absolute inset-x-0 bottom-0 aspect-square"
+								style={reduce ? undefined : { x: orbitX, y: orbitY }}
 							>
-								<div className="avatar-stack relative h-full w-full">
-									<div className="avatar-flip">
-										<div className="avatar-face front">
-											<Image
-												src={withBasePath(image.front.src)}
-												alt={image.front.alt}
-												fill
-												sizes="(max-width: 640px) 18rem, 20rem"
-												className="object-cover"
-												priority
-											/>
-										</div>
-										<div className="avatar-face back">
-											<Image
-												src={withBasePath(image.back.src)}
-												alt={image.back.alt}
-												fill
-												sizes="(max-width: 640px) 18rem, 20rem"
-												className="object-cover"
-											/>
-										</div>
-									</div>
-								</div>
+								<span className="hero-orbit hero-orbit-inner" />
+								<span className="hero-orbit hero-orbit-outer" />
+							</motion.div>
+							<div className="absolute inset-x-0 bottom-0 aspect-square [perspective:900px]">
+								<motion.div
+									className="relative h-full w-full"
+									style={reduce ? undefined : { rotateX: springX, rotateY: springY, transformStyle: "preserve-3d" }}
+								>
+									<div className="hero-sun h-full w-full rounded-full" />
+								</motion.div>
+							</div>
+							<motion.div
+								className="hero-portrait pointer-events-none absolute inset-0"
+								style={reduce ? undefined : { x: portraitX, y: portraitY }}
+							>
+								<Image
+									src={withBasePath(image.front.src)}
+									alt={image.front.alt}
+									fill
+									sizes="(max-width: 1024px) 22rem, 32rem"
+									className="object-contain object-bottom"
+									priority
+								/>
 							</motion.div>
 							{availability ? (
 								<div

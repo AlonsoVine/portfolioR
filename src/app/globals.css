@@ -162,44 +162,6 @@ body {
   background-image: linear-gradient(to right, var(--nav-active-grad-from), var(--nav-active-grad-to));
 }
 
-.avatar-stack {
-  perspective: 1200px;
-}
-
-.avatar-stack .avatar-flip {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.85s cubic-bezier(0.19, 1, 0.22, 1);
-}
-
-.avatar-stack:hover .avatar-flip {
-  transform: rotateY(180deg);
-}
-
-.avatar-face {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  overflow: hidden;
-  backface-visibility: hidden;
-}
-
-.avatar-face.front {
-  transform: translateZ(1px);
-}
-
-.avatar-face.back {
-  transform: rotateY(180deg) translateZ(1px);
-}
-
-.avatar-face img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 input::placeholder,
 textarea::placeholder {
   color: var(--foreground-muted);
@@ -422,14 +384,6 @@ html.retro-mode body::after {
   a[href$=".pdf"]::after,
   a[download]::after {
     content: "";
-  }
-
-  /* Mantener una imagen del avatar (solo cara frontal, sin flip) */
-  .avatar-face.back {
-    display: none !important;
-  }
-  .avatar-flip {
-    transform: none !important;
   }
 
   /* Cada sección en su página si es necesario */
@@ -912,6 +866,100 @@ html[data-js] .curtain:not(.curtain-in) .curtain-media {
 @media print {
   .cursor-follower {
     display: none !important;
+  }
+}
+
+/* Hero "eclipse": disco solar detrás, retrato recortado delante; el cuerpo queda dentro del disco y la cabeza sale por arriba. */
+.hero-stage {
+  --s: clamp(15rem, 74vw, 21rem);
+  width: var(--s);
+  height: calc(var(--s) * 1.3);
+}
+
+@media (min-width: 1024px) {
+  .hero-stage {
+    --s: clamp(21rem, 30vw, 29rem);
+  }
+}
+
+.hero-sun {
+  background:
+    radial-gradient(circle at 50% 30%, rgba(255, 247, 214, 0.95) 0%, rgba(253, 224, 71, 0.85) 14%, transparent 42%),
+    radial-gradient(circle at 50% 42%, #fbbf24 0%, #fb7185 48%, #8b5cf6 82%, #4c1d95 100%);
+  box-shadow:
+    inset 0 -40px 80px rgba(76, 29, 149, 0.45),
+    0 40px 120px rgba(251, 113, 133, 0.28);
+}
+
+.hero-portrait {
+  z-index: 10;
+  -webkit-mask-image:
+    linear-gradient(#000, #000),
+    radial-gradient(circle calc(var(--s) / 2) at 50% calc(100% - var(--s) / 2), #000 99.5%, transparent 100%);
+  mask-image:
+    linear-gradient(#000, #000),
+    radial-gradient(circle calc(var(--s) / 2) at 50% calc(100% - var(--s) / 2), #000 99.5%, transparent 100%);
+  -webkit-mask-size: 100% calc(100% - var(--s) / 2), 100% 100%;
+  mask-size: 100% calc(100% - var(--s) / 2), 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: top, center;
+  mask-position: top, center;
+}
+
+.hero-portrait img {
+  filter: drop-shadow(0 24px 40px rgba(2, 6, 23, 0.45));
+}
+
+.hero-orbit {
+  position: absolute;
+  border-radius: 9999px;
+  animation: orbit-spin 48s linear infinite;
+}
+
+.hero-orbit::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--accent-warm);
+  box-shadow: 0 0 16px 4px var(--accent-warm-soft);
+}
+
+.hero-orbit-inner {
+  inset: -7%;
+  border: 1px solid var(--accent-warm-soft);
+}
+
+.hero-orbit-outer {
+  inset: -18%;
+  border: 1px dashed var(--divider-line);
+  opacity: 0.6;
+  animation-duration: 90s;
+  animation-direction: reverse;
+}
+
+.hero-orbit-outer::after {
+  width: 5px;
+  height: 5px;
+  left: -2.5px;
+  top: 30%;
+  background: var(--foreground);
+  box-shadow: none;
+}
+
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-orbit {
+    animation: none;
   }
 }
 

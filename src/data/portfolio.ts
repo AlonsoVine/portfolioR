@@ -81,12 +81,8 @@ export const heroContent = {
     "Multidisciplinar por elecci\u00f3n. Creo en software simple, decisiones explicables y entregas que no rompen la confianza.",
   image: {
     front: {
-      src: "/images/mi-foto.webp",
+      src: "/images/retrato-recorte.webp",
       alt: "Retrato de Alonso Vi\u00f1\u00e9",
-    },
-    back: {
-      src: "/images/logo/logo-negro-redondo-conFondo.webp",
-      alt: "Monograma de Alonso Vi\u00f1\u00e9",
     },
   },
   ctas: {

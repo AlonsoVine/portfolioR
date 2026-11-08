@@ -38,7 +38,7 @@ const DESCRIPTION =
   "Alonso Viñé Barrancos · Full Stack Developer en Madrid. 5+ años construyendo software para Defensa, FCC, Inetum y Seres. Especialización en IA y agentes.";
 const OG_IMAGE = "/portfolioR/assets/og-portfolio.webp";
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
-const HERO_AVATAR_PATH = `${BASE_PATH}/images/mi-foto.webp`;
+const HERO_AVATAR_PATH = `${BASE_PATH}/images/retrato-recorte.webp`;
 
 export const viewport: Viewport = {
   themeColor: [
