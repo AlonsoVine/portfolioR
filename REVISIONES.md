@@ -66,6 +66,17 @@ Corrige los 4 defectos bloqueantes/mayores y los 5 menores de la vuelta 1b (DECI
 
 Checks (`capturas/vuelta-2/checks.md`): lint 0 · build sin warnings · consola 0 · overflow OK 360–1920 · impresión 9 páginas · Lighthouse escritorio 92/100/100 · móvil A11y 100, BP 100 · TBT con CPU ×4 327–391 ms (línea base 902–3725 ms).
 
+**Notas del árbitro (vuelta 2)**: Diseño 7 · Usabilidad 7,5 · Creatividad 6,5 · Contenido 7 → **ponderada 7,05** (+0,8).
+Defectos: cifras del hero que parpadean al hidratar (mayor); label-in-name en las 11 tarjetas de formación (mayor); ~32 textos `isEn ? :` fuera de los diccionarios (mayor); DNI visible en un certificado (mayor, privacidad); CTA flotante enfocable cuando no se ve; índice lateral a 4,45:1 en claro y encima del footer; menú móvil translúcido; muescas de la barra en el hero; restos en impresión; ping doble en el puesto actual. Nada del inventario perdido.
+
+## Vuelta 3 (commits 02ca798, 5afaab3)
+
+Corrige todos los defectos de la vuelta 2 (D-32…D-41). Para subir Creatividad y Diseño: timeline como grafo de ramas con año y empresa fijos en el hueco libre, skills en bento con el número de tecnologías en contorno y botones de proyecto con la paleta de marca. El DNI aparecía en dos certificados (Nebrija y UTAMED); se tapa en ambos.
+
+Checks (`capturas/vuelta-3/checks.md`): lint 0 · build sin warnings · consola 0 · overflow OK · impresión 9 páginas · A11y 100 · BP 100. **Rendimiento**: con la máquina cargada, el TBT de escritorio es peor que el de la línea base (≈0,5 s frente a ≈0,1 s; Perf 60 frente a 86) por el DOM más grande. La vuelta 3 no lo empeora respecto a la 2. Con CPU ×4 la suma de tareas largas sigue por debajo de la línea base.
+
+Incidencia: durante la medición se borró `node_modules` (un `git worktree remove --force` siguió una unión de directorio). Se restauró con `npm ci` desde el lockfile; no afecta al repo.
+
 ### (Histórico) cambios añadidos tras la vuelta 1
 - Cita destacada en About que se enciende palabra a palabra con el scroll (frase ya existente del About, ES/EN).
 - Impresión como CV compacto (sin galerías, fotos de certificados ni formulario).
