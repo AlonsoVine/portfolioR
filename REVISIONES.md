@@ -61,3 +61,5 @@ Ideas del juez:
 - **Usar la columna izquierda y agrupar los dos puestos de Atos (Cestic)** → adoptada la agrupación (el segundo puesto no repite la empresa en grande, filete discontinuo); descartado el contador «11 títulos» por la regla de no meter cifras de impacto.
 - **Dirección de arte única en las imágenes de proyecto** → adoptada vía la capa de desaturación; sustituir las portadas por otras capturas queda fuera porque no hay material nuevo.
 - **Hash del commit y fecha del build en el pie** → adoptada (`BuildStamp`).
+
+Nota (vuelta 2): a petición del autor, la cita de Perfil pasa a «Me gusta que las cosas funcionen, y aún más saber por qué funcionan.» / "I like things to work, and I like knowing why they work even more." (elegida por él entre varias propuestas; sustituye a la original).

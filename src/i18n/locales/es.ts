@@ -18,7 +18,7 @@ export const es = {
   about: {
     ...aboutContent,
     eyebrow: "Perfil",
-    pullQuote: "Lo que más me mueve es convertir un “no se puede” en “mira cómo lo hicimos”.",
+    pullQuote: "Me gusta que las cosas funcionen, y aún más saber por qué funcionan.",
     title: "Multidisciplinar por elección",
     description:
       "Desarrollo full stack y DevOps desde 2021, siempre en Madrid.",

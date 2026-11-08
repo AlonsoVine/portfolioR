@@ -50,7 +50,7 @@ export const en = {
   about: {
     ...aboutContent,
     eyebrow: "Profile",
-    pullQuote: "What drives me most is turning a ‘can't be done’ into ‘look how we did it’.",
+    pullQuote: "I like things to work, and I like knowing why they work even more.",
     title: "Multidisciplinary by choice",
     description:
       "Full stack development and DevOps since 2021, always in Madrid.",
