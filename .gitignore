@@ -41,3 +41,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+
+# capturas de revisión (no se versionan ni despliegan)
+/capturas/
