@@ -148,6 +148,15 @@ export function Hero() {
 						<p className="hero-in-solid mt-4 max-w-2xl text-lg text-muted" style={delay(580)}>
 							{subtitleWithYears}
 						</p>
+						<p className="hidden text-sm print:block">
+							<a href="mailto:alonvineba@gmail.com">alonvineba@gmail.com</a>
+							{socialLinks.map((social) => (
+								<span key={social.href}>
+									{" · "}
+									<a href={social.href}>{social.label}</a>
+								</span>
+							))}
+						</p>
 						<div className="print-hide hero-in mt-8 flex flex-wrap items-center gap-4" style={delay(660)}>
 							<span data-magnetic className="magnetic">
 								<a

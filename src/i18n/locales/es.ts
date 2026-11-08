@@ -52,7 +52,7 @@ export const es = {
       ...project,
       demoLinkLabel:
         project.title === "Liberty" ||
-        project.title === "Jardin Digital" ||
+        project.title === "Jardín Digital" ||
         project.title === "PhotoDateRenamer"
           ? "Ver web"
           : undefined,
@@ -123,6 +123,78 @@ export const es = {
       close: "Cerrar vista ampliada",
     },
     scrollTop: "Volver al inicio",
+    a11y: {
+      skipToContent: "Saltar al contenido principal",
+      mainNav: "Navegación principal",
+      footerNav: "Navegación del pie",
+      openMenu: "Abrir menú",
+      closeMenu: "Cerrar menú",
+      logoAlt: "Logotipo personal",
+      aboutPhotoAlt: "Alonso Viñé, desarrollador y analista",
+      toDark: "Activar modo oscuro",
+      toLight: "Activar modo claro",
+      copyLink: "Copiar enlace a esta sección",
+      linkCopied: "Enlace copiado",
+      close: "Cerrar",
+    },
+    locale: "es-ES",
+    contactCta: "Contáctame",
+    print: {
+      label: "Imprimir versión actual",
+      hint: "Snapshot live siempre actualizado · imprime desde esta página",
+    },
+    experience: {
+      tech: "Tecnologías utilizadas",
+      years: "años de experiencia",
+      current: "Actual",
+    },
+    education: {
+      certificate: "Certificado",
+      view: "Ver certificado",
+    },
+    retro: {
+      on: "MODO RETRO ACTIVADO",
+      off: "MODO RETRO DESACTIVADO",
+      hint: "Pulsa Esc o el konami otra vez para alternar",
+      close: "Cerrar modo retro",
+    },
+    form: {
+      intents: {
+        job: "Oferta laboral",
+        freelance: "Freelance / Proyecto",
+        networking: "Networking",
+        technical: "Pregunta técnica",
+        other: "Otro",
+      },
+      intentLabel: "¿De qué quieres hablar?",
+      intentPlaceholder: "Elige un motivo",
+      responseTime: "Suelo responder en ≤ 24h",
+      topic: "Motivo",
+      sending: "Enviando...",
+      successTitle: "Mensaje recibido.",
+      successBefore: "Te respondo en menos de 24 horas. Mientras, échale un ojo a mis ",
+      successProjects: "proyectos",
+      successMiddle: " o a mi ",
+      successExperience: "trayectoria",
+      sendAnother: "Enviar otro mensaje",
+      linkedinDesc: "Perfil profesional",
+      githubDesc: "Proyectos y código",
+      errors: {
+        intent: "Selecciona el motivo del mensaje.",
+        nameRequired: "El nombre es obligatorio.",
+        min: "Mínimo {n} caracteres.",
+        max: "Máximo {n} caracteres.",
+        emailRequired: "El email es obligatorio.",
+        emailLong: "Email demasiado largo.",
+        emailInvalid: "Introduce un email válido.",
+        messageRequired: "El mensaje es obligatorio.",
+        tooFast: "Tómate un momento para completar el formulario.",
+        fix: "Corrige los errores antes de enviar.",
+        wait: "Espera {n}s antes de enviar otro mensaje.",
+        keys: "Faltan las claves de EmailJS",
+        failed: "Algo falló. Inténtalo más tarde.",
+      },
+    },
   },
   socialLinks,
 };

@@ -54,7 +54,6 @@ export function Contact() {
 	const [submitAttempted, setSubmitAttempted] = useState(false);
 	const mountedAt = useRef<number>(0);
 	const [emailCopied, setEmailCopied] = useState(false);
-	const isEn = dict.lang === "en";
 
 	useEffect(() => {
 		mountedAt.current = Date.now();
@@ -75,24 +74,15 @@ export function Contact() {
 		}
 	};
 
+
+	const t = dict.ui.form;
 	const intents = useMemo(
 		() =>
-			isEn
-				? [
-						{ value: "job", label: "Job offer" },
-						{ value: "freelance", label: "Freelance / Project" },
-						{ value: "networking", label: "Networking" },
-						{ value: "technical", label: "Technical question" },
-						{ value: "other", label: "Other" },
-					]
-				: [
-						{ value: "job", label: "Oferta laboral" },
-						{ value: "freelance", label: "Freelance / Proyecto" },
-						{ value: "networking", label: "Networking" },
-						{ value: "technical", label: "Pregunta técnica" },
-						{ value: "other", label: "Otro" },
-					],
-		[isEn],
+			(["job", "freelance", "networking", "technical", "other"] as const).map((value) => ({
+				value,
+				label: t.intents[value],
+			})),
+		[t],
 	);
 
 	const intentLabelOf = (value: string) =>
@@ -107,39 +97,31 @@ export function Contact() {
 		switch (field) {
 			case "intent":
 				if (!value)
-					return isEn ? "Pick a topic for your message." : "Selecciona el motivo del mensaje.";
+					return t.errors.intent;
 				return null;
 			case "name":
 				if (trimmed.length === 0)
-					return isEn ? "Name is required." : "El nombre es obligatorio.";
+					return t.errors.nameRequired;
 				if (trimmed.length < LIMITS.name.min)
-					return isEn
-						? `Name must be at least ${LIMITS.name.min} characters.`
-						: `Mínimo ${LIMITS.name.min} caracteres.`;
+					return t.errors.min.replace("{n}", String(LIMITS.name.min));
 				if (trimmed.length > LIMITS.name.max)
-					return isEn
-						? `Name can't exceed ${LIMITS.name.max} characters.`
-						: `Máximo ${LIMITS.name.max} caracteres.`;
+					return t.errors.max.replace("{n}", String(LIMITS.name.max));
 				return null;
 			case "email":
 				if (trimmed.length === 0)
-					return isEn ? "Email is required." : "El email es obligatorio.";
+					return t.errors.emailRequired;
 				if (trimmed.length > LIMITS.email.max)
-					return isEn ? "Email is too long." : "Email demasiado largo.";
+					return t.errors.emailLong;
 				if (!EMAIL_RX.test(trimmed))
-					return isEn ? "Please enter a valid email." : "Introduce un email válido.";
+					return t.errors.emailInvalid;
 				return null;
 			case "message":
 				if (trimmed.length === 0)
-					return isEn ? "Message is required." : "El mensaje es obligatorio.";
+					return t.errors.messageRequired;
 				if (trimmed.length < LIMITS.message.min)
-					return isEn
-						? `Message must be at least ${LIMITS.message.min} characters.`
-						: `Mínimo ${LIMITS.message.min} caracteres.`;
+					return t.errors.min.replace("{n}", String(LIMITS.message.min));
 				if (trimmed.length > LIMITS.message.max)
-					return isEn
-						? `Message can't exceed ${LIMITS.message.max} characters.`
-						: `Máximo ${LIMITS.message.max} caracteres.`;
+					return t.errors.max.replace("{n}", String(LIMITS.message.max));
 				return null;
 			default:
 				return null;
@@ -199,22 +181,14 @@ export function Contact() {
 
 		if (Date.now() - mountedAt.current < MIN_FORM_TIME_MS) {
 			setStatus("error");
-			setErrorMsg(
-				isEn
-					? "Please take a moment to fill out the form."
-					: "Tómate un momento para completar el formulario.",
-			);
+			setErrorMsg(t.errors.tooFast);
 			return;
 		}
 
 		const isValid = validateAll();
 		if (!isValid) {
 			setStatus("error");
-			setErrorMsg(
-				isEn
-					? "Please fix the errors above."
-					: "Corrige los errores antes de enviar.",
-			);
+			setErrorMsg(t.errors.fix);
 			return;
 		}
 
@@ -223,11 +197,7 @@ export function Contact() {
 			if (Date.now() - lastSubmit < RATE_LIMIT_MS) {
 				const remaining = Math.ceil((RATE_LIMIT_MS - (Date.now() - lastSubmit)) / 1000);
 				setStatus("error");
-				setErrorMsg(
-					isEn
-						? `Please wait ${remaining}s before sending another message.`
-						: `Espera ${remaining}s antes de enviar otro mensaje.`,
-				);
+				setErrorMsg(t.errors.wait.replace("{n}", String(remaining)));
 				return;
 			}
 		} catch {
@@ -236,14 +206,14 @@ export function Contact() {
 
 		if (!serviceId || !templateId || !publicKey) {
 			setStatus("error");
-			setErrorMsg(isEn ? "Missing EmailJS keys" : "Faltan las claves de EmailJS");
+			setErrorMsg(t.errors.keys);
 			return;
 		}
 
 		setStatus("sending");
 		setErrorMsg(null);
 		try {
-			const topicLabel = isEn ? "Topic" : "Motivo";
+			const topicLabel = t.topic;
 			const composedMessage = `[${topicLabel}: ${intentLabelOf(form.intent)}]\n\n${form.message.trim()}`;
 			const { default: emailjs } = await import("@emailjs/browser");
 			await emailjs.send(
@@ -268,9 +238,7 @@ export function Contact() {
 		} catch (error) {
 			console.error("EmailJS error:", error);
 			setStatus("error");
-			setErrorMsg(
-				isEn ? "Something went wrong. Please try later." : "Algo falló. Inténtalo más tarde.",
-			);
+			setErrorMsg(t.errors.failed);
 		}
 	};
 
@@ -302,12 +270,12 @@ export function Contact() {
 	const platforms = [
 		{
 			label: "LinkedIn",
-			description: isEn ? "Professional profile" : "Perfil profesional",
+			description: t.linkedinDesc,
 			href: socialLinks.find((l) => l.label.toLowerCase().includes("linkedin"))?.href ?? "#",
 		},
 		{
 			label: "GitHub",
-			description: isEn ? "Projects and code" : "Proyectos y codigo",
+			description: t.githubDesc,
 			href: socialLinks.find((l) => l.label.toLowerCase().includes("github"))?.href ?? "#",
 		},
 		{
@@ -317,37 +285,25 @@ export function Contact() {
 		},
 	];
 
-	const intentLabel = isEn ? "What's this about?" : "¿De qué quieres hablar?";
-	const intentPlaceholder = isEn ? "Pick a topic" : "Elige un motivo";
-	const responseLabel = isEn ? "I usually reply within 24h" : "Suelo responder en ≤ 24h";
+	const intentLabel = t.intentLabel;
+	const intentPlaceholder = t.intentPlaceholder;
+	const responseLabel = t.responseTime;
 
-	const successTitle = isEn ? "Got it · message received." : "Mensaje recibido.";
-	const successBody = isEn ? (
+	const successTitle = t.successTitle;
+	const successBody = (
 		<>
-			I&apos;ll reply within 24 hours. In the meantime, check out my{" "}
+			{t.successBefore}
 			<a href="#projects" className="underline decoration-emerald-300/60 underline-offset-4 hover:text-[var(--pill-emerald-text)]">
-				projects
-			</a>{" "}
-			or my{" "}
-			<a href="#experience" className="underline decoration-emerald-300/60 underline-offset-4 hover:text-[var(--pill-emerald-text)]">
-				experience
+				{t.successProjects}
 			</a>
-			.
-		</>
-	) : (
-		<>
-			Te respondo en menos de 24 horas. Mientras, échale un ojo a mis{" "}
-			<a href="#projects" className="underline decoration-emerald-300/60 underline-offset-4 hover:text-[var(--pill-emerald-text)]">
-				proyectos
-			</a>{" "}
-			o a mi{" "}
+			{t.successMiddle}
 			<a href="#experience" className="underline decoration-emerald-300/60 underline-offset-4 hover:text-[var(--pill-emerald-text)]">
-				trayectoria
+				{t.successExperience}
 			</a>
 			.
 		</>
 	);
-	const sendAnotherLabel = isEn ? "Send another message" : "Enviar otro mensaje";
+	const sendAnotherLabel = t.sendAnother;
 
 	return (
 		<SectionShell id="contact">
@@ -525,7 +481,7 @@ export function Contact() {
 									whileTap={{ scale: 0.98 }}
 									className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-amber-400 via-rose-400 to-violet-500 px-8 py-3 text-sm font-semibold text-slate-900 shadow-[0_20px_50px_rgba(251,191,36,0.35)] disabled:cursor-not-allowed disabled:opacity-70"
 								>
-									{status === "sending" ? (isEn ? "Sending..." : "Enviando...") : contact.form.submit}
+									{status === "sending" ? t.sending : contact.form.submit}
 									<span className="absolute inset-0 bg-white/25 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 								</motion.button>
 							</div>
@@ -575,7 +531,7 @@ export function Contact() {
 													onClick={copyEmail}
 													aria-label={emailCopied ? dict.ui.emailCopied : dict.ui.copyEmail}
 													title={dict.ui.copyEmail}
-													className="absolute right-3 top-1/2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-soft/60 text-[var(--foreground)] transition-colors duration-300 hover:border-amber-300 hover:text-[var(--accent-warm)]"
+													className="print-hide absolute right-3 top-1/2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-soft/60 text-[var(--foreground)] transition-colors duration-300 hover:border-amber-300 hover:text-[var(--accent-warm)]"
 												>
 													<AnimatePresence mode="wait" initial={false}>
 														<motion.span

@@ -26,7 +26,6 @@ export function About() {
 	const paragraphs = dict.about.textBlocks;
 	const highlights = dict.about.highlights;
 	const cta = dict.about.cta;
-	const isEn = dict.lang === "en";
 	const reduce = useReducedMotion();
 	const photoRef = useRef<HTMLDivElement>(null);
 	const { scrollYProgress } = useScroll({ target: photoRef, offset: ["start end", "end start"] });
@@ -50,7 +49,7 @@ export function About() {
 							<motion.div style={reduce ? undefined : { y: photoY, scale: 1.12 }}>
 								<Image
 									src={withBasePath("/assets/img/about-img.webp")}
-									alt={isEn ? "Alonso Viñé, developer and analyst" : "Alonso Viñé, desarrollador y analista"}
+									alt={dict.ui.a11y.aboutPhotoAlt}
 									width={640}
 									height={640}
 									className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
@@ -109,7 +108,7 @@ export function About() {
 						{cta ? (
 							<a
 								href={cta.href}
-								className="group mt-auto inline-flex items-center gap-1.5 pt-4 text-sm font-semibold text-[var(--foreground)] transition-colors duration-300 hover:text-[var(--accent-warm)]"
+								className="print-hide group mt-auto inline-flex items-center gap-1.5 pt-4 text-sm font-semibold text-[var(--foreground)] transition-colors duration-300 hover:text-[var(--accent-warm)]"
 							>
 								{cta.label}
 								<ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />

@@ -219,7 +219,7 @@ export const en = {
       title: p.title,
       demoLinkLabel:
         p.title === "Liberty" ||
-        p.title === "Jardin Digital" ||
+        p.title === "Jardín Digital" ||
         p.title === "PhotoDateRenamer"
           ? "View website"
           : undefined,
@@ -241,7 +241,7 @@ export const en = {
       description:
         p.title === "Liberty"
           ? "Desktop app for managing household wealth: bring accounts, investments, property and debt together, and track income, spending and performance over time. Private by design: runs locally, with no accounts or servers."
-          : p.title === "Jardin Digital"
+          : p.title === "Jardín Digital"
           ? "Handcrafted web app to record and accompany the life of plants. Includes KPI dashboard, dynamic search/filters, export to JSON/TXT/CSV, light/dark theme, ambient sound and floating leaves."
           : p.title === "ForYouToBe"
           ? "Python tool to download YouTube audio in multiple formats (MP3, WAV, FLAC) from single URLs or lists, with format and destination folder selection."
@@ -365,6 +365,78 @@ export const en = {
       close: "Close enlarged view",
     },
     scrollTop: "Back to top",
+    a11y: {
+      skipToContent: "Skip to main content",
+      mainNav: "Main navigation",
+      footerNav: "Footer navigation",
+      openMenu: "Open menu",
+      closeMenu: "Close menu",
+      logoAlt: "Personal logo",
+      aboutPhotoAlt: "Alonso Viñé, developer and analyst",
+      toDark: "Switch to dark mode",
+      toLight: "Switch to light mode",
+      copyLink: "Copy link to this section",
+      linkCopied: "Link copied",
+      close: "Close",
+    },
+    locale: "en-GB",
+    contactCta: "Contact me",
+    print: {
+      label: "Print live snapshot",
+      hint: "Always-up-to-date snapshot · prints directly from this page",
+    },
+    experience: {
+      tech: "Technologies used",
+      years: "years of experience",
+      current: "Current",
+    },
+    education: {
+      certificate: "Certificate",
+      view: "View certificate",
+    },
+    retro: {
+      on: "RETRO MODE ON",
+      off: "RETRO MODE OFF",
+      hint: "Press Esc or konami again to toggle",
+      close: "Close retro mode",
+    },
+    form: {
+      intents: {
+        job: "Job offer",
+        freelance: "Freelance / Project",
+        networking: "Networking",
+        technical: "Technical question",
+        other: "Other",
+      },
+      intentLabel: "What's this about?",
+      intentPlaceholder: "Pick a topic",
+      responseTime: "I usually reply within 24h",
+      topic: "Topic",
+      sending: "Sending...",
+      successTitle: "Got it · message received.",
+      successBefore: "I'll reply within 24 hours. In the meantime, check out my ",
+      successProjects: "projects",
+      successMiddle: " or my ",
+      successExperience: "experience",
+      sendAnother: "Send another message",
+      linkedinDesc: "Professional profile",
+      githubDesc: "Projects and code",
+      errors: {
+        intent: "Pick a topic for your message.",
+        nameRequired: "Name is required.",
+        min: "Must be at least {n} characters.",
+        max: "Can't exceed {n} characters.",
+        emailRequired: "Email is required.",
+        emailLong: "Email is too long.",
+        emailInvalid: "Please enter a valid email.",
+        messageRequired: "Message is required.",
+        tooFast: "Please take a moment to fill out the form.",
+        fix: "Please fix the errors above.",
+        wait: "Please wait {n}s before sending another message.",
+        keys: "Missing EmailJS keys",
+        failed: "Something went wrong. Please try later.",
+      },
+    },
   },
   socialLinks,
 };

@@ -32,8 +32,7 @@ export function Education() {
   const [selected, setSelected] = useState<EducationItem | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   useFocusTrap(modalRef, selected !== null);
-  const certificateLabel = lang === "en" ? "Certificate" : "Certificado";
-  const viewLabel = lang === "en" ? "View certificate" : "Ver certificado";
+  const { certificate: certificateLabel, view: viewLabel } = dict.ui.education;
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -64,7 +63,6 @@ export function Education() {
               type="button"
               onClick={() => setSelected(item)}
               aria-haspopup="dialog"
-              aria-label={`${viewLabel}: ${item.title}`}
               data-spotlight
               className="group relative flex h-full w-full cursor-zoom-in flex-col overflow-hidden rounded-3xl border border-soft/60 surface-card text-left shadow-[0_20px_60px_rgba(15,23,42,0.35)] transition-transform duration-300 hover:-translate-y-1 hover:border-[color:var(--accent-warm)]/60"
             >
@@ -104,6 +102,7 @@ export function Education() {
                 <span className="mt-3 block text-sm leading-relaxed text-muted">
                   {lang === "en" ? highlightKeywords(item.details) : item.details}
                 </span>
+                <span className="sr-only">· {viewLabel}</span>
               </span>
             </button>
           </motion.div>
@@ -136,7 +135,7 @@ export function Education() {
               <button
                 type="button"
                 className="absolute right-3 top-3 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur transition hover:bg-black/70"
-                aria-label={lang === "en" ? "Close" : "Cerrar"}
+                aria-label={dict.ui.a11y.close}
                 onClick={() => setSelected(null)}
               >
                 <X className="h-5 w-5" aria-hidden="true" />

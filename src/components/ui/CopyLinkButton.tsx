@@ -6,7 +6,6 @@ import { useLanguage } from "@/i18n";
 
 export function CopyLinkButton({ sectionId }: { sectionId: string }) {
 	const { dict } = useLanguage();
-	const isEn = dict.lang === "en";
 	const [copied, setCopied] = useState(false);
 
 	const copy = async () => {
@@ -21,13 +20,7 @@ export function CopyLinkButton({ sectionId }: { sectionId: string }) {
 		}
 	};
 
-	const label = copied
-		? isEn
-			? "Link copied"
-			: "Enlace copiado"
-		: isEn
-			? "Copy link to this section"
-			: "Copiar enlace a esta sección";
+	const label = copied ? dict.ui.a11y.linkCopied : dict.ui.a11y.copyLink;
 
 	return (
 		<button

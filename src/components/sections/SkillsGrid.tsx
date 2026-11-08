@@ -17,6 +17,9 @@ const skillIconMap = {
 	badge: BadgeCheck,
 } as const;
 
+// Bento en zigzag: con 3 columnas, estas tarjetas ocupan dos y no queda ningún hueco.
+const WIDE = new Set([1, 2, 5]);
+
 const pillToneVar: Record<SkillCard["tone"], string> = {
 	blue: "--pill-sky",
 	green: "--pill-emerald",
@@ -47,11 +50,19 @@ export function SkillsGrid() {
 							key={group.title}
 							{...revealWith({ delay: (index % 3) * 0.08, duration: 0.8 })}
 							data-spotlight
-							className="group relative flex flex-col gap-4 overflow-hidden rounded-2xl surface-card p-6 shadow-[0_20px_60px_rgba(15,23,42,0.35)] backdrop-blur-xl transition-transform duration-300 hover:-translate-y-1"
+							className={`group relative flex flex-col gap-4 overflow-hidden rounded-2xl surface-card p-6 shadow-[0_20px_60px_rgba(15,23,42,0.35)] backdrop-blur-xl transition-transform duration-300 hover:-translate-y-1 ${
+								WIDE.has(index) ? "lg:col-span-2" : ""
+							}`}
 						>
 							<span aria-hidden="true" className="spotlight" />
 							<div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-amber-200/5 via-transparent to-rose-300/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-							<div className="relative z-10 flex items-center gap-3">
+							<span
+								aria-hidden="true"
+								className="font-display tabular marquee-outline pointer-events-none absolute right-5 top-3 text-[clamp(3rem,5vw,4.5rem)] leading-none opacity-80 transition-transform duration-500 group-hover:-translate-y-1"
+							>
+								{String(group.items.length).padStart(2, "0")}
+							</span>
+							<div className="relative z-10 flex items-center gap-3 pr-20">
 								<span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/5">
 									<Icon className="h-5 w-5 text-[var(--accent-warm)]" aria-hidden="true" />
 								</span>

@@ -9,7 +9,6 @@ const RETRO_CLASS = "retro-mode";
 
 export function RetroEasterEgg() {
 	const { dict } = useLanguage();
-	const isEn = dict.lang === "en";
 	const [active, setActive] = useState(false);
 	const [justUnlocked, setJustUnlocked] = useState(false);
 
@@ -43,11 +42,7 @@ export function RetroEasterEgg() {
 
 	if (!active && !justUnlocked) return null;
 
-	const titleOn = isEn ? "RETRO MODE ON" : "MODO RETRO ACTIVADO";
-	const titleOff = isEn ? "RETRO MODE OFF" : "MODO RETRO DESACTIVADO";
-	const hint = isEn
-		? "Press Esc or konami again to toggle"
-		: "Pulsa Esc o el konami otra vez para alternar";
+	const { on: titleOn, off: titleOff, hint, close: closeLabel } = dict.ui.retro;
 
 	return (
 		<div
@@ -65,7 +60,7 @@ export function RetroEasterEgg() {
 					<button
 						type="button"
 						onClick={() => setActive(false)}
-						aria-label={isEn ? "Close retro mode" : "Cerrar modo retro"}
+						aria-label={closeLabel}
 						className="ml-1 inline-flex h-5 w-5 items-center justify-center rounded-full text-emerald-300/80 transition-colors hover:text-emerald-200"
 					>
 						<X className="h-3 w-3" aria-hidden="true" />

@@ -69,7 +69,7 @@ export function CareerMarquee() {
 		baseX.set(baseX.get() - (step + step * Math.abs(b)));
 	});
 
-	const copies = [0, 1, 2, 3];
+	const copies = [0, 1];
 	const row = (copy: number) =>
 		stops.map((stop, i) => (
 			<span key={`${copy}-${stop.name}`} className="flex shrink-0 items-center">
@@ -91,7 +91,7 @@ export function CareerMarquee() {
 				className="font-display flex w-max items-center whitespace-nowrap text-[clamp(2.2rem,6vw,5rem)] font-semibold leading-none tracking-[0.04em]"
 				style={reduce ? undefined : { x, skewX: skew }}
 			>
-				{copies.slice(0, 2).map((c) => (
+				{copies.map((c) => (
 					<span key={c} className="flex">
 						{row(c * 2)}
 						{row(c * 2 + 1)}

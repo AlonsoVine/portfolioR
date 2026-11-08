@@ -53,13 +53,14 @@ export function ReadingProgress() {
 				className="absolute inset-x-0 top-0 h-[2px] origin-left bg-gradient-to-r from-amber-400 via-rose-400 to-violet-500"
 			/>
 			{stages.slice(1).map((stage, i) => {
+				const started = passed > 1;
 				const done = passed > i + 1;
 				return (
 					<span key={stage.id} className="absolute top-0 -translate-x-1/2" style={{ left: `${stage.start * 100}%` }}>
 						<span className="absolute left-0 top-0 h-[2px] w-[3px] bg-[var(--background)]" />
 						<span
 							className="absolute left-[1px] top-[2px] h-[6px] w-px origin-top bg-[var(--foreground)] transition-[transform,opacity] duration-500"
-							style={{ transform: done ? "scaleY(0)" : "scaleY(1)", opacity: done ? 0 : 0.35 }}
+							style={{ transform: done || !started ? "scaleY(0)" : "scaleY(1)", opacity: done || !started ? 0 : 0.35 }}
 						/>
 					</span>
 				);

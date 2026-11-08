@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
 import { revealWith } from "@/lib/utils";
-import { GithubIcon, Sparkles } from "lucide-react";
+import { ArrowUpRight, GithubIcon, Sparkles } from "lucide-react";
 import { useLanguage } from "@/i18n";
 import { ProjectCarousel } from "../ui/ProjectCarousel";
 import Image from "next/image";
@@ -212,7 +212,7 @@ function ProjectCard({ project, index, total, counterLabel, labels }: ProjectCar
 						href={project.links.code}
 						target="_blank"
 						rel="noreferrer"
-						className="inline-flex items-center justify-center gap-2 rounded-xl border border-soft bg-black/20 px-5 py-3 text-sm font-semibold text-[var(--foreground)] transition-all duration-300 hover:-translate-y-0.5 hover:border-amber-300"
+						className="group/code inline-flex items-center justify-center gap-2 rounded-xl border border-[color:var(--foreground)]/25 px-5 py-3 text-sm font-semibold text-[var(--foreground)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[color:var(--accent-warm)]"
 					>
 						<GithubIcon className="h-4 w-4" aria-hidden="true" />
 						{labels.codeLabel}
@@ -222,9 +222,10 @@ function ProjectCard({ project, index, total, counterLabel, labels }: ProjectCar
 							href={project.links.demo}
 							target="_blank"
 							rel="noreferrer"
-							className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 px-5 py-3 text-sm font-semibold text-slate-900 shadow-[0_20px_50px_rgba(52,211,153,0.35)] transition-all duration-300 hover:-translate-y-0.5"
+							className="group/demo inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-400 to-rose-400 px-5 py-3 text-sm font-semibold text-slate-900 shadow-[0_20px_50px_rgba(248,212,128,0.25)] transition-all duration-300 hover:-translate-y-0.5"
 						>
 							{project.demoLinkLabel ?? labels.demoLabel}
+							<ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/demo:-translate-y-0.5 group-hover/demo:translate-x-0.5" aria-hidden="true" />
 						</a>
 					) : null}
 				</div>

@@ -31,7 +31,7 @@ function MadridClock({ label, locale }: { label: string; locale: string }) {
 	}, []);
 
 	return (
-		<p className="inline-flex items-center gap-2 text-xs text-subtle">
+		<p className="print-hide inline-flex items-center gap-2 text-xs text-subtle">
 			<span className="relative flex h-1.5 w-1.5">
 				<span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
 			</span>
@@ -44,17 +44,14 @@ function MadridClock({ label, locale }: { label: string; locale: string }) {
 export function Footer() {
 	const { dict } = useLanguage();
 	const year = new Date().getFullYear();
-	const isEn = dict.lang === "en";
 	const footerSocials = dict.socialLinks.filter(
 		(link) => link.icon === "linkedin" || link.icon === "github",
 	);
 	const navLinks = dict.nav.links;
 	const role = dict.hero.role;
 	const location = dict.hero.location;
-	const printLabel = isEn ? "Print live snapshot" : "Imprimir versión actual";
-	const printHint = isEn
-		? "Always-up-to-date snapshot · prints directly from this page"
-		: "Snapshot live siempre actualizado · imprime desde esta página";
+	const printLabel = dict.ui.print.label;
+	const printHint = dict.ui.print.hint;
 	const handlePrint = () => {
 		if (typeof window !== "undefined") window.print();
 	};
@@ -67,11 +64,11 @@ export function Footer() {
 					<div className="flex flex-col gap-3">
 						<p className="text-sm text-muted">{role}</p>
 						<p className="text-xs text-subtle">{location}</p>
-						<MadridClock label={dict.ui.madridTime} locale={isEn ? "en-GB" : "es-ES"} />
+						<MadridClock label={dict.ui.madridTime} locale={dict.ui.locale} />
 					</div>
 
 					<nav
-						aria-label={isEn ? "Footer navigation" : "Navegación del pie"}
+						aria-label={dict.ui.a11y.footerNav}
 						className="grid grid-cols-2 gap-x-10 gap-y-2 text-sm text-muted sm:grid-cols-4 lg:flex lg:flex-wrap lg:justify-end lg:gap-x-8"
 					>
 						{navLinks.map((link) => (

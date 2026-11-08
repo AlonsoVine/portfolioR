@@ -435,7 +435,7 @@ export const projects: Project[] = [
     },
   },
   {
-    title: "Jardin Digital",
+    title: "Jardín Digital",
     featured: true,
     description:
       "Web artesana para registrar y acompa\u00f1ar la vida de las plantas. Incluye panel con KPIs, filtros din\u00e1micos, exportaci\u00f3n de fichas (JSON/TXT/CSV), tema claro/oscuro, sonido ambiente y hojas flotantes.",

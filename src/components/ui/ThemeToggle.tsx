@@ -38,7 +38,6 @@ function applyTheme(next: Theme) {
 export function ThemeToggle() {
   const theme = useSyncExternalStore<Theme>(subscribe, readTheme, () => "dark");
   const { dict } = useLanguage();
-  const isEn = dict.lang === "en";
 
   const handleToggle = useCallback(() => {
     const next: Theme = readTheme() === "light" ? "dark" : "light";
@@ -51,13 +50,7 @@ export function ThemeToggle() {
   }, []);
 
   const Icon = theme === "light" ? Sun : Moon;
-  const ariaLabel = isEn
-    ? theme === "light"
-      ? "Switch to dark mode"
-      : "Switch to light mode"
-    : theme === "light"
-      ? "Activar modo oscuro"
-      : "Activar modo claro";
+  const ariaLabel = theme === "light" ? dict.ui.a11y.toDark : dict.ui.a11y.toLight;
 
   return (
     <button

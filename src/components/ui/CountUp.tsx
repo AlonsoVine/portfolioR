@@ -19,6 +19,9 @@ export function CountUp({ value, suffix = "", duration = 1.4, className }: Props
 	useEffect(() => {
 		const node = ref.current;
 		if (!node || !inView || reduce) return;
+		// Si la entrada CSS del hero ya mostró la cifra antes de hidratar, volver a 0 sería un parpadeo.
+		const intro = node.closest<HTMLElement>(".hero-in");
+		if (intro && Number(getComputedStyle(intro).opacity) > 0.2) return;
 		const controls = animate(0, value, {
 			duration,
 			ease: [0.16, 1, 0.3, 1],

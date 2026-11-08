@@ -1,7 +1,7 @@
 "use client";
 
 import { Check } from "lucide-react";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useLanguage } from "@/i18n";
 import { useActiveSection } from "@/lib/useActiveSection";
 import { cn } from "@/lib/utils";
@@ -13,7 +13,17 @@ export function SectionIndex() {
 	const ids = useMemo(() => dict.nav.links.map((l) => l.href.slice(1)), [dict.nav.links]);
 	const active = useActiveSection(ids);
 	const activeIndex = links.findIndex((l) => l.href === `#${active}`);
-	const visible = activeIndex >= 0;
+	const [footerInView, setFooterInView] = useState(false);
+	useEffect(() => {
+		const footer = document.querySelector("footer");
+		if (!footer) return;
+		const io = new IntersectionObserver(([entry]) => setFooterInView(entry.isIntersecting), {
+			rootMargin: "0px 0px -15% 0px",
+		});
+		io.observe(footer);
+		return () => io.disconnect();
+	}, []);
+	const visible = activeIndex >= 0 && !footerInView;
 	const pad = (n: number) => String(n).padStart(2, "0");
 
 	return (
@@ -49,7 +59,7 @@ export function SectionIndex() {
 									className={cn(
 										"font-display tabular text-xs transition-opacity duration-300",
 										state === "running"
-											? "text-[var(--accent-warm)]"
+											? "font-semibold text-[var(--foreground)]"
 											: "text-[var(--foreground)] opacity-75 group-hover:opacity-100",
 									)}
 								>

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useRef } from "react";
 import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
-import { revealWith, withBasePath } from "@/lib/utils";
+import { EASE_OUT_EXPO, revealWith, withBasePath } from "@/lib/utils";
 import { CountUp } from "../ui/CountUp";
 import { calcYearsExperience } from "@/lib/years";
 import { Building2, BriefcaseBusiness, MapPin, CalendarDays } from "lucide-react";
@@ -30,17 +30,19 @@ const highlightTech = (text: string, techs?: string[]) => {
   );
 };
 
+function startYear(period: string): string {
+  return period.match(/\d{4}/)?.[0] ?? "";
+}
+
 function isCurrentPeriod(period: string): boolean {
   return /actual|present/i.test(period);
 }
 
 export function ExperienceTimeline() {
-  const { dict, lang } = useLanguage();
+  const { dict } = useLanguage();
   const experiences = dict.experiences;
   const heading = dict.experienceHeading;
-  const techLabel = lang === "en" ? "Technologies used" : "Tecnologías utilizadas";
-  const yearsLabel = lang === "en" ? "years of experience" : "años de experiencia";
-  const currentLabel = lang === "en" ? "Current" : "Actual";
+  const { tech: techLabel, years: yearsLabel, current: currentLabel } = dict.ui.experience;
 
   const yearsExp = calcYearsExperience(experiences.map((e) => e.period));
 
@@ -132,12 +134,50 @@ export function ExperienceTimeline() {
 
                 <div className="grid md:grid-cols-2 md:gap-12">
                   <div
-                    className={`pl-16 md:pl-0 ${
-                      isLeft
-                        ? "md:col-start-1 md:pr-12 md:text-right"
-                        : "md:col-start-2 md:pl-12 md:text-left"
+                    aria-hidden="true"
+                    className={`pointer-events-none hidden md:row-start-1 md:block print:hidden ${
+                      isLeft ? "md:col-start-2 md:pl-12" : "md:col-start-1 md:pr-12 md:text-right"
                     }`}
                   >
+                    <motion.div
+                      className="sticky top-32 pt-3"
+                      initial={{ opacity: 0, y: 24 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "0px 0px -25% 0px" }}
+                      transition={{ duration: 1, ease: EASE_OUT_EXPO, delay: 0.15 }}
+                    >
+                      <p className="font-display tabular marquee-outline text-[clamp(3.5rem,7vw,6.5rem)] leading-none">
+                        {startYear(experience.period)}
+                      </p>
+                      <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.3em] text-muted">
+                        {experience.company}
+                      </p>
+                    </motion.div>
+                  </div>
+                  <div
+                    className={`relative pl-16 md:row-start-1 md:pl-0 ${
+                      isLeft ? "md:col-start-1 md:pr-12" : "md:col-start-2 md:pl-12"
+                    }`}
+                  >
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 72 40"
+                      fill="none"
+                      className={`pointer-events-none absolute top-11 hidden h-10 w-[72px] md:block print:hidden ${
+                        isLeft ? "-right-6 -scale-x-100" : "-left-6"
+                      }`}
+                    >
+                      <motion.path
+                        d="M0 0 C 0 22, 24 26, 72 26"
+                        stroke="var(--accent-warm)"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        initial={{ pathLength: 0 }}
+                        whileInView={{ pathLength: 1 }}
+                        viewport={{ once: true, margin: "0px 0px -35% 0px" }}
+                        transition={{ duration: 0.8, ease: EASE_OUT_EXPO, delay: 0.2 }}
+                      />
+                    </svg>
                     <div
                       data-spotlight
                       className="group relative overflow-hidden rounded-3xl surface-card p-6 text-muted shadow-[0_30px_80px_rgba(15,23,42,0.35)] backdrop-blur-xl transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-[0_30px_90px_rgba(251,191,36,0.12)]"
@@ -160,15 +200,12 @@ export function ExperienceTimeline() {
                         {isCurrent ? (
                           <div className="flex">
                             <span className="relative inline-flex items-center gap-2 rounded-full bg-[var(--pill-emerald-bg)] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--pill-emerald-text)] ring-1 ring-[color:var(--pill-emerald-border)]">
-                              <span className="relative flex h-2 w-2">
-                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/60 motion-reduce:animate-none" />
-                                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-                              </span>
+                              <span className="inline-flex h-2 w-2 rounded-full bg-emerald-400" />
                               {currentLabel}
                             </span>
                           </div>
                         ) : null}
-                        <div className={`flex items-start gap-3 text-sm text-muted ${isLeft ? "md:flex-row-reverse md:text-right" : ""}`}>
+                        <div className="flex items-start gap-3 text-sm text-muted">
                           {companyLogos[experience.company] ? (
                             <div className="mt-0.5 flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-md bg-white/5 p-[6px]">
                               <Image
@@ -180,7 +217,7 @@ export function ExperienceTimeline() {
                               />
                             </div>
                           ) : null}
-                          <div className={`flex flex-col gap-1 ${isLeft ? "md:items-end" : ""}`}>
+                          <div className="flex flex-col gap-1">
                             <div className="flex items-center gap-2 text-[var(--foreground)]">
                               <Building2 className="h-4 w-4 text-[var(--pill-emerald-text)] opacity-80" aria-hidden="true" />
                               <span className="font-medium">{experience.company}</span>
@@ -209,7 +246,7 @@ export function ExperienceTimeline() {
                         {experience.tech?.length ? (
                           <div className="mt-4 border-t border-soft/40 pt-4">
                             <p className="text-xs uppercase tracking-[0.35em] text-muted">{techLabel}</p>
-                            <div className={`mt-3 flex flex-wrap gap-2 ${isLeft ? "md:justify-end" : ""}`}>
+                            <div className="mt-3 flex flex-wrap gap-2">
                               {experience.tech.map((item) => (
                                 <span
                                   key={item}

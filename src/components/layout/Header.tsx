@@ -16,19 +16,12 @@ const HIDE_AFTER = 640;
 export function Header() {
   const { dict } = useLanguage();
   const links = dict.nav.links;
-  const isEn = dict.lang === "en";
   const reduce = useReducedMotion();
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
-  const menuLabel = open
-    ? isEn
-      ? "Close menu"
-      : "Cerrar menú"
-    : isEn
-      ? "Open menu"
-      : "Abrir menú";
+  const menuLabel = open ? dict.ui.a11y.closeMenu : dict.ui.a11y.openMenu;
   const sectionIds = useMemo(
     () => links.map((l) => l.href.replace("#", "")),
     [links],
@@ -76,7 +69,7 @@ export function Header() {
         <Link href="#hero" className="group flex min-w-0 items-center gap-2">
           <Image
             src={withBasePath("/images/logo.webp")}
-            alt={isEn ? "Personal logo" : "Logotipo personal"}
+            alt={dict.ui.a11y.logoAlt}
             width={32}
             height={32}
             className="shrink-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:rotate-[360deg]"
@@ -88,7 +81,7 @@ export function Header() {
           </span>
         </Link>
 
-        <nav aria-label={isEn ? "Main navigation" : "Navegación principal"} className="hidden items-center gap-0.5 lg:flex">
+        <nav aria-label={dict.ui.a11y.mainNav} className="hidden items-center gap-0.5 lg:flex">
           {links.map((link) => {
             const isActive = link.href === `#${activeId}`;
             return (
@@ -141,7 +134,7 @@ export function Header() {
               exit={{ opacity: 0, y: -8, scaleY: 0.96 }}
               transition={{ duration: 0.4, ease: EASE_OUT_EXPO }}
               className="absolute left-0 top-full mt-3 w-full origin-top rounded-3xl border border-soft p-6 shadow-2xl lg:hidden"
-              style={{ background: "color-mix(in srgb, var(--background) 97%, transparent)" }}
+              style={{ background: "var(--background)" }}
             >
               <motion.ol
                 className="flex flex-col gap-1"
@@ -166,8 +159,8 @@ export function Header() {
                         className={cn(
                           "flex items-baseline gap-4 rounded-2xl px-2 py-2.5 transition-colors",
                           isActive
-                            ? "text-[var(--nav-active-text)]"
-                            : "text-[var(--foreground)] hover:text-[var(--nav-active-text)]",
+                            ? "bg-[color:var(--accent-warm-soft)] text-[var(--foreground)]"
+                            : "text-[var(--foreground)] hover:bg-[color:var(--accent-warm-soft)]",
                         )}
                       >
                         <span className="font-display tabular w-6 text-xs text-[var(--accent-warm)]">

@@ -4,8 +4,7 @@ import { useLanguage } from "@/i18n";
 
 export function SkipToContent() {
 	const { dict } = useLanguage();
-	const isEn = dict.lang === "en";
-	const label = isEn ? "Skip to main content" : "Saltar al contenido principal";
+	const label = dict.ui.a11y.skipToContent;
 
 	return (
 		<a
