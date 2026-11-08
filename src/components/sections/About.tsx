@@ -1,14 +1,14 @@
 'use client';
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
-import { scrollRevealConfig } from "@/lib/utils";
+import { revealWith, scrollRevealConfig, withBasePath } from "@/lib/utils";
 import { useLanguage } from "@/i18n";
 import { ArrowRight, Bot, Code2, Cog, Languages, MapPin, Target, Zap } from "lucide-react";
 
-const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 const highlightIconMap = {
 	code: Code2,
@@ -25,28 +25,36 @@ export function About() {
 	const paragraphs = dict.about.textBlocks;
 	const highlights = dict.about.highlights;
 	const cta = dict.about.cta;
+	const isEn = dict.lang === "en";
+	const reduce = useReducedMotion();
+	const photoRef = useRef<HTMLDivElement>(null);
+	const { scrollYProgress } = useScroll({ target: photoRef, offset: ["start end", "end start"] });
+	const photoY = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
 	return (
 		<SectionShell id="about">
 			<SectionHeading
 				eyebrow={dict.about.eyebrow}
+				index="02"
 				title={dict.about.title}
 				description={dict.about.description}
 			/>
 			<div className="mt-12 grid gap-10 md:grid-cols-2 md:items-stretch">
 				<div className="flex flex-col gap-6">
 					<motion.div
-						{...(scrollRevealConfig as any)}
+						{...scrollRevealConfig}
 						className="group relative rounded-[32px] border-soft bg-gradient-to-b from-white/20 to-transparent p-2 shadow-[0_30px_80px_rgba(15,23,42,0.45)] backdrop-blur-xl transition-transform duration-500 ease-out hover:-translate-y-1"
 					>
-						<div className="relative overflow-hidden rounded-[28px]">
+						<div ref={photoRef} className="relative overflow-hidden rounded-[28px]">
 							<div className="pointer-events-none absolute inset-0 rounded-[28px] bg-gradient-to-br from-white/10 via-transparent to-amber-200/10 opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100" />
-							<Image
-								src={`${prefix}/assets/img/about-img.webp`}
-								alt="Alonso Vine - Desarrollador y Analista"
-								width={640}
-								height={640}
-								className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-							/>
+							<motion.div style={reduce ? undefined : { y: photoY, scale: 1.12 }}>
+								<Image
+									src={withBasePath("/assets/img/about-img.webp")}
+									alt={isEn ? "Alonso Viñé, developer and analyst" : "Alonso Viñé, desarrollador y analista"}
+									width={640}
+									height={640}
+									className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+								/>
+							</motion.div>
 							<div className="pointer-events-none absolute inset-0 flex items-end justify-start p-4">
 								<span
 									className="translate-y-2 text-lg font-semibold tracking-[0.18em] text-white opacity-0 drop-shadow-[0_6px_18px_rgba(0,0,0,0.45)] transition-all duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100"
@@ -60,8 +68,7 @@ export function About() {
 					</motion.div>
 					{highlights?.length ? (
 						<motion.div
-							{...(scrollRevealConfig as any)}
-							transition={{ ...(scrollRevealConfig as any).transition, delay: 0.2 }}
+							{...revealWith({ delay: 0.2 })}
 							className="grid gap-4 sm:grid-cols-3"
 						>
 							{highlights.map((item) => {
@@ -74,7 +81,7 @@ export function About() {
 										<div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/5">
 											<Icon className="h-5 w-5 text-[var(--accent-warm)]" aria-hidden="true" />
 										</div>
-										<h4 className="text-sm font-semibold">{item.title}</h4>
+										<h3 className="text-sm font-semibold">{item.title}</h3>
 										<p className="mt-1 text-xs text-muted">{item.description}</p>
 									</div>
 								);
@@ -83,15 +90,16 @@ export function About() {
 					) : null}
 				</div>
 				<motion.div
-					{...(scrollRevealConfig as any)}
-					transition={{ ...(scrollRevealConfig as any).transition, delay: 0.15 }}
-					className="relative flex h-full flex-col overflow-hidden rounded-3xl surface-card p-8 text-muted shadow-[0_30px_80px_rgba(15,23,42,0.35)] transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-[0_30px_90px_rgba(251,191,36,0.15)]"
+					{...revealWith({ delay: 0.15 })}
+					data-spotlight
+					className="group/text relative flex h-full flex-col overflow-hidden rounded-3xl surface-card p-8 text-muted shadow-[0_30px_80px_rgba(15,23,42,0.35)] transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-[0_30px_90px_rgba(251,191,36,0.15)]"
 				>
-					<div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 hover:opacity-100">
+					<span aria-hidden="true" className="spotlight" />
+					<div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover/text:opacity-100">
 						<div className="absolute inset-0 bg-gradient-to-br from-[color:var(--accent-warm-soft)] via-transparent to-rose-300/10" />
 					</div>
 					<div className="absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
-					<div className="flex h-full flex-col gap-6">
+					<div className="relative z-10 flex h-full flex-col gap-6">
 						{paragraphs.map((text) => (
 							<p key={text} className="text-lg leading-relaxed text-[var(--foreground)]">
 								{text}

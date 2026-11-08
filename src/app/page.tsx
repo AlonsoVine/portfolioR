@@ -9,6 +9,8 @@ import { Education } from "@/components/sections/Education";
 import { Contact } from "@/components/sections/Contact";
 import { ScrollToTopButton } from "@/components/ui/ScrollToTopButton";
 import { SectionDivider } from "@/components/shared/SectionDivider";
+import { StackMarquee } from "@/components/shared/StackMarquee";
+import { SectionIndex } from "@/components/ui/SectionIndex";
 
 export default function Home() {
   return (
@@ -16,7 +18,7 @@ export default function Home() {
       <Header />
       <main id="main-content" className="flex flex-col gap-6">
         <Hero />
-        <SectionDivider />
+        <StackMarquee />
         <SkillsGrid />
         <SectionDivider />
         <About />
@@ -29,6 +31,7 @@ export default function Home() {
         <SectionDivider />
         <Contact />
       </main>
+      <SectionIndex />
       <ScrollToTopButton />
       <Footer />
     </div>

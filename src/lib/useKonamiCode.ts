@@ -22,7 +22,10 @@ const KONAMI = [
 export function useKonamiCode(onUnlock: () => void) {
 	const positionRef = useRef(0);
 	const callbackRef = useRef(onUnlock);
-	callbackRef.current = onUnlock;
+
+	useEffect(() => {
+		callbackRef.current = onUnlock;
+	}, [onUnlock]);
 
 	useEffect(() => {
 		if (typeof window === "undefined") return;

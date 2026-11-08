@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { Cinzel, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -7,6 +7,7 @@ import { Aurora } from "@/components/shared/Aurora";
 import { ConsoleSignature } from "@/components/shared/ConsoleSignature";
 import { GoogleAnalyticsEvents } from "@/components/shared/GoogleAnalyticsEvents";
 import { MotionGate } from "@/components/shared/MotionGate";
+import { PointerEffects } from "@/components/shared/PointerEffects";
 import { RetroEasterEgg } from "@/components/shared/RetroEasterEgg";
 import { SkipToContent } from "@/components/shared/SkipToContent";
 import { ReadingProgress } from "@/components/ui/ReadingProgress";
@@ -38,6 +39,13 @@ const DESCRIPTION =
 const OG_IMAGE = "/portfolioR/assets/og-portfolio.webp";
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const HERO_AVATAR_PATH = `${BASE_PATH}/images/mi-foto.webp`;
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#020617" },
+    { media: "(prefers-color-scheme: light)", color: "#f8fafc" },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -188,6 +196,7 @@ export default function RootLayout({
           className="bg-noise pointer-events-none fixed inset-0 z-[9999] opacity-[0.06] mix-blend-overlay print:hidden"
         />
         <ConsoleSignature />
+        <PointerEffects />
         <ReadingProgress />
         <LanguageProvider>
           <MotionGate>

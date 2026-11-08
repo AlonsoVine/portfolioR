@@ -38,6 +38,12 @@
   --nav-active-grad-to: #fecdd3;
   --divider-line: rgba(248, 250, 252, 0.18);
   --divider-ornament: rgba(248, 250, 252, 0.4);
+  --spotlight-color: rgba(251, 191, 36, 0.11);
+  --marquee-stroke: rgba(248, 250, 252, 0.38);
+  --name-muted: 0.24;
+  --name-muted-hover: 0.5;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
   color-scheme: dark;
 }
 
@@ -79,6 +85,10 @@
   --nav-active-grad-to: #6366f1;
   --divider-line: rgba(15, 23, 42, 0.42);
   --divider-ornament: rgba(15, 23, 42, 0.75);
+  --spotlight-color: rgba(227, 105, 39, 0.1);
+  --marquee-stroke: rgba(15, 23, 42, 0.42);
+  --name-muted: 0.26;
+  --name-muted-hover: 0.55;
   color-scheme: light;
 }
 
@@ -428,7 +438,217 @@ html.retro-mode body::after {
 
   /* Ocultar todo lo decorativo / interactivo */
   .aurora-blob,
-  .bg-noise {
+  .bg-noise,
+  .spotlight,
+  .print-hide {
     display: none !important;
   }
+
+  /* Los reveals que no llegaron a entrar en pantalla no pueden quedarse invisibles en papel */
+  [style*="opacity"],
+  .hero-in,
+  .hero-letter,
+  .reveal-word {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .hero-name .letter-muted {
+    opacity: 0.35 !important;
+  }
+
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+}
+
+/* ───────────── Sistema de movimiento ───────────── */
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+.font-display {
+  font-family: var(--font-cinzel), ui-serif, Georgia, serif;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Hero: la intro corre en CSS para pintarse antes de hidratar (LCP) */
+.hero-in {
+  animation: hero-rise 0.95s var(--ease-out-expo) both;
+  animation-delay: var(--d, 0ms);
+}
+
+.hero-in-solid {
+  animation: hero-slide 0.95s var(--ease-out-expo) both;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes hero-slide {
+  from {
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    transform: none;
+  }
+}
+
+.hero-letter {
+  display: inline-block;
+  animation: letter-rise 1.1s var(--ease-out-expo) both;
+  animation-delay: calc(var(--i, 0) * 42ms + 80ms);
+}
+
+.hero-name .letter-muted {
+  opacity: var(--name-muted);
+  transition: opacity 0.6s var(--ease-out-quart);
+  transition-delay: calc(var(--i, 0) * 28ms);
+}
+
+.hero-name:hover .letter-muted {
+  opacity: var(--name-muted-hover);
+}
+
+.hero-name .letter-muted.hero-letter {
+  animation-name: letter-rise-muted;
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes letter-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.45em, 0) rotate(4deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes letter-rise-muted {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.45em, 0) rotate(4deg);
+  }
+  to {
+    opacity: var(--name-muted);
+    transform: none;
+  }
+}
+
+.scroll-cue-dot {
+  animation: scroll-cue 2.2s var(--ease-out-quart) infinite;
+}
+
+@keyframes scroll-cue {
+  0% {
+    transform: translate3d(0, -10px, 0);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(0, 34px, 0);
+    opacity: 0;
+  }
+}
+
+/* Spotlight que sigue al puntero dentro de tarjetas */
+.spotlight {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  width: 440px;
+  height: 440px;
+  margin: -220px 0 0 -220px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, var(--spotlight-color), transparent 62%);
+  transform: translate3d(var(--sx, -999px), var(--sy, -999px), 0);
+  opacity: 0;
+  transition: opacity 0.45s var(--ease-out-quart);
+  pointer-events: none;
+}
+
+[data-spotlight]:hover > .spotlight {
+  opacity: 1;
+}
+
+/* Marquee de tecnologías */
+.marquee-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--marquee-stroke);
+}
+
+.marquee-mask {
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+/* Palabras de los títulos que emergen desde su línea */
+.reveal-line {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.reveal-word {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-in,
+  .hero-in-solid,
+  .hero-letter,
+  .scroll-cue-dot {
+    animation: none !important;
+  }
+
+  .hero-name .letter-muted {
+    transition: none;
+  }
+
+  .spotlight {
+    display: none;
+  }
+}
+
+@media (hover: none) {
+  .spotlight {
+    display: none;
+  }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.45s;
+  animation-timing-function: var(--ease-out-quart);
+}
+
+.magnetic {
+  display: inline-flex;
+  transition: transform 0.45s var(--ease-out-quart);
 }

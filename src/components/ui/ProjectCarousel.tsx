@@ -87,7 +87,7 @@ export function ProjectCarousel({ images, alt, intervalMs = 3200, size = "defaul
 							alt={alt}
 							width={1200}
 							height={800}
-							className={`h-full w-full ${size === "large" ? "bg-black object-contain" : "object-cover"}`}
+							className={`h-full w-full transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04] ${size === "large" ? "bg-black object-contain" : "object-cover"}`}
 							priority={index === 0}
 						/>
 					</motion.button>

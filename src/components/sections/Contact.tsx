@@ -1,12 +1,11 @@
 'use client';
 
-import { useMemo, useRef, useState } from "react";
-import { motion } from "framer-motion";
-import emailjs from "@emailjs/browser";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
-import { scrollRevealConfig, cn } from "@/lib/utils";
-import { CheckCircle2, Clock, GithubIcon, Linkedin, Mail } from "lucide-react";
+import { cn, revealWith, scrollRevealConfig } from "@/lib/utils";
+import { Check, CheckCircle2, Clock, Copy, GithubIcon, Linkedin, Mail } from "lucide-react";
 import { useLanguage } from "@/i18n";
 import { IntentSelect } from "../ui/IntentSelect";
 
@@ -53,8 +52,28 @@ export function Contact() {
 	const [errorMsg, setErrorMsg] = useState<string | null>(null);
 	const [fieldErrors, setFieldErrors] = useState<Partial<Record<FieldName, string>>>({});
 	const [submitAttempted, setSubmitAttempted] = useState(false);
-	const mountedAt = useRef<number>(Date.now());
+	const mountedAt = useRef<number>(0);
+	const [emailCopied, setEmailCopied] = useState(false);
 	const isEn = dict.lang === "en";
+
+	useEffect(() => {
+		mountedAt.current = Date.now();
+	}, []);
+
+	useEffect(() => {
+		if (!emailCopied) return;
+		const id = window.setTimeout(() => setEmailCopied(false), 2200);
+		return () => window.clearTimeout(id);
+	}, [emailCopied]);
+
+	const copyEmail = async () => {
+		try {
+			await navigator.clipboard.writeText("alonvineba@gmail.com");
+			setEmailCopied(true);
+		} catch {
+			// sin permiso de portapapeles el enlace mailto sigue disponible
+		}
+	};
 
 	const intents = useMemo(
 		() =>
@@ -226,6 +245,7 @@ export function Contact() {
 		try {
 			const topicLabel = isEn ? "Topic" : "Motivo";
 			const composedMessage = `[${topicLabel}: ${intentLabelOf(form.intent)}]\n\n${form.message.trim()}`;
+			const { default: emailjs } = await import("@emailjs/browser");
 			await emailjs.send(
 				serviceId,
 				templateId,
@@ -268,7 +288,7 @@ export function Contact() {
 			<p
 				id={`contact-${field}-error`}
 				role="alert"
-				className="mt-1 text-xs text-rose-300"
+				className="mt-1 text-xs text-[var(--pill-rose-text)]"
 			>
 				{fieldErrors[field]}
 			</p>
@@ -305,11 +325,11 @@ export function Contact() {
 	const successBody = isEn ? (
 		<>
 			I&apos;ll reply within 24 hours. In the meantime, check out my{" "}
-			<a href="#projects" className="underline decoration-emerald-300/60 underline-offset-4 hover:text-emerald-200">
+			<a href="#projects" className="underline decoration-emerald-300/60 underline-offset-4 hover:text-[var(--pill-emerald-text)]">
 				projects
 			</a>{" "}
 			or my{" "}
-			<a href="#experience" className="underline decoration-emerald-300/60 underline-offset-4 hover:text-emerald-200">
+			<a href="#experience" className="underline decoration-emerald-300/60 underline-offset-4 hover:text-[var(--pill-emerald-text)]">
 				experience
 			</a>
 			.
@@ -317,11 +337,11 @@ export function Contact() {
 	) : (
 		<>
 			Te respondo en menos de 24 horas. Mientras, échale un ojo a mis{" "}
-			<a href="#projects" className="underline decoration-emerald-300/60 underline-offset-4 hover:text-emerald-200">
+			<a href="#projects" className="underline decoration-emerald-300/60 underline-offset-4 hover:text-[var(--pill-emerald-text)]">
 				proyectos
 			</a>{" "}
 			o a mi{" "}
-			<a href="#experience" className="underline decoration-emerald-300/60 underline-offset-4 hover:text-emerald-200">
+			<a href="#experience" className="underline decoration-emerald-300/60 underline-offset-4 hover:text-[var(--pill-emerald-text)]">
 				trayectoria
 			</a>
 			.
@@ -331,15 +351,14 @@ export function Contact() {
 
 	return (
 		<SectionShell id="contact">
-			<SectionHeading eyebrow={contact.eyebrow} title={contact.title} description={contact.description} />
+			<SectionHeading eyebrow={contact.eyebrow} index="06" title={contact.title} description={contact.description} />
 
-			<div className="mt-12 grid gap-8 lg:grid-cols-2">
+			<div className="mt-12 grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-2">
 				<motion.form
-					{...(scrollRevealConfig as any)}
+					{...scrollRevealConfig}
 					onSubmit={handleSubmit}
 					noValidate
 					className="relative rounded-3xl surface-card p-6 shadow-[0_30px_80px_rgba(15,23,42,0.35)] sm:p-7"
-					transition={{ duration: 0.6, ease: "easeOut" }}
 				>
 					<h3 className="text-xl font-semibold text-[var(--foreground)] sm:text-2xl">{contact.form.title}</h3>
 					<p className="mt-1 text-xs text-muted sm:text-sm">{contact.form.helper}</p>
@@ -370,14 +389,14 @@ export function Contact() {
 							aria-live="polite"
 						>
 							<div className="flex items-start gap-3">
-								<CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-300" aria-hidden="true" />
+								<CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[var(--pill-emerald-text)]" aria-hidden="true" />
 								<div className="flex flex-col gap-3">
-									<p className="text-base font-semibold text-emerald-200">{successTitle}</p>
+									<p className="text-base font-semibold text-[var(--pill-emerald-text)]">{successTitle}</p>
 									<p className="text-sm text-[var(--foreground)]/80">{successBody}</p>
 									<button
 										type="button"
 										onClick={resetForm}
-										className="self-start text-xs uppercase tracking-[0.3em] text-emerald-300/80 transition-colors hover:text-emerald-200"
+										className="self-start text-xs uppercase tracking-[0.3em] text-[var(--pill-emerald-text)] transition-colors hover:text-[var(--pill-emerald-text)]"
 									>
 										{sendAnotherLabel} →
 									</button>
@@ -511,7 +530,7 @@ export function Contact() {
 								</motion.button>
 							</div>
 							{errorMsg ? (
-								<p className="mt-4 text-sm text-rose-300" role="status" aria-live="polite">
+								<p className="mt-4 text-sm text-[var(--pill-rose-text)]" role="status" aria-live="polite">
 									{errorMsg}
 								</p>
 							) : null}
@@ -520,8 +539,7 @@ export function Contact() {
 				</motion.form>
 
 				<motion.div
-					{...scrollRevealConfig}
-					transition={{ delay: 0.1 }}
+					{...revealWith({ delay: 0.1 })}
 					className="flex flex-col gap-6 rounded-3xl bg-white/5 p-8 shadow-[0_30px_80px_rgba(15,23,42,0.35)] backdrop-blur"
 				>
 					<div className="rounded-2xl border border-soft/40 bg-white/5 p-6">
@@ -530,22 +548,58 @@ export function Contact() {
 						<div className="mt-5 flex flex-col gap-3">
 							{platforms.map((platform) => {
 								const Icon = platformIconMap[platform.label as keyof typeof platformIconMap] ?? Mail;
+								const isEmail = platform.label === "Email";
 								return (
-									<a
-										key={platform.label}
-										href={platform.href}
-										target="_blank"
-										rel="noreferrer"
-										className="flex items-center justify-between rounded-2xl border border-soft/40 bg-black/20 px-5 py-4 text-[var(--foreground)] transition-all duration-300 hover:-translate-y-0.5 hover:border-amber-300 hover:bg-white/10"
-									>
-										<div className="flex items-center gap-3">
-											<Icon className="h-5 w-5 text-[var(--foreground)]/70" aria-hidden="true" />
-											<div className="text-sm">
-												<p className="font-medium">{platform.label}</p>
-												<p className="text-muted">{platform.description}</p>
+									<div key={platform.label} className="group/platform relative">
+										<a
+											href={platform.href}
+											target={isEmail ? undefined : "_blank"}
+											rel={isEmail ? undefined : "noreferrer"}
+											className={cn(
+												"flex items-center justify-between rounded-2xl border border-soft/40 bg-black/20 px-5 py-4 text-[var(--foreground)] transition-all duration-300 hover:-translate-y-0.5 hover:border-amber-300 hover:bg-white/10",
+												isEmail && "pr-16",
+											)}
+										>
+											<div className="flex min-w-0 items-center gap-3">
+												<Icon className="h-5 w-5 shrink-0 text-[var(--foreground)]/70 transition-transform duration-300 group-hover/platform:-rotate-6 group-hover/platform:scale-110" aria-hidden="true" />
+												<div className="min-w-0 text-sm">
+													<p className="font-medium">{platform.label}</p>
+													<p className="truncate text-muted">{platform.description}</p>
+												</div>
 											</div>
-										</div>
-									</a>
+										</a>
+										{isEmail ? (
+											<>
+												<button
+													type="button"
+													onClick={copyEmail}
+													aria-label={emailCopied ? dict.ui.emailCopied : dict.ui.copyEmail}
+													title={dict.ui.copyEmail}
+													className="absolute right-3 top-1/2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-soft/60 text-[var(--foreground)] transition-colors duration-300 hover:border-amber-300 hover:text-[var(--accent-warm)]"
+												>
+													<AnimatePresence mode="wait" initial={false}>
+														<motion.span
+															key={emailCopied ? "ok" : "copy"}
+															initial={{ opacity: 0, scale: 0.6, rotate: -20 }}
+															animate={{ opacity: 1, scale: 1, rotate: 0 }}
+															exit={{ opacity: 0, scale: 0.6 }}
+															transition={{ duration: 0.2 }}
+															className="inline-flex"
+														>
+															{emailCopied ? (
+																<Check className="h-4 w-4 text-emerald-400" aria-hidden="true" />
+															) : (
+																<Copy className="h-4 w-4" aria-hidden="true" />
+															)}
+														</motion.span>
+													</AnimatePresence>
+												</button>
+												<span role="status" aria-live="polite" className="sr-only">
+													{emailCopied ? dict.ui.emailCopied : ""}
+												</span>
+											</>
+										) : null}
+									</div>
 								);
 							})}
 						</div>

@@ -1,7 +1,8 @@
 'use client';
 
 import { Moon, Sun } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useSyncExternalStore } from "react";
+import { flushSync } from "react-dom";
 import { useLanguage } from "@/i18n";
 
 type Theme = "light" | "dark";
@@ -12,29 +13,42 @@ declare global {
   }
 }
 
-const getInitialTheme = (): Theme => {
-  if (typeof window !== "undefined" && window.__theme) {
-    return window.__theme;
+const THEME_EVENT = "portfolio-theme-change";
+
+function readTheme(): Theme {
+  return document.documentElement.dataset.theme === "light" ? "light" : "dark";
+}
+
+function subscribe(callback: () => void) {
+  window.addEventListener(THEME_EVENT, callback);
+  return () => window.removeEventListener(THEME_EVENT, callback);
+}
+
+function applyTheme(next: Theme) {
+  document.documentElement.dataset.theme = next;
+  window.__theme = next;
+  try {
+    window.localStorage.setItem("theme", next);
+  } catch {
+    // sin persistencia: el tema dura lo que la pestaña
   }
-  return "dark";
-};
+  window.dispatchEvent(new Event(THEME_EVENT));
+}
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>(getInitialTheme);
+  const theme = useSyncExternalStore<Theme>(subscribe, readTheme, () => "dark");
   const { dict } = useLanguage();
   const isEn = dict.lang === "en";
 
-  useEffect(() => {
-    if (typeof document !== "undefined") {
-      document.documentElement.dataset.theme = theme;
-      window.localStorage.setItem("theme", theme);
-      window.__theme = theme;
+  const handleToggle = useCallback(() => {
+    const next: Theme = readTheme() === "light" ? "dark" : "light";
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!reduce && typeof document.startViewTransition === "function") {
+      document.startViewTransition(() => flushSync(() => applyTheme(next)));
+    } else {
+      applyTheme(next);
     }
-  }, [theme]);
-
-  const handleToggle = () => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
-  };
+  }, []);
 
   const Icon = theme === "light" ? Sun : Moon;
   const ariaLabel = isEn
@@ -47,14 +61,14 @@ export function ThemeToggle() {
 
   return (
     <button
+      type="button"
       onClick={handleToggle}
       aria-label={ariaLabel}
       aria-pressed={theme === "dark"}
-      className="group relative inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border-soft bg-white/10 text-[var(--foreground)] shadow-[0_8px_24px_rgba(15,23,42,0.35)] backdrop-blur-md transition-all duration-300 hover:scale-105 hover:border-strong"
+      className="group relative inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-soft bg-white/10 text-[var(--foreground)] shadow-[0_8px_24px_rgba(15,23,42,0.35)] backdrop-blur-md transition-all duration-300 hover:scale-105 hover:border-strong"
     >
       <Icon className="h-5 w-5 transition-transform duration-500 group-hover:rotate-180" aria-hidden="true" />
       <span className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-r from-amber-300/0 via-white/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
     </button>
   );
 }
-

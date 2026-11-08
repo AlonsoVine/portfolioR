@@ -143,7 +143,7 @@ export const socialLinks: SocialLink[] = [
 
 export const skillCards: SkillCard[] = [
   {
-    title: "Lenguajes y Programacion",
+    title: "Lenguajes y programación",
     icon: "code",
     tone: "blue",
     items: [
@@ -158,7 +158,7 @@ export const skillCards: SkillCard[] = [
     ],
   },
   {
-    title: "Frameworks y Librerias",
+    title: "Frameworks y librerías",
     icon: "layers",
     tone: "green",
     items: [
@@ -195,7 +195,7 @@ export const skillCards: SkillCard[] = [
     ],
   },
   {
-    title: "Bases de Datos",
+    title: "Bases de datos",
     icon: "database",
     tone: "purple",
     items: [
@@ -203,11 +203,11 @@ export const skillCards: SkillCard[] = [
       "MySQL",
       "MongoDB",
       "Firebase",
-      "Analisis de Datos (R)",
+      "Análisis de datos (R)",
     ],
   },
   {
-    title: "Herramientas y Plataformas",
+    title: "Herramientas y plataformas",
     icon: "wrench",
     tone: "rose",
     items: [

@@ -17,16 +17,16 @@ export const es = {
   hero: heroContent,
   about: {
     ...aboutContent,
-    eyebrow: "Sobre mi",
-    title: "Conoceme mejor",
+    eyebrow: "Sobre mí",
+    title: "Conóceme mejor",
     description:
-      "Apasionado por la tecnologia y siempre en busca de nuevas oportunidades para crecer profesionalmente.",
+      "Apasionado por la tecnología y siempre en busca de nuevas oportunidades para crecer profesionalmente.",
   },
   skills: {
     eyebrow: "Stack",
     title: "Stack Tecnológico",
     description:
-      "Agrupación de mis habilidades clave y las herramientas esenciales que utilizo diariamente",
+      "Agrupación de mis habilidades clave y las herramientas esenciales que utilizo a diario.",
     cards: skillCards,
   },
   experiences,
@@ -39,7 +39,7 @@ export const es = {
     eyebrow: "Casos",
     title: "Proyectos destacados",
     description: "Una muestra de lo que construyo.",
-    codeLabel: "Codigo",
+    codeLabel: "Código",
     demoLabel: "Ver Demo",
     featuredLabel: "Destacado",
     galleryLabel: "Capturas",
@@ -58,9 +58,9 @@ export const es = {
     })),
   },
   education: {
-    eyebrow: "Formacion",
-    title: "Educacion & Especializaciones",
-    description: "Mi formacion y certificaciones mas relevantes.",
+    eyebrow: "Formación",
+    title: "Educación y especializaciones",
+    description: "Mi formación y certificaciones más relevantes.",
     items: education,
   },
   contact: {
@@ -69,23 +69,43 @@ export const es = {
     description:
       "Estoy abierto a nuevas oportunidades y colaboraciones. No dudes en escribirme.",
     form: {
-      title: "Enviame un mensaje",
+      title: "Envíame un mensaje",
       helper:
-        "Completa el formulario y me pondre en contacto contigo lo antes posible.",
+        "Completa el formulario y me pondré en contacto contigo lo antes posible.",
       name: { label: "Nombre", placeholder: "Tu nombre" },
       email: { label: "Email", placeholder: "tu@email.com" },
-      message: { label: "Mensaje", placeholder: "Escribe tu mensaje aqui..." },
+      message: { label: "Mensaje", placeholder: "Escribe tu mensaje aquí..." },
       submit: "Enviar mensaje",
     },
     platforms: {
       title: "Conecta conmigo",
-      subtitle: "Encuentrame en estas plataformas.",
+      subtitle: "Encuéntrame en estas plataformas.",
     },
     availability: {
       title: "Disponible para colaborar",
       description:
         "Actualmente estoy buscando nuevas oportunidades y colaboraciones interesantes. Si tienes un proyecto en mente, hablemos.",
     },
+  },
+  ui: {
+    heroStats: {
+      years: "años en producción",
+      companies: "empresas",
+      projects: "proyectos en GitHub",
+      certifications: "formaciones y certificados",
+    },
+    scrollCue: "Desliza",
+    marqueeLabel: "Tecnologías con las que trabajo",
+    sectionNav: "Índice de secciones",
+    socialProfile: "Perfil de {name}",
+    projectCounter: "Proyecto",
+    copyEmail: "Copiar email",
+    emailCopied: "Email copiado",
+    madridTime: "Hora en Madrid",
+    backToTop: "Volver arriba",
+    builtWith: "Hecho a mano con Next.js, Tailwind y framer-motion",
+    languageCurrent: "Idioma",
+    languageSwitch: "cambiar a inglés",
   },
   socialLinks,
 };

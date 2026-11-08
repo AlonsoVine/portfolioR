@@ -61,12 +61,10 @@ export function IntentSelect({
 		return () => document.removeEventListener("mousedown", handler);
 	}, [open, onBlur]);
 
-	useEffect(() => {
-		if (open) {
-			const idx = selectedIndex >= 0 ? selectedIndex : 0;
-			setActiveIndex(idx);
-		}
-	}, [open, selectedIndex]);
+	const openList = () => {
+		setActiveIndex(selectedIndex >= 0 ? selectedIndex : 0);
+		setOpen(true);
+	};
 
 	useEffect(() => {
 		if (open && activeIndex >= 0) {
@@ -84,7 +82,7 @@ export function IntentSelect({
 		if (!open) {
 			if (event.key === "ArrowDown" || event.key === "Enter" || event.key === " ") {
 				event.preventDefault();
-				setOpen(true);
+				openList();
 			}
 			return;
 		}
@@ -132,7 +130,7 @@ export function IntentSelect({
 				aria-invalid={ariaInvalid}
 				aria-describedby={ariaDescribedBy}
 				aria-required={required}
-				onClick={() => setOpen((prev) => !prev)}
+				onClick={() => (open ? setOpen(false) : openList())}
 				onKeyDown={handleKeyDown}
 				onBlur={(event) => {
 					if (!panelRef.current?.contains(event.relatedTarget as Node)) {

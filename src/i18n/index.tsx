@@ -1,11 +1,11 @@
 "use client";
 
-import { ReactNode, createContext, useContext, useEffect, useMemo, useState } from "react";
+import { ReactNode, createContext, useCallback, useContext, useEffect, useMemo, useSyncExternalStore } from "react";
 import { es } from "./locales/es";
 import { en } from "./locales/en";
 
 type Locale = typeof es;
-type Lang = "es" | "en";
+export type Lang = "es" | "en";
 
 const dictionaries: Record<Lang, Locale> = {
 	es,
@@ -25,21 +25,44 @@ const LanguageContext = createContext<LanguageContextValue>({
 });
 
 const STORAGE_KEY = "portfolio-lang";
+const CHANGE_EVENT = "portfolio-lang-change";
+let memoryLang: Lang = "es";
+
+function readStoredLang(): Lang {
+	try {
+		const stored = window.localStorage.getItem(STORAGE_KEY);
+		if (stored === "en" || stored === "es") return stored;
+		return memoryLang;
+	} catch {
+		return memoryLang;
+	}
+}
+
+function subscribe(callback: () => void) {
+	window.addEventListener(CHANGE_EVENT, callback);
+	window.addEventListener("storage", callback);
+	return () => {
+		window.removeEventListener(CHANGE_EVENT, callback);
+		window.removeEventListener("storage", callback);
+	};
+}
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-	const [lang, setLangState] = useState<Lang>("es");
+	const lang = useSyncExternalStore<Lang>(subscribe, readStoredLang, () => "es");
 
-	useEffect(() => {
-		const stored = typeof window !== "undefined" ? (localStorage.getItem(STORAGE_KEY) as Lang | null) : null;
-		if (stored === "en" || stored === "es") setLangState(stored);
+	const setLang = useCallback((next: Lang) => {
+		memoryLang = next;
+		try {
+			window.localStorage.setItem(STORAGE_KEY, next);
+		} catch {
+			// sin localStorage el idioma vive solo en memoria
+		}
+		window.dispatchEvent(new Event(CHANGE_EVENT));
 	}, []);
 
-	const setLang = (next: Lang) => {
-		setLangState(next);
-		if (typeof window !== "undefined") {
-			localStorage.setItem(STORAGE_KEY, next);
-		}
-	};
+	useEffect(() => {
+		document.documentElement.lang = lang;
+	}, [lang]);
 
 	const value = useMemo(
 		() => ({
@@ -47,7 +70,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 			dict: dictionaries[lang],
 			setLang,
 		}),
-		[lang],
+		[lang, setLang],
 	);
 
 	return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;

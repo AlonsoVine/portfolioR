@@ -94,15 +94,15 @@ export const en = {
     cards: skillCards.map((card) => ({
       ...card,
       title:
-        card.title === "Lenguajes y Programacion"
+        card.title === "Lenguajes y programación"
           ? "Languages & Programming"
-          : card.title === "Frameworks y Librerias"
+          : card.title === "Frameworks y librerías"
           ? "Frameworks & Libraries"
           : card.title === "Cloud y DevOps"
           ? "Cloud & DevOps"
-          : card.title === "Bases de Datos"
+          : card.title === "Bases de datos"
           ? "Databases"
-          : card.title === "Herramientas y Plataformas"
+          : card.title === "Herramientas y plataformas"
           ? "Tools & Platforms"
           : card.title === "Certificaciones"
           ? "Certifications"
@@ -328,6 +328,26 @@ export const en = {
       description:
         "I'm currently looking for new opportunities and interesting collaborations. If you have a project in mind, let's talk.",
     },
+  },
+  ui: {
+    heroStats: {
+      years: "years in production",
+      companies: "companies",
+      projects: "projects on GitHub",
+      certifications: "courses & certificates",
+    },
+    scrollCue: "Scroll",
+    marqueeLabel: "Technologies I work with",
+    sectionNav: "Section index",
+    socialProfile: "{name} profile",
+    projectCounter: "Project",
+    copyEmail: "Copy email",
+    emailCopied: "Email copied",
+    madridTime: "Time in Madrid",
+    backToTop: "Back to top",
+    builtWith: "Handmade with Next.js, Tailwind and framer-motion",
+    languageCurrent: "Language",
+    languageSwitch: "switch to Spanish",
   },
   socialLinks,
 };

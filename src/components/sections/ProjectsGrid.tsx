@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
-import { scrollRevealConfig } from "@/lib/utils";
+import { revealWith } from "@/lib/utils";
 import { GithubIcon, Sparkles } from "lucide-react";
 import { useLanguage } from "@/i18n";
 import { ProjectCarousel } from "../ui/ProjectCarousel";
@@ -35,6 +35,8 @@ const highlightTech = (text: string, techs?: string[]) => {
 type ProjectCardProps = {
 	project: Project;
 	index: number;
+	total: number;
+	counterLabel: string;
 	labels: {
 		codeLabel: string;
 		demoLabel: string;
@@ -47,15 +49,15 @@ type ProjectCardProps = {
 	};
 };
 
-function ProjectCard({ project, index, labels }: ProjectCardProps) {
+function ProjectCard({ project, index, total, counterLabel, labels }: ProjectCardProps) {
 	const [showVideo, setShowVideo] = useState(false);
 	const isSpotlight = project.spotlight;
 	const isSingleImageSpotlight = isSpotlight && project.singleImage;
 
 	return (
 		<motion.article
-			{...scrollRevealConfig}
-			transition={{ delay: index * 0.08 }}
+			{...revealWith({ delay: isSpotlight ? 0 : (index % 2) * 0.1, duration: 0.85 })}
+			data-spotlight
 			className={`group relative flex h-full flex-col overflow-hidden rounded-3xl surface-card shadow-[0_30px_80px_rgba(15,23,42,0.45)] backdrop-blur-xl transition-transform duration-500 hover:-translate-y-2 hover:shadow-[0_30px_100px_rgba(251,191,36,0.18)] ${
 				isSpotlight
 					? `md:col-span-2 lg:grid ${
@@ -66,6 +68,7 @@ function ProjectCard({ project, index, labels }: ProjectCardProps) {
 					: ""
 			}`}
 		>
+			<span aria-hidden="true" className="spotlight" />
 			<div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
 				<div className="absolute inset-0 bg-gradient-to-br from-amber-200/8 via-transparent to-rose-300/8" />
 			</div>
@@ -109,7 +112,7 @@ function ProjectCard({ project, index, labels }: ProjectCardProps) {
 							alt={project.title}
 							fill
 							sizes="(min-width: 1024px) 40vw, 100vw"
-							className="object-cover"
+							className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
 						/>
 					</div>
 				) : isSpotlight && showVideo && project.video ? (
@@ -135,11 +138,23 @@ function ProjectCard({ project, index, labels }: ProjectCardProps) {
 				)}
 			</div>
 			<div
-				className={`flex flex-1 flex-col gap-6 p-8 ${isSpotlight ? "lg:justify-center lg:p-10" : ""} ${
+				className={`relative z-10 flex flex-1 flex-col gap-6 p-8 ${isSpotlight ? "lg:justify-center lg:p-10" : ""} ${
 					isSingleImageSpotlight ? "order-1" : ""
 				}`}
 			>
 				<div className="flex flex-col gap-3">
+					<p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-muted">
+						<span className="sr-only">{counterLabel} </span>
+						<span className="font-display tabular text-sm tracking-[0.15em] text-[var(--accent-warm)]">
+							{String(index + 1).padStart(2, "0")}
+						</span>
+						<span aria-hidden="true" className="h-px w-8 bg-[var(--divider-line)] transition-transform duration-500 group-hover:scale-x-150 origin-left" />
+						<span className="tabular">
+							<span className="sr-only">/</span>
+							<span aria-hidden="true">/ </span>
+							{String(total).padStart(2, "0")}
+						</span>
+					</p>
 					<div className="flex flex-wrap items-center gap-3">
 						{project.logo ? (
 							<Image
@@ -224,13 +239,15 @@ export function ProjectsGrid() {
 
 	return (
 		<SectionShell id="projects">
-			<SectionHeading eyebrow={projects.eyebrow} title={projects.title} description={projects.description} />
+			<SectionHeading eyebrow={projects.eyebrow} index="04" title={projects.title} description={projects.description} />
 			<div className="mt-12 grid gap-8 md:grid-cols-2">
 				{projects.items.map((project, index) => (
 					<ProjectCard
 						key={project.title}
 						project={project}
 						index={index}
+						total={projects.items.length}
+						counterLabel={dict.ui.projectCounter}
 						labels={projects}
 					/>
 				))}
