@@ -52,7 +52,7 @@ export function Header() {
 			ref={headerRef}
 			onFocusCapture={() => setHidden(false)}
 			className={cn(
-				"fixed inset-x-0 top-0 z-50 bg-paper transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] print:hidden",
+				"site-header fixed inset-x-0 top-0 z-50 bg-paper transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] print:hidden",
 				hidden ? "-translate-y-full" : "translate-y-0",
 			)}
 		>

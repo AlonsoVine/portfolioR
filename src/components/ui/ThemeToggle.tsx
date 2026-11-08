@@ -48,14 +48,14 @@ export function ThemeToggle() {
 		}
 	}, []);
 
-	const ariaLabel = theme === "light" ? dict.ui.a11y.toDark : dict.ui.a11y.toLight;
+	const current = theme === "dark" ? dict.ui.theme.dark : dict.ui.theme.light;
+	const ariaLabel = `${current}: ${theme === "light" ? dict.ui.a11y.toDark : dict.ui.a11y.toLight}`;
 
 	return (
 		<button
 			type="button"
 			onClick={handleToggle}
 			aria-label={ariaLabel}
-			aria-pressed={theme === "dark"}
 			className="meta inline-flex min-h-11 items-center gap-2 px-2 text-ink transition-colors hover:text-muted"
 		>
 			{/* Disco partido: la mitad rellena indica el modo en uso */}
@@ -63,7 +63,7 @@ export function ThemeToggle() {
 				<span className={theme === "dark" ? "absolute inset-y-0 left-0 w-1/2 bg-current" : "absolute inset-y-0 right-0 w-1/2 bg-current"} />
 			</span>
 			<span aria-hidden="true" className="hidden sm:inline">
-				{theme === "dark" ? dict.ui.theme.dark : dict.ui.theme.light}
+				{current}
 			</span>
 		</button>
 	);
