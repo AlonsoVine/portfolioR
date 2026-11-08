@@ -108,6 +108,8 @@ export const en = {
           ? "Databases"
           : card.title === "Herramientas y plataformas"
           ? "Tools & Platforms"
+          : card.title === "IA aplicada al desarrollo"
+          ? "AI-assisted development"
           : card.title === "Certificaciones"
           ? "Certifications"
           : card.title,
