@@ -60,6 +60,12 @@ Defectos señalados:
 9. Menor: tres puntos verdes con "ping".
 Novedades consideradas de catálogo: marquee de stack (repite la sección siguiente), cita iluminada, magnéticos/spotlight, reloj con ping, "Hecho a mano".
 
+## Vuelta 2 (commit 05264ae)
+
+Corrige los 4 defectos bloqueantes/mayores y los 5 menores de la vuelta 1b (DECISIONES D-22…D-31). Novedades: marquee de trayectoria (sustituye al de stack), barra de progreso e índice lateral leídos como pipeline, rol del hero que no se corta en móvil.
+
+Checks (`capturas/vuelta-2/checks.md`): lint 0 · build sin warnings · consola 0 · overflow OK 360–1920 · impresión 9 páginas · Lighthouse escritorio 92/100/100 · móvil A11y 100, BP 100 · TBT con CPU ×4 327–391 ms (línea base 902–3725 ms).
+
 ### (Histórico) cambios añadidos tras la vuelta 1
 - Cita destacada en About que se enciende palabra a palabra con el scroll (frase ya existente del About, ES/EN).
 - Impresión como CV compacto (sin galerías, fotos de certificados ni formulario).

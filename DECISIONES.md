@@ -103,6 +103,18 @@ Registro de decisiones, inventario de efectos que no pueden degradarse y pregunt
 - **D-20 · Badge Lighthouse**: muestra las puntuaciones manuales de la última auditoría PSI del sitio publicado (95/95/100/100). No se actualizan porque no se puede auditar el sitio publicado desde esta rama; solo se corrige su nombre accesible y su color en modo claro.
 - **D-21 · Cita destacada en About**: reutiliza la última frase del propio texto del About (ES/EN). El estado "apagado" no baja de 3:1 de contraste (`--quote-dim` por tema).
 
+### Vuelta 2 (tras el árbitro de la vuelta 1b)
+- **D-22 · Marquee de trayectoria en vez de marquee de stack**: el árbitro lo vio repetitivo (enumeraba lo mismo que Skills justo debajo). Ahora recorre empresas y años derivados de `experiences` (Atos y Atos (Cestic) se agrupan). Mantiene la reacción a la velocidad del scroll y el contorno, así que el ítem del marquee no se pierde.
+- **D-23 · Progreso como pipeline**: la barra de lectura conserva el degradado con muelle (inventario 3) y añade una muesca por sección que se "supera" al pasarla. El índice lateral muestra cada sección como etapa: superada (✓), en curso (pulso) o pendiente (anillo), con "Etapa NN / 06". Encaja con el perfil DevOps sin añadir contenido nuevo.
+- **D-24 · Cita sin duplicar**: la frase "Lo que más me mueve…" sale del párrafo 3 del About (ES/EN) y vive solo en la cita iluminada. No se cambia el texto.
+- **D-25 · Acento en claro**: `--accent-warm` pasa a `#b4471a` en modo claro y la pill violeta deja de ser naranja (`#5b21b6`). Así cumplen AA sobre `--background` y en las tarjetas. El modo oscuro no cambia.
+- **D-26 · Impresión en 9 páginas** (antes 26): rejillas de 2–3 columnas, timeline a una columna, sin fotos decorativas, galerías, formulario ni navegación del footer. Los enlaces de proyecto se imprimen como texto.
+- **D-27 · Títulos legibles sin JS**: `RevealText` oculta las palabras por CSS solo si `html[data-js]`, atributo que pone el script anti-FOUC, así que el HTML estático se lee.
+- **D-28 · Header en móvil**: por debajo de 768 px ya no se esconde al bajar. Es pequeño, y al esconderse se perdía el acceso al menú.
+- **D-29 · Un solo "volver arriba"**: se quita el enlace del footer y se deja el botón flotante (inventario 38). El reloj de Madrid pierde el ping (queda un punto fijo) y el ping verde queda solo en el puesto actual y la disponibilidad.
+- **D-30 · Rol del hero**: cada parte ("Full Stack Developer", "DevOps & IA") no se parte por dentro, pero el corte entre partes sí puede ocurrir. A 390 px se cortaba la línea.
+- **D-31 · `turbopack.root`**: un `package-lock.json` vacío de 2023 en `C:\proyectos` provocaba un warning de build. No se ha borrado, porque es ajeno al repo; se fija la raíz en `next.config.ts`.
+
 ## 4. Preguntas pendientes sobre contenido
 
 1. ¿Hay logros cuantificables (tiempos de release, nº de pipelines o proyectos cliente migrados en Seres, etc.) que se puedan publicar? Darían más fuerza a Experiencia; no se han inventado.
