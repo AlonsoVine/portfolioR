@@ -90,6 +90,10 @@ export function Footer() {
 						>
 							<Mail className="h-4 w-4" aria-hidden="true" />
 						</a>
+						<span
+							aria-hidden="true"
+							className="mx-1 h-6 w-px bg-[var(--foreground)]/15"
+						/>
 						<button
 							type="button"
 							onClick={handlePrint}
