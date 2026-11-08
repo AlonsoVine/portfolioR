@@ -1,17 +1,20 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { Check } from "lucide-react";
 import { useMemo } from "react";
 import { useLanguage } from "@/i18n";
 import { useActiveSection } from "@/lib/useActiveSection";
 import { cn } from "@/lib/utils";
 
+/** Índice lateral leído como un pipeline: etapas superadas (✓), en curso (●) y pendientes (○). */
 export function SectionIndex() {
 	const { dict } = useLanguage();
 	const links = useMemo(() => dict.nav.links.filter((l) => l.href !== "#hero"), [dict.nav.links]);
 	const ids = useMemo(() => dict.nav.links.map((l) => l.href.slice(1)), [dict.nav.links]);
 	const active = useActiveSection(ids);
-	const visible = active !== null && active !== "hero";
+	const activeIndex = links.findIndex((l) => l.href === `#${active}`);
+	const visible = activeIndex >= 0;
+	const pad = (n: number) => String(n).padStart(2, "0");
 
 	return (
 		<nav
@@ -21,20 +24,23 @@ export function SectionIndex() {
 				visible ? "opacity-100" : "invisible pointer-events-none opacity-0",
 			)}
 		>
+			<p className="tabular mb-4 text-right font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+				{dict.ui.stage} {pad(Math.max(activeIndex, 0) + 1)} / {pad(links.length)}
+			</p>
 			<ol className="flex flex-col items-end gap-3">
 				{links.map((link, i) => {
-					const isActive = link.href === `#${active}`;
+					const state = i < activeIndex ? "done" : i === activeIndex ? "running" : "pending";
 					return (
 						<li key={link.href}>
 							<a
 								href={link.href}
-								aria-current={isActive ? "true" : undefined}
+								aria-current={state === "running" ? "true" : undefined}
 								className="group flex items-center gap-3 py-0.5"
 							>
 								<span
 									className={cn(
 										"translate-x-2 text-[11px] font-medium uppercase tracking-[0.25em] opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100",
-										isActive ? "text-[var(--foreground)]" : "text-muted",
+										state === "running" ? "text-[var(--foreground)]" : "text-muted",
 									)}
 								>
 									{link.label}
@@ -42,19 +48,24 @@ export function SectionIndex() {
 								<span
 									className={cn(
 										"font-display tabular text-xs transition-opacity duration-300",
-										isActive ? "text-[var(--accent-warm)] opacity-100" : "text-[var(--foreground)] opacity-60 group-hover:opacity-100",
+										state === "running"
+											? "text-[var(--accent-warm)]"
+											: "text-[var(--foreground)] opacity-75 group-hover:opacity-100",
 									)}
 								>
-									{String(i + 1).padStart(2, "0")}
+									{pad(i + 1)}
 								</span>
-								<span className="relative h-px w-6 overflow-hidden bg-[var(--divider-line)]">
-									{isActive ? (
-										<motion.span
-											layoutId="section-index-bar"
-											className="absolute inset-0 bg-[var(--accent-warm)]"
-											transition={{ type: "spring", stiffness: 380, damping: 34 }}
-										/>
-									) : null}
+								<span aria-hidden="true" className="relative flex h-4 w-4 items-center justify-center">
+									{state === "done" ? (
+										<Check className="h-3 w-3 text-[var(--accent-warm)]" strokeWidth={3} />
+									) : state === "running" ? (
+										<>
+											<span className="stage-pulse absolute h-4 w-4 rounded-full bg-[var(--accent-warm)]" />
+											<span className="relative h-2 w-2 rounded-full bg-[var(--accent-warm)]" />
+										</>
+									) : (
+										<span className="h-2 w-2 rounded-full border border-[var(--foreground)] opacity-50" />
+									)}
 								</span>
 							</a>
 						</li>

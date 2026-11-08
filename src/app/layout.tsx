@@ -139,6 +139,7 @@ const personJsonLd = {
 
 const themeScript = `
 (() => {
+  document.documentElement.dataset.js = '1';
   try {
     const stored = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -158,7 +159,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" data-theme="dark">
+    <html lang="es" data-theme="dark" suppressHydrationWarning>
       <head>
         {/* Google Analytics (GA4) */}
         <Script

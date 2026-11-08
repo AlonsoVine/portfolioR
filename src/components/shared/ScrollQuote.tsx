@@ -22,7 +22,7 @@ export function ScrollQuote({ text }: { text: string }) {
 	return (
 		<blockquote
 			ref={ref}
-			className="font-display relative mx-auto mt-20 max-w-4xl text-center text-[clamp(1.6rem,3.6vw,2.9rem)] font-semibold leading-[1.2] tracking-[0.01em] text-[var(--foreground)]"
+			className="print-hide font-display relative mx-auto mt-20 max-w-4xl text-center text-[clamp(1.6rem,3.6vw,2.9rem)] font-semibold leading-[1.2] tracking-[0.01em] text-[var(--foreground)]"
 		>
 			<span aria-hidden="true" className="mb-6 block text-sm text-[var(--accent-warm)]">
 				✦

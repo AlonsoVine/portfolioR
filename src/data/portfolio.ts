@@ -104,7 +104,7 @@ export const aboutContent = {
   textBlocks: [
     "Empec\u00e9 en 2021 en Atos, en proyectos del Ministerio de Defensa. Pas\u00e9 por Fervimax (FCC) afilando la parte de DevOps y testing, luego Inetum modernizando interfaces cr\u00edticas del Ej\u00e9rcito del Aire. Ahora en Seres, automatizando el ciclo de despliegue de la plataforma central.",
     "Perfil multidisciplinar con experiencia en todo el ciclo de desarrollo: an\u00e1lisis, dise\u00f1o, implementaci\u00f3n, despliegue y mantenimiento. Manejo el stack web moderno (Angular, React, Java/Spring, Node) junto a la capa DevOps que automatiza el ciclo (GitLab CI/CD, Nexus, Maven, Docker) y una capa fresca de desarrollo asistido por agentes IA para acelerar lo repetitivo y centrar la energ\u00eda donde aporta.",
-    "Madrid, ingl\u00e9s C2 y curiosidad permanente. Cuando no escribo c\u00f3digo juego a cl\u00e1sicos retro (s\u00ed, escrib\u00ed mi propio Space Invaders) o exploro lo \u00faltimo en IA. Lo que m\u00e1s me mueve es convertir un 'no se puede' en 'mira c\u00f3mo lo hicimos'.",
+    "Madrid, ingl\u00e9s C2 y curiosidad permanente. Cuando no escribo c\u00f3digo juego a cl\u00e1sicos retro (s\u00ed, escrib\u00ed mi propio Space Invaders) o exploro lo \u00faltimo en IA.",
   ],
   highlights: [
     {

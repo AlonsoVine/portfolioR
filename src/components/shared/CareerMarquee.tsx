@@ -11,7 +11,7 @@ import {
 	useTransform,
 	useVelocity,
 } from "framer-motion";
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { useLanguage } from "@/i18n";
 
 const BASE_SPEED = 2.2;
@@ -21,11 +21,33 @@ function wrap(min: number, max: number, v: number) {
 	return ((((v - min) % range) + range) % range) + min;
 }
 
-export function StackMarquee() {
+const yearOf = (part: string) => Number(part.trim().split(/\s+/).pop());
+
+/** Trayectoria en una línea: empresa + años, derivado de `experiences` (de la más reciente a la primera). */
+export function CareerMarquee() {
 	const { dict } = useLanguage();
-	const items = dict.skills.cards
-		.filter((card) => card.icon !== "badge")
-		.flatMap((card) => card.items.slice(0, 4));
+	const present = dict.ui.present;
+
+	const stops = useMemo(() => {
+		const byCompany = new Map<string, { from: number; to: number | null }>();
+		for (const exp of dict.experiences) {
+			const name = exp.company.replace(/\s*\(Cestic\)\s*/, "").trim();
+			const [startPart, endPart = ""] = exp.period.split("-");
+			const from = yearOf(startPart);
+			const to = /actual|present/i.test(endPart) ? null : yearOf(endPart);
+			const prev = byCompany.get(name);
+			if (!prev) byCompany.set(name, { from, to });
+			else
+				byCompany.set(name, {
+					from: Math.min(prev.from, from),
+					to: prev.to === null || to === null ? null : Math.max(prev.to, to),
+				});
+		}
+		return Array.from(byCompany, ([name, r]) => ({
+			name,
+			years: r.to === null ? `${r.from} — ${present}` : r.from === r.to ? `${r.from}` : `${r.from} — ${r.to}`,
+		}));
+	}, [dict.experiences, present]);
 
 	const ref = useRef<HTMLDivElement>(null);
 	const inView = useInView(ref);
@@ -47,10 +69,14 @@ export function StackMarquee() {
 		baseX.set(baseX.get() - (step + step * Math.abs(b)));
 	});
 
+	const copies = [0, 1, 2, 3];
 	const row = (copy: number) =>
-		items.map((item, i) => (
-			<span key={`${copy}-${item}`} className="flex shrink-0 items-center">
-				<span className={i % 2 === 0 ? "text-[var(--foreground)]" : "marquee-outline"}>{item}</span>
+		stops.map((stop, i) => (
+			<span key={`${copy}-${stop.name}`} className="flex shrink-0 items-center">
+				<span className={(i + copy) % 2 === 0 ? "text-[var(--foreground)]" : "marquee-outline"}>{stop.name}</span>
+				<span className="tabular ml-4 self-start pt-[0.35em] [font-family:var(--font-geist-sans)] text-[0.22em] font-medium tracking-[0.2em] text-[var(--accent-warm)]">
+					{stop.years}
+				</span>
 				<span className="mx-6 text-[0.4em] text-[var(--accent-warm)] sm:mx-10">✦</span>
 			</span>
 		));
@@ -65,8 +91,12 @@ export function StackMarquee() {
 				className="font-display flex w-max items-center whitespace-nowrap text-[clamp(2.2rem,6vw,5rem)] font-semibold leading-none tracking-[0.04em]"
 				style={reduce ? undefined : { x, skewX: skew }}
 			>
-				{row(0)}
-				{row(1)}
+				{copies.slice(0, 2).map((c) => (
+					<span key={c} className="flex">
+						{row(c * 2)}
+						{row(c * 2 + 1)}
+					</span>
+				))}
 			</motion.div>
 		</div>
 	);

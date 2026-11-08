@@ -40,7 +40,27 @@ Capturas (no versionadas, no desplegadas): `capturas/00-linea-base/`, `capturas/
 
 Añadido: ver DECISIONES D-06…D-20. El árbitro adversarial de la vuelta 1 se lanzó y se detuvo antes de terminar porque se alcanzó el límite de uso: **esta vuelta no tiene notas todavía**.
 
-### Cambios posteriores, sin build ni capturas (commit "wip")
+### Vuelta 1b (commits 4850f4e…9132931) — evaluada por el árbitro
+
+Añadidos a la vuelta 1: cita en About que se enciende con el scroll, impresión sin galerías ni formulario, etiquetas del carrusel en ES/EN, sin precarga de imágenes de carruseles, corrección de un error de hidratación con reduced motion.
+
+Checks (`capturas/vuelta-1b/checks.md`): lint 0 · consola 0 (tras la corrección) · overflow OK 360–1920 · Lighthouse escritorio Perf 92/92, A11y 100, BP 100 · móvil simulado Perf 56/55 (línea base 40/58) · LCP móvil con throttling real 3,0 s.
+
+**Notas del árbitro**: Diseño 6,5 · Usabilidad 6 · Creatividad 6 · Contenido 6,5 → **ponderada 6,25**.
+
+Defectos señalados:
+1. **Bloqueante**: la firma gigante del footer nunca aparece (`whileInView` sobre un span recortado por su padre `overflow-hidden`). Inventario 39 perdido.
+2. **Mayor**: modo claro no cumple AA tras recorrer la página (axe): numeración y eyebrows en acento, índice lateral, pills violeta, fechas del timeline, instituciones, placeholder del select.
+3. **Mayor**: la "ola de luz" del nombre no funciona (`animation-fill-mode: both` fija la opacidad final).
+4. **Mayor**: impresión de 26 páginas.
+5. Menor: la cita duplica la última frase del párrafo de encima.
+6. Menor: tres controles de "volver arriba" visibles a la vez al final.
+7. Menor: los H2 están desplazados en el HTML estático (sin JS no se ven).
+8. Menor: el header se esconde en móvil y su estado con sombra apenas se ve.
+9. Menor: tres puntos verdes con "ping".
+Novedades consideradas de catálogo: marquee de stack (repite la sección siguiente), cita iluminada, magnéticos/spotlight, reloj con ping, "Hecho a mano".
+
+### (Histórico) cambios añadidos tras la vuelta 1
 - Cita destacada en About que se enciende palabra a palabra con el scroll (frase ya existente del About, ES/EN).
 - Impresión como CV compacto (sin galerías, fotos de certificados ni formulario).
 - Etiquetas del carrusel y del botón "volver al inicio" pasadas a los diccionarios ES/EN.

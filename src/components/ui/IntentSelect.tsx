@@ -144,7 +144,7 @@ export function IntentSelect({
 						: "border-soft focus:border-amber-300",
 				)}
 			>
-				<span className={cn("truncate", selectedOption ? "" : "text-[var(--foreground)]/40")}>
+				<span className={cn("truncate", selectedOption ? "" : "text-muted")}>
 					{selectedOption?.label ?? placeholder}
 				</span>
 				<ChevronDown

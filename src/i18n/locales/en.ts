@@ -54,7 +54,7 @@ export const en = {
     textBlocks: [
       "I started in 2021 at Atos, on Spanish Ministry of Defence projects. Then Fervimax (FCC) sharpening DevOps and testing, and Inetum modernizing critical interfaces for the Air Force. Now at Seres, automating the deployment cycle of the central platform.",
       "Multidisciplinary profile with experience across the full software development lifecycle: analysis, design, implementation, deployment and maintenance. I handle the modern web stack (Angular, React, Java/Spring, Node) alongside the DevOps layer that automates the cycle (GitLab CI/CD, Nexus, Maven, Docker) and a fresh layer of AI-agent-assisted development to accelerate repetitive work and focus energy where it matters.",
-      "Madrid-based, English C2 and permanent curiosity. When I'm not writing code I play retro classics (yes, I wrote my own Space Invaders) or explore the latest in AI. What drives me most is turning a 'can't be done' into 'look how we did it'.",
+      "Madrid-based, English C2 and permanent curiosity. When I'm not writing code I play retro classics (yes, I wrote my own Space Invaders) or explore the latest in AI.",
     ],
     highlights: aboutContent.highlights.map((item) => {
       if (item.title === "Madrid, España") {
@@ -331,6 +331,16 @@ export const en = {
     },
   },
   ui: {
+    present: "now",
+    stage: "Stage",
+    taglines: [
+      "Currently · {current}",
+      "{tech}",
+      "{years}+ years shipping code to production",
+      "Frontend · Backend · DevOps",
+      "{projects} GitHub projects · 1 playable, the rest pure code",
+      "English C2 + Spanish · ready for international teams",
+    ],
     heroStats: {
       years: "years in production",
       companies: "companies",
@@ -338,15 +348,12 @@ export const en = {
       certifications: "courses & certificates",
     },
     scrollCue: "Scroll",
-    marqueeLabel: "Technologies I work with",
     sectionNav: "Section index",
     socialProfile: "{name} profile",
     projectCounter: "Project",
     copyEmail: "Copy email",
     emailCopied: "Email copied",
     madridTime: "Time in Madrid",
-    backToTop: "Back to top",
-    builtWith: "Handmade with Next.js, Tailwind and framer-motion",
     languageCurrent: "Language",
     languageSwitch: "switch to Spanish",
     carousel: {

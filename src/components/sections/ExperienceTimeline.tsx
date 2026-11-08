@@ -150,7 +150,7 @@ export function ExperienceTimeline() {
                         <div className="flex flex-wrap items-start justify-between gap-3">
                           <h3 className="text-2xl font-semibold text-[var(--foreground)]">{experience.title}</h3>
                           <div
-                            className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.35em] opacity-80"
+                            className="tabular inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.3em]"
                             style={{ color: "var(--accent-warm)" }}
                           >
                             <CalendarDays className="h-4 w-4" aria-hidden="true" />
@@ -182,18 +182,18 @@ export function ExperienceTimeline() {
                           ) : null}
                           <div className={`flex flex-col gap-1 ${isLeft ? "md:items-end" : ""}`}>
                             <div className="flex items-center gap-2 text-[var(--foreground)]">
-                              <Building2 className="h-4 w-4 text-emerald-300/80" aria-hidden="true" />
+                              <Building2 className="h-4 w-4 text-[var(--pill-emerald-text)] opacity-80" aria-hidden="true" />
                               <span className="font-medium">{experience.company}</span>
                             </div>
                             {experience.project && (
                               <div className="flex items-center gap-2">
-                                <BriefcaseBusiness className="h-4 w-4 text-emerald-300/60" aria-hidden="true" />
+                                <BriefcaseBusiness className="h-4 w-4 text-[var(--pill-emerald-text)] opacity-70" aria-hidden="true" />
                                 <span>{experience.project}</span>
                               </div>
                             )}
                             {experience.location && (
                               <div className="flex items-center gap-2">
-                                <MapPin className="h-4 w-4 text-emerald-300/60" aria-hidden="true" />
+                                <MapPin className="h-4 w-4 text-[var(--pill-emerald-text)] opacity-70" aria-hidden="true" />
                                 <span>{experience.location}</span>
                               </div>
                             )}

@@ -10,7 +10,7 @@ import {
 } from "framer-motion";
 import Image from "next/image";
 import type { CSSProperties, PointerEvent as ReactPointerEvent } from "react";
-import { useRef } from "react";
+import { Fragment, useRef } from "react";
 import { ArrowRight, Download, GithubIcon, Linkedin, MapPin, Twitter } from "lucide-react";
 import { useLanguage } from "@/i18n";
 import { calcYearsExperience } from "@/lib/years";
@@ -30,7 +30,6 @@ export function Hero() {
 	const { dict } = useLanguage();
 	const { hero, socialLinks, experiences, ui } = dict;
 	const { title, role, subtitle, image, ctas, location, availability } = hero;
-	const isEn = dict.lang === "en";
 	const yearsExp = calcYearsExperience(experiences.map((e) => e.period));
 	const subtitleWithYears = subtitle.replace("{years}", String(yearsExp));
 	const currentExp =
@@ -38,25 +37,15 @@ export function Hero() {
 	const projectsCount = dict.projects.items.length;
 	const companiesCount = new Set(experiences.map((e) => e.company.replace(/\s*\(.*\)\s*/, "").trim())).size;
 	const certsCount = dict.education.items.length;
-	const taglines = (
-		isEn
-			? [
-					`Currently · ${currentExp?.title ?? ""}`,
-					currentExp?.tech?.slice(0, 3).join(" · ") ?? "",
-					`${yearsExp}+ years shipping code to production`,
-					"Frontend · Backend · DevOps",
-					`${projectsCount} GitHub projects · 1 playable, the rest pure code`,
-					"English C2 + Spanish · ready for international teams",
-				]
-			: [
-					`Actualmente · ${currentExp?.title ?? ""}`,
-					currentExp?.tech?.slice(0, 3).join(" · ") ?? "",
-					`${yearsExp}+ años entregando código en producción`,
-					"Frontend · Backend · DevOps",
-					`${projectsCount} proyectos en GitHub · 1 jugable, el resto código`,
-					"Inglés C2 + Español · entornos internacionales OK",
-				]
-	).filter((t) => t.trim().length > 0);
+	const taglines = ui.taglines
+		.map((t) =>
+			t
+				.replace("{current}", currentExp?.title ?? "")
+				.replace("{tech}", currentExp?.tech?.slice(0, 3).join(" · ") ?? "")
+				.replace("{years}", String(yearsExp))
+				.replace("{projects}", String(projectsCount)),
+		)
+		.filter((t) => t.trim().length > 0);
 	const cvHref = withBasePath(ctas.secondary.href);
 
 	const reduce = useReducedMotion();
@@ -99,7 +88,7 @@ export function Hero() {
 		<section
 			id="hero"
 			ref={sectionRef}
-			className="relative flex min-h-[100svh] scroll-mt-32 flex-col overflow-hidden"
+			className="relative flex min-h-[100svh] scroll-mt-32 flex-col overflow-hidden print:min-h-0"
 		>
 			<div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(251,191,36,0.25),_transparent_55%)]" />
 			<motion.div
@@ -135,7 +124,15 @@ export function Hero() {
 						className="hero-in-solid mt-5 block text-2xl font-medium text-muted sm:text-3xl"
 						style={delay(380)}
 					>
-						{role}
+						{role.split(" · ").map((part, i, parts) => (
+							<Fragment key={part}>
+								<span className="whitespace-nowrap">
+									{part}
+									{i < parts.length - 1 ? " ·" : null}
+								</span>
+								{i < parts.length - 1 ? " " : null}
+							</Fragment>
+						))}
 					</span>
 				</h1>
 
@@ -151,7 +148,7 @@ export function Hero() {
 						<p className="hero-in-solid mt-4 max-w-2xl text-lg text-muted" style={delay(580)}>
 							{subtitleWithYears}
 						</p>
-						<div className="hero-in mt-8 flex flex-wrap items-center gap-4" style={delay(660)}>
+						<div className="print-hide hero-in mt-8 flex flex-wrap items-center gap-4" style={delay(660)}>
 							<span data-magnetic className="magnetic">
 								<a
 									href={ctas.primary.href}
@@ -196,7 +193,7 @@ export function Hero() {
 							))}
 						</dl>
 
-						<div className="hero-in mt-8 flex items-center gap-4" style={delay(840)}>
+						<div className="print-hide hero-in mt-8 flex items-center gap-4" style={delay(840)}>
 							{socialLinks.map((social) => {
 								const Icon = socialIconMap[social.icon];
 								return (
@@ -215,7 +212,7 @@ export function Hero() {
 						</div>
 					</div>
 
-					<div className="hero-in flex w-full justify-center lg:w-auto" style={delay(300)}>
+					<div className="print-hide hero-in flex w-full justify-center lg:w-auto" style={delay(300)}>
 					<motion.div style={reduce ? undefined : { y: avatarY, rotate: avatarRotate }}>
 						<div
 							className="relative h-72 w-72 [perspective:900px] sm:h-80 sm:w-80"
@@ -273,7 +270,7 @@ export function Hero() {
 
 			<a
 				href="#skills"
-				className="hero-in group relative mx-auto mb-8 hidden flex-col items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.4em] text-muted transition-colors hover:text-[var(--foreground)] md:flex print:hidden"
+				className="hero-in group relative mx-auto mb-8 hidden flex-col items-center gap-3 [@media(min-height:960px)]:md:flex text-[10px] font-semibold uppercase tracking-[0.4em] text-muted transition-colors hover:text-[var(--foreground)] print:hidden"
 				style={delay(1100)}
 			>
 				{ui.scrollCue}

@@ -89,6 +89,16 @@ export const es = {
     },
   },
   ui: {
+    present: "hoy",
+    stage: "Etapa",
+    taglines: [
+      "Actualmente · {current}",
+      "{tech}",
+      "{years}+ años entregando código en producción",
+      "Frontend · Backend · DevOps",
+      "{projects} proyectos en GitHub · 1 jugable, el resto código",
+      "Inglés C2 + Español · entornos internacionales OK",
+    ],
     heroStats: {
       years: "años en producción",
       companies: "empresas",
@@ -96,15 +106,12 @@ export const es = {
       certifications: "formaciones y certificados",
     },
     scrollCue: "Desliza",
-    marqueeLabel: "Tecnologías con las que trabajo",
     sectionNav: "Índice de secciones",
     socialProfile: "Perfil de {name}",
     projectCounter: "Proyecto",
     copyEmail: "Copiar email",
     emailCopied: "Email copiado",
     madridTime: "Hora en Madrid",
-    backToTop: "Volver arriba",
-    builtWith: "Hecho a mano con Next.js, Tailwind y framer-motion",
     languageCurrent: "Idioma",
     languageSwitch: "cambiar a inglés",
     carousel: {

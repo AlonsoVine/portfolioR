@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUp, GithubIcon, Linkedin, Mail, Printer } from "lucide-react";
+import { GithubIcon, Linkedin, Mail, Printer } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLanguage } from "@/i18n";
 import { EASE_OUT_EXPO } from "@/lib/utils";
@@ -33,7 +33,6 @@ function MadridClock({ label, locale }: { label: string; locale: string }) {
 	return (
 		<p className="inline-flex items-center gap-2 text-xs text-subtle">
 			<span className="relative flex h-1.5 w-1.5">
-				<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/60 motion-reduce:animate-none" />
 				<span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
 			</span>
 			<span>{label}</span>
@@ -60,7 +59,6 @@ export function Footer() {
 		if (typeof window !== "undefined") window.print();
 	};
 	const signature = dict.hero.title.split(/\s+/);
-	let letterIndex = 0;
 
 	return (
 		<footer className="relative mt-24 overflow-hidden border-t border-soft/60 pt-14 pb-10 text-sm text-subtle">
@@ -89,23 +87,26 @@ export function Footer() {
 					</nav>
 				</div>
 
-				<p
+				<motion.p
 					aria-hidden="true"
+					initial="hidden"
+					whileInView="visible"
+					viewport={{ once: true, amount: 0.3 }}
+					variants={{ visible: { transition: { staggerChildren: 0.04 } } }}
 					className="font-display select-none whitespace-nowrap text-center text-[clamp(2.2rem,10.2vw,8.6rem)] font-semibold leading-[0.9] tracking-[0.04em] text-[var(--foreground)]"
 				>
 					{signature.map((word, wi) => (
 						<span key={wi} className="inline-block">
 							{Array.from(word).map((char, ci) => {
-								const i = letterIndex++;
 								return (
 									<span key={ci} className="-mt-[0.25em] inline-block overflow-hidden pb-[0.08em] pt-[0.25em] align-top">
 										<motion.span
 											className="inline-block"
 											style={{ opacity: ci === 0 ? 1 : "var(--name-muted)" }}
-											initial={{ y: "100%" }}
-											whileInView={{ y: "0%" }}
-											viewport={{ once: true, amount: 0.4 }}
-											transition={{ duration: 1, ease: EASE_OUT_EXPO, delay: i * 0.04 }}
+											variants={{
+												hidden: { y: "105%" },
+												visible: { y: "0%", transition: { duration: 1, ease: EASE_OUT_EXPO } },
+											}}
 										>
 											{ci === 0 ? char : char.toUpperCase()}
 										</motion.span>
@@ -115,7 +116,7 @@ export function Footer() {
 							{wi < signature.length - 1 ? <span className="inline-block w-[0.3em]" /> : null}
 						</span>
 					))}
-				</p>
+				</motion.p>
 
 				<div className="flex flex-col gap-6 border-t border-soft/30 pt-6 sm:flex-row sm:items-center sm:justify-between">
 					<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
@@ -158,13 +159,6 @@ export function Footer() {
 						>
 							<Printer className="h-4 w-4" aria-hidden="true" />
 						</button>
-						<a
-							href="#hero"
-							className="group inline-flex h-10 items-center gap-2 rounded-full border border-soft px-4 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--foreground)] transition-all duration-300 hover:border-strong print:hidden"
-						>
-							{dict.ui.backToTop}
-							<ArrowUp className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5" aria-hidden="true" />
-						</a>
 					</div>
 				</div>
 			</div>

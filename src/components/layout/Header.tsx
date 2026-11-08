@@ -39,7 +39,7 @@ export function Header() {
   useMotionValueEvent(scrollY, "change", (y) => {
     const prev = scrollY.getPrevious() ?? 0;
     setScrolled(y > 32);
-    if (reduce || open) {
+    if (reduce || open || window.innerWidth < 768) {
       setHidden(false);
       return;
     }

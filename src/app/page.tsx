@@ -9,7 +9,7 @@ import { Education } from "@/components/sections/Education";
 import { Contact } from "@/components/sections/Contact";
 import { ScrollToTopButton } from "@/components/ui/ScrollToTopButton";
 import { SectionDivider } from "@/components/shared/SectionDivider";
-import { StackMarquee } from "@/components/shared/StackMarquee";
+import { CareerMarquee } from "@/components/shared/CareerMarquee";
 import { SectionIndex } from "@/components/ui/SectionIndex";
 
 export default function Home() {
@@ -18,7 +18,7 @@ export default function Home() {
       <Header />
       <main id="main-content" className="flex flex-col gap-6">
         <Hero />
-        <StackMarquee />
+        <CareerMarquee />
         <SkillsGrid />
         <SectionDivider />
         <About />

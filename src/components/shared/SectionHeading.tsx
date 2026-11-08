@@ -34,7 +34,7 @@ export function SectionHeading({ eyebrow, index, title, description, actions }: 
               />
             </>
           ) : null}
-          <span className="opacity-90">{eyebrow}</span>
+          <span>{eyebrow}</span>
         </span>
       )}
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
