@@ -47,10 +47,10 @@ export function ExperienceTimeline() {
 			/>
 
 			<div className="relative mt-14 lg:mt-20">
-				<div aria-hidden="true" className="absolute -left-6 top-0 hidden h-full w-px bg-rule xl:block print:hidden" />
+				<div aria-hidden="true" className="absolute -left-6 top-0 hidden h-full w-px bg-rule min-[1360px]:block print:hidden" />
 				<motion.div
 					aria-hidden="true"
-					className="progress-rule absolute -left-6 top-0 hidden h-full w-px bg-ink xl:block print:hidden"
+					className="progress-rule absolute -left-6 top-0 hidden h-full w-px bg-ink min-[1360px]:block print:hidden"
 					style={{ scaleY: reduce ? scrollYProgress : eased }}
 				/>
 
@@ -71,7 +71,7 @@ export function ExperienceTimeline() {
 								<motion.span
 									aria-hidden="true"
 									className={cn(
-										"commit-node absolute top-[2.85rem] hidden rounded-full border xl:block lg:top-[3.85rem] print:hidden",
+										"commit-node absolute top-[2.85rem] hidden rounded-full border min-[1360px]:block lg:top-[3.85rem] print:hidden",
 										isCurrent ? "border-signal bg-signal" : continues ? "border-rule-strong bg-paper" : "border-ink bg-paper",
 										continues ? "h-2 w-2" : "h-3 w-3",
 									)}

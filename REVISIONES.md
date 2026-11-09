@@ -63,3 +63,12 @@ Ideas del juez:
 - **Hash del commit y fecha del build en el pie** → adoptada (`BuildStamp`).
 
 Nota (vuelta 2): a petición del autor, la cita de Perfil pasa a «Me gusta que las cosas funcionen, y aún más saber por qué funcionan.» / "I like things to work, and I like knowing why they work even more." (elegida por él entre varias propuestas; sustituye a la original).
+
+## Ajuste para portátiles (rama `mejora-portatil`)
+
+Petición del autor: en su portátil de 14" (≈1536 px CSS con el escalado de Windows) el índice lateral no aparecía salvo con el zoom al 90 %.
+
+- El índice lateral aparece desde 1280 px. Entre 1280 y 1519 px va compacto (número + filete corto, nombre al pasar o enfocar sobre fondo papel); desde 1520 px, como antes.
+- Escala raíz al 95 % solo entre 1280 y 1599 px, el equivalente al 90–95 % de zoom pero sin tocar móvil ni monitores grandes; el zoom del usuario sigue mandando.
+- La línea y los nodos de Experiencia pasan a mostrarse desde 1360 px para no chocar con el índice compacto.
+- Comprobado a 1280, 1366, 1440 y 1536 px: índice dentro del margen, sin scroll horizontal ni errores de consola.

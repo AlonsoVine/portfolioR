@@ -66,6 +66,14 @@ html {
   text-size-adjust: 100%;
 }
 
+/* Portátiles de 13–15" (1280–1599 px CSS con el escalado de Windows): un 5 % menos de escala para que
+   el contenido respire como en un monitor. Se hace con el tamaño raíz, así que el zoom del usuario sigue mandando. */
+@media (min-width: 1280px) and (max-width: 1599px) {
+  html {
+    font-size: 95%;
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
