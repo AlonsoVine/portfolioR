@@ -4,7 +4,7 @@ Vocabulario compartido entre humano y agentes para evitar ambigüedad.
 
 | Término | Significado en este proyecto |
 |---|---|
-| **Sección** | Bloque de la landing (`Hero`, `About`, `SkillsGrid`, `ExperienceTimeline`, `ProjectsGrid`, `Education`, `Contact`). Cada uno en `src/components/sections/`. |
+| **Sección** | Bloque de la landing (`Hero`, `About`, `ExperienceTimeline`, `ProjectsGrid`, `SkillsGrid`, `Education`, `Terminal`, `Contact`). Cada uno en `src/components/sections/`. |
 | **Spec** | Documento en `docs/features/NN-slug.md` que define el problema, criterios de aceptación y plan de una feature. |
 | **ADR** | Architecture Decision Record. Documento en `docs/adr/NNNN-titulo.md` que captura una decisión arquitectónica con contexto, opciones y consecuencias. Formato [MADR](https://adr.github.io/madr/). |
 | **Token de tema** | Variable CSS definida en `src/app/globals.css` (`--foreground`, `--surface-card`, `--pill-amber-bg`…). Único mecanismo aprobado para colores. |

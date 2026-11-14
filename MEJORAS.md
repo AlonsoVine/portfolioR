@@ -6,7 +6,7 @@
 
 ## 0. Cómo levantar el proyecto
 
-Requisitos: Node 20.9.x y npm.
+Requisitos: Node 22 o superior y npm.
 
 ```powershell
 # Instalación limpia de dependencias (solo la primera vez o si cambia package-lock)
@@ -121,7 +121,7 @@ Es la sección más importante de un portfolio dev y ahora mismo es la más floj
 - **Métricas o resultados por proyecto** ("Jardín Digital: 1k+ visitas, 5★ en GitHub", "PhotoDateRenamer: procesa 10k fotos en <2 min").
 - **Stack visual más rico**: usa los logos oficiales de cada tech (con `simple-icons` o SVGs inline) en vez de solo chips de texto.
 - **Filtro por tecnología** sobre la grid (botones: Todos · Angular · Python · React). Muy fácil de implementar con `useState`.
-- **Más proyectos web/visibles**. Tienes 5 proyectos; 3 son scripts de Python (forYouToBe, PhotoDateRenamer, Jarvis). Añade 1–2 proyectos web con demo en vivo (el Jardín Digital es perfecto, replica el patrón).
+- ~~**Más proyectos web/visibles**~~. Hecho en `feat/awwwards-epic`: Prensa y Liberty abren la sección; ForYouToBe y Jarvis se retiraron.
 - Implementa **modal de detalle** al click (como ya tienes en Education) con: capturas múltiples, descripción larga, retos técnicos, decisiones de arquitectura. Aquí te luces de verdad.
 - **Vídeo o GIF en hover** mostrando el proyecto en acción (mucho más atractivo que una imagen estática).
 

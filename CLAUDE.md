@@ -15,16 +15,19 @@ npm run build   # genera /out (export estático)
 npm run lint    # ESLint 9 + reglas Next
 ```
 
-Para probar el subpath localmente: `$env:NEXT_PUBLIC_BASE_PATH="/portfolioR"; npm run dev`.
+Para probar el subpath localmente: `$env:NEXT_PUBLIC_BASE_PATH="/portfolioR"; npm run dev`, o `npm run build && npm run serve:out` (sirve `out/` bajo `/portfolioR`).
+
+Si en `npm run dev` un cambio de `globals.css` no aparece, reinicia el servidor: a veces se queda sirviendo un CSS antiguo. No lances `npm run build` con el dev corriendo (comparten `.next/`).
 
 ## Mapa de carpetas (lo que más toca)
 
 - `src/app/` — `layout.tsx`, `page.tsx`, `globals.css` (tokens de tema en CSS vars).
-- `src/components/sections/` — Hero, About, SkillsGrid, ExperienceTimeline, ProjectsGrid, Education, Contact.
+- `src/components/sections/` — Hero, About, ExperienceTimeline, ProjectsGrid, SkillsGrid, Education, Terminal, Contact (en ese orden en `page.tsx`).
+- `src/components/shared/` — BootSequence (arranque), AsciiPortrait (retrato y lente), SectionHeading, ScrambleText, RollingIndex, HeroStatus.
 - `src/components/layout/` — Header, Footer.
-- `src/components/ui/` — ThemeToggle, LanguageToggle, ScrollToTopButton.
+- `src/components/ui/` — escaparates de proyecto (PrensaRecord, LibertyChart, RenamerShowcase), SectionIndex, CommandPalette, ThemeToggle, LanguageToggle.
 - `src/i18n/` — provider de idioma + diccionarios `es.ts` / `en.ts` (**fuente de verdad del contenido**).
-- `src/data/portfolio.ts` — types compartidos + fallbacks (ver ADR-0004).
+- `src/data/portfolio.ts` — types compartidos + fallbacks (ver ADR-0004). `src/data/liberty.ts`: serie de ejemplo de Liberty.
 - `src/lib/utils.ts` — helpers (animaciones, `cn`).
 - `src/assets/` y `public/` — imágenes, CV, certificados.
 - `docs/` — toda la documentación viva del proyecto.
@@ -36,7 +39,7 @@ Para probar el subpath localmente: `$env:NEXT_PUBLIC_BASE_PATH="/portfolioR"; np
 3. **`output: "export"`** está activo: nada de Route Handlers, Server Actions, ISR, middleware o rutas dinámicas sin `generateStaticParams`. Sólo SSG puro.
 4. **Theming**: usa las CSS vars de `globals.css` (`--foreground`, `--surface-card`, `--pill-*-bg`, etc.). No hardcodees colores; rompen el modo light/dark.
 5. **Comentarios**: no añadir comentarios de relleno. Solo el "porqué" cuando no sea evidente (ver `docs/conventions.md`).
-6. **Animaciones**: reutilizar `scrollRevealConfig`; respetar `prefers-reduced-motion` (ver ADR-0006 cuando exista).
+6. **Animaciones**: CSS primero, framer-motion para lo ligado al scroll; respetar `prefers-reduced-motion` **sin** cambiar el JSX según `useReducedMotion()` en el primer render (rompe la hidratación). Ver ADR-0006.
 7. **Sin `any`**: el proyecto está tipado; si encuentras `as any`, prefiere tipar correctamente antes que propagarlo.
 8. **Antes de tocar arquitectura** (añadir librería, cambiar despliegue, introducir backend), **lee `docs/adr/`** y propón un ADR nuevo si la decisión no está cubierta.
 

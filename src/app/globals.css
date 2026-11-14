@@ -3,7 +3,7 @@
 /*
  * Paleta "papel y tinta": neutros cálidos de saturación ≤ 6 % y un único acento,
  * verde de señal (tono ≈ 157°), reservado para lo que está vivo: puesto actual,
- * disponibilidad, sección activa y foco. Justificación en DECISIONES.md.
+ * disponibilidad, sección activa y foco. Justificación en docs/mejora-sobria/DECISIONES.md.
  */
 :root {
   color-scheme: dark;

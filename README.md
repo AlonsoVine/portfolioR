@@ -1,15 +1,15 @@
 # PortfolioR
 
-Soy Alonso Vine Barrancos y este es mi portfolio en Next.js 16 (App Router) y React 19. Muestro mi experiencia, proyectos, certificaciones y un poco de mi estilo visual (hero, timelines, hover states) con animaciones suaves y soporte para despliegue estatico en GitHub Pages.
+Soy Alonso Viñé Barrancos y este es mi portfolio en Next.js 16 (App Router) y React 19, exportado como sitio estático a GitHub Pages. Tiene estética de expediente técnico y se comporta como un repositorio que se compila delante del visitante: arranque tipo `npm run build`, retrato que se compila en ASCII, cabeceras como commits, `git grep` sobre el stack y una terminal con el CV. Las decisiones de diseño están en `DECISIONES.md` y las rondas de revisión en `REVISIONES.md`.
 
 ## Que es este proyecto
 - Landing multiseccion, responsive y con anclado de navegacion.
-- Contenido dinamico centralizado en `src/data/portfolio.ts` para editar textos, skills, experiencias, proyectos y certificaciones sin tocar componentes.
-- Animaciones con `framer-motion`, iconos con `lucide-react` y estilos con Tailwind CSS 4 mas variables en `src/app/globals.css`.
+- Contenido en `src/i18n/locales/{es,en}.ts` (fuente de verdad) con tipos y datos base en `src/data/portfolio.ts`.
+- Movimiento con CSS y `framer-motion` (ver `docs/adr/0006-movimiento-y-reduced-motion.md`), estilos con Tailwind CSS 4 y variables de tema en `src/app/globals.css`.
 - Assets agrupados en `src/assets/` y `public/` (certificados, logos de empresas, fotos del hero y proyectos).
 
 ## Ejecucion local
-Requisitos: Node 20.9.x y npm.
+Requisitos: Node 22 o superior y npm.
 ```
 npm ci
 npm run dev
@@ -25,7 +25,7 @@ La app queda en `http://localhost:3000`. Si necesitas un base path (ej. para pro
 ## Despliegue automatico (GitHub Pages)
 He configurado un workflow en `.github/workflows/deploy.yml` que:
 1) Se dispara manualmente (`workflow_dispatch`) o con commits cuyo mensaje empiece por `deploy:` sobre `main`.
-2) Usa Node 20.9, `npm ci`, `npm run build` y sube `out/` como artefacto.
+2) Usa Node 22, `npm ci`, `npm run build` y sube `out/` como artefacto (incluido `.nojekyll`, que `upload-pages-artifact` solo sube con `include-hidden-files`).
 3) Despliega a GitHub Pages con un `.nojekyll` para servir los archivos exportados.
 4) Inyecta `NEXT_PUBLIC_BASE_PATH` y `BASE_PATH` con `/portfolioR` para que las rutas de imagenes funcionen bajo el subpath del repo.
 
@@ -35,29 +35,30 @@ Si cambias el nombre del repo o el subpath, alinea `NEXT_PUBLIC_BASE_PATH`, `BAS
 ```
 src/
   app/            # layout, globals y page.tsx
-  components/     # layout (Header/Footer) y secciones (Hero, About, Skills, Projects, Experience, Education, Contact)
-  data/           # portfolio.ts con todo el contenido editable
+  components/     # layout (Header/Footer), sections (Hero, About, Experience, Projects, Skills, Education, Terminal, Contact),
+                  # shared (BootSequence, AsciiPortrait, SectionHeading…) y ui (PrensaRecord, LibertyChart, RenamerShowcase…)
+  data/           # portfolio.ts (tipos y datos base) y liberty.ts (serie de ejemplo de la tarjeta de Liberty)
   i18n/           # diccionarios y hook de idioma
   lib/            # utilidades (animaciones, helpers)
   assets/         # imagenes y certificados consumidos por el export
-docs/ai/          # prompt de comportamiento y bitacoras
+docs/             # ADRs, convenciones, workflow y archivo de rediseños anteriores
 public/           # recursos estaticos adicionales
 ```
 
 ## Detalles tecnicos y UX
 - Stack: Next.js 16, React 19, TypeScript 5, Tailwind CSS 4, framer-motion, lucide-react, clsx.
-- Estilo: variables de tema y tonos diferenciados para modo claro/oscuro; hovers con gradientes y blur suave.
-- i18n: diccionarios en `src/i18n/locales` consumidos via `useLanguage`.
-- Timeline y projects: chips de tecnologias, badges de destacado y modales para certificados.
-- Hero: avatar circular con flip 3D y CTA de descarga de CV.
+- Estilo: papel y tinta con un único acento verde; los escaparates de Prensa y Liberty conservan su color de marca. `npm run check:design` vigila la paleta.
+- i18n: diccionarios en `src/i18n/locales` consumidos vía `useLanguage`.
+- Proyectos: Prensa, Liberty y PhotoDateRenamer tienen escenografía propia; el resto, galería con selector `git checkout`.
+- Accesibilidad: todo respeta `prefers-reduced-motion`; la intro se salta con cualquier tecla.
 
 ## Como edito contenido rapido
-- Texto, links, stacks: `src/data/portfolio.ts`.
+- Texto visible: `src/i18n/locales/*.ts`. Links, stacks y proyectos: `src/data/portfolio.ts`.
 - Idiomas: `src/i18n/locales/*.ts`.
 - Imagenes (hero, proyectos, experiencia, certificados): `src/assets/` y `public/`.
 
 ## Buenas practicas que sigo aqui
-- Mantengo `docs/ai/context.md` como bitacora y `docs/ai/changelog.md` para cambios de comportamiento.
+- Mantengo `DECISIONES.md` y `REVISIONES.md` por rediseño; los anteriores se archivan en `docs/<rama>/`.
 - Reutilizo animaciones via `scrollRevealConfig` y estilos via utilidades y clases de Tailwind.
 - Evito rutas absolutas cuando despliego en Pages, siempre con `NEXT_PUBLIC_BASE_PATH` y `assetPrefix`.
 
