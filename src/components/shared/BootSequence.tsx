@@ -48,7 +48,7 @@ export function BootSequence() {
 		};
 
 		const tick = (now: number) => {
-			const p = Math.min(1, (now - startRef.current) / RUN_MS);
+			const p = Math.min(1, Math.max(0, (now - startRef.current) / RUN_MS));
 			// Arranque rápido, cola lenta: como un build que se atasca en el último módulo
 			setProgress(1 - Math.pow(1 - p, 2.4));
 			if (p < 1) raf = requestAnimationFrame(tick);
