@@ -279,11 +279,18 @@ export const en = {
         p.title === "Prensa"
           ? [
               "Desktop app",
+              "Tauri 2",
+              "Rust",
+              "React",
+              "TypeScript",
+              "yt-dlp",
+              "ffmpeg",
+              "Website: Vite",
+              "GSAP",
+              "WebGL (OGL)",
+              "Lenis",
+              "Playwright",
               "Windows · macOS · Linux",
-              "MP3 with cover art and tags",
-              "100% local",
-              "No accounts",
-              "Website: Vite · TypeScript · WebGL · GSAP",
             ]
           : p.title === "Liberty"
           ? [

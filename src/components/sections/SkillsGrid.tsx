@@ -90,10 +90,10 @@ export function SkillsGrid() {
 		() => [
 			...dict.experiences.map((e) => ({
 				name: e.company.replace(/\s*\(.*\)\s*/, "").trim(),
-				text: [e.title, ...e.bullets].join(" "),
+				text: [e.title, ...e.bullets, ...(e.tech ?? [])].join(" "),
 				tech: e.tech ?? [],
 			})),
-			...dict.projects.items.map((p) => ({ name: p.title, text: p.description, tech: p.tech })),
+			...dict.projects.items.map((p) => ({ name: p.title, text: [p.description, ...p.tech].join(" "), tech: p.tech })),
 		],
 		[dict.experiences, dict.projects.items],
 	);
