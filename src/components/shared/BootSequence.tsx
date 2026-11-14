@@ -72,43 +72,44 @@ export function BootSequence() {
 	const pct = Math.round(progress * 100);
 	const solved = Math.floor(progress * sections.length + 0.0001);
 	const elapsed = Math.round(RUN_MS * 0.82);
+	const BAR = 32;
+	const filled = Math.round(progress * BAR);
 
 	return (
 		<div
 			aria-hidden="true"
 			className={cn("boot print-hide fixed inset-0 z-[200] flex-col bg-paper", phase === "out" && "is-out")}
 		>
-			<div className="page flex flex-1 flex-col pt-8 sm:pt-12">
-				<div className="font-mono text-[0.8rem] leading-[1.9] text-muted sm:text-[0.875rem]">
+			<div className="page flex flex-1 flex-col justify-center py-10">
+				<div className="boot-log max-w-[46rem] font-mono text-[0.875rem] leading-[1.85] text-muted sm:text-[1rem]">
 					<p className="text-ink">
-						<span className="text-subtle">~ $ </span>
+						<span className="text-signal">~ $ </span>
 						{t.command}
 					</p>
-					<p>{t.engine}</p>
-					<p className="mt-3 text-subtle">{t.compiling}</p>
-					<ol>
+					<p className="text-subtle">{t.engine}</p>
+					<p className="mt-4">{t.compiling}</p>
+					<ol className="mt-1">
 						{sections.map((name, i) => (
-							<li key={name} className={cn("boot-line", i < solved && "is-in")}>
-								<span className="text-signal">[ok]</span> {String(i + 1).padStart(2, "0")} {name}
+							<li key={name} className={cn("boot-line flex gap-3", i < solved && "is-in")}>
+								<span className="text-signal">+</span>
+								<span className="text-ink">{name}</span>
+								<span className="boot-dots flex-1" />
+								<span className="tabular text-subtle">{(18 + i * 37) % 90 + 12} kB</span>
 							</li>
 						))}
 					</ol>
-					<p className={cn("boot-line mt-3 text-ink", progress >= 1 && "is-in")}>
+					<p className="mt-5 whitespace-pre text-ink tabular">
+						<span className="text-subtle">[</span>
+						<span className="text-signal">{"#".repeat(filled)}</span>
+						<span className="text-rule-strong">{".".repeat(BAR - filled)}</span>
+						<span className="text-subtle">]</span> {String(pct).padStart(3, " ")}%
+					</p>
+					<p className={cn("boot-line mt-1 text-ink", progress >= 1 && "is-in")}>
 						{t.ready} {elapsed} ms<span className="boot-caret" />
 					</p>
 				</div>
-				<div className="mt-auto pb-8 sm:pb-12">
-					<div className="flex items-end justify-between gap-6">
-						<p className="meta text-subtle">{t.skip}</p>
-						<p className="font-display text-[clamp(5rem,18vw,15rem)] leading-[0.8] tracking-[-0.03em] text-ink tabular">
-							{String(pct).padStart(3, "0")}
-						</p>
-					</div>
-					<div className="mt-6 h-px bg-rule">
-						<div className="h-full origin-left bg-ink" style={{ transform: `scaleX(${progress})` }} />
-					</div>
-				</div>
 			</div>
+			<p className="page meta pb-8 text-subtle sm:pb-10">{t.skip}</p>
 		</div>
 	);
 }

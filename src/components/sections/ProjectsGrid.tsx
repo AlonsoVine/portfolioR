@@ -8,6 +8,7 @@ import { SectionShell } from "../shared/SectionShell";
 import { CurtainReveal } from "../shared/CurtainReveal";
 import { ProjectCarousel } from "../ui/ProjectCarousel";
 import { PrensaRecord } from "../ui/PrensaRecord";
+import { RenamerShowcase } from "../ui/RenamerShowcase";
 import { cn, scrollRevealConfig, withBasePath } from "@/lib/utils";
 import { useLanguage } from "@/i18n";
 import { GITHUB_PROJECTS, socialLinks, type Project } from "@/data/portfolio";
@@ -21,6 +22,7 @@ type Labels = {
 	mediaToggleLabel: string;
 	logoAlt: string;
 	videoAlt: string;
+	renamer: { window: string; exif: string; fallback: string; summary: string; replay: string };
 	prensa: { coverAlt: string; tagline: string; rec: string; facts: string; discLabel: string; hint: string };
 };
 
@@ -148,6 +150,8 @@ function ProjectRow({ project, index, total, counterLabel, labels }: { project: 
 			>
 				{project.showcase === "prensa" ? (
 					<PrensaRecord image={project.image} copy={labels.prensa} />
+				) : project.showcase === "renamer" ? (
+					<RenamerShowcase image={project.image} alt={project.title} copy={labels.renamer} />
 				) : (
 					<ProjectMedia project={project} labels={labels} large={large} />
 				)}
@@ -162,7 +166,7 @@ export function ProjectsGrid() {
 	const github = socialLinks.find((l) => l.icon === "github");
 
 	return (
-		<SectionShell id="projects" className="pt-20 pb-28 lg:pt-28 lg:pb-36">
+		<SectionShell id="projects" className="overflow-x-clip pt-20 pb-28 lg:pt-28 lg:pb-36">
 			<SectionHeading
 				sectionId="projects"
 				index="04"

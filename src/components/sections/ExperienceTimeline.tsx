@@ -50,7 +50,7 @@ export function ExperienceTimeline() {
 				<div aria-hidden="true" className="absolute -left-6 top-0 hidden h-full w-px bg-rule min-[1360px]:block print:hidden" />
 				<motion.div
 					aria-hidden="true"
-					className="progress-rule absolute -left-6 top-0 hidden h-full w-px bg-ink min-[1360px]:block print:hidden"
+					className="progress-rule absolute -left-6 top-0 hidden h-full w-px bg-signal min-[1360px]:block print:hidden"
 					style={{ scaleY: reduce ? scrollYProgress : eased }}
 				/>
 

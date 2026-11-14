@@ -24,6 +24,7 @@ export const es = {
       "Desarrollo full stack y DevOps desde 2021, siempre en Madrid.",
   },
   skills: {
+    packages: "{n} paquetes",
     eyebrow: "Herramientas",
     title: "Stack y herramientas",
     description:
@@ -50,6 +51,13 @@ export const es = {
     mediaToggleLabel: "Vista multimedia de Liberty",
     logoAlt: "Logotipo del proyecto",
     videoAlt: "Vídeo de demostración de Liberty",
+    renamer: {
+      window: "PhotoDateRenamer · vacaciones/",
+      exif: "EXIF",
+      fallback: "archivo",
+      summary: "{n} fotos renombradas · nada sale del equipo",
+      replay: "Pasa por encima para repetir",
+    },
     prensa: {
       coverAlt: "Prensa descargando una lista: el disco gira mientras se prensan las pistas",
       tagline: "Tus listas de YouTube, prensadas en MP3.",

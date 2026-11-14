@@ -49,7 +49,7 @@ export type Project = {
   demoLinkLabel?: string;
   singleImage?: boolean;
   /** Pieza con escenografía propia en lugar de la galería (ver ProjectsGrid). */
-  showcase?: "prensa";
+  showcase?: "prensa" | "renamer";
   links: {
     demo?: string;
     code: string;
@@ -473,6 +473,7 @@ export const projects: Project[] = [
     featured: true,
     spotlight: true,
     singleImage: true,
+    showcase: "renamer",
     description:
       "Renombra fotos con la fecha de captura EXIF o, si falta, la fecha del archivo. Disponible como web y aplicación portable para Windows; procesa las fotos localmente, sin enviarlas a servicios externos.",
     image: "/images/proyectos/photoDateRenamer/captura_card.webp",

@@ -385,6 +385,12 @@ html[data-boot] .boot,
   transform: none;
 }
 
+.boot-dots {
+  align-self: center;
+  height: 1px;
+  border-bottom: 1px dotted var(--border-strong);
+}
+
 .boot-caret {
   display: inline-block;
   width: 0.55em;
@@ -404,6 +410,75 @@ html[data-boot] .hero-rule {
 
 html[data-boot] body {
   overflow: hidden;
+}
+
+/* Contador de sección: cada cifra es una tira que rueda hasta su valor */
+.roll {
+  display: inline-flex;
+}
+
+.roll-digit {
+  display: inline-block;
+  height: 1.4em;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.roll-strip {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.4em;
+  transform: translate3d(0, calc(var(--n) * -1.4em), 0);
+  transition: transform 1.1s var(--ease-out-expo);
+  transition-delay: calc(var(--i) * 90ms);
+}
+
+html[data-js] .roll:not(.is-in) .roll-strip {
+  transform: none;
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-js] .roll:not(.is-in) .roll-strip,
+  .roll-strip {
+    transform: translate3d(0, calc(var(--n) * -1.4em), 0);
+    transition: none;
+  }
+}
+
+/* ───────── Stack: cada pieza entra como un paquete recién instalado ───────── */
+
+.pkg {
+  white-space: nowrap;
+  transition: opacity 0.4s var(--ease-out-quart), transform 0.5s var(--ease-out-expo);
+  transition-delay: calc(var(--k) * 32ms);
+}
+
+html[data-js] .stack-row:not(.is-in) .pkg {
+  opacity: 0;
+  transform: translate3d(0, 6px, 0);
+}
+
+.pkg-name {
+  color: var(--foreground);
+  background-image: none;
+  box-shadow: inset 0 -1px 0 transparent;
+  transition: color 0.2s, box-shadow 0.3s var(--ease-out-quart);
+}
+
+.pkg:hover .pkg-name {
+  color: var(--accent);
+  box-shadow: inset 0 -1px 0 var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-js] .stack-row:not(.is-in) .pkg {
+    opacity: 1;
+    transform: none;
+  }
+  .pkg {
+    transition: none;
+  }
 }
 
 /* ───────── Hero ───────── */
@@ -1183,6 +1258,10 @@ html.retro-mode body::before {
 
   .quote-word {
     opacity: 1 !important;
+  }
+
+  .roll .roll-strip {
+    transform: translate3d(0, calc(var(--n) * -1.4em), 0) !important;
   }
 
   .hero-name {

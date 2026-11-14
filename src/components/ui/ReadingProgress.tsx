@@ -9,7 +9,7 @@ export function ReadingProgress() {
 
 	return (
 		<div aria-hidden="true" className="pointer-events-none fixed inset-x-0 top-0 z-[60] h-[2px] print:hidden">
-			<motion.div style={{ scaleX }} className="h-full origin-left bg-ink" />
+			<motion.div style={{ scaleX }} className="h-full origin-left bg-signal" />
 		</div>
 	);
 }

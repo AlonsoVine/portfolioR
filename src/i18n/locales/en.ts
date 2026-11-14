@@ -92,6 +92,7 @@ export const en = {
     },
   },
   skills: {
+    packages: "{n} packages",
     eyebrow: "Toolkit",
     title: "Stack and tools",
     description: "Languages, frameworks, platforms and tools, grouped by area.",
@@ -223,6 +224,13 @@ export const en = {
     mediaToggleLabel: "Liberty media view",
     logoAlt: "Project logo",
     videoAlt: "Liberty product demo video",
+    renamer: {
+      window: "PhotoDateRenamer · holidays/",
+      exif: "EXIF",
+      fallback: "file date",
+      summary: "{n} photos renamed · nothing leaves your device",
+      replay: "Hover to run it again",
+    },
     prensa: {
       coverAlt: "Prensa downloading a playlist: the record spins while the tracks are pressed",
       tagline: "Your YouTube playlists, pressed into MP3.",

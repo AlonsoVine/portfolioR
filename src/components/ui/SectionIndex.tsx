@@ -49,7 +49,7 @@ export function SectionIndex() {
 								aria-current={isActive ? "true" : undefined}
 								className="group relative flex min-h-7 items-center gap-1.5 min-[1520px]:gap-2.5"
 							>
-								<span className={cn("meta tabular", isActive ? "text-ink" : "text-subtle group-hover:text-ink")}>
+								<span className={cn("meta tabular", isActive ? "text-ink" : "text-muted group-hover:text-ink")}>
 									{pad(i + 1)}
 								</span>
 								<span
