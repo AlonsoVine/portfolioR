@@ -49,7 +49,7 @@ export type Project = {
   demoLinkLabel?: string;
   singleImage?: boolean;
   /** Pieza con escenografía propia en lugar de la galería (ver ProjectsGrid). */
-  showcase?: "prensa" | "renamer";
+  showcase?: "prensa" | "renamer" | "jarvis";
   links: {
     demo?: string;
     code: string;
@@ -66,10 +66,10 @@ export type Education = {
 
 export const navLinks: NavLink[] = [
   { label: "Inicio", href: "#hero" },
-  { label: "Herramientas", href: "#skills" },
   { label: "Sobre m\u00ed", href: "#about" },
   { label: "Experiencia", href: "#experience" },
   { label: "Proyectos", href: "#projects" },
+  { label: "Herramientas", href: "#skills" },
   { label: "Formaci\u00f3n", href: "#education" },
   { label: "Contacto", href: "#contact" },
 ];
@@ -533,6 +533,7 @@ export const projects: Project[] = [
   },
   {
     title: "Jarvis Asistente de Voz",
+    showcase: "jarvis",
     description:
       "Asistente virtual en Python capaz de ejecutar comandos de voz: abrir apps, buscar en internet, consultar clima, crear recordatorios y enviar correos, entre otros.",
     image: "/images/proyectos/jarvisVozAssistant/speech-recognition.webp",

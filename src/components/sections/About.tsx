@@ -17,10 +17,10 @@ export function About() {
 	const cta = dict.about.cta;
 
 	return (
-		<SectionShell id="about" className="pt-20 pb-28 lg:pt-28 lg:pb-40">
+		<SectionShell id="about" className="pt-28 pb-28 sm:pt-36 lg:pt-44 lg:pb-40">
 			<SectionHeading
 				sectionId="about"
-				index="02"
+				index="01"
 				eyebrow={dict.about.eyebrow}
 				title={dict.about.title}
 				description={dict.about.description}

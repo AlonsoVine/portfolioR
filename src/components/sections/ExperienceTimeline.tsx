@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
 import { cn, scrollRevealConfig } from "@/lib/utils";
@@ -23,13 +23,53 @@ const highlightTech = (text: string, techs?: string[]) => {
 	);
 };
 
+const VISIBLE = 3;
+
+/** Las tres primeras viñetas siempre; el resto, plegado como un `git log` corto que se despliega. Al imprimir salen todas. */
+function Bullets({ id, bullets, render, more, less }: { id: string; bullets: string[]; render: (b: string) => ReactNode; more: string; less: string }) {
+	const [open, setOpen] = useState(false);
+	const extra = bullets.length - VISIBLE;
+	return (
+		<>
+			<ul id={id} className="print-compact-text mt-6 flex flex-col gap-3 text-muted">
+				{bullets.map((bullet, idx) => (
+					<li
+						key={idx}
+						className={cn(
+							"grid grid-cols-[1.25rem_1fr] leading-relaxed",
+							idx >= VISIBLE && (open ? "bullet-in" : "hidden print:grid"),
+						)}
+						style={idx >= VISIBLE ? ({ "--b": idx - VISIBLE } as CSSProperties) : undefined}
+					>
+						<span aria-hidden="true" className={idx >= VISIBLE ? "text-signal" : "text-subtle"}>
+							{idx >= VISIBLE ? "+" : "–"}
+						</span>
+						<span>{render(bullet)}</span>
+					</li>
+				))}
+			</ul>
+			{extra > 0 ? (
+				<button
+					type="button"
+					aria-expanded={open}
+					aria-controls={id}
+					onClick={() => setOpen((v) => !v)}
+					className="print-hide meta link-rule mt-4 min-h-11 text-ink"
+				>
+					<span className="text-subtle">git log</span> {open ? less : `--more · ${more.replace("{n}", String(extra))}`}
+				</button>
+			) : null}
+		</>
+	);
+}
+
 const isCurrentPeriod = (period: string) => /actual|present/i.test(period);
 
 export function ExperienceTimeline() {
 	const { dict } = useLanguage();
 	const experiences = dict.experiences;
 	const heading = dict.experienceHeading;
-	const { tech: techLabel, current: currentLabel, project: projectLabel } = dict.ui.experience;
+	const { tech: techLabel, current: currentLabel, project: projectLabel, more: moreLabel, less: lessLabel } = dict.ui.experience;
 
 	const listRef = useRef<HTMLOListElement>(null);
 	const { scrollYProgress } = useScroll({ target: listRef, offset: ["start 70%", "end 60%"] });
@@ -40,7 +80,7 @@ export function ExperienceTimeline() {
 		<SectionShell id="experience" className="pt-24 pb-24 lg:pt-32 lg:pb-32">
 			<SectionHeading
 				sectionId="experience"
-				index="03"
+				index="02"
 				eyebrow={heading.eyebrow}
 				title={heading.title}
 				description={heading.description}
@@ -111,16 +151,13 @@ export function ExperienceTimeline() {
 										{experience.project && experience.location ? " · " : null}
 										{experience.location}
 									</p>
-									<ul className="print-compact-text mt-6 flex flex-col gap-3 text-muted">
-										{experience.bullets.map((bullet, idx) => (
-											<li key={`${experience.company}-${idx}`} className="grid grid-cols-[1.25rem_1fr] leading-relaxed">
-												<span aria-hidden="true" className="text-subtle">
-													–
-												</span>
-												<span>{highlightTech(bullet, experience.tech)}</span>
-											</li>
-										))}
-									</ul>
+									<Bullets
+										id={`exp-${i}`}
+										bullets={experience.bullets}
+										render={(bullet) => highlightTech(bullet, experience.tech)}
+										more={moreLabel}
+										less={lessLabel}
+									/>
 									{experience.tech?.length ? (
 										<p className="print-compact-text mt-6 font-mono text-[0.8rem] leading-relaxed text-subtle">
 											<span className="sr-only">{techLabel}: </span>

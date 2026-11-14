@@ -1,18 +1,36 @@
 'use client';
 
 import { motion, useInView } from "framer-motion";
-import { Fragment, useRef, type CSSProperties } from "react";
+import { Fragment, useMemo, useRef, useState, type CSSProperties } from "react";
 import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
 import { cn, revealWith } from "@/lib/utils";
 import { useLanguage } from "@/i18n";
 
 type Group = { title: string; items: string[] };
+type Source = { name: string; text: string; tech: string[] };
+
+const norm = (v: string) => v.toLowerCase().normalize("NFD").replace(/\p{M}/gu, "");
+const escapeRegExp = (v: string) => v.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+/** Dónde aparece una tecnología: puestos y proyectos cuya ficha la nombra. */
+function grep(item: string, sources: Source[]) {
+	const parts = item.split("/").map((p) => norm(p.replace(/\(.*\)/, "").trim())).filter((p) => p.length > 1);
+	const hits = sources.filter((src) =>
+		parts.some((part) => {
+			if (src.tech.some((t) => norm(t) === part)) return true;
+			return new RegExp(`(^|[^\\p{L}\\d])${escapeRegExp(part)}($|[^\\p{L}\\d])`, "u").test(norm(src.text));
+		}),
+	);
+	return Array.from(new Set(hits.map((h) => h.name)));
+}
 
 /** Una capa del stack: el título a la izquierda y sus piezas como un array que se «instala» al entrar. */
-function StackRow({ group, index, packages }: { group: Group; index: number; packages: string }) {
+function StackRow({ group, index, packages, sources, noMatch }: { group: Group; index: number; packages: string; sources: Source[]; noMatch: string }) {
 	const ref = useRef<HTMLDivElement>(null);
 	const inView = useInView(ref, { once: true, amount: 0.4 });
+	const [probe, setProbe] = useState<string | null>(null);
+	const hits = probe ? grep(probe, sources) : [];
 
 	return (
 		<motion.div
@@ -33,7 +51,7 @@ function StackRow({ group, index, packages }: { group: Group; index: number; pac
 				<span aria-hidden="true" className="text-subtle">[ </span>
 				{group.items.map((item, i) => (
 					<Fragment key={item}>
-					<span className="pkg" style={{ "--k": i } as CSSProperties}>
+					<span className="pkg" style={{ "--k": i } as CSSProperties} onPointerEnter={() => setProbe(item)} onPointerLeave={() => setProbe(null)}>
 						<span aria-hidden="true" className="text-subtle">&quot;</span>
 						<span className="pkg-name">{item}</span>
 						<span aria-hidden="true" className="text-subtle">&quot;</span>
@@ -47,6 +65,18 @@ function StackRow({ group, index, packages }: { group: Group; index: number; pac
 					</Fragment>
 				))}
 				<span aria-hidden="true" className="text-subtle">]</span>
+				<span aria-hidden="true" className={cn("grep-line meta mt-2 flex flex-wrap gap-x-2 text-subtle", probe && "is-on")}>
+					{probe ? (
+						<>
+							<span>
+								<span className="text-signal">$</span> git grep -l &quot;{probe}&quot;
+							</span>
+							<span className="text-ink">{hits.length ? `→ ${hits.join(" · ")}` : `→ ${noMatch}`}</span>
+						</>
+					) : (
+						<span>&nbsp;</span>
+					)}
+				</span>
 			</dd>
 		</motion.div>
 	);
@@ -56,19 +86,37 @@ function StackRow({ group, index, packages }: { group: Group; index: number; pac
 export function SkillsGrid() {
 	const { dict } = useLanguage();
 	const groups = dict.skills.cards;
+	const sources = useMemo<Source[]>(
+		() => [
+			...dict.experiences.map((e) => ({
+				name: e.company.replace(/\s*\(.*\)\s*/, "").trim(),
+				text: [e.title, ...e.bullets].join(" "),
+				tech: e.tech ?? [],
+			})),
+			...dict.projects.items.map((p) => ({ name: p.title, text: p.description, tech: p.tech })),
+		],
+		[dict.experiences, dict.projects.items],
+	);
 
 	return (
-		<SectionShell id="skills" className="pt-28 pb-24 sm:pt-36 lg:pt-44">
+		<SectionShell id="skills" className="pt-16 pb-24 lg:pt-24 lg:pb-28">
 			<SectionHeading
 				sectionId="skills"
-				index="01"
+				index="04"
 				eyebrow={dict.skills.eyebrow}
 				title={dict.skills.title}
 				description={dict.skills.description}
 			/>
 			<dl className="print-tight mt-14 lg:mt-20">
 				{groups.map((group, index) => (
-					<StackRow key={group.title} group={group} index={index} packages={dict.skills.packages} />
+					<StackRow
+						key={group.title}
+						group={group}
+						index={index}
+						packages={dict.skills.packages}
+						sources={sources}
+						noMatch={dict.skills.noMatch}
+					/>
 				))}
 			</dl>
 		</SectionShell>

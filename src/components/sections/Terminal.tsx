@@ -264,30 +264,34 @@ export function Terminal() {
 	useEffect(() => {
 		if (!inView || booted.current) return;
 		booted.current = true;
-		const demo = "whoami";
+		const demos = ["whoami", "git log"];
 		const finish = () => {
-			runRef.current(demo);
+			for (const cmd of demos) runRef.current(cmd);
 			push("muted", hintRef.current);
 		};
 		if (reduce) {
 			finish();
 			return;
 		}
-		let i = 0;
 		const timers: number[] = [];
-		const step = () => {
-			i += 1;
-			setValue(demo.slice(0, i));
-			if (i < demo.length) timers.push(window.setTimeout(step, 70 + Math.random() * 60));
-			else
-				timers.push(
-					window.setTimeout(() => {
-						setValue("");
-						finish();
-					}, 260),
-				);
+		// Cada comando se teclea con un ritmo humano irregular y se ejecuta al terminar
+		const type = (d: number, i: number) => {
+			const cmd = demos[d];
+			setValue(cmd.slice(0, i));
+			if (i < cmd.length) {
+				timers.push(window.setTimeout(() => type(d, i + 1), 55 + Math.random() * 50));
+				return;
+			}
+			timers.push(
+				window.setTimeout(() => {
+					setValue("");
+					runRef.current(cmd);
+					if (d + 1 < demos.length) timers.push(window.setTimeout(() => type(d + 1, 1), 700));
+					else push("muted", hintRef.current);
+				}, 260),
+			);
 		};
-		timers.push(window.setTimeout(step, 500));
+		timers.push(window.setTimeout(() => type(0, 1), 500));
 		return () => timers.forEach((id) => window.clearTimeout(id));
 	}, [inView, reduce, push]);
 

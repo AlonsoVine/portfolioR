@@ -93,6 +93,7 @@ export const en = {
   },
   skills: {
     packages: "{n} packages",
+    noMatch: "no matches",
     eyebrow: "Toolkit",
     title: "Stack and tools",
     description: "Languages, frameworks, platforms and tools, grouped by area.",
@@ -224,6 +225,17 @@ export const en = {
     mediaToggleLabel: "Liberty media view",
     logoAlt: "Project logo",
     videoAlt: "Liberty product demo video",
+    jarvis: {
+      window: "jarvis · listening",
+      listening: "listening",
+      lines: [
+        { said: "Jarvis, open the browser", did: "opening Chrome" },
+        { said: "What's the weather in Madrid?", did: "18 °C · clear" },
+        { said: "Remind me about stand-up at half past nine", did: "reminder · 09:30" },
+        { said: "Search the Spring Boot docs", did: "opening results" },
+      ],
+      replay: "Hover to run it again",
+    },
     renamer: {
       window: "PhotoDateRenamer · holidays/",
       exif: "EXIF",
@@ -492,6 +504,8 @@ export const en = {
       tech: "Technologies",
       current: "Ongoing",
       project: "Project",
+      more: "{n} more",
+      less: "show less",
     },
     education: {
       certificate: "Certificate",

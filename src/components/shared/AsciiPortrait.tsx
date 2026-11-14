@@ -9,7 +9,7 @@ const RAMP = " .:-=+*#%@";
 const NOISE = "01{}[]<>/=+*#";
 const DECODE_MS = 1300;
 const HOLD_MS = 450;
-const LENS = 0.24;
+const LENS = 0.19;
 
 type Cell = { x: number; y: number; ch: string; at: number };
 type Scene = { cells: Cell[]; box: DOMRect; color: string; accent: string };
@@ -145,8 +145,10 @@ export function AsciiPortrait({ src, className }: { src: string; className?: str
 				const d2 = dx * dx + dy * dy;
 				if (d2 > R2) continue;
 				const edge = 1 - Math.sqrt(d2) / R;
-				ctx.globalAlpha = Math.min(1, edge * 2.2);
-				const glitch = Math.random() < 0.035;
+				// Densidad que se deshace hacia el borde, y el ruido verde solo en el anillo exterior
+				if (edge < 0.35 && Math.random() > edge / 0.35) continue;
+				ctx.globalAlpha = Math.min(1, edge * 1.8);
+				const glitch = edge < 0.3 && Math.random() < 0.12;
 				ctx.fillStyle = glitch ? accent : color;
 				ctx.fillText(glitch ? NOISE[(Math.random() * NOISE.length) | 0] : cell.ch, cell.x, cell.y);
 			}
@@ -162,7 +164,7 @@ export function AsciiPortrait({ src, className }: { src: string; className?: str
 			pointer.y = event.clientY - rect.top;
 			figure.style.setProperty("--lx", `${pointer.x}px`);
 			figure.style.setProperty("--ly", `${pointer.y}px`);
-			figure.style.setProperty("--lr", `${rect.width * LENS * 0.82}px`);
+			figure.style.setProperty("--lr", `${rect.width * LENS}px`);
 			if (!pointer.on) {
 				pointer.on = true;
 				setLens(true);

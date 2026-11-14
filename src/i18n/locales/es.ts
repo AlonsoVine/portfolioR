@@ -25,6 +25,7 @@ export const es = {
   },
   skills: {
     packages: "{n} paquetes",
+    noMatch: "sin coincidencias",
     eyebrow: "Herramientas",
     title: "Stack y herramientas",
     description:
@@ -51,6 +52,17 @@ export const es = {
     mediaToggleLabel: "Vista multimedia de Liberty",
     logoAlt: "Logotipo del proyecto",
     videoAlt: "Vídeo de demostración de Liberty",
+    jarvis: {
+      window: "jarvis · escuchando",
+      listening: "escuchando",
+      lines: [
+        { said: "Jarvis, abre el navegador", did: "abriendo Chrome" },
+        { said: "¿Qué tiempo hace en Madrid?", did: "18 °C · despejado" },
+        { said: "Recuérdame la daily a las nueve y media", did: "recordatorio · 09:30" },
+        { said: "Busca la documentación de Spring Boot", did: "abriendo resultados" },
+      ],
+      replay: "Pasa por encima para repetir",
+    },
     renamer: {
       window: "PhotoDateRenamer · vacaciones/",
       exif: "EXIF",
@@ -233,6 +245,8 @@ export const es = {
       tech: "Tecnologías",
       current: "En curso",
       project: "Proyecto",
+      more: "{n} más",
+      less: "ver menos",
     },
     education: {
       certificate: "Certificado",
