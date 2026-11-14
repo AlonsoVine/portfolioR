@@ -37,7 +37,7 @@ export function SectionHeading({ sectionId, index, eyebrow, title, description, 
 							<RollingIndex value={index} className="tabular text-ink" />
 							<ScrambleText text={eyebrow} />
 						</p>
-						<p aria-hidden="true" className="meta mt-1.5 hidden text-subtle opacity-70 lg:block">
+						<p aria-hidden="true" className="meta mt-1.5 hidden text-subtle lg:block">
 							<ScrambleText text={`commit ${shortHash(sectionId)}`} duration={900} />
 						</p>
 					</div>
