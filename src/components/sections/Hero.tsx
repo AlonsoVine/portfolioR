@@ -43,6 +43,7 @@ export function Hero() {
 						<span className="hero-line pl-[0.5em] lg:pl-[1.15em]">
 							<span className="italic" style={delay(200)}>
 								{lastName}
+								<span aria-hidden="true" className="hero-caret" />
 							</span>
 						</span>
 					</h1>
@@ -65,6 +66,12 @@ export function Hero() {
 							className="portrait-color object-contain object-bottom"
 						/>
 						<AsciiPortrait src={withBasePath(image.front.src)} />
+						<span aria-hidden="true" className="inspect">
+							<span className="inspect-tag">
+								{ui.hero.inspect}
+								<span className="inspect-dim">1114 × 1400</span>
+							</span>
+						</span>
 					</figure>
 
 					<div className="col-span-4 grid grid-cols-subgrid gap-y-6 self-end md:col-span-8 lg:col-span-8 lg:pb-10">

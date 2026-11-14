@@ -19,7 +19,10 @@ export function ThemeToggle() {
 	return (
 		<button
 			type="button"
-			onClick={() => toggleTheme()}
+			onClick={(event) => {
+				const box = event.currentTarget.getBoundingClientRect();
+				toggleTheme({ x: box.left + box.width / 2, y: box.top + box.height / 2 });
+			}}
 			aria-label={ariaLabel}
 			className="meta inline-flex min-h-11 items-center gap-2 px-2 text-ink hover:text-muted"
 		>

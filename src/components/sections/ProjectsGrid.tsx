@@ -7,6 +7,7 @@ import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
 import { CurtainReveal } from "../shared/CurtainReveal";
 import { ProjectCarousel } from "../ui/ProjectCarousel";
+import { PrensaRecord } from "../ui/PrensaRecord";
 import { cn, scrollRevealConfig, withBasePath } from "@/lib/utils";
 import { useLanguage } from "@/i18n";
 import { GITHUB_PROJECTS, socialLinks, type Project } from "@/data/portfolio";
@@ -20,6 +21,7 @@ type Labels = {
 	mediaToggleLabel: string;
 	logoAlt: string;
 	videoAlt: string;
+	prensa: { coverAlt: string; tagline: string; rec: string; facts: string; discLabel: string; hint: string };
 };
 
 const pad = (n: number) => String(n).padStart(2, "0");
@@ -144,7 +146,11 @@ function ProjectRow({ project, index, total, counterLabel, labels }: { project: 
 						: "md:col-span-4 lg:col-span-5 lg:col-start-8",
 				)}
 			>
-				<ProjectMedia project={project} labels={labels} large={large} />
+				{project.showcase === "prensa" ? (
+					<PrensaRecord image={project.image} copy={labels.prensa} />
+				) : (
+					<ProjectMedia project={project} labels={labels} large={large} />
+				)}
 			</div>
 		</motion.article>
 	);

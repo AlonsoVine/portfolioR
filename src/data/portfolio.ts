@@ -48,6 +48,8 @@ export type Project = {
   spotlight?: boolean;
   demoLinkLabel?: string;
   singleImage?: boolean;
+  /** Pieza con escenografía propia en lugar de la galería (ver ProjectsGrid). */
+  showcase?: "prensa";
   links: {
     demo?: string;
     code: string;
@@ -407,6 +409,33 @@ export const experiences: Experience[] = [
 ];
 export const projects: Project[] = [
   {
+    title: "Prensa",
+    featured: true,
+    spotlight: true,
+    showcase: "prensa",
+    description:
+      "Aplicación de escritorio que convierte una lista pública de YouTube en una carpeta de MP3 con título, artista, álbum, número de pista y carátula. Todo pasa en tu ordenador: sin cuentas, sin cookies y sin telemetría. Su web, con un vinilo en WebGL que gira a 33⅓ rpm de verdad, forma parte del proyecto.",
+    image: "/images/proyectos/prensa/descargando-1920.webp",
+    gallery: [
+      "/images/proyectos/prensa/descargando-1920.webp",
+      "/images/proyectos/prensa/inicio-1920.webp",
+      "/images/proyectos/prensa/lista-1920.webp",
+      "/images/proyectos/prensa/completado-1920.webp",
+    ],
+    tech: [
+      "Aplicación de escritorio",
+      "Windows · macOS · Linux",
+      "MP3 con carátula y metadatos",
+      "100% local",
+      "Sin cuentas",
+      "Web: Vite · TypeScript · WebGL · GSAP",
+    ],
+    links: {
+      demo: "https://alonsovine.github.io/prensa-web/",
+      code: "https://github.com/AlonsoVine/prensa-web",
+    },
+  },
+  {
     title: "Liberty",
     featured: true,
     spotlight: true,
@@ -499,24 +528,6 @@ export const projects: Project[] = [
     links: {
       demo: "https://alonsovine.github.io/spaceInvaders/",
       code: "https://github.com/AlonsoVine/spaceInvaders",
-    },
-  },
-  {
-    title: "ForYouToBe",
-    description:
-      "Herramienta en Python para descargar audio de YouTube en varios formatos (MP3, WAV, FLAC) a partir de URLs individuales o listas, con selecci\u00f3n de formato y carpeta destino.",
-    image:
-      "/images/proyectos/forYouTobe/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_3.webp",
-    gallery: [
-      "/images/proyectos/forYouTobe/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_3.webp",
-      "/images/proyectos/forYouTobe/captura-codigo.webp",
-      "/images/proyectos/forYouTobe/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_0.webp",
-      "/images/proyectos/forYouTobe/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_20.webp",
-      "/images/proyectos/forYouTobe/Leonardo_Anime_XL_An_electrifyingly_vibrant_speech_recognition_1.webp",
-    ],
-    tech: ["Python", "yt-dlp"],
-    links: {
-      code: "https://github.com/AlonsoVine/forYouToBe",
     },
   },
   {

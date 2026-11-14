@@ -50,9 +50,18 @@ export const es = {
     mediaToggleLabel: "Vista multimedia de Liberty",
     logoAlt: "Logotipo del proyecto",
     videoAlt: "Vídeo de demostración de Liberty",
+    prensa: {
+      coverAlt: "Prensa descargando una lista: el disco gira mientras se prensan las pistas",
+      tagline: "Tus listas de YouTube, prensadas en MP3.",
+      rec: "REC · Matriz A · 33⅓ rpm",
+      facts: "Local · sin cuentas · sin telemetría",
+      discLabel: "PRENSA · PRS-001 · A · 33 1/3 RPM · MADRID · STEREO · ",
+      hint: "Pasa por encima para prensar",
+    },
     items: projects.map((project) => ({
       ...project,
       demoLinkLabel:
+        project.title === "Prensa" ||
         project.title === "Liberty" ||
         project.title === "Jardín Digital" ||
         project.title === "PhotoDateRenamer"
@@ -93,6 +102,7 @@ export const es = {
     present: "hoy",
     stage: "Etapa",
     hero: {
+      inspect: "img#retrato",
       now: "Ahora",
       trajectory: "Empresas",
       contact: "Contacto",
@@ -144,6 +154,13 @@ export const es = {
     },
     theme: { light: "Claro", dark: "Oscuro" },
     build: { label: "Build", audit: "Auditar en PageSpeed" },
+    boot: {
+      command: "npm run build -- --perfil alonso-vine",
+      engine: "Next.js 16 · exportación estática · /portfolioR",
+      compiling: "compilando secciones",
+      ready: "listo en",
+      skip: "Cualquier tecla para saltar",
+    },
     palette: {
       label: "Paleta de comandos",
       open: "Comandos",

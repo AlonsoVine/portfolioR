@@ -2,6 +2,7 @@
 
 import { useInView, useReducedMotion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { whenBooted } from "@/lib/siteActions";
 
 const GLYPHS = "01ABCDEF/\\<>{}[]_=+*#$%&";
 const FRAME_MS = 32;
@@ -48,7 +49,7 @@ export function ScrambleText({ text, trigger = "view", className, duration = 650
 	}, [duration, reduce, text]);
 
 	useEffect(() => {
-		if (inView) play();
+		if (inView) return whenBooted(play);
 	}, [inView, play]);
 
 	useEffect(() => {

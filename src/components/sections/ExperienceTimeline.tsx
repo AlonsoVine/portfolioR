@@ -54,7 +54,7 @@ export function ExperienceTimeline() {
 					style={{ scaleY: reduce ? scrollYProgress : eased }}
 				/>
 
-				<ol className="print-tight">
+				<ol ref={listRef} className="print-tight">
 					{experiences.map((experience, i) => {
 						const isCurrent = isCurrentPeriod(experience.period);
 						// Dos puestos seguidos en la misma empresa se leen como un tramo: el segundo no repite el nombre en grande

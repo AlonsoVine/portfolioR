@@ -223,17 +223,35 @@ export const en = {
     mediaToggleLabel: "Liberty media view",
     logoAlt: "Project logo",
     videoAlt: "Liberty product demo video",
+    prensa: {
+      coverAlt: "Prensa downloading a playlist: the record spins while the tracks are pressed",
+      tagline: "Your YouTube playlists, pressed into MP3.",
+      rec: "REC · Matrix A · 33⅓ rpm",
+      facts: "Local · no accounts · no telemetry",
+      discLabel: "PRENSA · PRS-001 · A · 33 1/3 RPM · MADRID · STEREO · ",
+      hint: "Hover to press",
+    },
     items: projects.map((p) => ({
       ...p,
       title: p.title,
       demoLinkLabel:
+        p.title === "Prensa" ||
         p.title === "Liberty" ||
         p.title === "Jardín Digital" ||
         p.title === "PhotoDateRenamer"
           ? "View website"
           : undefined,
       tech:
-        p.title === "Liberty"
+        p.title === "Prensa"
+          ? [
+              "Desktop app",
+              "Windows · macOS · Linux",
+              "MP3 with cover art and tags",
+              "100% local",
+              "No accounts",
+              "Website: Vite · TypeScript · WebGL · GSAP",
+            ]
+          : p.title === "Liberty"
           ? [
               "Desktop app",
               "100% local",
@@ -248,12 +266,12 @@ export const en = {
           ? ["Browser", "EXIF metadata", "Local processing", "Batch renaming"]
           : p.tech,
       description:
-        p.title === "Liberty"
+        p.title === "Prensa"
+          ? "Desktop app that turns a public YouTube playlist into a folder of MP3s with title, artist, album, track number and cover art. Everything happens on your computer: no accounts, no cookies and no telemetry. Its website, with a WebGL record spinning at a true 33⅓ rpm, is part of the project."
+          : p.title === "Liberty"
           ? "Desktop app for managing household wealth: bring accounts, investments, property and debt together, and track income, spending and performance over time. Private by design: runs locally, with no accounts or servers."
           : p.title === "Jardín Digital"
           ? "Handcrafted web app to record and accompany the life of plants. Includes KPI dashboard, dynamic search/filters, export to JSON/TXT/CSV, light/dark theme, ambient sound and floating leaves."
-          : p.title === "ForYouToBe"
-          ? "Python tool to download YouTube audio in multiple formats (MP3, WAV, FLAC) from single URLs or lists, with format and destination folder selection."
           : p.title === "PhotoDateRenamer"
           ? "Renames photos using EXIF capture dates, falling back to file dates when needed. Available as a web app and portable Windows app; photos stay on your device and are never sent to external services."
           : p.title === "Jarvis Asistente de Voz"
@@ -343,6 +361,7 @@ export const en = {
     present: "now",
     stage: "Stage",
     hero: {
+      inspect: "img#portrait",
       now: "Now",
       trajectory: "Companies",
       contact: "Contact",
@@ -394,6 +413,13 @@ export const en = {
     },
     theme: { light: "Light", dark: "Dark" },
     build: { label: "Build", audit: "Audit on PageSpeed" },
+    boot: {
+      command: "npm run build -- --profile alonso-vine",
+      engine: "Next.js 16 · static export · /portfolioR",
+      compiling: "compiling sections",
+      ready: "ready in",
+      skip: "Press any key to skip",
+    },
     palette: {
       label: "Command palette",
       open: "Commands",
