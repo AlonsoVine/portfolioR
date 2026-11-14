@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ReactNode } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { ReactNode, useRef } from "react";
 import { RevealText } from "./RevealText";
 import { RuleDraw } from "./RuleDraw";
 import { CopyLinkButton } from "../ui/CopyLinkButton";
@@ -27,11 +27,26 @@ function shortHash(seed: string) {
 
 /** Cabecera de sección: columna de metadatos a la izquierda y titular a la derecha, sobre un filete. */
 export function SectionHeading({ sectionId, index, eyebrow, title, description, aside }: SectionHeadingProps) {
+	const ref = useRef<HTMLElement>(null);
+	const reduce = useReducedMotion();
+	// Cada cabecera entra como un capítulo: el filete se traza con el scroll y titular y metadatos llegan a ritmos distintos
+	const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "start 35%"] });
+	const rule = useTransform(scrollYProgress, [0, 0.85], [0, 1]);
+	const titleY = useTransform(scrollYProgress, [0, 1], [90, 0]);
+	const metaY = useTransform(scrollYProgress, [0, 1], [160, 0]);
+
 	return (
-		<header className="section-head group/head">
-			<RuleDraw />
+		<header ref={ref} className="section-head group/head">
+			{reduce ? (
+				<RuleDraw />
+			) : (
+				<motion.div aria-hidden="true" className="rule-draw" style={{ scaleX: rule }} />
+			)}
 			<div className="grid-page gap-y-6 pt-5">
-				<div className="col-span-4 flex items-start justify-between gap-4 md:col-span-2 lg:col-span-3 lg:flex-col lg:justify-start">
+				<motion.div
+					style={reduce ? undefined : { y: metaY }}
+					className="col-span-4 flex items-start justify-between gap-4 md:col-span-2 lg:col-span-3 lg:flex-col lg:justify-start"
+				>
 					<div>
 						<p className="meta flex items-baseline gap-3 text-subtle">
 							<RollingIndex value={index} className="tabular text-ink" />
@@ -42,8 +57,8 @@ export function SectionHeading({ sectionId, index, eyebrow, title, description, 
 						</p>
 					</div>
 					<CopyLinkButton sectionId={sectionId} />
-				</div>
-				<div className="col-span-4 md:col-span-6 lg:col-span-9">
+				</motion.div>
+				<motion.div style={reduce ? undefined : { y: titleY }} className="col-span-4 md:col-span-6 lg:col-span-9">
 					<h2 className="section-title font-display text-[clamp(2.75rem,7vw,6rem)] leading-[0.92]">
 						<RevealText text={title} />
 					</h2>
@@ -58,7 +73,7 @@ export function SectionHeading({ sectionId, index, eyebrow, title, description, 
 							{aside}
 						</motion.div>
 					) : null}
-				</div>
+				</motion.div>
 			</div>
 		</header>
 	);
