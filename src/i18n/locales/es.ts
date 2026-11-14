@@ -111,9 +111,17 @@ export const es = {
     present: "hoy",
     stage: "Etapa",
     hero: {
+      status: {
+        title: "Estado",
+        uptime: "uptime",
+        years: "{n} años · desde {from}",
+        head: "HEAD",
+        build: "último build",
+        focus: "foco",
+        focusValue: "CI/CD · Java · IA aplicada",
+      },
       inspect: "img#retrato",
       now: "Ahora",
-      trajectory: "Empresas",
       contact: "Contacto",
     },
     sectionNav: "Índice de secciones",

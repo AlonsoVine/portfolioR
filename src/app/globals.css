@@ -401,6 +401,23 @@ html[data-boot] .boot,
   transform: none;
 }
 
+/* El build termina en el nombre: sube como el del hero, que toma el relevo */
+.boot-name-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+
+.boot-name-text {
+  display: inline-block;
+  transform: translate3d(0, 104%, 0);
+  transition: transform 0.7s var(--ease-out-expo);
+}
+
+.boot-name.is-in .boot-name-text {
+  transform: translate3d(0, 0, 0);
+}
+
 .boot-dots {
   align-self: center;
   height: 1px;

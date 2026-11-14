@@ -368,9 +368,17 @@ export const en = {
     present: "now",
     stage: "Stage",
     hero: {
+      status: {
+        title: "Status",
+        uptime: "uptime",
+        years: "{n} years · since {from}",
+        head: "HEAD",
+        build: "last build",
+        focus: "focus",
+        focusValue: "CI/CD · Java · applied AI",
+      },
       inspect: "img#portrait",
       now: "Now",
-      trajectory: "Companies",
       contact: "Contact",
     },
     sectionNav: "Section index",

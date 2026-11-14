@@ -5,8 +5,8 @@ import { useLanguage } from "@/i18n";
 import { BOOT_DONE_EVENT } from "@/lib/siteActions";
 import { cn } from "@/lib/utils";
 
-const RUN_MS = 1500;
-const HOLD_MS = 220;
+const RUN_MS = 1100;
+const HOLD_MS = 950;
 const OUT_MS = 950;
 
 /**
@@ -17,6 +17,7 @@ const OUT_MS = 950;
 export function BootSequence() {
 	const { dict } = useLanguage();
 	const t = dict.ui.boot;
+	const [firstName, ...rest] = dict.hero.title.split(/\s+/);
 	const sections = dict.nav.links.filter((l) => l.href !== "#hero").map((l) => l.label);
 	const [phase, setPhase] = useState<"run" | "out" | "done">("run");
 	const [progress, setProgress] = useState(0);
@@ -109,7 +110,16 @@ export function BootSequence() {
 					</p>
 				</div>
 			</div>
-			<p className="page meta pb-8 text-subtle sm:pb-10">{t.skip}</p>
+			<div className="page pb-8 sm:pb-10">
+				<p className={cn("boot-name font-display text-[clamp(3.5rem,10vw,9rem)] leading-[0.85] tracking-[-0.03em] text-ink", progress >= 1 && "is-in")}>
+					<span className="boot-name-mask">
+						<span className="boot-name-text">
+							{firstName} <span className="italic">{rest.join(" ")}</span>
+						</span>
+					</span>
+				</p>
+				<p className="meta mt-6 text-subtle">{t.skip}</p>
+			</div>
 		</div>
 	);
 }
