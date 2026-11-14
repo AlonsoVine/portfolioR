@@ -30,7 +30,12 @@ export function RenamerShowcase({ image, alt, copy }: { image: string; alt: stri
 	const [step, setStep] = useState(0);
 
 	useEffect(() => {
-		if (!inView || reduce) return;
+		if (!inView) return;
+		// Con movimiento reducido se muestra el resultado ya hecho, pero tras montar: el servidor no conoce la preferencia
+		if (reduce) {
+			const id = requestAnimationFrame(() => setStep(FILES.length + 1));
+			return () => cancelAnimationFrame(id);
+		}
 		let n = 0;
 		const id = window.setInterval(() => {
 			n += 1;
@@ -40,7 +45,7 @@ export function RenamerShowcase({ image, alt, copy }: { image: string; alt: stri
 		return () => window.clearInterval(id);
 	}, [inView, reduce, run]);
 
-	const shown = reduce ? FILES.length + 1 : step;
+	const shown = step;
 	const replay = () => {
 		if (reduce || step <= FILES.length) return;
 		setStep(0);

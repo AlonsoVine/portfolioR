@@ -70,8 +70,10 @@ export function Footer() {
 					</nav>
 
 					<div className="col-span-2 flex flex-col gap-1 md:col-span-3 lg:col-span-3 lg:col-start-10">
-						<a href={`mailto:${CONTACT_EMAIL}`} className="inline-block py-1 text-ink [overflow-wrap:anywhere] hover:text-muted">
-							{CONTACT_EMAIL}
+						<a href={`mailto:${CONTACT_EMAIL}`} className="inline-block py-1 text-ink hover:text-muted">
+							{/* Si no cabe, el correo se parte por la arroba y no a mitad del dominio */}
+							{CONTACT_EMAIL.split("@")[0]}
+							<wbr />@{CONTACT_EMAIL.split("@")[1]}
 						</a>
 						{dict.socialLinks.map((social) => (
 							<a
@@ -95,7 +97,7 @@ export function Footer() {
 					<DeployPipeline />
 				</div>
 
-				<div className="grid-page gap-y-4 border-t border-rule py-6">
+				<div className="grid-page gap-y-4 border-t border-rule pt-6 pb-20 sm:pb-6">
 					<p className="meta col-span-4 text-subtle md:col-span-2 lg:col-span-3">© {year} Alonso Viñé Barrancos</p>
 					<p className="col-span-4 text-[0.85rem] leading-snug text-subtle md:col-span-6 lg:col-span-4">{dict.ui.colophon}</p>
 					<div className="col-span-4 flex flex-wrap items-center gap-x-6 gap-y-2 md:col-span-8 lg:col-span-5 lg:justify-end">

@@ -541,6 +541,13 @@ html[data-js] .stack-row:not(.is-in) .pkg {
   }
 }
 
+/* Piezas ligadas al scroll: con movimiento reducido quedan en su sitio (el servidor pinta lo mismo en ambos casos) */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-linked {
+    transform: none !important;
+  }
+}
+
 /* ───────── Hero ───────── */
 
 .hero-line {
