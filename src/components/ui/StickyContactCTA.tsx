@@ -3,11 +3,14 @@
 import { useEffect, useState } from "react";
 import { useLanguage } from "@/i18n";
 import { cn } from "@/lib/utils";
+import { useScrollingDown } from "@/lib/useScrollingDown";
 
 export function StickyContactCTA() {
 	const { dict } = useLanguage();
 	const label = dict.ui.contactCta;
-	const [show, setShow] = useState(false);
+	const [inRange, setShow] = useState(false);
+	const reading = useScrollingDown();
+	const show = inRange && !reading;
 
 	useEffect(() => {
 		const onScroll = () => {
@@ -22,7 +25,7 @@ export function StickyContactCTA() {
 	}, []);
 
 	return (
-		<aside aria-label={label} className="print:hidden lg:hidden">
+		<aside aria-label={label} className="hidden print:hidden sm:block lg:hidden">
 			<a
 				href="#contact"
 				aria-hidden={show ? undefined : true}

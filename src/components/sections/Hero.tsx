@@ -5,7 +5,7 @@ import type { CSSProperties } from "react";
 import { useLanguage } from "@/i18n";
 import { withBasePath } from "@/lib/utils";
 import { CONTACT_EMAIL } from "@/data/portfolio";
-import { CareerStrip } from "../shared/CareerStrip";
+import { HeroStatus } from "../shared/HeroStatus";
 import { ScrambleText } from "../shared/ScrambleText";
 import { AsciiPortrait } from "../shared/AsciiPortrait";
 
@@ -43,9 +43,14 @@ export function Hero() {
 						<span className="hero-line pl-[0.5em] lg:pl-[1.15em]">
 							<span className="italic" style={delay(200)}>
 								{lastName}
+								<span aria-hidden="true" className="hero-caret" />
 							</span>
 						</span>
 					</h1>
+
+					<div className="print-hide hero-in hidden self-start pt-10 lg:col-span-4 lg:col-start-9 lg:row-start-1 [@media(min-height:820px)]:lg:block" style={delay(900)}>
+						<HeroStatus />
+					</div>
 
 					<figure className="portrait print-hide hero-in relative col-span-2 col-start-3 row-start-3 aspect-[1114/1400] w-full self-end md:col-span-3 md:col-start-6 lg:col-span-4 lg:col-start-9 lg:row-span-2 lg:row-start-1 lg:-mb-px" style={delay(650)}>
 						<Image
@@ -65,14 +70,20 @@ export function Hero() {
 							className="portrait-color object-contain object-bottom"
 						/>
 						<AsciiPortrait src={withBasePath(image.front.src)} />
+						<span aria-hidden="true" className="inspect">
+							<span className="inspect-tag">
+								{ui.hero.inspect}
+								<span className="inspect-dim">1114 × 1400</span>
+							</span>
+						</span>
 					</figure>
 
 					<div className="col-span-4 grid grid-cols-subgrid gap-y-6 self-end md:col-span-8 lg:col-span-8 lg:pb-10">
 						<p className="meta hero-in col-span-4 text-subtle md:col-span-2 lg:hidden" style={delay(700)}>
 							{ui.hero.now}
 						</p>
-						<div className="print-hide hero-in hidden self-end lg:col-span-3 lg:block" style={delay(900)}>
-							<CareerStrip label={ui.hero.trajectory} variant="column" />
+						<div className="print-hide hero-in hidden self-end lg:col-span-3 lg:block [@media(min-height:820px)]:lg:hidden" style={delay(900)}>
+							<HeroStatus />
 						</div>
 						<div className="hero-in col-span-4 md:col-span-6 lg:col-span-5" style={delay(780)}>
 							<p className="meta mb-3 hidden text-subtle lg:block">{ui.hero.now}</p>
@@ -131,7 +142,6 @@ export function Hero() {
 					</div>
 				</div>
 			</div>
-			<CareerStrip label={ui.hero.trajectory} />
 		</section>
 	);
 }

@@ -92,6 +92,8 @@ export const en = {
     },
   },
   skills: {
+    packages: "{n} packages",
+    noMatch: "no matches",
     eyebrow: "Toolkit",
     title: "Stack and tools",
     description: "Languages, frameworks, platforms and tools, grouped by area.",
@@ -110,8 +112,6 @@ export const en = {
           ? "Tools & Platforms"
           : card.title === "IA aplicada al desarrollo"
           ? "AI-assisted development"
-          : card.title === "Certificaciones"
-          ? "Certifications"
           : card.title,
     })),
   },
@@ -213,7 +213,7 @@ export const en = {
     eyebrow: "Projects",
     title: "Personal projects",
     description:
-      "Six projects picked from the more than {projects} I keep on GitHub. Open source and, where there is one, a live demo.",
+      "Five projects picked from the more than {projects} I keep on GitHub. Open source and, where there is one, a live demo.",
     codeLabel: "Code",
     demoLabel: "View demo",
     moreLabel: "The rest of my projects on GitHub",
@@ -223,17 +223,74 @@ export const en = {
     mediaToggleLabel: "Liberty media view",
     logoAlt: "Project logo",
     videoAlt: "Liberty product demo video",
+    liberty: {
+      chartLabel: "Chart",
+      title: "Your net worth",
+      subtitle: "everything at home: your portfolio and your property",
+      growth: "How it has grown",
+      then: "Where it stood in {month}",
+      start: "Starting point",
+      delta: "{amount} in {span}",
+      months: "{n} months",
+      month: "1 month",
+      portfolio: "Portfolio",
+      property: "Property",
+      portfolioRow: "Net portfolio",
+      portfolioHint: "investments, cash and debt",
+      propertyRow: "Net property",
+      propertyHint: "value − mortgages",
+      hint: "Scrub the chart to travel through time",
+      range: "Step month by month through the sample household's net worth",
+      milestones: ["Buys the rental flat", "Buys the house", "Buys the storage room", "Buys the garage", "Starts the portfolio"],
+      irr: "Portfolio IRR",
+      irrValue: "+11.17%",
+      freedom: "Financial freedom",
+      freedomValue: "42% covered",
+      sample: "The app's sample household",
+    },
+    renamer: {
+      window: "PhotoDateRenamer · holidays/",
+      exif: "EXIF",
+      fallback: "file date",
+      summary: "{n} photos renamed · nothing leaves your device",
+      replay: "Hover to run it again",
+    },
+    prensa: {
+      coverAlt: "Prensa downloading a playlist: the record spins while the tracks are pressed",
+      tagline: "Your YouTube playlists, pressed into MP3.",
+      rec: "REC · Matrix A · 33⅓ rpm",
+      facts: "Local · no accounts · no telemetry",
+      discLabel: "PRENSA · PRS-001 · A · 33 1/3 RPM · MADRID · STEREO · ",
+      hint: "Hover to press",
+    },
     items: projects.map((p) => ({
       ...p,
       title: p.title,
       demoLinkLabel:
+        p.title === "Prensa" ||
         p.title === "Liberty" ||
         p.title === "Jardín Digital" ||
         p.title === "PhotoDateRenamer"
           ? "View website"
           : undefined,
       tech:
-        p.title === "Liberty"
+        p.title === "Prensa"
+          ? [
+              "Desktop app",
+              "Tauri 2",
+              "Rust",
+              "React",
+              "TypeScript",
+              "yt-dlp",
+              "ffmpeg",
+              "Website: Vite",
+              "GSAP",
+              "WebGL (OGL)",
+              "Lenis",
+              "Playwright",
+              "Windows · macOS · Linux",
+            ]
+          : p.title === "Liberty"
           ? [
               "Desktop app",
               "100% local",
@@ -248,16 +305,14 @@ export const en = {
           ? ["Browser", "EXIF metadata", "Local processing", "Batch renaming"]
           : p.tech,
       description:
-        p.title === "Liberty"
+        p.title === "Prensa"
+          ? "Desktop app that turns a public YouTube playlist into a folder of MP3s with title, artist, album, track number and cover art. Everything happens on your computer: no accounts, no cookies and no telemetry. Its website, with a WebGL record spinning at a true 33⅓ rpm, is part of the project."
+          : p.title === "Liberty"
           ? "Desktop app for managing household wealth: bring accounts, investments, property and debt together, and track income, spending and performance over time. Private by design: runs locally, with no accounts or servers."
           : p.title === "Jardín Digital"
           ? "Handcrafted web app to record and accompany the life of plants. Includes KPI dashboard, dynamic search/filters, export to JSON/TXT/CSV, light/dark theme, ambient sound and floating leaves."
-          : p.title === "ForYouToBe"
-          ? "Python tool to download YouTube audio in multiple formats (MP3, WAV, FLAC) from single URLs or lists, with format and destination folder selection."
           : p.title === "PhotoDateRenamer"
           ? "Renames photos using EXIF capture dates, falling back to file dates when needed. Available as a web app and portable Windows app; photos stay on your device and are never sent to external services."
-          : p.title === "Jarvis Asistente de Voz"
-          ? "Python voice assistant capable of executing voice commands: open apps, web search, weather, reminders, and email, among others."
           : p.title === "Space Invaders"
           ? "A reimagining of the arcade classic in JavaScript + HTML5 Canvas, playable online. Six game modes (classic, waves, survival, time-attack, plus 2-player co-op and versus), an achievement and reward system, ship customization, and a bestiary of defeated enemies. Backed by tests (Vitest), linting and pre-commit hooks."
           : p.description,
@@ -343,8 +398,17 @@ export const en = {
     present: "now",
     stage: "Stage",
     hero: {
+      status: {
+        title: "Status",
+        uptime: "uptime",
+        years: "{n} years · since {from}",
+        head: "HEAD",
+        build: "last build",
+        focus: "focus",
+        focusValue: "CI/CD · Java · applied AI",
+      },
+      inspect: "img#portrait",
       now: "Now",
-      trajectory: "Companies",
       contact: "Contact",
     },
     sectionNav: "Section index",
@@ -394,6 +458,13 @@ export const en = {
     },
     theme: { light: "Light", dark: "Dark" },
     build: { label: "Build", audit: "Audit on PageSpeed" },
+    boot: {
+      command: "npm run build -- --profile alonso-vine",
+      engine: "Next.js 16 · static export · /portfolioR",
+      compiling: "compiling sections",
+      ready: "ready in",
+      skip: "Press any key to skip",
+    },
     palette: {
       label: "Command palette",
       open: "Commands",
@@ -458,6 +529,8 @@ export const en = {
       tech: "Technologies",
       current: "Ongoing",
       project: "Project",
+      more: "{n} more",
+      less: "show less",
     },
     education: {
       certificate: "Certificate",

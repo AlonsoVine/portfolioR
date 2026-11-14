@@ -48,6 +48,8 @@ export type Project = {
   spotlight?: boolean;
   demoLinkLabel?: string;
   singleImage?: boolean;
+  /** Pieza con escenografía propia en lugar de la galería (ver ProjectsGrid). */
+  showcase?: "prensa" | "renamer" | "liberty";
   links: {
     demo?: string;
     code: string;
@@ -64,10 +66,10 @@ export type Education = {
 
 export const navLinks: NavLink[] = [
   { label: "Inicio", href: "#hero" },
-  { label: "Herramientas", href: "#skills" },
   { label: "Sobre m\u00ed", href: "#about" },
   { label: "Experiencia", href: "#experience" },
   { label: "Proyectos", href: "#projects" },
+  { label: "Herramientas", href: "#skills" },
   { label: "Formaci\u00f3n", href: "#education" },
   { label: "Contacto", href: "#contact" },
 ];
@@ -154,6 +156,7 @@ export const skillCards: SkillCard[] = [
       "Python",
       "SQL",
       "PL/SQL",
+      "Rust",
       "HTML5",
       "CSS3",
     ],
@@ -176,7 +179,12 @@ export const skillCards: SkillCard[] = [
       "Tailwind",
       "RxJS",
       "Android SDK",
+      "Tauri",
+      "GSAP",
+      "WebGL (OGL)",
+      "Lenis",
       "Vitest",
+      "Playwright",
       "Vite",
     ],
   },
@@ -237,6 +245,8 @@ export const skillCards: SkillCard[] = [
       "PuTTY",
       "FileZilla",
       "Tailscale",
+      "ffmpeg",
+      "yt-dlp",
     ],
   },
   {
@@ -244,20 +254,6 @@ export const skillCards: SkillCard[] = [
     icon: "code",
     tone: "teal",
     items: ["Claude Code", "GitHub Copilot", "ChatGPT"],
-  },
-  {
-    title: "Certificaciones",
-    icon: "badge",
-    tone: "amber",
-    items: [
-      "EF SET (C2 Proficient)",
-      "LPI Linux",
-      "AWS Cloud Practitioner",
-      "Prompt Engineering",
-      "GitHub Foundations",
-      "Introducing AI",
-      "AI for Developers",
-    ],
   },
 ];
 
@@ -407,20 +403,57 @@ export const experiences: Experience[] = [
 ];
 export const projects: Project[] = [
   {
+    title: "Prensa",
+    featured: true,
+    spotlight: true,
+    showcase: "prensa",
+    description:
+      "Aplicación de escritorio que convierte una lista pública de YouTube en una carpeta de MP3 con título, artista, álbum, número de pista y carátula. Todo pasa en tu ordenador: sin cuentas, sin cookies y sin telemetría. Su web, con un vinilo en WebGL que gira a 33⅓ rpm de verdad, forma parte del proyecto.",
+    image: "/images/proyectos/prensa/descargando-1920.webp",
+    gallery: [
+      "/images/proyectos/prensa/descargando-1920.webp",
+      "/images/proyectos/prensa/inicio-1920.webp",
+      "/images/proyectos/prensa/lista-1920.webp",
+      "/images/proyectos/prensa/completado-1920.webp",
+    ],
+    tech: [
+      "Aplicación de escritorio",
+      "Tauri 2",
+      "Rust",
+      "React",
+      "TypeScript",
+      "yt-dlp",
+      "ffmpeg",
+      "Web: Vite",
+      "GSAP",
+      "WebGL (OGL)",
+      "Lenis",
+      "Playwright",
+      "Windows · macOS · Linux",
+    ],
+    links: {
+      demo: "https://alonsovine.github.io/prensa-web/",
+      code: "https://github.com/AlonsoVine/prensa-web",
+    },
+  },
+  {
     title: "Liberty",
     featured: true,
     spotlight: true,
+    showcase: "liberty",
     description:
       "Aplicación de escritorio para gestionar el patrimonio del hogar: reúne cuentas, inversiones, inmuebles y deudas, y ayuda a seguir ingresos, gastos y evolución. Privada por diseño: funciona localmente, sin cuentas ni servidores.",
-    image: "/images/proyectos/liberty/Panel_1_patrimonio1.webp",
+    image: "/images/proyectos/liberty/panel-inicio.webp",
     gallery: [
-      "/images/proyectos/liberty/Panel_1_patrimonio1.webp",
-      "/images/proyectos/liberty/Panel_2_distribucion.webp",
-      "/images/proyectos/liberty/Panel_5_Evolucion.webp",
-      "/images/proyectos/liberty/Panel_5_Evolucion2.webp",
-      "/images/proyectos/liberty/MisDatos_1_Activos.webp",
-      "/images/proyectos/liberty/MisDatos_7_Configuracion.webp",
-      "/images/proyectos/liberty/MisDatos_8_Importar.webp",
+      "/images/proyectos/liberty/panel-inicio.webp",
+      "/images/proyectos/liberty/panel-cartera.webp",
+      "/images/proyectos/liberty/panel-distribucion.webp",
+      "/images/proyectos/liberty/panel-evolucion.webp",
+      "/images/proyectos/liberty/panel-rentabilidad.webp",
+      "/images/proyectos/liberty/panel-ingresos.webp",
+      "/images/proyectos/liberty/panel-inmuebles.webp",
+      "/images/proyectos/liberty/panel-fiscal.webp",
+      "/images/proyectos/liberty/misdatos-activos.webp",
     ],
     logo: "/images/proyectos/liberty/logo_liberty.png",
     video: "/images/proyectos/liberty/Grabación 2026-10-08 131217.mp4",
@@ -444,6 +477,7 @@ export const projects: Project[] = [
     featured: true,
     spotlight: true,
     singleImage: true,
+    showcase: "renamer",
     description:
       "Renombra fotos con la fecha de captura EXIF o, si falta, la fecha del archivo. Disponible como web y aplicación portable para Windows; procesa las fotos localmente, sin enviarlas a servicios externos.",
     image: "/images/proyectos/photoDateRenamer/captura_card.webp",
@@ -499,44 +533,6 @@ export const projects: Project[] = [
     links: {
       demo: "https://alonsovine.github.io/spaceInvaders/",
       code: "https://github.com/AlonsoVine/spaceInvaders",
-    },
-  },
-  {
-    title: "ForYouToBe",
-    description:
-      "Herramienta en Python para descargar audio de YouTube en varios formatos (MP3, WAV, FLAC) a partir de URLs individuales o listas, con selecci\u00f3n de formato y carpeta destino.",
-    image:
-      "/images/proyectos/forYouTobe/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_3.webp",
-    gallery: [
-      "/images/proyectos/forYouTobe/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_3.webp",
-      "/images/proyectos/forYouTobe/captura-codigo.webp",
-      "/images/proyectos/forYouTobe/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_0.webp",
-      "/images/proyectos/forYouTobe/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_20.webp",
-      "/images/proyectos/forYouTobe/Leonardo_Anime_XL_An_electrifyingly_vibrant_speech_recognition_1.webp",
-    ],
-    tech: ["Python", "yt-dlp"],
-    links: {
-      code: "https://github.com/AlonsoVine/forYouToBe",
-    },
-  },
-  {
-    title: "Jarvis Asistente de Voz",
-    description:
-      "Asistente virtual en Python capaz de ejecutar comandos de voz: abrir apps, buscar en internet, consultar clima, crear recordatorios y enviar correos, entre otros.",
-    image: "/images/proyectos/jarvisVozAssistant/speech-recognition.webp",
-    gallery: [
-      "/images/proyectos/jarvisVozAssistant/speech-recognition.webp",
-      "/images/proyectos/jarvisVozAssistant/javis-captura-codigo.webp",
-      "/images/proyectos/jarvisVozAssistant/speech-recognition-img2.webp",
-      "/images/proyectos/jarvisVozAssistant/Leonardo_Phoenix_An_electrifyingly_vibrant_speech_recognitiont_1.webp",
-      "/images/proyectos/jarvisVozAssistant/Leonardo_Anime_XL_An_electrifyingly_vibrant_speech_recognition_0.webp",
-      "/images/proyectos/jarvisVozAssistant/Leonardo_Anime_XL_An_electrifyingly_vibrant_speech_recognition_2.webp",
-      "/images/proyectos/jarvisVozAssistant/Leonardo_Anime_XL_An_electrifyingly_vibrant_speech_recognition_3.webp",
-      "/images/proyectos/jarvisVozAssistant/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_22.webp",
-    ],
-    tech: ["Python", "Speech Recognition"],
-    links: {
-      code: "https://github.com/AlonsoVine/jarvisVozAssistant",
     },
   },
 ];

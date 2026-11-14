@@ -24,6 +24,8 @@ export const es = {
       "Desarrollo full stack y DevOps desde 2021, siempre en Madrid.",
   },
   skills: {
+    packages: "{n} paquetes",
+    noMatch: "sin coincidencias",
     eyebrow: "Herramientas",
     title: "Stack y herramientas",
     description:
@@ -40,7 +42,7 @@ export const es = {
     eyebrow: "Proyectos",
     title: "Proyectos personales",
     description:
-      "Seis proyectos escogidos entre los más de {projects} que tengo en GitHub. Código abierto y, cuando existe, demo en vivo.",
+      "Cinco proyectos escogidos entre los más de {projects} que tengo en GitHub. Código abierto y, cuando existe, demo en vivo.",
     codeLabel: "Código",
     demoLabel: "Ver demo",
     moreLabel: "Resto de proyectos en GitHub",
@@ -50,9 +52,50 @@ export const es = {
     mediaToggleLabel: "Vista multimedia de Liberty",
     logoAlt: "Logotipo del proyecto",
     videoAlt: "Vídeo de demostración de Liberty",
+    liberty: {
+      chartLabel: "Gráfica",
+      title: "Tu patrimonio",
+      subtitle: "todo lo del hogar: tu cartera y tus inmuebles",
+      growth: "Cómo ha crecido",
+      then: "Así estaba en {month}",
+      start: "Punto de partida",
+      delta: "{amount} en {span}",
+      months: "{n} meses",
+      month: "1 mes",
+      portfolio: "Cartera",
+      property: "Inmuebles",
+      portfolioRow: "Cartera neta",
+      portfolioHint: "inversiones, cuentas y deudas",
+      propertyRow: "Inmuebles netos",
+      propertyHint: "valor − hipotecas",
+      hint: "Desliza sobre la gráfica para viajar en el tiempo",
+      range: "Recorre mes a mes la evolución del patrimonio del hogar de ejemplo",
+      milestones: ["Compra del piso alquilado", "Compra de la casa", "Compra del trastero", "Compra del garaje", "Empieza la cartera"],
+      irr: "TIR de la cartera",
+      irrValue: "+11,17 %",
+      freedom: "Libertad financiera",
+      freedomValue: "42 % cubierto",
+      sample: "Hogar de ejemplo de la app",
+    },
+    renamer: {
+      window: "PhotoDateRenamer · vacaciones/",
+      exif: "EXIF",
+      fallback: "archivo",
+      summary: "{n} fotos renombradas · nada sale del equipo",
+      replay: "Pasa por encima para repetir",
+    },
+    prensa: {
+      coverAlt: "Prensa descargando una lista: el disco gira mientras se prensan las pistas",
+      tagline: "Tus listas de YouTube, prensadas en MP3.",
+      rec: "REC · Matriz A · 33⅓ rpm",
+      facts: "Local · sin cuentas · sin telemetría",
+      discLabel: "PRENSA · PRS-001 · A · 33 1/3 RPM · MADRID · STEREO · ",
+      hint: "Pasa por encima para prensar",
+    },
     items: projects.map((project) => ({
       ...project,
       demoLinkLabel:
+        project.title === "Prensa" ||
         project.title === "Liberty" ||
         project.title === "Jardín Digital" ||
         project.title === "PhotoDateRenamer"
@@ -93,8 +136,17 @@ export const es = {
     present: "hoy",
     stage: "Etapa",
     hero: {
+      status: {
+        title: "Estado",
+        uptime: "uptime",
+        years: "{n} años · desde {from}",
+        head: "HEAD",
+        build: "último build",
+        focus: "foco",
+        focusValue: "CI/CD · Java · IA aplicada",
+      },
+      inspect: "img#retrato",
       now: "Ahora",
-      trajectory: "Empresas",
       contact: "Contacto",
     },
     sectionNav: "Índice de secciones",
@@ -144,6 +196,13 @@ export const es = {
     },
     theme: { light: "Claro", dark: "Oscuro" },
     build: { label: "Build", audit: "Auditar en PageSpeed" },
+    boot: {
+      command: "npm run build -- --perfil alonso-vine",
+      engine: "Next.js 16 · exportación estática · /portfolioR",
+      compiling: "compilando secciones",
+      ready: "listo en",
+      skip: "Cualquier tecla para saltar",
+    },
     palette: {
       label: "Paleta de comandos",
       open: "Comandos",
@@ -208,6 +267,8 @@ export const es = {
       tech: "Tecnologías",
       current: "En curso",
       project: "Proyecto",
+      more: "{n} más",
+      less: "ver menos",
     },
     education: {
       certificate: "Certificado",

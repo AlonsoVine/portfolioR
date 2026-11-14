@@ -6,15 +6,23 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { SectionHeading } from "../shared/SectionHeading";
 import { Portal, useInertOutside } from "../shared/Portal";
 import { SectionShell } from "../shared/SectionShell";
-import { EASE_OUT_EXPO, scrollRevealConfig, withBasePath } from "@/lib/utils";
+import { cn, EASE_OUT_EXPO, scrollRevealConfig, withBasePath } from "@/lib/utils";
 import { useFocusTrap } from "@/lib/useFocusTrap";
 import { useLanguage } from "@/i18n";
 import type { Education as EducationItem } from "@/data/portfolio";
+
+const slug = (v: string) =>
+	v
+		.normalize("NFD")
+		.replace(/\p{M}/gu, "")
+		.toLowerCase()
+		.replace(/[^a-z0-9]+/g, "-");
 
 export function Education() {
 	const { dict } = useLanguage();
 	const heading = dict.education;
 	const [selected, setSelected] = useState<EducationItem | null>(null);
+	const [openKey, setOpenKey] = useState<string | null>(null);
 	const modalRef = useRef<HTMLDivElement>(null);
 	useInertOutside(selected !== null);
 	useFocusTrap(modalRef, selected !== null);
@@ -60,34 +68,51 @@ export function Education() {
 							</span>
 						</p>
 						<ol className="col-span-4 md:col-span-6 lg:col-span-9">
-							{items.map((item) => (
+							{items.map((item) => {
+								const key = `cert-${slug(item.title)}`;
+								return (
 								<motion.li
 									key={`${item.institution}-${item.title}`}
 									{...scrollRevealConfig}
-									className="print-row grid grid-cols-1 gap-x-8 gap-y-2 border-b border-rule py-5 first:pt-0 last:border-b-0 md:grid-cols-[minmax(0,1fr)_auto] lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)_auto]"
+									className="group/row print-row grid grid-cols-1 gap-x-8 gap-y-2 border-b border-rule py-4 first:pt-0 last:border-b-0 md:grid-cols-[minmax(0,1fr)_auto] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto]"
 								>
-									<div className="min-w-0">
-										<h3 className="text-[1.1875rem] font-medium leading-snug text-ink">{item.title}</h3>
-										<p className="meta mt-1.5 text-muted lg:hidden">{item.institution.trim()}</p>
+									<div className="min-w-0 lg:col-span-2">
+										<h3 className="text-[1.1875rem] font-medium leading-snug text-ink">
+											<button
+												type="button"
+												aria-expanded={openKey === key}
+												aria-controls={`${key}-details`}
+												onClick={() => setOpenKey((k) => (k === key ? null : key))}
+												className="group/cert grid w-full grid-cols-[1.5rem_minmax(0,1fr)] items-baseline text-left lg:grid-cols-[1.5rem_minmax(0,1.35fr)_minmax(0,1fr)] lg:gap-x-8"
+											>
+												<span aria-hidden="true" className="cert-toggle font-mono text-sm text-subtle group-hover/cert:text-signal">
+													{openKey === key ? "−" : "+"}
+												</span>
+												<span className="group-hover/cert:text-signal">{item.title}</span>
+												<span className="meta col-start-2 mt-1.5 text-muted lg:col-start-3 lg:mt-0">{item.institution.trim()}</span>
+											</button>
+										</h3>
+										<div id={`${key}-details`} className={cn("cert-details print:hidden", openKey === key && "is-open")}>
+											<div className="overflow-hidden">
+												<p className="max-w-[62ch] pt-3 pl-6 text-[0.95rem] leading-relaxed text-muted">{item.details}</p>
+											</div>
+										</div>
 									</div>
-									<p className="text-[0.95rem] leading-relaxed text-muted md:col-start-1 lg:col-start-2 lg:row-start-1">
-										<span className="meta mb-1.5 hidden text-ink lg:block print:hidden">{item.institution.trim()}</span>
-										<span className="print:hidden">{item.details}</span>
-									</p>
 									{item.image ? (
 										<button
 											type="button"
 											onClick={() => setSelected(item)}
 											aria-haspopup="dialog"
 											aria-label={`${viewLabel}: ${item.title}`}
-											className="print-hide link-rule meta self-start justify-self-start whitespace-nowrap py-1 text-ink md:col-start-2 md:row-start-1 md:justify-self-end lg:col-start-3"
+											className="print-hide link-rule meta self-start justify-self-start whitespace-nowrap py-1 text-subtle transition-colors group-hover/row:text-ink focus-visible:text-ink md:col-start-2 md:row-start-1 ml-6 md:ml-0 md:justify-self-end lg:col-start-3"
 										>
 											{viewLabel}
 											<span aria-hidden="true" className="link-arrow">↗</span>
 										</button>
 									) : null}
 								</motion.li>
-							))}
+								);
+							})}
 						</ol>
 					</div>
 				))}

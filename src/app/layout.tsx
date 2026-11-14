@@ -8,6 +8,7 @@ import { GoogleAnalyticsEvents } from "@/components/shared/GoogleAnalyticsEvents
 import { MotionGate } from "@/components/shared/MotionGate";
 import { RetroEasterEgg } from "@/components/shared/RetroEasterEgg";
 import { SkipToContent } from "@/components/shared/SkipToContent";
+import { BootSequence } from "@/components/shared/BootSequence";
 import { ReadingProgress } from "@/components/ui/ReadingProgress";
 import { StickyContactCTA } from "@/components/ui/StickyContactCTA";
 import { CommandPalette } from "@/components/ui/CommandPalette";
@@ -146,6 +147,11 @@ const themeScript = `
 (() => {
   document.documentElement.dataset.js = '1';
   try {
+    if (!sessionStorage.getItem('booted') && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.dataset.boot = '1';
+    }
+  } catch (error) {}
+  try {
     const stored = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const theme = stored ?? (prefersDark ? 'dark' : 'light');
@@ -200,6 +206,7 @@ export default function RootLayout({
         <ReadingProgress />
         <LanguageProvider>
           <MotionGate>
+            <BootSequence />
             <SkipToContent />
             {children}
             <StickyContactCTA />
