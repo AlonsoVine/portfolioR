@@ -2,11 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { useScrollingDown } from "@/lib/useScrollingDown";
 import { useLanguage } from "@/i18n";
 
 export function ScrollToTopButton() {
 	const { dict } = useLanguage();
-	const [visible, setVisible] = useState(false);
+	const [past, setVisible] = useState(false);
+	const reading = useScrollingDown();
+	const visible = past && !reading;
 
 	useEffect(() => {
 		const handleScroll = () => setVisible(window.scrollY > 640);

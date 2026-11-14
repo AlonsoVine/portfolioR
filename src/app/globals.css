@@ -365,7 +365,13 @@ html[data-boot] .boot,
 }
 
 .boot.is-out {
-  animation: boot-out 0.95s var(--ease-out-expo) forwards;
+  animation: boot-out 0.95s var(--ease-out-expo) 0.32s forwards;
+}
+
+.boot.is-out > * {
+  opacity: 0;
+  transform: translate3d(0, -12px, 0);
+  transition: opacity 0.28s var(--ease-out-quart), transform 0.4s var(--ease-out-expo);
 }
 
 /* Al retirarse, el borde del arranque es un filete del acento que barre la pantalla hasta el del hero */
@@ -381,7 +387,7 @@ html[data-boot] .boot,
 
 .boot.is-out::after {
   transform: scaleX(1);
-  transition: transform 0.45s var(--ease-out-expo);
+  transition: transform 0.4s var(--ease-out-expo);
 }
 
 @keyframes boot-out {
@@ -1246,8 +1252,8 @@ html[data-js] .liberty-stage:not(.is-in) .liberty-card {
 }
 
 .liberty-chip-1 {
-  left: 2%;
-  bottom: 14%;
+  left: 0;
+  bottom: 0;
   transform: translate3d(calc(var(--tx, 0) * -18px), calc(var(--ty, 0) * -14px), 0);
   transition-delay: 0.9s;
 }

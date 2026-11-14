@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 const RUN_MS = 1100;
 const HOLD_MS = 950;
 const OUT_MS = 950;
+const HANDOFF_MS = 320;
 
 /**
  * Primera visita de la sesión: la página se «compila» como un build antes de mostrarse.
@@ -43,9 +44,15 @@ export function BootSequence() {
 				// sin sessionStorage se vuelve a ver en la próxima carga
 			}
 			setPhase("out");
-			delete root.dataset.boot;
-			window.dispatchEvent(new Event(BOOT_DONE_EVENT));
-			timers.push(window.setTimeout(() => setPhase("done"), OUT_MS));
+			// El contenido del arranque se apaga primero; el hero empieza cuando la cortina ya va subiendo,
+			// para que nunca convivan los dos nombres
+			timers.push(
+				window.setTimeout(() => {
+					delete root.dataset.boot;
+					window.dispatchEvent(new Event(BOOT_DONE_EVENT));
+				}, HANDOFF_MS),
+			);
+			timers.push(window.setTimeout(() => setPhase("done"), HANDOFF_MS + OUT_MS));
 		};
 
 		const tick = (now: number) => {

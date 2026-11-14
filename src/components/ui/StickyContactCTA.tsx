@@ -3,11 +3,14 @@
 import { useEffect, useState } from "react";
 import { useLanguage } from "@/i18n";
 import { cn } from "@/lib/utils";
+import { useScrollingDown } from "@/lib/useScrollingDown";
 
 export function StickyContactCTA() {
 	const { dict } = useLanguage();
 	const label = dict.ui.contactCta;
-	const [show, setShow] = useState(false);
+	const [inRange, setShow] = useState(false);
+	const reading = useScrollingDown();
+	const show = inRange && !reading;
 
 	useEffect(() => {
 		const onScroll = () => {

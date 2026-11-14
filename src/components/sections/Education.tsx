@@ -74,7 +74,7 @@ export function Education() {
 								<motion.li
 									key={`${item.institution}-${item.title}`}
 									{...scrollRevealConfig}
-									className="print-row grid grid-cols-1 gap-x-8 gap-y-2 border-b border-rule py-4 first:pt-0 last:border-b-0 md:grid-cols-[minmax(0,1fr)_auto] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto]"
+									className="group/row print-row grid grid-cols-1 gap-x-8 gap-y-2 border-b border-rule py-4 first:pt-0 last:border-b-0 md:grid-cols-[minmax(0,1fr)_auto] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto]"
 								>
 									<div className="min-w-0 lg:col-span-2">
 										<h3 className="text-[1.1875rem] font-medium leading-snug text-ink">
@@ -104,7 +104,7 @@ export function Education() {
 											onClick={() => setSelected(item)}
 											aria-haspopup="dialog"
 											aria-label={`${viewLabel}: ${item.title}`}
-											className="print-hide link-rule meta self-start justify-self-start whitespace-nowrap py-1 text-ink md:col-start-2 md:row-start-1 ml-6 md:ml-0 md:justify-self-end lg:col-start-3"
+											className="print-hide link-rule meta self-start justify-self-start whitespace-nowrap py-1 text-subtle transition-colors group-hover/row:text-ink focus-visible:text-ink md:col-start-2 md:row-start-1 ml-6 md:ml-0 md:justify-self-end lg:col-start-3"
 										>
 											{viewLabel}
 											<span aria-hidden="true" className="link-arrow">↗</span>
