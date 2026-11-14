@@ -1150,38 +1150,6 @@ article:is(:hover, :focus-within) .prensa-hint {
   }
 }
 
-/* Jarvis: la onda late mientras escucha y cada orden entra como una línea nueva */
-.jarvis-wave > span {
-  display: block;
-  width: 2px;
-  height: 100%;
-  background: var(--foreground-subtle);
-  transform: scaleY(0.15);
-  transition: transform 0.4s var(--ease-out-quart);
-}
-
-.jarvis-wave.is-on > span {
-  background: var(--foreground);
-  animation: prensa-vu var(--j) ease-in-out var(--jd) infinite alternate;
-}
-
-.jarvis-line {
-  animation: terminal-line-in 0.35s var(--ease-out-quart) both;
-}
-
-.jarvis-caret {
-  opacity: 1;
-  animation: caret-blink 1s steps(2, end) infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .jarvis-wave.is-on > span,
-  .jarvis-line,
-  .jarvis-caret {
-    animation: none;
-  }
-}
-
 /* Sin JS la pieza se ve ya prensada */
 html:not([data-js]) .prensa-type {
   clip-path: none;

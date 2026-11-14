@@ -215,7 +215,7 @@ export const en = {
     eyebrow: "Projects",
     title: "Personal projects",
     description:
-      "Six projects picked from the more than {projects} I keep on GitHub. Open source and, where there is one, a live demo.",
+      "Five projects picked from the more than {projects} I keep on GitHub. Open source and, where there is one, a live demo.",
     codeLabel: "Code",
     demoLabel: "View demo",
     moreLabel: "The rest of my projects on GitHub",
@@ -225,17 +225,6 @@ export const en = {
     mediaToggleLabel: "Liberty media view",
     logoAlt: "Project logo",
     videoAlt: "Liberty product demo video",
-    jarvis: {
-      window: "jarvis · listening",
-      listening: "listening",
-      lines: [
-        { said: "Jarvis, open the browser", did: "opening Chrome" },
-        { said: "What's the weather in Madrid?", did: "18 °C · clear" },
-        { said: "Remind me about stand-up at half past nine", did: "reminder · 09:30" },
-        { said: "Search the Spring Boot docs", did: "opening results" },
-      ],
-      replay: "Hover to run it again",
-    },
     renamer: {
       window: "PhotoDateRenamer · holidays/",
       exif: "EXIF",
@@ -294,8 +283,6 @@ export const en = {
           ? "Handcrafted web app to record and accompany the life of plants. Includes KPI dashboard, dynamic search/filters, export to JSON/TXT/CSV, light/dark theme, ambient sound and floating leaves."
           : p.title === "PhotoDateRenamer"
           ? "Renames photos using EXIF capture dates, falling back to file dates when needed. Available as a web app and portable Windows app; photos stay on your device and are never sent to external services."
-          : p.title === "Jarvis Asistente de Voz"
-          ? "Python voice assistant capable of executing voice commands: open apps, web search, weather, reminders, and email, among others."
           : p.title === "Space Invaders"
           ? "A reimagining of the arcade classic in JavaScript + HTML5 Canvas, playable online. Six game modes (classic, waves, survival, time-attack, plus 2-player co-op and versus), an achievement and reward system, ship customization, and a bestiary of defeated enemies. Backed by tests (Vitest), linting and pre-commit hooks."
           : p.description,

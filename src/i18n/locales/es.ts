@@ -42,7 +42,7 @@ export const es = {
     eyebrow: "Proyectos",
     title: "Proyectos personales",
     description:
-      "Seis proyectos escogidos entre los más de {projects} que tengo en GitHub. Código abierto y, cuando existe, demo en vivo.",
+      "Cinco proyectos escogidos entre los más de {projects} que tengo en GitHub. Código abierto y, cuando existe, demo en vivo.",
     codeLabel: "Código",
     demoLabel: "Ver demo",
     moreLabel: "Resto de proyectos en GitHub",
@@ -52,17 +52,6 @@ export const es = {
     mediaToggleLabel: "Vista multimedia de Liberty",
     logoAlt: "Logotipo del proyecto",
     videoAlt: "Vídeo de demostración de Liberty",
-    jarvis: {
-      window: "jarvis · escuchando",
-      listening: "escuchando",
-      lines: [
-        { said: "Jarvis, abre el navegador", did: "abriendo Chrome" },
-        { said: "¿Qué tiempo hace en Madrid?", did: "18 °C · despejado" },
-        { said: "Recuérdame la daily a las nueve y media", did: "recordatorio · 09:30" },
-        { said: "Busca la documentación de Spring Boot", did: "abriendo resultados" },
-      ],
-      replay: "Pasa por encima para repetir",
-    },
     renamer: {
       window: "PhotoDateRenamer · vacaciones/",
       exif: "EXIF",

@@ -9,7 +9,6 @@ import { CurtainReveal } from "../shared/CurtainReveal";
 import { ProjectCarousel } from "../ui/ProjectCarousel";
 import { PrensaRecord } from "../ui/PrensaRecord";
 import { RenamerShowcase } from "../ui/RenamerShowcase";
-import { JarvisShowcase } from "../ui/JarvisShowcase";
 import { cn, scrollRevealConfig, withBasePath } from "@/lib/utils";
 import { useLanguage } from "@/i18n";
 import { GITHUB_PROJECTS, socialLinks, type Project } from "@/data/portfolio";
@@ -23,7 +22,6 @@ type Labels = {
 	mediaToggleLabel: string;
 	logoAlt: string;
 	videoAlt: string;
-	jarvis: { window: string; listening: string; lines: { said: string; did: string }[]; replay: string };
 	renamer: { window: string; exif: string; fallback: string; summary: string; replay: string };
 	prensa: { coverAlt: string; tagline: string; rec: string; facts: string; discLabel: string; hint: string };
 };
@@ -152,8 +150,6 @@ function ProjectRow({ project, index, total, counterLabel, labels }: { project: 
 			>
 				{project.showcase === "prensa" ? (
 					<PrensaRecord image={project.image} copy={labels.prensa} />
-				) : project.showcase === "jarvis" ? (
-					<JarvisShowcase image={project.image} alt={project.title} copy={labels.jarvis} />
 				) : project.showcase === "renamer" ? (
 					<RenamerShowcase image={project.image} alt={project.title} copy={labels.renamer} />
 				) : (

@@ -49,7 +49,7 @@ export type Project = {
   demoLinkLabel?: string;
   singleImage?: boolean;
   /** Pieza con escenografía propia en lugar de la galería (ver ProjectsGrid). */
-  showcase?: "prensa" | "renamer" | "jarvis";
+  showcase?: "prensa" | "renamer";
   links: {
     demo?: string;
     code: string;
@@ -529,27 +529,6 @@ export const projects: Project[] = [
     links: {
       demo: "https://alonsovine.github.io/spaceInvaders/",
       code: "https://github.com/AlonsoVine/spaceInvaders",
-    },
-  },
-  {
-    title: "Jarvis Asistente de Voz",
-    showcase: "jarvis",
-    description:
-      "Asistente virtual en Python capaz de ejecutar comandos de voz: abrir apps, buscar en internet, consultar clima, crear recordatorios y enviar correos, entre otros.",
-    image: "/images/proyectos/jarvisVozAssistant/speech-recognition.webp",
-    gallery: [
-      "/images/proyectos/jarvisVozAssistant/speech-recognition.webp",
-      "/images/proyectos/jarvisVozAssistant/javis-captura-codigo.webp",
-      "/images/proyectos/jarvisVozAssistant/speech-recognition-img2.webp",
-      "/images/proyectos/jarvisVozAssistant/Leonardo_Phoenix_An_electrifyingly_vibrant_speech_recognitiont_1.webp",
-      "/images/proyectos/jarvisVozAssistant/Leonardo_Anime_XL_An_electrifyingly_vibrant_speech_recognition_0.webp",
-      "/images/proyectos/jarvisVozAssistant/Leonardo_Anime_XL_An_electrifyingly_vibrant_speech_recognition_2.webp",
-      "/images/proyectos/jarvisVozAssistant/Leonardo_Anime_XL_An_electrifyingly_vibrant_speech_recognition_3.webp",
-      "/images/proyectos/jarvisVozAssistant/Leonardo_Phoenix_Una_electrizante_y_vibrante_imagen_con_temtic_22.webp",
-    ],
-    tech: ["Python", "Speech Recognition"],
-    links: {
-      code: "https://github.com/AlonsoVine/jarvisVozAssistant",
     },
   },
 ];
