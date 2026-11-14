@@ -255,20 +255,6 @@ export const skillCards: SkillCard[] = [
     tone: "teal",
     items: ["Claude Code", "GitHub Copilot", "ChatGPT"],
   },
-  {
-    title: "Certificaciones",
-    icon: "badge",
-    tone: "amber",
-    items: [
-      "EF SET (C2 Proficient)",
-      "LPI Linux",
-      "AWS Cloud Practitioner",
-      "Prompt Engineering",
-      "GitHub Foundations",
-      "Introducing AI",
-      "AI for Developers",
-    ],
-  },
 ];
 
 export const experiences: Experience[] = [

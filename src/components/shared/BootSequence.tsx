@@ -6,7 +6,7 @@ import { BOOT_DONE_EVENT } from "@/lib/siteActions";
 import { cn } from "@/lib/utils";
 
 const RUN_MS = 1100;
-const HOLD_MS = 950;
+const HOLD_MS = 520;
 const OUT_MS = 950;
 const HANDOFF_MS = 320;
 
@@ -44,6 +44,8 @@ export function BootSequence() {
 				// sin sessionStorage se vuelve a ver en la próxima carga
 			}
 			setPhase("out");
+			// El nombre ya se ha visto en el arranque: el del hero queda quieto y la cortina lo descubre entero
+			root.dataset.booted = "1";
 			// El contenido del arranque se apaga primero; el hero empieza cuando la cortina ya va subiendo,
 			// para que nunca convivan los dos nombres
 			timers.push(

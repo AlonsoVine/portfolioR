@@ -41,10 +41,10 @@ export function SectionIndex() {
 		>
 			{/* Grafo de commits: el tronco se rellena hasta la sección activa y los nodos ya visitados quedan llenos */}
 			<div className="relative">
-				<span aria-hidden="true" className="absolute bottom-3.5 left-[3.5px] top-3.5 w-px bg-rule-strong" />
+				<span aria-hidden="true" className="absolute bottom-3.5 left-[4.5px] top-3.5 w-px bg-rule-strong" />
 				<span
 					aria-hidden="true"
-					className="absolute left-[3.5px] top-3.5 w-px origin-top bg-signal transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+					className="absolute left-[4.5px] top-3.5 w-px origin-top bg-signal transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
 					style={{ height: "calc(100% - 1.75rem)", transform: `scaleY(${Math.max(0, activeIndex) / Math.max(1, links.length - 1)})` }}
 				/>
 				<ol className="relative flex flex-col gap-1">
@@ -61,14 +61,19 @@ export function SectionIndex() {
 									<span
 										aria-hidden="true"
 										className={cn(
-											"block h-2 w-2 shrink-0 rounded-full border transition-colors duration-500",
+											"block h-2.5 w-2.5 shrink-0 rounded-full border transition-colors duration-500",
 											isActive ? "border-signal bg-signal" : passed ? "border-signal bg-paper" : "border-rule-strong bg-paper group-hover:border-ink",
 										)}
 									/>
 									<span className={cn("meta tabular", isActive ? "text-ink" : "text-muted group-hover:text-ink")}>
 										{pad(i + 1)}
 									</span>
-									<span className="meta pointer-events-none absolute left-full top-1/2 ml-2 -translate-y-1/2 whitespace-nowrap bg-paper px-1.5 py-0.5 text-ink opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100">
+									<span
+										className={cn(
+											"meta pointer-events-none absolute left-full top-1/2 ml-2 -translate-y-1/2 whitespace-nowrap bg-paper px-1.5 py-0.5 text-ink transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100",
+											isActive ? "opacity-0 min-[1600px]:opacity-100" : "opacity-0",
+										)}
+									>
 										{link.label}
 									</span>
 								</a>

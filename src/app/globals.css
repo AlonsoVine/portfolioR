@@ -440,6 +440,11 @@ html[data-boot] .boot,
   animation: caret-blink 1s steps(2, end) infinite;
 }
 
+/* Tras el arranque, el nombre del hero no repite su subida: ya llegó con el build */
+html[data-booted] .hero-line > span {
+  animation: none;
+}
+
 /* Mientras compila, la coreografía del hero espera su turno */
 html[data-boot] .hero-line > span,
 html[data-boot] .hero-in,

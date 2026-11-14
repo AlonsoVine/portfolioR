@@ -25,7 +25,7 @@ export function StickyContactCTA() {
 	}, []);
 
 	return (
-		<aside aria-label={label} className="print:hidden lg:hidden">
+		<aside aria-label={label} className="hidden print:hidden sm:block lg:hidden">
 			<a
 				href="#contact"
 				aria-hidden={show ? undefined : true}

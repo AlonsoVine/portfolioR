@@ -112,8 +112,6 @@ export const en = {
           ? "Tools & Platforms"
           : card.title === "IA aplicada al desarrollo"
           ? "AI-assisted development"
-          : card.title === "Certificaciones"
-          ? "Certifications"
           : card.title,
     })),
   },
