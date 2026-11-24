@@ -6,9 +6,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  cloudflare:
     if: github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, 'deploy:')
     runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://alonsovine.com
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -16,7 +19,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20.9.0
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
@@ -25,24 +28,24 @@ jobs:
       - name: Build
         env:
           NEXT_PUBLIC_ENV: ${{ secrets.NEXT_PUBLIC_ENV }}
-          NEXT_PUBLIC_BASE_PATH: "/portfolioR"
-          BASE_PATH: "/portfolioR"
+          NEXT_PUBLIC_SITE_URL: https://alonsovine.com
           NEXT_PUBLIC_EMAILJS_SERVICE_ID: ${{ secrets.NEXT_PUBLIC_EMAILJS_SERVICE_ID }}
           NEXT_PUBLIC_EMAILJS_TEMPLATE_ID: ${{ secrets.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID }}
           NEXT_PUBLIC_EMAILJS_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY }}
         run: npm run build
 
-      - name: Add .nojekyll
-        run: touch out/.nojekyll
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
         with:
-          path: out
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: "4"
+          command: deploy
 
-  deploy:
+  # La URL antigua de GitHub Pages queda como redirección al dominio propio para no romper enlaces ya compartidos.
+  pages-redirect:
     if: github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, 'deploy:')
-    needs: build
+    needs: cloudflare
     runs-on: ubuntu-latest
     permissions:
       pages: write
@@ -51,6 +54,31 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Generate redirect site
+        run: |
+          mkdir -p redirect
+          cat > redirect/index.html <<'HTML'
+          <!DOCTYPE html>
+          <html lang="es">
+          <head>
+          <meta charset="utf-8">
+          <title>Alonso Viñé</title>
+          <link rel="canonical" href="https://alonsovine.com/">
+          <meta name="robots" content="noindex">
+          <meta http-equiv="refresh" content="0; url=https://alonsovine.com/">
+          <script>location.replace("https://alonsovine.com" + location.pathname.replace(/^\/portfolioR/, "") + location.search + location.hash);</script>
+          </head>
+          <body><a href="https://alonsovine.com/">alonsovine.com</a></body>
+          </html>
+          HTML
+          cp redirect/index.html redirect/404.html
+          touch redirect/.nojekyll
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: redirect
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

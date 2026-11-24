@@ -9,7 +9,8 @@ function buildSha() {
   }
 }
 
-const basePath = process.env.NODE_ENV === "production" ? "/portfolioR" : "";
+// Vacío en el dominio propio; BASE_PATH="/portfolioR" reconstruye la versión de GitHub Pages.
+const basePath = process.env.BASE_PATH ?? "";
 
 const nextConfig: NextConfig = {
   output: "export",

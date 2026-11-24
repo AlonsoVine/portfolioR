@@ -198,7 +198,7 @@ export const es = {
     build: { label: "Build", audit: "Auditar en PageSpeed" },
     boot: {
       command: "npm run build -- --perfil alonso-vine",
-      engine: "Next.js 16 · exportación estática · /portfolioR",
+      engine: "Next.js 16 · exportación estática · Cloudflare",
       compiling: "compilando secciones",
       ready: "listo en",
       skip: "Cualquier tecla para saltar",

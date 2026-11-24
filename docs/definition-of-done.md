@@ -49,7 +49,7 @@ Aplica el estándar de [ADR-0005 — SEO mínimo](./adr/0005-estandar-seo-minimo
 
 - [ ] ADR creado en `docs/adr/` y enlazado.
 - [ ] `package.json` y `package-lock.json` commiteados juntos.
-- [ ] Probado con `NEXT_PUBLIC_BASE_PATH="/portfolioR"` en local.
+- [ ] Rutas prefijadas con `basePath`; build con `BASE_PATH="/portfolioR"` sigue funcionando.
 - [ ] Documentación afectada (CLAUDE.md, AGENTS.md, README.md) actualizada.
 
 ## Si tocaste el formulario de contacto o algo expuesto a usuarios

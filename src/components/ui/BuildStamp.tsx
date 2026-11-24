@@ -1,8 +1,7 @@
 import { useLanguage } from "@/i18n";
+import { REPO_URL, SITE_URL } from "@/lib/site";
 
-const SITE_URL = "https://alonsovine.github.io/portfolioR/";
-const PSI_URL = `https://pagespeed.web.dev/analysis?url=${encodeURIComponent(SITE_URL)}`;
-const REPO_URL = "https://github.com/AlonsoVine/portfolioR";
+const PSI_URL = `https://pagespeed.web.dev/analysis?url=${encodeURIComponent(`${SITE_URL}/`)}`;
 const SHA = process.env.NEXT_PUBLIC_BUILD_SHA ?? "";
 const BUILT_AT = process.env.NEXT_PUBLIC_BUILD_DATE ?? "";
 

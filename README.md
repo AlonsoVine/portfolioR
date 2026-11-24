@@ -14,7 +14,7 @@ Requisitos: Node 22 o superior y npm.
 npm ci
 npm run dev
 ```
-La app queda en `http://localhost:3000`. Si necesitas un base path (ej. para probar Pages), exporta `NEXT_PUBLIC_BASE_PATH` antes de levantar.
+La app queda en `http://localhost:3000`. Si necesitas un base path (ej. para probar Pages), exporta `BASE_PATH` antes de construir.
 
 ## Build y export
 - `npm run build`: genera el artefacto estatico en `out/` (config `output: "export"` con `basePath` y `assetPrefix` ya definidos en `next.config.ts`).
@@ -22,14 +22,14 @@ La app queda en `http://localhost:3000`. Si necesitas un base path (ej. para pro
 - `npm run export`: opcion directa de `next export` si la necesitas.
 - `npm run lint`: analisis estatico con ESLint 9 y TypeScript 5.
 
-## Despliegue automatico (GitHub Pages)
-He configurado un workflow en `.github/workflows/deploy.yml` que:
+## Despliegue automatico (Cloudflare Workers)
+El sitio se sirve en https://alonsovine.com. El workflow `.github/workflows/deploy.yml`:
 1) Se dispara manualmente (`workflow_dispatch`) o con commits cuyo mensaje empiece por `deploy:` sobre `main`.
-2) Usa Node 22, `npm ci`, `npm run build` y sube `out/` como artefacto (incluido `.nojekyll`, que `upload-pages-artifact` solo sube con `include-hidden-files`).
-3) Despliega a GitHub Pages con un `.nojekyll` para servir los archivos exportados.
-4) Inyecta `NEXT_PUBLIC_BASE_PATH` y `BASE_PATH` con `/portfolioR` para que las rutas de imagenes funcionen bajo el subpath del repo.
+2) Usa Node 22, `npm ci` y `npm run build` sin subpath.
+3) Publica `out/` en Cloudflare Workers con `wrangler deploy` (config en `wrangler.jsonc`).
+4) Deja `alonsovine.github.io/portfolioR` redirigiendo al dominio.
 
-Si cambias el nombre del repo o el subpath, alinea `NEXT_PUBLIC_BASE_PATH`, `BASE_PATH` y `basePath`/`assetPrefix` en `next.config.ts`.
+Para reconstruir con subpath (por ejemplo, volver a GitHub Pages), exporta `BASE_PATH=/portfolioR` antes de `npm run build`. Detalle en `docs/adr/0007-dominio-propio-cloudflare-workers.md`.
 
 ## Estructura que mas toco
 ```

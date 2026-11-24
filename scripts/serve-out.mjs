@@ -1,4 +1,4 @@
-// Sirve el export estático (`out/`) bajo /portfolioR, como en GitHub Pages.
+// Sirve el export estático (`out/`) en la raíz, como en Cloudflare; con BASE_PATH lo sirve bajo ese subpath.
 // Solo escucha en 127.0.0.1. Uso: npm run serve:out [-- <puerto>]
 import { createServer } from "node:http";
 import { createReadStream, existsSync, statSync } from "node:fs";
@@ -6,6 +6,7 @@ import { extname, join, resolve, sep } from "node:path";
 
 const root = resolve(process.argv[3] ?? "out");
 const port = Number(process.argv[2] ?? 4400);
+const base = (process.env.BASE_PATH ?? "").replace(/\/$/, "");
 const types = {
 	".html": "text/html; charset=utf-8",
 	".js": "text/javascript",
@@ -30,11 +31,11 @@ if (!existsSync(root)) {
 
 createServer((req, res) => {
 	let url = decodeURIComponent((req.url ?? "/").split("?")[0]);
-	if (!url.startsWith("/portfolioR")) {
-		res.writeHead(302, { Location: "/portfolioR/" });
+	if (base && !url.startsWith(base)) {
+		res.writeHead(302, { Location: `${base}/` });
 		return res.end();
 	}
-	url = url.replace(/^\/portfolioR/, "") || "/";
+	url = url.slice(base.length) || "/";
 	let file = join(root, url);
 	if (file !== root && !file.startsWith(root + sep)) {
 		res.writeHead(403);
@@ -46,5 +47,5 @@ createServer((req, res) => {
 	res.writeHead(status, { "Content-Type": types[extname(file).toLowerCase()] ?? "application/octet-stream" });
 	createReadStream(file).pipe(res);
 }).listen(port, "127.0.0.1", () => {
-	console.log(`Sirviendo ${root} en http://127.0.0.1:${port}/portfolioR/`);
+	console.log(`Sirviendo ${root} en http://127.0.0.1:${port}${base}/`);
 });

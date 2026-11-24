@@ -460,7 +460,7 @@ export const en = {
     build: { label: "Build", audit: "Audit on PageSpeed" },
     boot: {
       command: "npm run build -- --profile alonso-vine",
-      engine: "Next.js 16 · static export · /portfolioR",
+      engine: "Next.js 16 · static export · Cloudflare",
       compiling: "compiling sections",
       ready: "ready in",
       skip: "Press any key to skip",

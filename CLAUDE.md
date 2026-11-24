@@ -4,7 +4,7 @@
 
 ## TL;DR del proyecto
 
-Portfolio personal de Alonso Viñé. **Next.js 16 (App Router) + React 19 + TS 5 + Tailwind 4**, exportado como sitio estático (`output: "export"`) y servido en GitHub Pages bajo el subpath `/portfolioR`. Despliegue por GitHub Actions cuando un commit en `main` empieza por `deploy:`.
+Portfolio personal de Alonso Viñé. **Next.js 16 (App Router) + React 19 + TS 5 + Tailwind 4**, exportado como sitio estático (`output: "export"`) y servido en Cloudflare Workers en `https://alonsovine.com` (raíz, sin subpath; ver ADR-0007). Despliegue por GitHub Actions cuando un commit en `main` empieza por `deploy:`.
 
 ## Comandos
 
@@ -15,7 +15,7 @@ npm run build   # genera /out (export estático)
 npm run lint    # ESLint 9 + reglas Next
 ```
 
-Para probar el subpath localmente: `$env:NEXT_PUBLIC_BASE_PATH="/portfolioR"; npm run dev`, o `npm run build && npm run serve:out` (sirve `out/` bajo `/portfolioR`).
+Para probar un subpath localmente: `$env:BASE_PATH="/portfolioR"; npm run build`. Para ver el export como en producción: `npm run build && npm run serve:out`.
 
 Si en `npm run dev` un cambio de `globals.css` no aparece, reinicia el servidor: a veces se queda sirviendo un CSS antiguo. No lances `npm run build` con el dev corriendo (comparten `.next/`).
 
@@ -56,7 +56,7 @@ Toda feature sigue: **Spec → Plan → Implement → Verify → PR**. Detalle e
 - `npm run lint` limpio.
 - `npm run build` sin warnings.
 - Si tocaste UI: probado en dark y light, en móvil y desktop, en `es` y `en`.
-- Si tocaste rutas/assets: probado con `NEXT_PUBLIC_BASE_PATH="/portfolioR"`.
+- Si tocaste rutas/assets: rutas prefijadas con `basePath` (siguen funcionando con `BASE_PATH="/portfolioR"`).
 - Definition of Done completa: `docs/definition-of-done.md`.
 
 ## Enlaces clave

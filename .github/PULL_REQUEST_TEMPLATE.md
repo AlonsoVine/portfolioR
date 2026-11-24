@@ -20,7 +20,7 @@
 - [ ] `npm run build` limpio
 - [ ] Probado dark + light, móvil + desktop, es + en (si UI)
 - [ ] Diccionarios ES/EN sincronizados (si contenido)
-- [ ] Probado con `NEXT_PUBLIC_BASE_PATH="/portfolioR"` (si rutas/assets)
+- [ ] Rutas/assets prefijadas con `basePath` (si rutas/assets)
 - [ ] ADR creado si tocó arquitectura/deps
 
 ## Capturas

@@ -6,7 +6,7 @@
 
 - **Tipo**: portfolio personal estático.
 - **Stack**: Next.js 16 (App Router, `output: "export"`) · React 19 · TypeScript 5 · Tailwind CSS 4 · framer-motion · lucide-react · EmailJS.
-- **Despliegue**: GitHub Pages, subpath `/portfolioR`, vía workflow en `.github/workflows/deploy.yml` con trigger en commits `deploy: …`.
+- **Despliegue**: Cloudflare Workers en `https://alonsovine.com` (ADR-0007), vía workflow en `.github/workflows/deploy.yml` con trigger en commits `deploy: …`.
 
 ## Setup
 

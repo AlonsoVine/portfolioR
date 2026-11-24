@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const SITE_URL = "https://alonsovine.github.io/portfolioR";
+import { SITE_URL } from "@/lib/site";
 
 export const dynamic = "force-static";
 

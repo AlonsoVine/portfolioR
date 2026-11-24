@@ -3,6 +3,7 @@ import Script from "next/script";
 import { IBM_Plex_Mono, Instrument_Serif, Schibsted_Grotesk } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/i18n";
+import { SITE_URL } from "@/lib/site";
 import { ConsoleSignature } from "@/components/shared/ConsoleSignature";
 import { GoogleAnalyticsEvents } from "@/components/shared/GoogleAnalyticsEvents";
 import { MotionGate } from "@/components/shared/MotionGate";
@@ -35,14 +36,12 @@ const mono = IBM_Plex_Mono({
   display: "swap",
 });
 
-const SITE_URL = "https://alonsovine.github.io";
-const SITE_PATH = "/portfolioR/";
-const SITE_FULL_URL = `${SITE_URL}${SITE_PATH}`;
+const SITE_FULL_URL = `${SITE_URL}/`;
 const DEFAULT_TITLE =
   "Alonso Viñé | Full Stack Developer (Angular · Java · React · DevOps)";
 const DESCRIPTION =
   "Alonso Viñé Barrancos, Full Stack Developer en Madrid. Desde 2021 en proyectos para Defensa con Atos, Fervimax (FCC), Inetum y, ahora, Seres como DevOps Engineer. Formación en IA y agentes.";
-const OG_IMAGE = "/portfolioR/assets/og-portfolio.png";
+const OG_IMAGE = `${SITE_URL}/assets/og-portfolio.png`;
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const HERO_AVATAR_PATH = `${BASE_PATH}/images/retrato-recorte.webp`;
 
@@ -85,12 +84,12 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true },
   },
   alternates: {
-    canonical: SITE_PATH,
+    canonical: SITE_FULL_URL,
   },
   openGraph: {
     title: DEFAULT_TITLE,
     description: DESCRIPTION,
-    url: SITE_PATH,
+    url: SITE_FULL_URL,
     siteName: "Alonso Viñé",
     type: "website",
     locale: "es_ES",
@@ -117,7 +116,7 @@ const personJsonLd = {
   name: "Alonso Viñé Barrancos",
   alternateName: "Alonso Viñé",
   url: SITE_FULL_URL,
-  image: `${SITE_URL}/portfolioR/images/mi-foto.webp`,
+  image: `${SITE_URL}/images/mi-foto.webp`,
   jobTitle: "Full Stack Developer",
   worksFor: { "@type": "Organization", name: "Seres" },
   address: {

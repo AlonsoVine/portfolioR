@@ -106,7 +106,7 @@ export function Terminal() {
 					push("out", <><span className="text-ink">{current.title}</span><br />{`${current.company} · ${current.period}`}</>);
 					break;
 				case "pwd":
-					push("out", "/portfolioR");
+					push("out", "/");
 					break;
 				case "ls":
 					push(
