@@ -1,6 +1,11 @@
 {
   "name": "portfolio",
   "compatibility_date": "2026-11-01",
+  "workers_dev": false,
+  "routes": [
+    { "pattern": "alonsovine.com", "custom_domain": true },
+    { "pattern": "www.alonsovine.com", "custom_domain": true }
+  ],
   "assets": {
     "directory": "./out",
     "html_handling": "auto-trailing-slash",
