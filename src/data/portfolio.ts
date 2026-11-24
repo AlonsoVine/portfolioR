@@ -456,7 +456,7 @@ export const projects: Project[] = [
       "/images/proyectos/liberty/misdatos-activos.webp",
     ],
     logo: "/images/proyectos/liberty/logo_liberty.png",
-    video: "/images/proyectos/liberty/Grabación 2026-10-08 131217.mp4",
+    video: "/images/proyectos/liberty/liberty-demo.mp4",
     tech: [
       "Aplicación de escritorio",
       "100% local",
