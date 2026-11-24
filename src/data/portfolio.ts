@@ -285,6 +285,7 @@ export const experiences: Experience[] = [
       "Estandarizo el versionado y la publicaci\u00f3n de artefactos para una cartera amplia de proyectos cliente, reduciendo errores y tiempos de release.",
       "Establezco pr\u00e1cticas de release seguras (semver, rollback, trazabilidad) y documento los pipelines para que el resto del equipo pueda mantenerlos.",
       "Colaboro con los equipos de desarrollo Java para integrar gates de calidad (linting, tests, cobertura con SonarQube) en el pipeline.",
+      "Integro asistentes de IA en el día a día del desarrollo: revisión de código, generación de tests y documentación de pipelines, siempre con revisión humana antes de llegar a producción.",
     ],
   },
   {

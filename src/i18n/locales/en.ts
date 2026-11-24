@@ -152,6 +152,8 @@ export const en = {
           "Establishing safe release practices (semver, rollback, traceability) and documenting pipelines so the team can maintain them.",
         "Colaboro con los equipos de desarrollo Java para integrar gates de calidad (linting, tests, cobertura con SonarQube) en el pipeline.":
           "Collaborating with Java development teams to integrate quality gates (linting, tests, SonarQube coverage) into the pipeline.",
+        "Integro asistentes de IA en el día a día del desarrollo: revisión de código, generación de tests y documentación de pipelines, siempre con revisión humana antes de llegar a producción.":
+          "Bringing AI assistants into everyday development: code review, test generation and pipeline documentation, always with human review before anything reaches production.",
         "Participe en el programa SL2000E para la gestion de la flota de sistemas del Ejercito del Aire.":
           "Participated in the SL2000E program to manage the fleet systems of the Air Force.",
         "Desarrolle interfaces dinamicas con Angular, TypeScript, Bootstrap y RxJS conectadas a APIs REST.":
