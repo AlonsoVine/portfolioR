@@ -61,14 +61,6 @@ export function Hero() {
 							className="portrait-mono object-contain object-bottom"
 							priority
 						/>
-						<Image
-							src={withBasePath(image.front.src)}
-							alt=""
-							aria-hidden="true"
-							fill
-							sizes="(min-width: 1024px) 24vw, (min-width: 768px) 36vw, 50vw"
-							className="portrait-color object-contain object-bottom"
-						/>
 						<AsciiPortrait src={withBasePath(image.front.src)} />
 						<span aria-hidden="true" className="inspect">
 							<span className="inspect-tag">

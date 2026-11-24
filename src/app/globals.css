@@ -618,7 +618,7 @@ html[data-boot] .hero-caret {
   }
 }
 
-/* Retrato: base en escala de grises y el color entra por opacidad al pasar por encima */
+/* Retrato: siempre en escala de grises; el hover solo abre la lente ASCII */
 .portrait {
   position: relative;
 }
@@ -634,7 +634,8 @@ html[data-boot] .hero-caret {
   transition: opacity 0.9s var(--ease-out-quart);
 }
 
-.ascii-portrait.is-done {
+/* `:not(.is-lens)` y no una regla de lente con opacity: 1, porque el minificador funde esta regla en un :is() más específico */
+.ascii-portrait.is-done:not(.is-lens) {
   opacity: 0;
 }
 
@@ -642,22 +643,12 @@ html[data-boot] .hero-caret {
   opacity: 0;
 }
 
-.portrait-color {
-  opacity: 0;
-  transition: opacity 0.9s var(--ease-out-quart);
-}
-
-.portrait:hover .portrait-color {
-  opacity: 1;
-}
-
 /* Lente: el retrato en código bajo el cursor; la foto se abre en ese círculo */
-.ascii-portrait.is-done.is-lens {
-  opacity: 1;
-  transition: opacity 0.25s var(--ease-out-quart);
+.ascii-portrait.is-lens {
+  transition-duration: 0.25s;
 }
 
-.portrait:has(.ascii-portrait.is-lens) :is(.portrait-mono, .portrait-color) {
+.portrait:has(.ascii-portrait.is-lens) .portrait-mono {
   -webkit-mask-image: radial-gradient(circle var(--lr, 80px) at var(--lx, 50%) var(--ly, 50%), transparent 45%, #000 100%);
   mask-image: radial-gradient(circle var(--lr, 80px) at var(--lx, 50%) var(--ly, 50%), transparent 45%, #000 100%);
 }
@@ -696,10 +687,6 @@ html[data-boot] .hero-caret {
   opacity: 1;
 }
 
-.photo-mono {
-  filter: grayscale(1) contrast(1.05);
-}
-
 /* ───────── Revelados ───────── */
 
 .curtain-panel {
@@ -725,12 +712,13 @@ html[data-js] .curtain:not(.curtain-in) .curtain-media {
   transform: scale(1.06);
 }
 
+/* El margen lateral deja sitio a lo que la cursiva sobresale de su caja sin mover el texto */
 .reveal-line {
   display: inline-block;
   overflow: hidden;
   vertical-align: top;
-  padding-bottom: 0.1em;
-  margin-bottom: -0.1em;
+  padding: 0 0.14em 0.1em 0.06em;
+  margin: 0 -0.14em -0.1em -0.06em;
 }
 
 .reveal-word {
@@ -893,7 +881,6 @@ article:focus-within .media-frame::after,
   .quote-word {
     opacity: 1 !important;
   }
-  .portrait-color,
   .media-tone,
   .media-frame::after,
   .link-rule::before,

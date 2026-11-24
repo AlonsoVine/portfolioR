@@ -519,7 +519,7 @@ export const en = {
     pipeline: {
       title: "How this site ships",
       description: "GitHub Actions, on every commit to main that starts with deploy:. The stages are the real workflow's.",
-      steps: ["checkout", "setup node 20", "npm ci", "next build", "upload artifact", "deploy pages"],
+      steps: ["checkout", "setup node 22", "npm ci", "next build", "wrangler deploy", "redirect pages"],
       status: { queued: "queued", running: "running", done: "done" },
       replay: "Replay",
     },

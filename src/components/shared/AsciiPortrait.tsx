@@ -160,6 +160,7 @@ export function AsciiPortrait({ src, className }: { src: string; className?: str
 		const onMove = (event: PointerEvent) => {
 			if (!introDone || !fine.matches) return;
 			const rect = canvas.getBoundingClientRect();
+			if (scene && Math.abs(scene.box.width - rect.width) > 1) scene = build();
 			pointer.x = event.clientX - rect.left;
 			pointer.y = event.clientY - rect.top;
 			figure.style.setProperty("--lx", `${pointer.x}px`);

@@ -38,7 +38,7 @@ export function About() {
 							width={910}
 							height={910}
 							sizes="(min-width: 1024px) 30vw, (min-width: 768px) 36vw, 75vw"
-							className="photo-mono h-full w-full object-cover object-[50%_20%]"
+							className="h-full w-full object-cover object-[50%_20%]"
 						/>
 					</CurtainReveal>
 				</motion.figure>
