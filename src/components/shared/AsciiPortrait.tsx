@@ -9,15 +9,18 @@ const RAMP = " .:-=+*#%@";
 const NOISE = "01{}[]<>/=+*#";
 const DECODE_MS = 1300;
 const HOLD_MS = 450;
+const FADE_MS = 900;
 const LENS = 0.19;
+/** Fracción inferior de la foto que se queda en código; el CSS funde la imagen en la misma franja. */
+const BASE = 0.24;
 
-type Cell = { x: number; y: number; ch: string; at: number };
+type Cell = { x: number; y: number; ch: string; at: number; base: number; accent: boolean };
 type Scene = { cells: Cell[]; box: DOMRect; color: string; accent: string };
 
 /**
  * Intro del retrato: la foto se «compila» primero como texto monoespaciado (densidad de glifos según la luminancia)
- * y después se funde con la imagen real. Luego, con un puntero fino, el mismo texto queda como lente:
- * un círculo que sigue al cursor y deja ver el retrato en código.
+ * y después se funde con la imagen real, salvo la base del cuerpo, que se queda en código y se deshace hacia abajo.
+ * Con un puntero fino, el mismo texto queda además como lente que sigue al cursor.
  */
 export function AsciiPortrait({ src, className }: { src: string; className?: string }) {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -25,9 +28,9 @@ export function AsciiPortrait({ src, className }: { src: string; className?: str
 	const [done, setDone] = useState(false);
 	const [running, setRunning] = useState(false);
 	const [lens, setLens] = useState(false);
+	const [hasBase, setHasBase] = useState(false);
 
 	useEffect(() => {
-		if (reduce) return;
 		const canvas = canvasRef.current;
 		const ctx = canvas?.getContext("2d");
 		const figure = canvas?.parentElement;
@@ -83,6 +86,9 @@ export function AsciiPortrait({ src, className }: { src: string; className?: str
 			const span = Math.max(hi - lo, 0.01);
 			const cells: Cell[] = [];
 			for (let r = 0; r < rows; r += 1) {
+				// Franja de la base: los glifos aparecen al entrar en ella y se van aclarando hacia el borde inferior
+				const t = (r / rows - (1 - BASE)) / BASE;
+				const presence = t <= 0 ? 0 : Math.min(1, t / 0.4) * (t > 0.7 ? 1 - ((t - 0.7) / 0.3) * 0.75 : 1);
 				for (let c = 0; c < cols; c += 1) {
 					const k = (r * cols + c) * 4;
 					if (data[k + 3] < 90) continue;
@@ -92,7 +98,17 @@ export function AsciiPortrait({ src, className }: { src: string; className?: str
 					if (ch === " ") continue;
 					// Se resuelve de abajo arriba con algo de ruido, como una salida que va llegando
 					const at = (1 - r / rows) * 0.7 * DECODE_MS + Math.random() * 0.3 * DECODE_MS;
-					cells.push({ x: ox + c * cell * 0.62, y: oy + r * cell, ch, at });
+					// En la base, cada glifo pesa como su tono: la chaqueta queda tenue y escasa, la camisa y las manos brillan.
+					// Los píxeles semitransparentes del recorte se descartan para que el contorno no deje puntos sueltos.
+					const kept = presence > 0 && data[k + 3] > 200 && Math.random() < presence * (0.3 + 0.7 * level);
+					cells.push({
+						x: ox + c * cell * 0.62,
+						y: oy + r * cell,
+						ch,
+						at,
+						base: kept ? (0.15 + 0.85 * level) * (0.4 + 0.6 * Math.min(1, t / 0.4)) : 0,
+						accent: kept && Math.random() < 0.05,
+					});
 				}
 			}
 			const styles = getComputedStyle(document.documentElement);
@@ -102,6 +118,39 @@ export function AsciiPortrait({ src, className }: { src: string; className?: str
 			ctx.font = `${cell}px ${mono || "ui-monospace"}, monospace`;
 			ctx.textBaseline = "top";
 			return { cells, box, color, accent };
+		};
+
+		/** Pinta la base fija y, con `rest` > 0, el resto del retrato con esa opacidad (para el fundido tras la intro). */
+		const drawBase = (rest = 0) => {
+			if (!scene) return;
+			const { box, cells, color, accent } = scene;
+			ctx.clearRect(0, 0, box.width, box.height);
+			for (const cell of cells) {
+				const alpha = cell.base || rest;
+				if (!alpha) continue;
+				ctx.globalAlpha = alpha;
+				ctx.fillStyle = cell.accent ? accent : color;
+				ctx.fillText(cell.ch, cell.x, cell.y);
+			}
+			ctx.globalAlpha = 1;
+		};
+
+		const settle = () => {
+			introDone = true;
+			setHasBase(true);
+			drawBase();
+		};
+
+		const fadeToBase = () => {
+			setDone(true);
+			const t0 = performance.now();
+			const frame = (now: number) => {
+				const p = Math.min(1, (now - t0) / FADE_MS);
+				drawBase(1 - p * (2 - p));
+				if (p < 1) raf = requestAnimationFrame(frame);
+				else settle();
+			};
+			raf = requestAnimationFrame(frame);
 		};
 
 		const intro = () => {
@@ -121,25 +170,19 @@ export function AsciiPortrait({ src, className }: { src: string; className?: str
 					ctx.fillText(solved ? cell.ch : NOISE[(Math.random() * NOISE.length) | 0], cell.x, cell.y);
 				}
 				if (t < DECODE_MS) raf = requestAnimationFrame(frame);
-				else
-					timers.push(
-						window.setTimeout(() => {
-							introDone = true;
-							setDone(true);
-						}, HOLD_MS),
-					);
+				else timers.push(window.setTimeout(fadeToBase, HOLD_MS));
 			};
 			raf = requestAnimationFrame(frame);
 		};
 
 		const drawLens = () => {
-			if (!scene) return;
+			drawBase();
+			if (!scene || !pointer.on) return;
 			const { box, cells, color, accent } = scene;
-			ctx.clearRect(0, 0, box.width, box.height);
-			if (!pointer.on) return;
 			const R = box.width * LENS;
 			const R2 = R * R;
 			for (const cell of cells) {
+				if (cell.base) continue;
 				const dx = cell.x - pointer.x;
 				const dy = cell.y - pointer.y;
 				const d2 = dx * dx + dy * dy;
@@ -156,11 +199,16 @@ export function AsciiPortrait({ src, className }: { src: string; className?: str
 			lensRaf = requestAnimationFrame(drawLens);
 		};
 
+		const rebuild = () => {
+			if (!introDone) return;
+			scene = build();
+			if (!pointer.on) drawBase();
+		};
+
 		const fine = window.matchMedia("(hover: hover) and (pointer: fine)");
 		const onMove = (event: PointerEvent) => {
-			if (!introDone || !fine.matches) return;
+			if (reduce || !introDone || !fine.matches) return;
 			const rect = canvas.getBoundingClientRect();
-			if (scene && Math.abs(scene.box.width - rect.width) > 1) scene = build();
 			pointer.x = event.clientX - rect.left;
 			pointer.y = event.clientY - rect.top;
 			figure.style.setProperty("--lx", `${pointer.x}px`);
@@ -179,12 +227,21 @@ export function AsciiPortrait({ src, className }: { src: string; className?: str
 		};
 
 		const onTheme = () => {
-			if (!introDone) intro();
-			else scene = build();
+			if (introDone) rebuild();
+			else if (!reduce) intro();
 		};
+
+		const resize = new ResizeObserver(rebuild);
 
 		let stopWaiting = () => {};
 		const start = () => {
+			resize.observe(canvas);
+			if (reduce) {
+				// Sin animación: la base aparece ya resuelta y no hay lente
+				scene = build();
+				settle();
+				return;
+			}
 			stopWaiting = whenBooted(intro);
 		};
 		if (img.complete && img.naturalWidth) start();
@@ -195,6 +252,7 @@ export function AsciiPortrait({ src, className }: { src: string; className?: str
 		return () => {
 			cancelled = true;
 			stopWaiting();
+			resize.disconnect();
 			cancelAnimationFrame(raf);
 			cancelAnimationFrame(lensRaf);
 			timers.forEach((id) => window.clearTimeout(id));
@@ -213,6 +271,7 @@ export function AsciiPortrait({ src, className }: { src: string; className?: str
 				running && "is-running",
 				done && "is-done",
 				lens && "is-lens",
+				hasBase && "has-base",
 				className,
 			)}
 		/>

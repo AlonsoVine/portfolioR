@@ -629,62 +629,27 @@ html[data-boot] .hero-caret {
   transition: opacity 0.9s var(--ease-out-quart);
 }
 
-/* Intro ASCII del retrato: mientras el canvas «compila», la foto espera; al terminar se cruzan */
-.ascii-portrait {
-  transition: opacity 0.9s var(--ease-out-quart);
-}
-
-/* `:not(.is-lens)` y no una regla de lente con opacity: 1, porque el minificador funde esta regla en un :is() más específico */
-.ascii-portrait.is-done:not(.is-lens) {
-  opacity: 0;
-}
-
+/* Intro ASCII del retrato: mientras el canvas «compila», la foto espera; el fundido posterior lo pinta el propio canvas */
 .portrait:has(.ascii-portrait.is-running:not(.is-done)) .portrait-mono {
   opacity: 0;
 }
 
-/* Lente: el retrato en código bajo el cursor; la foto se abre en ese círculo */
-.ascii-portrait.is-lens {
-  transition-duration: 0.25s;
+/* Base en código: la foto se desvanece donde el canvas deja la franja de glifos (BASE en AsciiPortrait) */
+.portrait {
+  --base-fade: linear-gradient(to bottom, #000 74%, transparent 90%);
 }
 
+.portrait:has(.ascii-portrait.has-base) .portrait-mono {
+  -webkit-mask-image: var(--base-fade);
+  mask-image: var(--base-fade);
+}
+
+/* Lente: el retrato en código bajo el cursor; la foto se abre en ese círculo, sin perder la base */
 .portrait:has(.ascii-portrait.is-lens) .portrait-mono {
-  -webkit-mask-image: radial-gradient(circle var(--lr, 80px) at var(--lx, 50%) var(--ly, 50%), transparent 45%, #000 100%);
-  mask-image: radial-gradient(circle var(--lr, 80px) at var(--lx, 50%) var(--ly, 50%), transparent 45%, #000 100%);
-}
-
-/* Marco de inspector, como al señalar un nodo en las herramientas de desarrollo */
-.inspect {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  outline: 1px dashed var(--accent);
-  outline-offset: -1px;
-  opacity: 0;
-  transition: opacity 0.35s var(--ease-out-quart);
-}
-
-.inspect-tag {
-  position: absolute;
-  left: -1px;
-  bottom: 100%;
-  display: inline-flex;
-  gap: 0.6em;
-  padding: 0.2rem 0.45rem;
-  background: var(--accent);
-  color: var(--on-ink);
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  line-height: 1.3;
-  white-space: nowrap;
-}
-
-.inspect-dim {
-  opacity: 0.7;
-}
-
-.portrait:hover .inspect {
-  opacity: 1;
+  -webkit-mask-image: radial-gradient(circle var(--lr, 80px) at var(--lx, 50%) var(--ly, 50%), transparent 45%, #000 100%), var(--base-fade);
+  mask-image: radial-gradient(circle var(--lr, 80px) at var(--lx, 50%) var(--ly, 50%), transparent 45%, #000 100%), var(--base-fade);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
 }
 
 /* ───────── Revelados ───────── */

@@ -407,7 +407,6 @@ export const en = {
         focus: "focus",
         focusValue: "CI/CD · Java · applied AI",
       },
-      inspect: "img#portrait",
       now: "Now",
       contact: "Contact",
     },

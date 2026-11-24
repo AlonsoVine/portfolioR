@@ -52,7 +52,7 @@ export function Hero() {
 						<HeroStatus />
 					</div>
 
-					<figure className="portrait print-hide hero-in relative col-span-2 col-start-3 row-start-3 aspect-[1114/1400] w-full self-end md:col-span-3 md:col-start-6 lg:col-span-4 lg:col-start-9 lg:row-span-2 lg:row-start-1 lg:-mb-px" style={delay(650)}>
+					<figure className="portrait print-hide hero-in relative col-span-2 col-start-3 row-start-3 aspect-[1114/1400] w-full self-end md:col-span-3 md:col-start-6 lg:col-span-4 lg:col-start-9 lg:row-span-2 lg:row-start-1 lg:-mb-px lg:w-[115%] lg:justify-self-end" style={delay(650)}>
 						<Image
 							src={withBasePath(image.front.src)}
 							alt={image.front.alt}
@@ -62,12 +62,6 @@ export function Hero() {
 							priority
 						/>
 						<AsciiPortrait src={withBasePath(image.front.src)} />
-						<span aria-hidden="true" className="inspect">
-							<span className="inspect-tag">
-								{ui.hero.inspect}
-								<span className="inspect-dim">1114 × 1400</span>
-							</span>
-						</span>
 					</figure>
 
 					<div className="col-span-4 grid grid-cols-subgrid gap-y-6 self-end md:col-span-8 lg:col-span-8 lg:pb-10">

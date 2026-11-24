@@ -145,7 +145,6 @@ export const es = {
         focus: "foco",
         focusValue: "CI/CD · Java · IA aplicada",
       },
-      inspect: "img#retrato",
       now: "Ahora",
       contact: "Contacto",
     },
