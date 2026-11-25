@@ -1545,3 +1545,29 @@ html.retro-mode body::before {
     display: none !important;
   }
 }
+
+/* Gato de la finca: sentado sobre el filete, mueve la cola de vez en cuando y al pasar por la fila */
+.perched-cat {
+  position: absolute;
+  right: 8%;
+  bottom: 100%;
+  width: 46px;
+  height: 46px;
+  margin-bottom: -0.5px;
+  color: var(--foreground);
+  pointer-events: none;
+}
+.perched-cat-tail {
+  transform-origin: 31px 55px;
+  animation: cat-tail 9s ease-in-out infinite;
+}
+.print-row:hover .perched-cat-tail { animation-duration: 1.6s; }
+@keyframes cat-tail {
+  0%, 70%, 100% { transform: rotate(0); }
+  78% { transform: rotate(-14deg); }
+  84% { transform: rotate(-9deg); }
+  90% { transform: rotate(-14deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .perched-cat-tail { animation: none; }
+}

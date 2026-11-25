@@ -171,14 +171,17 @@ export function Terminal() {
 					push(
 						"out",
 						<span className="block space-y-1">
-							{dict.projects.items.map((p) => (
+							{[...dict.projects.items, ...dict.projects.professionalItems].map((p) => (
 								<span key={p.title} className="block">
 									<span className="text-ink">{p.title}</span>
 									{p.links.demo ? (
 										<> · <a href={p.links.demo} target="_blank" rel="noreferrer" className="link-rule">demo ↗</a></>
 									) : null}
-									{" · "}
-									<a href={p.links.code} target="_blank" rel="noreferrer" className="link-rule">{dict.projects.codeLabel.toLowerCase()} ↗</a>
+									{p.links.code ? (
+										<> · <a href={p.links.code} target="_blank" rel="noreferrer" className="link-rule">{dict.projects.codeLabel.toLowerCase()} ↗</a></>
+									) : p.note ? (
+										<span className="text-subtle"> · {p.note}</span>
+									) : null}
 								</span>
 							))}
 						</span>,

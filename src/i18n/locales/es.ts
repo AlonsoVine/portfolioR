@@ -4,6 +4,7 @@ import {
   heroContent,
   navLinks,
   projects,
+  professionalProjects,
   skillCards,
   aboutContent,
   socialLinks,
@@ -40,9 +41,20 @@ export const es = {
   },
   projects: {
     eyebrow: "Proyectos",
-    title: "Proyectos personales",
-    description:
-      "Cinco proyectos escogidos entre los más de {projects} que tengo en GitHub. Código abierto y, cuando existe, demo en vivo.",
+    title: "Proyectos",
+    description: "Lo que construyo por mi cuenta y lo que hago por encargo para negocios reales.",
+    groups: {
+      personal: {
+        label: "Personales",
+        description:
+          "Cinco proyectos escogidos entre los más de {projects} que tengo en GitHub. Código abierto y, cuando existe, demo en vivo.",
+      },
+      professional: {
+        label: "Profesionales",
+        description: "Webs hechas para clientes, de la idea a la entrega.",
+      },
+    },
+    professionalItems: professionalProjects.map((project) => ({ ...project, demoLinkLabel: "Ver web" })),
     codeLabel: "Código",
     demoLabel: "Ver demo",
     moreLabel: "Resto de proyectos en GitHub",

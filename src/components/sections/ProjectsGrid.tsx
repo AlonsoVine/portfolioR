@@ -31,6 +31,9 @@ type Labels = {
 const pad = (n: number) => String(n).padStart(2, "0");
 
 function ProjectLinks({ project, labels }: { project: Project; labels: Labels }) {
+	if (!project.links.demo && !project.links.code) {
+		return project.note ? <p className="meta text-subtle">{project.note}</p> : null;
+	}
 	return (
 		<div className="print-hide flex flex-wrap items-center gap-x-6 gap-y-3">
 			{project.links.demo ? (
@@ -39,11 +42,26 @@ function ProjectLinks({ project, labels }: { project: Project; labels: Labels })
 					<span aria-hidden="true" className="link-arrow">↗</span>
 				</a>
 			) : null}
-			<a href={project.links.code} target="_blank" rel="noreferrer" className="link-rule text-ink">
-				{labels.codeLabel}
-				<span aria-hidden="true" className="link-arrow">↗</span>
-			</a>
+			{project.links.code ? (
+				<a href={project.links.code} target="_blank" rel="noreferrer" className="link-rule text-ink">
+					{labels.codeLabel}
+					<span aria-hidden="true" className="link-arrow">↗</span>
+				</a>
+			) : null}
+			{project.note ? <p className="meta text-subtle">{project.note}</p> : null}
 		</div>
+	);
+}
+
+/** El gato del pie de la web de la finca, sentado sobre el filete de su fila. */
+function PerchedCat() {
+	return (
+		<svg aria-hidden="true" viewBox="0 0 60 60" className="perched-cat print-hide">
+			<path className="perched-cat-tail" d="M31 55.5c-9 1-17-1.5-17.5-8.5" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" />
+			<path d="M29 56.5c-9.5 0-11.5-15-4.5-24.5 3.5-4.8 9-6.2 13.8-4.2 4.4 4 6.4 13.6 4.7 28.7z" fill="currentColor" />
+			<circle cx="40" cy="19" r="7.6" fill="currentColor" />
+			<path d="M33.6 15.4l.6-9 5.4 6.2zM40.6 12.6l5.6-6.1.4 9.1z" fill="currentColor" />
+		</svg>
 	);
 }
 
@@ -150,8 +168,9 @@ function ProjectRow({ project, index, total, counterLabel, labels, locale }: { p
 	return (
 		<motion.article
 			{...scrollRevealConfig}
-			className={cn("print-row grid-page gap-y-8 border-t border-rule", large ? "py-12 lg:py-16" : "py-10 lg:py-12")}
+			className={cn("print-row grid-page relative gap-y-8 border-t border-rule", large ? "py-12 lg:py-16" : "py-10 lg:py-12")}
 		>
+			{project.mascot === "cat" ? <PerchedCat /> : null}
 			<div
 				className={cn(
 					"col-span-4 flex flex-col gap-6",
@@ -170,9 +189,9 @@ function ProjectRow({ project, index, total, counterLabel, labels, locale }: { p
 					</p>
 					{project.featured && large ? <p className="meta text-subtle">{labels.featuredLabel}</p> : null}
 				</div>
-				<h3 className={cn("font-display leading-[0.95] text-ink break-words", large ? "text-[clamp(2.5rem,4.4vw,4.25rem)]" : "text-[clamp(2.1rem,3.4vw,3rem)]")}>
-						{project.title}
-					</h3>
+				<h4 className={cn("font-display leading-[0.95] text-ink break-words", large ? "text-[clamp(2.5rem,4.4vw,4.25rem)]" : "text-[clamp(2.1rem,3.4vw,3rem)]")}>
+					{project.title}
+				</h4>
 				<p className="print-compact-text max-w-[52ch] text-[1.0625rem] leading-relaxed text-muted">{project.description}</p>
 				<p className="print-compact-text font-mono text-[0.8rem] leading-relaxed text-subtle">{project.tech.join(" · ")}</p>
 				<ProjectLinks project={project} labels={labels} />
@@ -197,10 +216,61 @@ function ProjectRow({ project, index, total, counterLabel, labels, locale }: { p
 	);
 }
 
+/** Subgrupo de proyectos (03.1, 03.2): cabecera propia con ancla para el índice lateral. */
+function ProjectGroup({
+	id,
+	index,
+	label,
+	description,
+	items,
+	counterLabel,
+	locale,
+	labels,
+}: {
+	id: string;
+	index: string;
+	label: string;
+	description: string;
+	items: Project[];
+	counterLabel: string;
+	locale: string;
+	labels: Labels;
+}) {
+	return (
+		<div id={id} className="scroll-mt-16">
+			<motion.div {...scrollRevealConfig} className="grid-page gap-y-3 pb-8 pt-16 lg:pb-10 lg:pt-24">
+				<p className="meta col-span-4 flex items-baseline gap-3 text-subtle md:col-span-2 lg:col-span-3">
+					<span aria-hidden="true" className="text-signal">└</span>
+					<span className="tabular text-ink">{index}</span>
+				</p>
+				<div className="col-span-4 md:col-span-6 lg:col-span-9">
+					<h3 className="font-display text-[clamp(1.9rem,3.6vw,3rem)] leading-[0.95] text-ink">{label}</h3>
+					<p className="mt-3 max-w-[52ch] text-[1.0625rem] leading-relaxed text-muted">{description}</p>
+				</div>
+			</motion.div>
+			{items.map((project, i) => (
+				<ProjectRow
+					key={project.title}
+					project={project}
+					index={i}
+					total={items.length}
+					counterLabel={counterLabel}
+					locale={locale}
+					labels={labels}
+				/>
+			))}
+		</div>
+	);
+}
+
 export function ProjectsGrid() {
 	const { dict } = useLanguage();
 	const { projects } = dict;
 	const github = socialLinks.find((l) => l.icon === "github");
+	const groups = [
+		{ id: "projects-personal", index: "03.1", ...projects.groups.personal, items: projects.items },
+		{ id: "projects-professional", index: "03.2", ...projects.groups.professional, items: projects.professionalItems },
+	];
 
 	return (
 		<SectionShell id="projects" className="overflow-x-clip pt-20 pb-12 lg:pt-28 lg:pb-16">
@@ -209,7 +279,7 @@ export function ProjectsGrid() {
 				index="03"
 				eyebrow={projects.eyebrow}
 				title={projects.title}
-				description={projects.description.replace("{projects}", String(GITHUB_PROJECTS))}
+				description={projects.description}
 				aside={
 					github ? (
 						<a href={github.href} target="_blank" rel="noreferrer" className="print-hide link-rule shrink-0 text-ink">
@@ -219,13 +289,15 @@ export function ProjectsGrid() {
 					) : null
 				}
 			/>
-			<div className="print-tight mt-14 lg:mt-20">
-				{projects.items.map((project, index) => (
-					<ProjectRow
-						key={project.title}
-						project={project}
-						index={index}
-						total={projects.items.length}
+			<div className="print-tight mt-6 lg:mt-10">
+				{groups.map((group) => (
+					<ProjectGroup
+						key={group.id}
+						id={group.id}
+						index={group.index}
+						label={group.label}
+						description={group.description.replace("{projects}", String(GITHUB_PROJECTS))}
+						items={group.items}
 						counterLabel={dict.ui.projectCounter}
 						locale={dict.ui.locale}
 						labels={projects}

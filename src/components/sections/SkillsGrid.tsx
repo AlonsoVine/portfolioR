@@ -93,9 +93,9 @@ export function SkillsGrid() {
 				text: [e.title, ...e.bullets, ...(e.tech ?? [])].join(" "),
 				tech: e.tech ?? [],
 			})),
-			...dict.projects.items.map((p) => ({ name: p.title, text: [p.description, ...p.tech].join(" "), tech: p.tech })),
+			...[...dict.projects.items, ...dict.projects.professionalItems].map((p) => ({ name: p.title, text: [p.description, ...p.tech].join(" "), tech: p.tech })),
 		],
-		[dict.experiences, dict.projects.items],
+		[dict.experiences, dict.projects.items, dict.projects.professionalItems],
 	);
 
 	return (

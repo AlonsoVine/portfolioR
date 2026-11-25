@@ -4,6 +4,7 @@ import {
   heroContent,
   navLinks,
   projects,
+  professionalProjects,
   skillCards,
   aboutContent,
   socialLinks,
@@ -213,9 +214,31 @@ export const en = {
   })),
   projects: {
     eyebrow: "Projects",
-    title: "Personal projects",
-    description:
-      "Five projects picked from the more than {projects} I keep on GitHub. Open source and, where there is one, a live demo.",
+    title: "Projects",
+    description: "What I build on my own and what I build for real businesses.",
+    groups: {
+      personal: {
+        label: "Personal",
+        description:
+          "Five projects picked from the more than {projects} I keep on GitHub. Open source and, where there is one, a live demo.",
+      },
+      professional: {
+        label: "Professional",
+        description: "Websites built for clients, from first idea to handover.",
+      },
+    },
+    professionalItems: professionalProjects.map((p) => ({
+      ...p,
+      demoLinkLabel: "View website",
+      ...(p.title === "Finca Olivar de Gato"
+        ? {
+            description:
+              "Website for a country house next to Doñana, in Villamanrique de la Condesa (Seville). Scrolling tells a day at the estate from sunrise to night, an illustrated map links the routes around it, and the events page lights up its string lights at dusk. Bookings through Airbnb, a serverless celebrations form sent by WhatsApp or email, a filterable gallery and local SEO with a sitemap.",
+            tech: ["Astro 5", "TypeScript", "GSAP · ScrollTrigger", "Lenis", "Local SEO", "Sitemap", "Accessibility", "No cookies"],
+            note: "Client project",
+          }
+        : {}),
+    })),
     codeLabel: "Code",
     demoLabel: "View demo",
     moreLabel: "The rest of my projects on GitHub",

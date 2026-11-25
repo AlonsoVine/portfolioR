@@ -50,9 +50,13 @@ export type Project = {
   singleImage?: boolean;
   /** Pieza con escenografía propia en lugar de la galería (ver ProjectsGrid). */
   showcase?: "prensa" | "renamer" | "liberty";
+  /** Línea que sustituye a los enlaces cuando no hay demo ni código públicos (encargos de cliente). */
+  note?: string;
+  /** Mascota sentada sobre el filete superior de la fila (el gato del pie de la web de la finca). */
+  mascot?: "cat";
   links: {
     demo?: string;
-    code: string;
+    code?: string;
   };
 };
 
@@ -534,6 +538,34 @@ export const projects: Project[] = [
     links: {
       demo: "https://alonsovine.github.io/spaceInvaders/",
       code: "https://github.com/AlonsoVine/spaceInvaders",
+    },
+  },
+];
+/** Encargos para clientes: van en su propio bloque (03.2) y no cuentan en el total de GitHub. */
+export const professionalProjects: Project[] = [
+  {
+    title: "Finca Olivar de Gato",
+    featured: true,
+    spotlight: true,
+    description:
+      "Web para una casa rural junto a Doñana, en Villamanrique de la Condesa (Sevilla). El scroll cuenta un día en la finca del amanecer a la noche, un mapa ilustrado enlaza las rutas del entorno y la página de eventos enciende las guirnaldas al anochecer. Reservas por Airbnb, formulario de celebraciones que se envía por WhatsApp o correo sin servidor, galería filtrable y SEO local con sitemap.",
+    image: "/images/proyectos/finca/inicio.webp",
+    gallery: [
+      "/images/proyectos/finca/inicio.webp",
+      "/images/proyectos/finca/dia-1.webp",
+      "/images/proyectos/finca/dia-2.webp",
+      "/images/proyectos/finca/guirnalda.webp",
+      "/images/proyectos/finca/alojamiento.webp",
+      "/images/proyectos/finca/galeria.webp",
+      "/images/proyectos/finca/formulario.webp",
+      "/images/proyectos/finca/mapa.webp",
+    ],
+    tech: ["Astro 5", "TypeScript", "GSAP · ScrollTrigger", "Lenis", "SEO local", "Sitemap", "Accesibilidad", "Sin cookies"],
+    note: "Encargo de cliente",
+    mascot: "cat",
+    links: {
+      demo: "https://alonsovine.github.io/finca-olivar-de-gato/",
+      code: "https://github.com/AlonsoVine/finca-olivar-de-gato",
     },
   },
 ];
