@@ -87,6 +87,29 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+.wave-field {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100lvh;
+  z-index: -1;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(100deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.28) 45%, #000 76%);
+  mask-image: linear-gradient(100deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.28) 45%, #000 76%);
+}
+
+[data-theme="light"] .wave-field {
+  mix-blend-mode: multiply;
+}
+
+@media print {
+  .wave-field {
+    display: none;
+  }
+}
+
 ::selection {
   background: var(--selection);
   color: var(--foreground);
