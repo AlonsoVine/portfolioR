@@ -15,10 +15,11 @@
   --surface-raised: #20201e;
   --border-soft: #2c2b29;
   --border-strong: #4b4a46;
-  --accent: #7cc9a6;
-  --accent-soft: rgba(124, 201, 166, 0.14);
+  --accent: #2fedf4;
+  --accent-alt: #3acce9;
+  --accent-soft: rgba(47, 237, 244, 0.12);
   --on-ink: #121211;
-  --selection: rgba(124, 201, 166, 0.28);
+  --selection: rgba(47, 237, 244, 0.26);
   --image-tone: 0.86;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
@@ -36,10 +37,11 @@
   --surface-raised: #fbfaf8;
   --border-soft: #d7d5cf;
   --border-strong: #a6a49d;
-  --accent: #1c6b4e;
-  --accent-soft: rgba(28, 107, 78, 0.1);
+  --accent: #06676b;
+  --accent-alt: #0b5665;
+  --accent-soft: rgba(6, 103, 107, 0.1);
   --on-ink: #f2f1ed;
-  --selection: rgba(28, 107, 78, 0.18);
+  --selection: rgba(6, 103, 107, 0.18);
   --image-tone: 1;
 }
 
@@ -53,6 +55,7 @@
   --color-rule: var(--border-soft);
   --color-rule-strong: var(--border-strong);
   --color-signal: var(--accent);
+  --color-signal-alt: var(--accent-alt);
   --color-signal-soft: var(--accent-soft);
   --color-on-ink: var(--on-ink);
   --font-sans: var(--font-text), ui-sans-serif, sans-serif;
@@ -1428,7 +1431,8 @@ html.retro-mode body::before {
     --foreground-subtle: #55554f;
     --border-soft: #d4d4d0;
     --border-strong: #9a9a94;
-    --accent: #1c6b4e;
+    --accent: #06676b;
+    --accent-alt: #0b5665;
     --image-tone: 1;
     color-scheme: light;
   }

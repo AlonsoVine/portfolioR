@@ -43,7 +43,7 @@ export function SectionHeading({ sectionId, index, eyebrow, title, description, 
 				>
 					<div>
 						<p className="meta flex items-baseline gap-3 text-subtle">
-							<RollingIndex value={index} className="tabular text-ink" />
+							<RollingIndex value={index} className="tabular text-signal-alt" />
 							<ScrambleText text={eyebrow} />
 						</p>
 						<p aria-hidden="true" className="meta mt-1.5 hidden text-subtle lg:block">
