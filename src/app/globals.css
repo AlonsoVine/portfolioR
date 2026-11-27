@@ -252,25 +252,28 @@ body {
   transform-origin: left center;
 }
 
-.link-arrow {
+.link-arrow,
+.link-arrow-down {
   display: inline-block;
-  transition: transform 0.4s var(--ease-out-expo);
+  transition: transform 0.4s var(--ease-out-expo), color 0.25s ease;
 }
 
 a:hover > .link-arrow,
 a:focus-visible > .link-arrow,
 button:hover > .link-arrow {
   transform: translate3d(0.2em, -0.2em, 0);
-}
-
-.link-arrow-down {
-  display: inline-block;
-  transition: transform 0.4s var(--ease-out-expo);
+  color: var(--highlight);
 }
 
 a:hover > .link-arrow-down,
 a:focus-visible > .link-arrow-down {
   transform: translate3d(0, 0.18em, 0);
+  color: var(--highlight);
+}
+
+/* En los botones rellenos el fondo ya cambia a cian: la flecha se queda con el color del texto */
+.btn-ink:is(:hover, :focus-visible) > :is(.link-arrow, .link-arrow-down) {
+  color: inherit;
 }
 
 /* Botón principal: bloque de tinta. Secundario: filete. */
