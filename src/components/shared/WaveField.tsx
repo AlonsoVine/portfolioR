@@ -25,9 +25,9 @@ const FRAME_MS = 1000 / 30;
 const STRIDE = 6;
 
 const RIBBONS: Ribbon[] = [
-	{ y: 0.76, rise: 0.44, amp: 0.14, freq: 0.7, speed: 0.012, phase: 0.4, band: 0.13, twistFreq: 1.4, twistSpeed: 0.018, strands: 10, share: 0.55, drift: 0.0032 },
-	{ y: 0.82, rise: 0.38, amp: 0.1, freq: 1.05, speed: -0.009, phase: 2.6, band: 0.085, twistFreq: 1.9, twistSpeed: -0.014, strands: 8, share: 0.3, drift: 0.0026 },
-	{ y: 0.7, rise: 0.46, amp: 0.07, freq: 0.5, speed: 0.007, phase: 4.4, band: 0.05, twistFreq: 1.0, twistSpeed: 0.011, strands: 6, share: 0.15, drift: 0.0021 },
+	{ y: 0.52, rise: 0.78, amp: 0.16, freq: 0.7, speed: 0.012, phase: 0.4, band: 0.2, twistFreq: 1.3, twistSpeed: 0.018, strands: 14, share: 0.5, drift: 0.0032 },
+	{ y: 0.6, rise: 0.62, amp: 0.13, freq: 1.0, speed: -0.009, phase: 2.6, band: 0.13, twistFreq: 1.8, twistSpeed: -0.014, strands: 10, share: 0.32, drift: 0.0026 },
+	{ y: 0.4, rise: 0.9, amp: 0.1, freq: 0.5, speed: 0.007, phase: 4.4, band: 0.08, twistFreq: 1.0, twistSpeed: 0.011, strands: 8, share: 0.18, drift: 0.0021 },
 ];
 
 // Cada partícula calcula su posición en la GPU a partir de su carril y del tiempo: la CPU no toca nada por frame
@@ -165,15 +165,16 @@ function readTheme() {
 	if (root.dataset.theme === "light") {
 		const ink = hexToRgb(styles.getPropertyValue("--accent-alt"), [11 / 255, 86 / 255, 101 / 255]);
 		const paper = hexToRgb(styles.getPropertyValue("--background"), [242 / 255, 241 / 255, 237 / 255]);
-		const deep = paper.map((c, i) => c + (ink[i] - c) * 0.15) as Rgb;
-		return { deep, accent: ink, glint: ink, master: 0.5, haze: 0 };
+		const accent = hexToRgb(styles.getPropertyValue("--accent"), [6 / 255, 103 / 255, 107 / 255]);
+		const deep = paper.map((c, i) => c + (accent[i] - c) * 0.72) as Rgb;
+		return { deep, accent, glint: ink, master: 0.95, haze: 0.25 };
 	}
 	return {
 		deep: [15 / 255, 117 / 255, 138 / 255] as Rgb,
 		accent: hexToRgb(styles.getPropertyValue("--accent"), [47 / 255, 237 / 255, 244 / 255]),
 		glint: [211 / 255, 251 / 255, 253 / 255] as Rgb,
-		master: 0.68,
-		haze: 0.35,
+		master: 0.92,
+		haze: 0.5,
 	};
 }
 
@@ -383,11 +384,11 @@ export function WaveField() {
 			renderer.targets = targets as Target[];
 
 			compact = cssWidth < 768;
-			const ribbons = compact ? RIBBONS.slice(0, 1) : RIBBONS;
+			const ribbons = compact ? RIBBONS.slice(0, 2) : RIBBONS;
 			const area = cssWidth * cssHeight;
 			// `reference` es el número de partículas con el que se ajustó el brillo: con más, cada una pesa menos
-			const reference = Math.min(24000, Math.max(6000, area / 55)) * (compact ? 0.5 : 1);
-			renderer.count = Math.round(Math.min(70000, Math.max(14000, area / 22)) * (compact ? 0.5 : 1));
+			const reference = Math.min(52000, Math.max(14000, area / 25)) * (compact ? 0.7 : 1);
+			renderer.count = Math.round(Math.min(160000, Math.max(40000, area / 8)) * (compact ? 0.6 : 1));
 			renderer.weight = reference / renderer.count;
 			gl.bindBuffer(gl.ARRAY_BUFFER, renderer.buffers.particles);
 			gl.bufferData(gl.ARRAY_BUFFER, buildParticles(ribbons, renderer.count), gl.STATIC_DRAW);
@@ -457,7 +458,7 @@ export function WaveField() {
 
 			// Con el scroll la cinta se retira: en las secciones de lectura queda como un rastro
 			const depthIntoPage = Math.min(1, Math.max(0, (scroll / cssHeight - 0.35) / 0.5));
-			const fade = 1 - 0.6 * depthIntoPage * depthIntoPage * (3 - 2 * depthIntoPage);
+			const fade = 1 - 0.45 * depthIntoPage * depthIntoPage * (3 - 2 * depthIntoPage);
 
 			pass(programs.composite, null);
 			gl.clear(gl.COLOR_BUFFER_BIT);
@@ -472,7 +473,7 @@ export function WaveField() {
 			gl.uniform3fv(cu.deep, theme.deep);
 			gl.uniform3fv(cu.accent, theme.accent);
 			gl.uniform3fv(cu.glint, theme.glint);
-			gl.uniform1f(cu.master, theme.master * fade * (compact ? 0.6 : 1));
+			gl.uniform1f(cu.master, theme.master * fade * (compact ? 0.85 : 1));
 			gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 			gl.activeTexture(gl.TEXTURE0);
 			gl.bindVertexArray(null);
