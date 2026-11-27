@@ -4,9 +4,9 @@
 @custom-variant short (@media (min-width: 64rem) and (max-height: 919px));
 
 /*
- * Paleta "papel y tinta": neutros cálidos de saturación ≤ 6 % y un único acento,
- * verde de señal (tono ≈ 157°), reservado para lo que está vivo: puesto actual,
- * disponibilidad, sección activa y foco. Justificación en docs/mejora-sobria/DECISIONES.md.
+ * Paleta "papel y tinta": neutros cálidos de saturación ≤ 6 % y dos acentos con papeles distintos.
+ * Cian: lo que está vivo (puesto actual, disponibilidad, sección activa, foco).
+ * Ámbar: lo señalado (índices, texto seleccionado, glifos al descifrarse y chispas del fondo), siempre en pequeño.
  */
 :root {
   color-scheme: dark;
@@ -22,7 +22,9 @@
   --accent-alt: #3acce9;
   --accent-soft: rgba(47, 237, 244, 0.12);
   --on-ink: #121211;
-  --selection: rgba(47, 237, 244, 0.26);
+  --highlight: #f2b42c;
+  --highlight-glow: #f2b42c;
+  --selection: rgba(242, 180, 44, 0.3);
   --image-tone: 0.86;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
@@ -44,7 +46,10 @@
   --accent-alt: #0b5665;
   --accent-soft: rgba(6, 103, 107, 0.1);
   --on-ink: #f2f1ed;
-  --selection: rgba(6, 103, 107, 0.18);
+  /* El ámbar de marca no llega a AA sobre papel: para texto, ámbar 700; el brillo del fondo conserva el tono vivo */
+  --highlight: #8f5e00;
+  --highlight-glow: #d9960f;
+  --selection: rgba(242, 180, 44, 0.36);
   --image-tone: 1;
 }
 
@@ -60,6 +65,7 @@
   --color-signal: var(--accent);
   --color-signal-alt: var(--accent-alt);
   --color-signal-soft: var(--accent-soft);
+  --color-mark: var(--highlight);
   --color-on-ink: var(--on-ink);
   --font-sans: var(--font-text), ui-sans-serif, sans-serif;
   --font-serif: var(--font-display-serif), ui-serif, Georgia, serif;
@@ -234,7 +240,7 @@ body {
   right: 0;
   bottom: -0.15em;
   height: 1px;
-  background: currentColor;
+  background: var(--highlight);
   transform: scaleX(0);
   transform-origin: right center;
   transition: transform 0.5s var(--ease-out-expo);
@@ -246,25 +252,28 @@ body {
   transform-origin: left center;
 }
 
-.link-arrow {
+.link-arrow,
+.link-arrow-down {
   display: inline-block;
-  transition: transform 0.4s var(--ease-out-expo);
+  transition: transform 0.4s var(--ease-out-expo), color 0.25s ease;
 }
 
 a:hover > .link-arrow,
 a:focus-visible > .link-arrow,
 button:hover > .link-arrow {
   transform: translate3d(0.2em, -0.2em, 0);
-}
-
-.link-arrow-down {
-  display: inline-block;
-  transition: transform 0.4s var(--ease-out-expo);
+  color: var(--highlight);
 }
 
 a:hover > .link-arrow-down,
 a:focus-visible > .link-arrow-down {
   transform: translate3d(0, 0.18em, 0);
+  color: var(--highlight);
+}
+
+/* En los botones rellenos el fondo ya cambia a cian: la flecha se queda con el color del texto */
+.btn-ink:is(:hover, :focus-visible) > :is(.link-arrow, .link-arrow-down) {
+  color: inherit;
 }
 
 /* Botón principal: bloque de tinta. Secundario: filete. */
@@ -1468,6 +1477,7 @@ html.retro-mode body::before {
     --border-strong: #9a9a94;
     --accent: #06676b;
     --accent-alt: #0b5665;
+    --highlight: #8f5e00;
     --image-tone: 1;
     color-scheme: light;
   }

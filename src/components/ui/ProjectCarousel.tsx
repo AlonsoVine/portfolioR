@@ -129,10 +129,10 @@ export function ProjectCarousel({ images, alt, intervalMs = 4200, size = "defaul
 							})}
 						</div>
 						<div className="flex shrink-0">
-							<button type="button" onClick={prev} aria-label={t.prev} className="meta inline-flex h-11 w-11 items-center justify-center text-ink hover:text-muted">
+							<button type="button" onClick={prev} aria-label={t.prev} className="meta inline-flex h-11 w-11 items-center justify-center text-signal hover:text-ink">
 								<span aria-hidden="true">←</span>
 							</button>
-							<button type="button" onClick={next} aria-label={t.next} className="meta inline-flex h-11 w-11 items-center justify-center text-ink hover:text-muted">
+							<button type="button" onClick={next} aria-label={t.next} className="meta inline-flex h-11 w-11 items-center justify-center text-signal hover:text-ink">
 								<span aria-hidden="true">→</span>
 							</button>
 						</div>
@@ -175,12 +175,12 @@ export function ProjectCarousel({ images, alt, intervalMs = 4200, size = "defaul
 						{total > 1 ? (
 							<div className="page flex h-14 shrink-0 items-center justify-between border-t border-rule">
 								<button type="button" onClick={prev} className="meta -ml-2 min-h-11 px-2 text-ink hover:text-muted">
-									<span aria-hidden="true">← </span>
+									<span aria-hidden="true" className="text-signal">← </span>
 									{t.prev}
 								</button>
 								<button type="button" onClick={next} className="meta -mr-2 min-h-11 px-2 text-ink hover:text-muted">
 									{t.next}
-									<span aria-hidden="true"> →</span>
+									<span aria-hidden="true" className="text-signal"> →</span>
 								</button>
 							</div>
 						) : null}

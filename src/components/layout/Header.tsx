@@ -79,7 +79,7 @@ export function Header() {
 											isActive ? "text-ink" : "text-muted hover:text-ink",
 										)}
 									>
-										<span className="font-mono text-[0.68rem] text-signal-alt tabular">{pad(i + 1)}</span>
+										<span className="font-mono text-[0.68rem] text-mark tabular">{pad(i + 1)}</span>
 										<ScrambleText text={link.label} trigger="hover" duration={420} />
 										{isActive ? (
 											<motion.span
@@ -159,7 +159,7 @@ export function Header() {
 											aria-current={isActive ? "page" : undefined}
 											className="flex items-baseline gap-4 py-4 text-ink"
 										>
-											<span className="font-mono w-6 text-xs text-signal-alt tabular">{pad(i)}</span>
+											<span className="font-mono w-6 text-xs text-mark tabular">{pad(i)}</span>
 											<span className="font-display text-[2rem] leading-none">{link.label}</span>
 											{isActive ? <span aria-hidden="true" className="signal-dot ml-auto self-center" /> : null}
 										</a>
