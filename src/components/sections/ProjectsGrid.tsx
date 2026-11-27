@@ -187,7 +187,7 @@ function ProjectRow({ project, index, total, counterLabel, labels, locale }: { p
 						<span className="sr-only"> / </span>
 						{pad(total)}
 					</p>
-					{project.featured && large ? <p className="meta text-subtle">{labels.featuredLabel}</p> : null}
+					{project.featured && large ? <p className="meta text-mark">{labels.featuredLabel}</p> : null}
 				</div>
 				<h4 className={cn("font-display leading-[0.95] text-ink break-words", large ? "text-[clamp(2.5rem,4.4vw,4.25rem)]" : "text-[clamp(2.1rem,3.4vw,3rem)]")}>
 					{project.title}
