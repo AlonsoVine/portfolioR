@@ -8,6 +8,7 @@ import { BuildStamp } from "../ui/BuildStamp";
 import { DeployPipeline } from "../ui/DeployPipeline";
 import { RevealText } from "../shared/RevealText";
 import { SocialIcon } from "../shared/SocialIcon";
+import { ScrambleText } from "../shared/ScrambleText";
 
 function madridTime(locale: string) {
 	return new Intl.DateTimeFormat(locale, {
@@ -63,7 +64,7 @@ export function Footer() {
 							{navLinks.map((link) => (
 								<li key={link.href}>
 									<a href={link.href} className="inline-block py-1 text-muted hover:text-ink">
-										{link.label}
+										<ScrambleText text={link.label} trigger="hover" duration={420} />
 									</a>
 								</li>
 							))}
