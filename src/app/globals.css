@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Escritorio con poca altura (portátiles a 1366×657, 1536×730…): el hero se compacta para caber entero */
+@custom-variant short (@media (min-width: 64rem) and (max-height: 919px));
+
 /*
  * Paleta "papel y tinta": neutros cálidos de saturación ≤ 6 % y un único acento,
  * verde de señal (tono ≈ 157°), reservado para lo que está vivo: puesto actual,
