@@ -23,6 +23,7 @@ type Target = { tex: WebGLTexture; fbo: WebGLFramebuffer; w: number; h: number }
 
 const FRAME_MS = 1000 / 30;
 const STRIDE = 6;
+const SPARK_SHARE = 0.025;
 
 const RIBBONS: Ribbon[] = [
 	{ y: 0.52, rise: 0.78, amp: 0.16, freq: 0.7, speed: 0.012, phase: 0.4, band: 0.2, twistFreq: 1.3, twistSpeed: 0.018, strands: 14, share: 0.5, drift: 0.0032 },
@@ -46,7 +47,7 @@ uniform float u_weight;
 uniform vec4 u_ra[3];
 uniform vec4 u_rb[3];
 uniform float u_rc[3];
-out vec2 v_w;
+out vec3 v_w;
 const float TAU = 6.2831853;
 void main() {
 	int r = int(a_ribbon + 0.5);
@@ -64,9 +65,12 @@ void main() {
 	float y = centre + a_offset * band * c + ripple + band * (0.2 * z + 0.5 * z * z) + 0.025 * z * sin(wave * 1.7);
 	float edge = min(1.0, min(max(0.0, raw + 0.04) * 3.5, max(0.0, 1.04 - raw) * 3.5));
 	float fold = 1.0 + 1.0 * pow(1.0 - abs(c), 4.0);
-	float w = a_grain * edge * fold * u_weight;
+	// Grano negativo = chispa ámbar: solo en la cara de delante, para que se lea nítida
+	float warm = step(a_grain, 0.0);
+	float w = abs(a_grain) * edge * fold * u_weight;
 	bool back = z < -0.15;
-	v_w = back ? vec2(w * 0.15, w * 0.25) : vec2(w * (0.55 + 0.45 * z) * 0.3, 0.0);
+	float front = w * (0.55 + 0.45 * z) * 0.3;
+	v_w = back ? vec3(w * 0.15, w * 0.25, 0.0) : vec3(front, 0.0, front * warm);
 	gl_PointSize = back ? u_point * 2.0 : u_point;
 	gl_Position = vec4(raw * 2.0 - 1.0, 1.0 - y * 2.0, 0.0, 1.0);
 }`;
@@ -74,14 +78,14 @@ void main() {
 // Huella gaussiana normalizada (integral ≈ 1): el brillo no depende del tamaño del punto
 const PARTICLE_FS = `#version 300 es
 precision highp float;
-in vec2 v_w;
+in vec3 v_w;
 uniform float u_point;
 out vec4 o;
 void main() {
 	vec2 p = gl_PointCoord - 0.5;
 	float k = exp(-dot(p, p) * 9.0);
 	float size = v_w.y > 0.0 ? u_point * 2.0 : u_point;
-	o = vec4(v_w * k / (0.349 * size * size), 0.0, 0.0);
+	o = vec4(v_w * k / (0.349 * size * size), 0.0);
 }`;
 
 const QUAD_VS = `#version 300 es
@@ -128,10 +132,11 @@ uniform float u_hazeGain;
 uniform vec3 u_deep;
 uniform vec3 u_accent;
 uniform vec3 u_glint;
+uniform vec3 u_warm;
 uniform float u_master;
 out vec4 o;
 void main() {
-	vec2 f = texture(u_accum, v_uv).rg * u_gain;
+	vec3 f = texture(u_accum, v_uv).rgb * u_gain;
 	vec2 h = texture(u_haze, v_uv).rg * u_gain;
 	float anchor = smoothstep(0.0, 0.15, h.r);
 	float d = 2.2 * f.r + u_hazeGain * anchor * (0.6 * h.r + 3.0 * h.g);
@@ -139,6 +144,10 @@ void main() {
 	float hot = max(0.0, v - 0.78) * 1.6;
 	vec3 c = mix(u_deep, u_accent, v) + (u_glint - u_accent) * hot;
 	float a = u_master * v;
+	// Las chispas se pintan encima del haz, no mezcladas con él: así el ámbar no se ahoga en el cian
+	float s = 1.0 - exp(-24.0 * f.b);
+	c = mix(c, u_warm, s);
+	a = max(a, u_master * s);
 	o = vec4(c * a, a);
 }`;
 
@@ -167,12 +176,14 @@ function readTheme() {
 		const paper = hexToRgb(styles.getPropertyValue("--background"), [242 / 255, 241 / 255, 237 / 255]);
 		const accent = hexToRgb(styles.getPropertyValue("--accent"), [6 / 255, 103 / 255, 107 / 255]);
 		const deep = paper.map((c, i) => c + (accent[i] - c) * 0.72) as Rgb;
-		return { deep, accent, glint: ink, master: 0.95, haze: 0.25 };
+		const warm = hexToRgb(styles.getPropertyValue("--highlight-glow"), [217 / 255, 150 / 255, 15 / 255]);
+		return { deep, accent, glint: ink, warm, master: 0.95, haze: 0.25 };
 	}
 	return {
 		deep: [15 / 255, 117 / 255, 138 / 255] as Rgb,
 		accent: hexToRgb(styles.getPropertyValue("--accent"), [47 / 255, 237 / 255, 244 / 255]),
 		glint: [211 / 255, 251 / 255, 253 / 255] as Rgb,
+		warm: hexToRgb(styles.getPropertyValue("--highlight-glow"), [242 / 255, 180 / 255, 44 / 255]),
 		master: 0.92,
 		haze: 0.5,
 	};
@@ -197,7 +208,8 @@ function buildParticles(ribbons: Ribbon[], count: number) {
 			data[o + 1] = dust ? rand() * 2.4 - 1.2 : lanes[k] + (rand() + rand() + rand() - 1.5) * 0.06;
 			data[o + 2] = (dust ? rand() * 20 : k * 1.7) + ri * 3.1;
 			data[o + 3] = r.drift * (0.92 + rand() * 0.16);
-			data[o + 4] = dust ? 0.35 : 0.6 + rand() * 0.4;
+			const spark = !dust && rand() < SPARK_SHARE;
+			data[o + 4] = dust ? 0.35 : spark ? -(1.1 + rand() * 0.5) : 0.6 + rand() * 0.4;
 			data[o + 5] = ri;
 		}
 	});
@@ -288,6 +300,7 @@ function createRenderer(gl: WebGL2RenderingContext) {
 			deep: u(composite, "u_deep"),
 			accent: u(composite, "u_accent"),
 			glint: u(composite, "u_glint"),
+			warm: u(composite, "u_warm"),
 			master: u(composite, "u_master"),
 		},
 		targets: [] as Target[],
@@ -473,6 +486,7 @@ export function WaveField() {
 			gl.uniform3fv(cu.deep, theme.deep);
 			gl.uniform3fv(cu.accent, theme.accent);
 			gl.uniform3fv(cu.glint, theme.glint);
+			gl.uniform3fv(cu.warm, theme.warm);
 			gl.uniform1f(cu.master, theme.master * fade * (compact ? 0.85 : 1));
 			gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 			gl.activeTexture(gl.TEXTURE0);

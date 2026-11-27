@@ -23,7 +23,7 @@ export function ScrambleText({ text, trigger = "view", className, duration = 650
 	const ref = useRef<HTMLSpanElement>(null);
 	const reduce = useReducedMotion();
 	const inView = useInView(ref, { once: true, amount: 0.8 });
-	const [scrambled, setScrambled] = useState<string | null>(null);
+	const [scrambled, setScrambled] = useState<{ solved: string; noise: string } | null>(null);
 	const timer = useRef<number | null>(null);
 
 	const play = useCallback(() => {
@@ -34,12 +34,8 @@ export function ScrambleText({ text, trigger = "view", className, duration = 650
 		timer.current = window.setInterval(() => {
 			frame += 1;
 			const solved = Math.floor((frame / frames) * text.length);
-			setScrambled(
-				Array.from(text, (ch, i) => {
-					if (i < solved || ch === " ") return ch;
-					return GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
-				}).join(""),
-			);
+			const noise = Array.from(text.slice(solved), (ch) => (ch === " " ? ch : GLYPHS[Math.floor(Math.random() * GLYPHS.length)])).join("");
+			setScrambled({ solved: text.slice(0, solved), noise });
 			if (frame >= frames) {
 				if (timer.current) window.clearInterval(timer.current);
 				timer.current = null;
@@ -77,7 +73,12 @@ export function ScrambleText({ text, trigger = "view", className, duration = 650
 			{/* El texto real, invisible, fija el ancho: lo descifrado se pinta encima sin mover nada */}
 			<span aria-hidden="true" className="relative inline-block whitespace-nowrap">
 				<span className={scrambled ? "invisible" : undefined}>{text}</span>
-				{scrambled ? <span className="absolute inset-0 overflow-hidden">{scrambled}</span> : null}
+				{scrambled ? (
+					<span className="absolute inset-0 overflow-hidden">
+						{scrambled.solved}
+						<span className="text-mark">{scrambled.noise}</span>
+					</span>
+				) : null}
 			</span>
 		</span>
 	);
