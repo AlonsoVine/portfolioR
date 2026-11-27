@@ -23,7 +23,7 @@ export function Hero() {
 	return (
 		<section id="hero" className="relative flex min-h-[100svh] flex-col pt-14 print:min-h-0 print:pt-0">
 			<div className="page flex flex-1 flex-col">
-				<div className="grid-page hero-in gap-y-1 pt-8 text-subtle sm:pt-10 lg:pt-12" style={delay(500)}>
+				<div className="grid-page hero-in gap-y-1 pt-8 text-subtle sm:pt-10 lg:pt-12 short:pt-6" style={delay(500)}>
 					<p className="meta col-span-4 text-ink md:col-span-5 lg:col-span-4"><ScrambleText text={role} duration={900} /></p>
 					<p className="meta col-span-4 md:col-span-3 md:text-right lg:col-span-3 lg:text-left">{location}</p>
 					{availability ? (
@@ -35,8 +35,8 @@ export function Hero() {
 				</div>
 				<div aria-hidden="true" className="hero-rule mt-4 h-px bg-rule-strong" style={delay(200)} />
 
-				<div className="grid-page flex-1 gap-y-10 pb-10 lg:pb-0">
-					<h1 className="hero-name col-span-4 pt-6 font-display text-[clamp(5.25rem,27vw,9rem)] leading-[0.8] tracking-[-0.03em] md:col-span-8 md:text-[clamp(8rem,20vw,12rem)] lg:col-span-8 lg:row-start-1 lg:pt-6 lg:text-[clamp(8.5rem,12.6vw,14rem)]">
+				<div className="grid-page flex-1 gap-y-10 pb-10 lg:pb-0 short:gap-y-5">
+					<h1 className="hero-name col-span-4 pt-6 font-display text-[clamp(5.25rem,27vw,9rem)] leading-[0.8] tracking-[-0.03em] md:col-span-8 md:text-[clamp(8rem,20vw,12rem)] lg:col-span-8 lg:row-start-1 lg:pt-6 lg:text-[clamp(5rem,min(12.6vw,calc((100svh-29.5rem)*0.62)),14rem)] short:pt-2">
 						<span className="hero-line">
 							<span style={delay(80)}>{firstName}</span>
 						</span>{" "}
@@ -48,7 +48,7 @@ export function Hero() {
 						</span>
 					</h1>
 
-					<div className="print-hide hero-in hidden self-start pt-10 lg:col-span-4 lg:col-start-9 lg:row-start-1 [@media(min-height:820px)]:lg:block" style={delay(900)}>
+					<div className="print-hide hero-in hidden self-start pt-10 lg:col-span-4 lg:col-start-9 lg:row-start-1 [@media(min-height:920px)]:lg:block" style={delay(900)}>
 						<HeroStatus />
 					</div>
 
@@ -64,11 +64,11 @@ export function Hero() {
 						<AsciiPortrait src={withBasePath(image.front.src)} />
 					</figure>
 
-					<div className="col-span-4 grid grid-cols-subgrid gap-y-6 self-end md:col-span-8 lg:col-span-8 lg:pb-10">
+					<div className="col-span-4 grid grid-cols-subgrid gap-y-6 self-end md:col-span-8 lg:col-span-8 lg:pb-10 short:pb-6">
 						<p className="meta hero-in col-span-4 text-subtle md:col-span-2 lg:hidden" style={delay(700)}>
 							{ui.hero.now}
 						</p>
-						<div className="print-hide hero-in hidden self-end lg:col-span-3 lg:block [@media(min-height:820px)]:lg:hidden" style={delay(900)}>
+						<div className="print-hide hero-in hidden self-end lg:col-span-3 lg:block [@media(min-height:920px)]:lg:hidden" style={delay(900)}>
 							<HeroStatus />
 						</div>
 						<div className="hero-in col-span-4 md:col-span-6 lg:col-span-5" style={delay(780)}>
@@ -77,7 +77,7 @@ export function Hero() {
 							<p className="meta mt-2 text-muted">
 								{current.company} · {current.period}
 							</p>
-							<p className="mt-6 max-w-[50ch] text-lg leading-relaxed text-muted">{subtitle}</p>
+							<p className="mt-6 max-w-[50ch] text-lg leading-relaxed text-muted short:mt-4">{subtitle}</p>
 
 							<p className="print-only hidden text-sm">
 								<a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
@@ -89,7 +89,7 @@ export function Hero() {
 								))}
 							</p>
 
-							<div className="print-hide mt-8 flex flex-wrap items-center gap-x-7 gap-y-4">
+							<div className="print-hide mt-8 flex flex-wrap items-center gap-x-7 gap-y-4 short:mt-5">
 								<a href={ctas.primary.href} className="btn btn-ink">
 									{ctas.primary.label}
 									<span aria-hidden="true" className="link-arrow-down">↓</span>
@@ -108,7 +108,7 @@ export function Hero() {
 									{ctas.tertiary.label}
 								</a>
 							</div>
-							<ul className="print-hide mt-6 flex gap-6">
+							<ul className="print-hide mt-6 flex gap-6 short:mt-4">
 								{socialLinks.map((social) => (
 									<li key={social.href}>
 										<a
