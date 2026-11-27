@@ -240,7 +240,7 @@ body {
   right: 0;
   bottom: -0.15em;
   height: 1px;
-  background: currentColor;
+  background: var(--highlight);
   transform: scaleX(0);
   transform-origin: right center;
   transition: transform 0.5s var(--ease-out-expo);
