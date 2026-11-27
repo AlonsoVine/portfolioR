@@ -6,7 +6,8 @@ import { SectionHeading } from "../shared/SectionHeading";
 import { SectionShell } from "../shared/SectionShell";
 import { cn, revealWith, scrollRevealConfig } from "@/lib/utils";
 import { useLanguage } from "@/i18n";
-import { CONTACT_EMAIL } from "@/data/portfolio";
+import { CONTACT_EMAIL, type SocialIconId } from "@/data/portfolio";
+import { SocialIcon } from "../shared/SocialIcon";
 import { IntentSelect } from "../ui/IntentSelect";
 
 type FormState = {
@@ -252,18 +253,12 @@ export function Contact() {
 		"aria-describedby": fieldErrors[field] ? `contact-${field}-error` : undefined,
 	});
 
-	const platforms = [
-		{
-			label: "LinkedIn",
-			description: t.linkedinDesc,
-			href: socialLinks.find((l) => l.label.toLowerCase().includes("linkedin"))?.href ?? "#",
-		},
-		{
-			label: "GitHub",
-			description: t.githubDesc,
-			href: socialLinks.find((l) => l.label.toLowerCase().includes("github"))?.href ?? "#",
-		},
-	];
+	const descriptions: Partial<Record<SocialIconId, string>> = {
+		linkedin: t.linkedinDesc,
+		github: t.githubDesc,
+		instagram: t.instagramDesc,
+	};
+	const platforms = socialLinks.map((link) => ({ ...link, description: descriptions[link.icon] ?? "" }));
 
 	const labelClass = "meta text-muted";
 
@@ -317,9 +312,12 @@ export function Contact() {
 										href={platform.href}
 										target="_blank"
 										rel="noreferrer"
-										className="group flex items-baseline justify-between gap-4 py-4 text-ink"
+										className="social-link group flex items-baseline justify-between gap-4 py-4 text-ink"
 									>
-										<span className="text-lg">{platform.label}</span>
+										<span className="flex items-center gap-3 text-lg">
+											<SocialIcon id={platform.icon} className="text-[1.05rem] text-muted" />
+											{platform.label}
+										</span>
 										<span className="meta flex items-baseline gap-2 text-muted group-hover:text-ink">
 											{platform.description}
 											<span aria-hidden="true" className="link-arrow">↗</span>

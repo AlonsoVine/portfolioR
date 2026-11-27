@@ -587,6 +587,7 @@ export const en = {
       sendAnother: "Send another message",
       linkedinDesc: "Professional profile",
       githubDesc: "Projects and code",
+      instagramDesc: "Day to day and projects",
       errors: {
         intent: "Pick a topic for your message.",
         nameRequired: "Name is required.",

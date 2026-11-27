@@ -3,7 +3,7 @@ export type NavLink = {
   href: string;
 };
 
-export type SocialIconId = "linkedin" | "github" | "twitter";
+export type SocialIconId = "linkedin" | "github" | "instagram" | "twitter";
 export type SkillCardIconId =
   | "code"
   | "layers"
@@ -146,6 +146,10 @@ export const socialLinks: SocialLink[] = [
   },
   { label: "GitHub", href: "https://github.com/AlonsoVine", icon: "github" },
 ];
+
+// Instagram aparece en hero, contacto y pie en cuanto tenga URL
+const INSTAGRAM_URL = "";
+if (INSTAGRAM_URL) socialLinks.push({ label: "Instagram", href: INSTAGRAM_URL, icon: "instagram" });
 
 export const skillCards: SkillCard[] = [
   {
