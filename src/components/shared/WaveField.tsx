@@ -23,7 +23,7 @@ type Target = { tex: WebGLTexture; fbo: WebGLFramebuffer; w: number; h: number }
 
 const FRAME_MS = 1000 / 30;
 const STRIDE = 6;
-const SPARK_SHARE = 0.025;
+const SPARK_SHARE = 0.008;
 
 const RIBBONS: Ribbon[] = [
 	{ y: 0.52, rise: 0.78, amp: 0.16, freq: 0.7, speed: 0.012, phase: 0.4, band: 0.2, twistFreq: 1.3, twistSpeed: 0.018, strands: 14, share: 0.5, drift: 0.0032 },
