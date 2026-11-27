@@ -11,6 +11,7 @@ import { RetroEasterEgg } from "@/components/shared/RetroEasterEgg";
 import { SkipToContent } from "@/components/shared/SkipToContent";
 import { BootSequence } from "@/components/shared/BootSequence";
 import { ReadingProgress } from "@/components/ui/ReadingProgress";
+import { WaveField } from "@/components/shared/WaveField";
 import { StickyContactCTA } from "@/components/ui/StickyContactCTA";
 import { CommandPalette } from "@/components/ui/CommandPalette";
 
@@ -202,6 +203,7 @@ export default function RootLayout({
       >
         <GoogleAnalyticsEvents />
         <ConsoleSignature />
+        <WaveField />
         <ReadingProgress />
         <LanguageProvider>
           <MotionGate>
