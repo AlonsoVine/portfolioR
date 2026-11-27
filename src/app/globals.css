@@ -113,6 +113,15 @@ body {
   }
 }
 
+.social-icon {
+  transition: color 0.25s ease;
+}
+
+.social-link:hover .social-icon,
+.social-link:focus-visible .social-icon {
+  color: var(--accent);
+}
+
 ::selection {
   background: var(--selection);
   color: var(--foreground);

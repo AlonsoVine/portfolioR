@@ -312,6 +312,7 @@ export const es = {
       sendAnother: "Enviar otro mensaje",
       linkedinDesc: "Perfil profesional",
       githubDesc: "Proyectos y código",
+      instagramDesc: "Día a día y proyectos",
       errors: {
         intent: "Selecciona el motivo del mensaje.",
         nameRequired: "El nombre es obligatorio.",

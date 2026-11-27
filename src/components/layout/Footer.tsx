@@ -7,6 +7,7 @@ import { useIsClient } from "@/lib/useIsClient";
 import { BuildStamp } from "../ui/BuildStamp";
 import { DeployPipeline } from "../ui/DeployPipeline";
 import { RevealText } from "../shared/RevealText";
+import { SocialIcon } from "../shared/SocialIcon";
 
 function madridTime(locale: string) {
 	return new Intl.DateTimeFormat(locale, {
@@ -81,8 +82,9 @@ export function Footer() {
 								href={social.href}
 								target="_blank"
 								rel="noreferrer"
-								className="inline-flex items-baseline gap-1.5 py-1 text-muted hover:text-ink"
+								className="social-link inline-flex items-center gap-2 py-1 text-muted hover:text-ink"
 							>
+								<SocialIcon id={social.icon} className="text-[0.9rem]" />
 								{social.label}
 								<span aria-hidden="true" className="link-arrow text-sm">↗</span>
 							</a>

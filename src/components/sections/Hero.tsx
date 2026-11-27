@@ -8,6 +8,7 @@ import { CONTACT_EMAIL } from "@/data/portfolio";
 import { HeroStatus } from "../shared/HeroStatus";
 import { ScrambleText } from "../shared/ScrambleText";
 import { AsciiPortrait } from "../shared/AsciiPortrait";
+import { SocialIcon } from "../shared/SocialIcon";
 
 const delay = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
 
@@ -116,8 +117,9 @@ export function Hero() {
 											target="_blank"
 											rel="noreferrer"
 											aria-label={ui.socialProfile.replace("{name}", social.label)}
-											className="meta link-rule text-muted hover:text-ink"
+											className="meta link-rule social-link inline-flex items-center gap-2 text-muted hover:text-ink"
 										>
+											<SocialIcon id={social.icon} className="translate-y-px text-[0.85rem]" />
 											{social.label}
 											<span aria-hidden="true" className="link-arrow">↗</span>
 										</a>
