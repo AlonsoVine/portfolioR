@@ -1,7 +1,6 @@
 'use client';
 
 import { useLanguage } from "@/i18n";
-import { cn } from "@/lib/utils";
 
 export function LanguageToggle() {
 	const { lang, setLang, dict } = useLanguage();
@@ -11,13 +10,11 @@ export function LanguageToggle() {
 		<button
 			type="button"
 			onClick={() => setLang(next)}
-			className="meta inline-flex min-h-11 items-center gap-1.5 px-2 text-subtle hover:text-ink"
+			className="meta inline-flex min-h-11 items-center px-2 text-ink hover:text-muted"
 		>
-			<span className="sr-only">{dict.ui.languageCurrent}: </span>
-			<span aria-hidden="true" className={cn(lang === "es" && "text-ink")}>ES</span>
-			<span aria-hidden="true">/</span>
-			<span aria-hidden="true" className={cn(lang === "en" && "text-ink")}>EN</span>
-			<span className="sr-only">{lang.toUpperCase()}, {dict.ui.languageSwitch}</span>
+			<span className="sr-only">{dict.ui.languageCurrent}: {lang.toUpperCase()}, {dict.ui.languageSwitch} </span>
+			{/* Se muestra el idioma al que se cambia: el botón dice lo que hace */}
+			<span aria-hidden="true">{next.toUpperCase()}</span>
 		</button>
 	);
 }

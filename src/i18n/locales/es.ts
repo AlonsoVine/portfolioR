@@ -155,7 +155,7 @@ export const es = {
         head: "HEAD",
         build: "último build",
         focus: "foco",
-        focusValue: "CI/CD · Java · IA aplicada",
+        focusValue: "CI/CD · IA aplicada",
       },
       now: "Ahora",
       contact: "Contacto",

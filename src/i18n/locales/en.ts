@@ -430,7 +430,7 @@ export const en = {
         head: "HEAD",
         build: "last build",
         focus: "focus",
-        focusValue: "CI/CD · Java · applied AI",
+        focusValue: "CI/CD · applied AI",
       },
       now: "Now",
       contact: "Contact",
